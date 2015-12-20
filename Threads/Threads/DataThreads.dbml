@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Threads" Class="DataThreadsDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=JIN-SERVER\COMMSERVER;Initial Catalog=Threads;Persist Security Info=True;User ID=cova" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="ThreadsConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.ColumnCommunity" Member="ColumnCommunity">
+    <Type Name="ColumnCommunity">
+      <Column Name="ID" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="CommunityID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(32)" CanBeNull="true" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DeleteDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DeleteNote" Type="System.String" DbType="VarChar(1024)" CanBeNull="true" />
+      <Column Name="CreatorID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Association Name="ColumnCommunity_Entry" Member="Entry" ThisKey="ID" OtherKey="ColumnID" Type="Entry" />
+      <Association Name="Community_ColumnCommunity" Member="Community" ThisKey="CommunityID" OtherKey="ID" Type="Community" IsForeignKey="true" />
+      <Association Name="Person_ColumnCommunity" Member="Person" ThisKey="CreatorID" OtherKey="ID" Type="Person" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Community" Member="Community">
+    <Type Name="Community">
+      <Column Name="ID" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(128)" CanBeNull="true" />
+      <Column Name="LogoLink" Type="System.String" DbType="VarChar(1024)" CanBeNull="true" />
+      <Column Name="Link" Type="System.String" DbType="VarChar(1024)" CanBeNull="true" />
+      <Column Name="Decription" Type="System.String" DbType="VarChar(1024)" CanBeNull="true" />
+      <Column Name="OwnerID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ClosedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ClosedNote" Type="System.String" DbType="VarChar(1024)" CanBeNull="true" />
+      <Association Name="Community_ColumnCommunity" Member="ColumnCommunity" ThisKey="ID" OtherKey="CommunityID" Type="ColumnCommunity" />
+      <Association Name="Community_Entry" Member="Entry" ThisKey="ID" OtherKey="CommunityID" Type="Entry" />
+      <Association Name="Person_Community" Member="Person" ThisKey="OwnerID" OtherKey="ID" Type="Person" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Person" Member="Person">
+    <Type Name="Person">
+      <Column Name="ID" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(256)" CanBeNull="true" />
+      <Column Name="Surname" Type="System.String" DbType="VarChar(256)" CanBeNull="true" />
+      <Column Name="UserName" Type="System.String" DbType="VarChar(32)" CanBeNull="true" />
+      <Column Name="PhotoLink" Type="System.String" DbType="VarChar(1024)" CanBeNull="true" />
+      <Column Name="About" Type="System.String" DbType="VarChar(1024)" CanBeNull="true" />
+      <Column Name="JoinedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="LeaveDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="LeaveNote" Type="System.String" DbType="VarChar(1024)" CanBeNull="true" />
+      <Association Name="Person_ColumnCommunity" Member="ColumnCommunity" ThisKey="ID" OtherKey="CreatorID" Type="ColumnCommunity" />
+      <Association Name="Person_Community" Member="Community" ThisKey="ID" OtherKey="OwnerID" Type="Community" />
+      <Association Name="Person_Entry" Member="Entry" ThisKey="ID" OtherKey="CreatorID" Type="Entry" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Entry" Member="Entry">
+    <Type Name="Entry">
+      <Column Name="ID" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="CommunityID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="ColumnID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="CreatorID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="EntryText" Type="System.String" DbType="VarChar(4048)" CanBeNull="true" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DeleteDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DeleteNote" Type="System.String" DbType="VarChar(1024)" CanBeNull="true" />
+      <Association Name="ColumnCommunity_Entry" Member="ColumnCommunity" ThisKey="ColumnID" OtherKey="ID" Type="ColumnCommunity" IsForeignKey="true" />
+      <Association Name="Community_Entry" Member="Community" ThisKey="CommunityID" OtherKey="ID" Type="Community" IsForeignKey="true" />
+      <Association Name="Person_Entry" Member="Person" ThisKey="CreatorID" OtherKey="ID" Type="Person" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Function Name="dbo.[Community.ReadDict]" Method="Community_ReadDict">
+    <ElementType Name="Community_ReadDictResult">
+      <Column Name="ID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(128)" CanBeNull="true" />
+      <Column Name="LogoLink" Type="System.String" DbType="VarChar(1024)" CanBeNull="true" />
+      <Column Name="Link" Type="System.String" DbType="VarChar(1024)" CanBeNull="true" />
+      <Column Name="Decription" Type="System.String" DbType="VarChar(1024)" CanBeNull="true" />
+      <Column Name="OwnerID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </ElementType>
+  </Function>
+</Database>
