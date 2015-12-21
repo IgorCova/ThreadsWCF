@@ -86,7 +86,6 @@
       <LastGenOutput>DataThreads.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="ClassDiagram1.cd" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
