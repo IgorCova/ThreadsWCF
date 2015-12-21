@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Threads" Class="DataThreadsDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=JIN-SERVER\COMMSERVER;Initial Catalog=Threads;Persist Security Info=True;User ID=cova" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="ThreadsConnectionString" Provider="System.Data.SqlClient" />
+  <Connection Mode="WebSettings" ConnectionString="Data Source=JIN-SERVER\COMMSERVER;Initial Catalog=Threads;Persist Security Info=True;User ID=member" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="ThreadsConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.ColumnCommunity" Member="ColumnCommunity">
     <Type Name="ColumnCommunity">
       <Column Name="ID" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -71,5 +71,28 @@
       <Column Name="OwnerID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
       <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
     </ElementType>
+  </Function>
+  <Function Name="dbo.[Entry.ReadByCommunityID]" Method="Entry_ReadByCommunityID">
+    <Parameter Name="CommunityID" Parameter="communityID" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="Entry_ReadByCommunityIDResult">
+      <Column Name="ID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="CommunityID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="CommunityID_Name" Type="System.String" DbType="VarChar(128)" CanBeNull="true" />
+      <Column Name="ColumnID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="ColumnID_Name" Type="System.String" DbType="VarChar(32)" CanBeNull="true" />
+      <Column Name="CreatorID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="CreatorID_FullName" Type="System.String" DbType="VarChar(513)" CanBeNull="true" />
+      <Column Name="EntryText" Type="System.String" DbType="VarChar(4048)" CanBeNull="true" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.[Entry.Save]" Method="Entry_Save">
+    <Parameter Name="ID" Parameter="iD" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Parameter Name="CommunityID" Parameter="communityID" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="ColumnID" Parameter="columnID" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="Name" Parameter="name" Type="System.String" DbType="VarChar(128)" />
+    <Parameter Name="CreatorID" Parameter="creatorID" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="EntryText" Parameter="entryText" Type="System.String" DbType="VarChar(4048)" />
+    <Return Type="System.Int32" />
   </Function>
 </Database>

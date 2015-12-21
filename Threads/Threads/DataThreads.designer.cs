@@ -112,6 +112,21 @@ namespace Threads
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
 			return ((ISingleResult<Community_ReadDictResult>)(result.ReturnValue));
 		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.[Entry.ReadByCommunityID]")]
+		public ISingleResult<Entry_ReadByCommunityIDResult> Entry_ReadByCommunityID([global::System.Data.Linq.Mapping.ParameterAttribute(Name="CommunityID", DbType="BigInt")] System.Nullable<long> communityID)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), communityID);
+			return ((ISingleResult<Entry_ReadByCommunityIDResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.[Entry.Save]")]
+		public int Entry_Save([global::System.Data.Linq.Mapping.ParameterAttribute(Name="ID", DbType="BigInt")] ref System.Nullable<long> iD, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="CommunityID", DbType="BigInt")] System.Nullable<long> communityID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ColumnID", DbType="BigInt")] System.Nullable<long> columnID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Name", DbType="VarChar(128)")] string name, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="CreatorID", DbType="BigInt")] System.Nullable<long> creatorID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="EntryText", DbType="VarChar(4048)")] string entryText)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), iD, communityID, columnID, name, creatorID, entryText);
+			iD = ((System.Nullable<long>)(result.GetParameterValue(0)));
+			return ((int)(result.ReturnValue));
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ColumnCommunity")]
@@ -1585,6 +1600,176 @@ namespace Threads
 				if ((this._OwnerID != value))
 				{
 					this._OwnerID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreateDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CreateDate
+		{
+			get
+			{
+				return this._CreateDate;
+			}
+			set
+			{
+				if ((this._CreateDate != value))
+				{
+					this._CreateDate = value;
+				}
+			}
+		}
+	}
+	
+	public partial class Entry_ReadByCommunityIDResult
+	{
+		
+		private long _ID;
+		
+		private long _CommunityID;
+		
+		private string _CommunityID_Name;
+		
+		private System.Nullable<long> _ColumnID;
+		
+		private string _ColumnID_Name;
+		
+		private System.Nullable<long> _CreatorID;
+		
+		private string _CreatorID_FullName;
+		
+		private string _EntryText;
+		
+		private System.Nullable<System.DateTime> _CreateDate;
+		
+		public Entry_ReadByCommunityIDResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", DbType="BigInt NOT NULL")]
+		public long ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this._ID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CommunityID", DbType="BigInt NOT NULL")]
+		public long CommunityID
+		{
+			get
+			{
+				return this._CommunityID;
+			}
+			set
+			{
+				if ((this._CommunityID != value))
+				{
+					this._CommunityID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CommunityID_Name", DbType="VarChar(128)")]
+		public string CommunityID_Name
+		{
+			get
+			{
+				return this._CommunityID_Name;
+			}
+			set
+			{
+				if ((this._CommunityID_Name != value))
+				{
+					this._CommunityID_Name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ColumnID", DbType="BigInt")]
+		public System.Nullable<long> ColumnID
+		{
+			get
+			{
+				return this._ColumnID;
+			}
+			set
+			{
+				if ((this._ColumnID != value))
+				{
+					this._ColumnID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ColumnID_Name", DbType="VarChar(32)")]
+		public string ColumnID_Name
+		{
+			get
+			{
+				return this._ColumnID_Name;
+			}
+			set
+			{
+				if ((this._ColumnID_Name != value))
+				{
+					this._ColumnID_Name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatorID", DbType="BigInt")]
+		public System.Nullable<long> CreatorID
+		{
+			get
+			{
+				return this._CreatorID;
+			}
+			set
+			{
+				if ((this._CreatorID != value))
+				{
+					this._CreatorID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatorID_FullName", DbType="VarChar(513)")]
+		public string CreatorID_FullName
+		{
+			get
+			{
+				return this._CreatorID_FullName;
+			}
+			set
+			{
+				if ((this._CreatorID_FullName != value))
+				{
+					this._CreatorID_FullName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EntryText", DbType="VarChar(4048)")]
+		public string EntryText
+		{
+			get
+			{
+				return this._EntryText;
+			}
+			set
+			{
+				if ((this._EntryText != value))
+				{
+					this._EntryText = value;
 				}
 			}
 		}

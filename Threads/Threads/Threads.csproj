@@ -64,7 +64,8 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="wsCommunity.cs" />
+    <Compile Include="wsClasses\wsEntry.cs" />
+    <Compile Include="wsClasses\wsCommunity.cs" />
     <Compile Include="DataThreads.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -85,6 +86,7 @@
       <LastGenOutput>DataThreads.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="ClassDiagram1.cd" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

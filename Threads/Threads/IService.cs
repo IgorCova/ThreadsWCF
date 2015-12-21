@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
+using System.IO;
 
 namespace Threads
 {
@@ -12,14 +13,18 @@ namespace Threads
     [ServiceContract]
     public interface IService
     {
-       
-       [OperationContract]
-       [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped, UriTemplate = "getAllCommunities")]
-       List<wsCommunity> GetAllCommunities();
 
         [OperationContract]
-        [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped, UriTemplate = "communityReadDict")]
-       List<wsCommunity> CommunityReadDict();
+        [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped, UriTemplate = "getAllCommunities")]
+        List<wsCommunity> GetAllCommunities();
+
+        [OperationContract]
+        [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped, UriTemplate = "community_ReadDict")]
+        List<wsCommunity> CommunityReadDict();
+
+        [OperationContract]
+        [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped, UriTemplate = "entry_ReadByCommunityID/{strCommunityID}")]
+        List<wsEntry> EntryReadByCommunityID(string strCommunityID);
 
         [OperationContract]
         CompositeType GetDataUsingDataContract(CompositeType composite);
