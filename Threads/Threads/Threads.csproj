@@ -61,7 +61,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ThreadsService.svc" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="wsClasses\wsEntry.cs" />
@@ -86,6 +88,7 @@
       <LastGenOutput>DataThreads.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
+    <None Include="Properties\PublishProfiles\cova.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
