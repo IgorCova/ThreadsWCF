@@ -16,12 +16,6 @@ namespace Threads
         public string Name { get; set; }
 
         [DataMember]
-        public string LogoLink { get; set; }
-
-        [DataMember]
-        public string Link { get; set; }
-
-        [DataMember]
         public string Description { get; set; }
 
         [DataMember]

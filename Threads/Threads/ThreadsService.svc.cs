@@ -10,8 +10,6 @@ using System.Web.Script.Serialization;
 
 namespace Threads
 {
-    // ПРИМЕЧАНИЕ. Команду "Переименовать" в меню "Рефакторинг" можно использовать для одновременного изменения имени класса "Service1" в коде, SVC-файле и файле конфигурации.
-    // ПРИМЕЧАНИЕ. Чтобы запустить клиент проверки WCF для тестирования службы, выберите элементы Service1.svc или Service1.svc.cs в обозревателе решений и начните отладку.
     public class ThreadsService : IService
     {
         public string GetData(string value)
@@ -19,77 +17,104 @@ namespace Threads
             return string.Format("You entered: {0}", value);
         }
 
-
-        public List<wsEntry> EntryReadByCommunityID(string strCommunityID)
+        public wsResponse<Entry_ReadByCommunityID_Resp> Entry_ReadByCommunityID(wsRequest<Entry_ReadByCommunityID_Req> req)
         {
-            DataThreadsDataContext dc = new DataThreadsDataContext();
-            List<wsEntry> results = new List<wsEntry>();
-            long communityID = long.Parse(strCommunityID);
+            var results = new wsResponse<Entry_ReadByCommunityID_Resp>();
+            var resp = new Entry_ReadByCommunityID_Resp();
+            var dc = new DataThreadsDataContext();
+            var communityID = req.Params.CommunityID;
 
-            foreach (Entry_ReadByCommunityIDResult entry in dc.Entry_ReadByCommunityID(communityID))
+            try
             {
-                results.Add(new wsEntry()
+                foreach (Entry_ReadByCommunityIDResult entry in dc.Entry_ReadByCommunityID(communityID))
                 {
-                    ID = entry.ID,
-                    CommunityID = entry.CommunityID,
-                    CommunityID_Name = entry.CommunityID_Name,
-                    ColumnID = entry.ColumnID ?? 0,
-                    ColumnID_Name = entry.ColumnID_Name,
-                    CreatorID = entry.CreatorID ?? 1,
-                    CreatorID_FullName = entry.CreatorID_FullName,
-                    EntryText = entry.EntryText,
-                    CreateDate = entry.CreateDate ?? System.DateTime.Now
-                });
+                    resp.Add(new wsEntry()
+                    {
+                        ID = entry.ID,
+                        CommunityID = entry.CommunityID,
+                        CommunityID_Name = entry.CommunityID_Name,
+                        ColumnID = entry.ColumnID ?? 0,
+                        ColumnID_Name = entry.ColumnID_Name,
+                        CreatorID = entry.CreatorID ?? 1,
+                        CreatorID_FullName = entry.CreatorID_FullName,
+                        EntryText = entry.EntryText,
+                        CreateDate = entry.CreateDate ?? System.DateTime.Now
+                    });
+                }
 
+                results.Data = resp;
+            }
+            catch
+            {
+                results.ErrCode = 1;
+                results.ErrText = String.Format("Error in Entry_ReadByCommunityID{0}", communityID);
+            }
+            return results;
+        }
+
+        public wsResponse<Community_ReadDict_Resp> Community_ReadDict(wsRequest<Community_ReadDict_Req> req)
+        {
+            var results = new wsResponse<Community_ReadDict_Resp>();
+            var resp = new Community_ReadDict_Resp();
+
+            DataThreadsDataContext dc = new DataThreadsDataContext();
+
+            try
+            {
+                foreach (Community_ReadDictResult comm in dc.Community_ReadDict())
+                {
+                    resp.Add(new wsCommunity()
+                    {
+                        ID = comm.ID,
+                        Name = comm.Name,
+                        Description = comm.Decription,
+                        OwnerID = comm.OwnerID ?? 0,
+                        CreateDate = comm.CreateDate ?? System.DateTime.Now
+                    });
+                }
+                results.Data = resp;
+            }
+            catch
+            {
+                results.ErrCode = 0;
+                results.ErrText = "Error in Community_ReadDict";
             }
 
             return results;
         }
 
-        public List<wsCommunity> GetAllCommunities()
-        {
-            DataThreadsDataContext dc = new DataThreadsDataContext();
-            List<wsCommunity> results = new List<wsCommunity>();
 
-            foreach (Community comm in dc.Community)
+        public wsResponse<Community_ReadDict_Resp> GetCommunity_ReadDict()
+        {
+            var results = new wsResponse<Community_ReadDict_Resp>();
+            var resp = new Community_ReadDict_Resp();
+
+            DataThreadsDataContext dc = new DataThreadsDataContext();
+
+            try
             {
-                results.Add(new wsCommunity()
+                foreach (Community_ReadDictResult comm in dc.Community_ReadDict())
                 {
-                    ID = comm.ID,
-                    Name = comm.Name,
-                    LogoLink = comm.LogoLink,
-                    Link = comm.Link,
-                    Description = comm.Decription,
-                    OwnerID = comm.OwnerID ?? 0,
-                    CreateDate = comm.CreateDate ?? System.DateTime.Now
-                });
+                    resp.Add(new wsCommunity()
+                    {
+                        ID = comm.ID,
+                        Name = comm.Name,
+                        Description = comm.Decription,
+                        OwnerID = comm.OwnerID ?? 0,
+                        CreateDate = comm.CreateDate ?? System.DateTime.Now
+                    });
+                }
+                results.Data = resp;
+            }
+            catch
+            {
+                results.ErrCode = 0;
+                results.ErrText = "Error in Community_ReadDict";
             }
 
             return results;
         }
 
-
-        public List<wsCommunity> CommunityReadDict()
-        {
-            List<wsCommunity> results = new List<wsCommunity>();
-            DataThreadsDataContext dc = new DataThreadsDataContext();
-
-            foreach (Community_ReadDictResult comm in dc.Community_ReadDict())
-            {
-                results.Add(new wsCommunity()
-                {
-                    ID = comm.ID,
-                    Name = comm.Name,
-                    LogoLink = comm.LogoLink,
-                    Link = comm.Link,
-                    Description = comm.Decription,
-                    OwnerID = comm.OwnerID ?? 0,
-                    CreateDate = comm.CreateDate ?? System.DateTime.Now
-                });
-            }
-
-            return results;
-        }
 
         public CompositeType GetDataUsingDataContract(CompositeType composite)
         {
