@@ -22,7 +22,14 @@ namespace Threads
             var results = new wsResponse<Entry_ReadByCommunityID_Resp>();
             var resp = new Entry_ReadByCommunityID_Resp();
             var dc = new DataThreadsDataContext();
-            var communityID = req.Params.CommunityID;
+            var communityID = 0;
+            if (req.Params != null)
+            {
+                communityID = req.Params.CommunityID;
+            } else
+            {
+                communityID = 1;
+            }
 
             try
             {

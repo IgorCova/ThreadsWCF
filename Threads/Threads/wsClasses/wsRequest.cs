@@ -24,9 +24,10 @@ namespace Threads
     }
 
     public class Community_ReadDict_Req { }
+
+    [DataContract]
     public class Entry_ReadByCommunityID_Req
     {
-        [DataMember]
-        public int CommunityID;
+        [DataMember] public int CommunityID;
     }
 }
