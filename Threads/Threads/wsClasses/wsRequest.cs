@@ -30,4 +30,11 @@ namespace Threads
     {
         [DataMember] public int CommunityID;
     }
+
+    [DataContract]
+    public class News_ReadByPersonID_Req
+    {
+        [DataMember]
+        public int PersonID;
+    }
 }

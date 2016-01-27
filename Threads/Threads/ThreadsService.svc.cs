@@ -28,7 +28,7 @@ namespace Threads
                 communityID = req.Params.CommunityID;
             } else
             {
-                communityID = 1;
+                communityID = 0;
             }
 
             try
@@ -56,6 +56,46 @@ namespace Threads
                 results.ErrCode = 1;
                 results.ErrText = String.Format("Error in Entry_ReadByCommunityID{0}", communityID);
             }
+            return results;
+        }
+
+        public wsResponse<News_ReadByPersonID_Resp> News_ReadByPersonID(wsRequest<News_ReadByPersonID_Req> req)
+        {
+            var results = new wsResponse<News_ReadByPersonID_Resp>();
+            var resp = new News_ReadByPersonID_Resp();
+            var dc = new DataThreadsDataContext();
+            var personID = 0;
+            if (req.Params != null)
+            {
+                personID = req.Params.PersonID;
+            } else
+            {
+                personID = 0;
+            }
+
+            try
+            {
+                foreach (News_ReadByPersonIDResult news in dc.News_ReadByPersonID(personID))
+                {
+                    resp.Add(new wsNews()
+                    {
+                        CommunityID = news.CommunityID,
+                        CommunityID_Name = news.CommunityID_Name,
+                        EntryID = news.EntryID,
+                        ColumnCommunityID_Name = news.ColumnCommunityID_Name,
+                        EntryID_EntryText = news.EntryID_EntryText,
+                        EntryID_CreateDate = news.EntryID_CreateDate ?? System.DateTime.Now
+                    });
+                }
+
+                results.Data = resp;
+            }
+            catch
+            {
+                results.ErrCode = 1;
+                results.ErrText = String.Format("Error in News_ReadByPersonID {0}", personID);
+            }
+
             return results;
         }
 
