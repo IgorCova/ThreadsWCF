@@ -10,31 +10,22 @@ namespace Threads
     public class wsEntry
     {
         [DataMember]
-        public long ID { get; set; }
+        public long Community_ID { get; set; }
 
         [DataMember]
-        public long CommunityID { get; set; }
+        public string Community_Name { get; set; }
+
+        [DataMember]
+        public long Entry_ID { get; set; }
         
         [DataMember]
-        public string CommunityID_Name { get; set; }
-
-        [DataMember]
-        public long ColumnID { get; set; }
-
-        [DataMember]
-        public string ColumnID_Name { get; set; }
-
-        [DataMember]
-        public long CreatorID { get; set; }
-
-        [DataMember]
-        public string CreatorID_FullName { get; set; }
+        public string ColumnCommunity_Name { get; set; }
         
         [DataMember]
-        public string EntryText { get; set; }
+        public string Entry_Text { get; set; }
 
         [DataMember]
-        public DateTime CreateDate { get; set; }
-        
+        public DateTime Entry_CreateDate { get; set; }
+
     }
 }

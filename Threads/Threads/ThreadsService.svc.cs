@@ -37,15 +37,12 @@ namespace Threads
                 {
                     resp.Add(new wsEntry()
                     {
-                        ID = entry.ID,
-                        CommunityID = entry.CommunityID,
-                        CommunityID_Name = entry.CommunityID_Name,
-                        ColumnID = entry.ColumnID ?? 0,
-                        ColumnID_Name = entry.ColumnID_Name,
-                        CreatorID = entry.CreatorID ?? 1,
-                        CreatorID_FullName = entry.CreatorID_FullName,
-                        EntryText = entry.EntryText,
-                        CreateDate = entry.CreateDate ?? System.DateTime.Now
+                        Community_ID = entry.Community_ID,
+                        Community_Name = entry.Community_Name,
+                        Entry_ID = entry.Entry_ID,
+                        ColumnCommunity_Name = entry.ColumnCommunity_Name,
+                        Entry_Text = entry.Entry_Text,
+                        Entry_CreateDate = entry.Entry_CreateDate ?? System.DateTime.Now
                     });
                 }
 
@@ -77,14 +74,14 @@ namespace Threads
             {
                 foreach (News_ReadByPersonIDResult news in dc.News_ReadByPersonID(personID))
                 {
-                    resp.Add(new wsNews()
+                    resp.Add(new wsEntry()
                     {
-                        CommunityID = news.CommunityID,
-                        CommunityID_Name = news.CommunityID_Name,
-                        EntryID = news.EntryID,
-                        ColumnCommunityID_Name = news.ColumnCommunityID_Name,
-                        EntryID_EntryText = news.EntryID_EntryText,
-                        EntryID_CreateDate = news.EntryID_CreateDate ?? System.DateTime.Now
+                        Community_ID = news.Community_ID,
+                        Community_Name = news.Community_Name,
+                        Entry_ID = news.Entry_ID,
+                        ColumnCommunity_Name = news.ColumnCommunity_Name,
+                        Entry_Text = news.Entry_Text,
+                        Entry_CreateDate = news.Entry_CreateDate ?? System.DateTime.Now
                     });
                 }
 

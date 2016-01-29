@@ -21,5 +21,5 @@ namespace Threads
 
     public class Community_ReadDict_Resp : List<wsCommunity> { }
     public class Entry_ReadByCommunityID_Resp : List<wsEntry> { }
-    public class News_ReadByPersonID_Resp : List<wsNews> { }
+    public class News_ReadByPersonID_Resp : List<wsEntry> { }
 }
