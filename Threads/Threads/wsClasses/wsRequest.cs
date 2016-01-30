@@ -23,7 +23,11 @@ namespace Threads
         public T Params;
     }
 
-    public class Community_ReadDict_Req { }
+    public class Community_ReadDict_Req
+    {
+        [DataMember]
+        public int MemberID;
+    }
 
     [DataContract]
     public class Entry_ReadByCommunityID_Req

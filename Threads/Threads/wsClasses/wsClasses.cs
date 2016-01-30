@@ -22,6 +22,9 @@ namespace Threads
         public long OwnerID { get; set; }
 
         [DataMember]
+        public bool IsMember { get; set; }
+
+        [DataMember]
         public DateTime CreateDate { get; set; }
     }
 

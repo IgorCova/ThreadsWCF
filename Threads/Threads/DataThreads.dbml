@@ -61,17 +61,6 @@
       <Association Name="Person_Entry" Member="Person" ThisKey="CreatorID" OtherKey="ID" Type="Person" IsForeignKey="true" />
     </Type>
   </Table>
-  <Function Name="dbo.[Community.ReadDict]" Method="Community_ReadDict">
-    <ElementType Name="Community_ReadDictResult">
-      <Column Name="ID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" DbType="VarChar(128)" CanBeNull="true" />
-      <Column Name="LogoLink" Type="System.String" DbType="VarChar(1024)" CanBeNull="true" />
-      <Column Name="Link" Type="System.String" DbType="VarChar(1024)" CanBeNull="true" />
-      <Column Name="Decription" Type="System.String" DbType="VarChar(1024)" CanBeNull="true" />
-      <Column Name="OwnerID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
-      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-    </ElementType>
-  </Function>
   <Function Name="dbo.[Entry.Save]" Method="Entry_Save">
     <Parameter Name="ID" Parameter="iD" Type="System.Int64" DbType="BigInt" Direction="InOut" />
     <Parameter Name="CommunityID" Parameter="communityID" Type="System.Int64" DbType="BigInt" />
@@ -107,5 +96,49 @@
   </Function>
   <Function Name="dbo.[Entry.ReadByCommunityID]" Method="Entry_ReadByCommunityID">
     <Parameter Name="CommunityID" Parameter="communityID" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="Entry_ReadByCommunityIDResult">
+      <Column Name="Entry_ID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="Community_ID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="Community_Name" Type="System.String" DbType="VarChar(128)" CanBeNull="true" />
+      <Column Name="ColumnCommunity_Name" Type="System.String" DbType="VarChar(32)" CanBeNull="true" />
+      <Column Name="Entry_Text" Type="System.String" DbType="VarChar(4048)" CanBeNull="true" />
+      <Column Name="Entry_CreateDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.[Community.ReadDict]" Method="Community_ReadDict">
+    <Parameter Name="MemberID" Parameter="memberID" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="Community_ReadDictResult">
+      <Column Name="ID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(128)" CanBeNull="true" />
+      <Column Name="Link" Type="System.String" DbType="VarChar(1024)" CanBeNull="true" />
+      <Column Name="Decription" Type="System.String" DbType="VarChar(1024)" CanBeNull="true" />
+      <Column Name="OwnerID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="IsMember" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.[Community.ReadMyDict]" Method="Community_ReadMyDict">
+    <Parameter Name="MemberID" Parameter="memberID" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="Community_ReadMyDictResult">
+      <Column Name="ID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(128)" CanBeNull="true" />
+      <Column Name="Link" Type="System.String" DbType="VarChar(1024)" CanBeNull="true" />
+      <Column Name="Decription" Type="System.String" DbType="VarChar(1024)" CanBeNull="true" />
+      <Column Name="OwnerID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="IsMember" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.[Community.ReadSuggestDict]" Method="Community_ReadSuggestDict">
+    <Parameter Name="MemberID" Parameter="memberID" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="Community_ReadSuggestDictResult">
+      <Column Name="ID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(128)" CanBeNull="true" />
+      <Column Name="Link" Type="System.String" DbType="VarChar(1024)" CanBeNull="true" />
+      <Column Name="Decription" Type="System.String" DbType="VarChar(1024)" CanBeNull="true" />
+      <Column Name="OwnerID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="IsMember" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </ElementType>
   </Function>
 </Database>

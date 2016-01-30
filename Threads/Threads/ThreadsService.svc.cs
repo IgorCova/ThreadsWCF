@@ -101,12 +101,21 @@ namespace Threads
         {
             var results = new wsResponse<Community_ReadDict_Resp>();
             var resp = new Community_ReadDict_Resp();
+            var dc = new DataThreadsDataContext();
 
-            DataThreadsDataContext dc = new DataThreadsDataContext();
-            
+            var memberID = 0;
+            if (req.Params != null)
+            {
+                memberID = req.Params.MemberID;
+            }
+            else
+            {
+                memberID = 0;
+            }
+
             try
             {
-                foreach (Community_ReadDictResult comm in dc.Community_ReadDict())
+                foreach (Community_ReadDictResult comm in dc.Community_ReadDict(memberID))
                 {
                     resp.Add(new wsCommunity()
                     {
@@ -114,6 +123,7 @@ namespace Threads
                         Name = comm.Name,
                         Description = comm.Decription,
                         OwnerID = comm.OwnerID ?? 0,
+                        IsMember = comm.IsMember ?? false,
                         CreateDate = comm.CreateDate ?? System.DateTime.Now
                     });
                 }
@@ -123,6 +133,88 @@ namespace Threads
             {
                 results.ErrCode = 0;
                 results.ErrText = "Error in Community_ReadDict";
+            }
+
+            return results;
+        }
+
+        public wsResponse<Community_ReadDict_Resp> Community_ReadMyDict(wsRequest<Community_ReadDict_Req> req)
+        {
+            var results = new wsResponse<Community_ReadDict_Resp>();
+            var resp = new Community_ReadDict_Resp();
+            var dc = new DataThreadsDataContext();
+
+            var memberID = 0;
+            if (req.Params != null)
+            {
+                memberID = req.Params.MemberID;
+            }
+            else
+            {
+                memberID = 0;
+            }
+
+            try
+            {
+                foreach (Community_ReadMyDictResult comm in dc.Community_ReadMyDict(memberID))
+                {
+                    resp.Add(new wsCommunity()
+                    {
+                        ID = comm.ID,
+                        Name = comm.Name,
+                        Description = comm.Decription,
+                        OwnerID = comm.OwnerID ?? 0,
+                        IsMember = comm.IsMember ?? false,
+                        CreateDate = comm.CreateDate ?? System.DateTime.Now
+                    });
+                }
+                results.Data = resp;
+            }
+            catch
+            {
+                results.ErrCode = 0;
+                results.ErrText = "Error in Community_ReadMyDict";
+            }
+
+            return results;
+        }
+
+        public wsResponse<Community_ReadDict_Resp> Community_ReadSuggestDict(wsRequest<Community_ReadDict_Req> req)
+        {
+            var results = new wsResponse<Community_ReadDict_Resp>();
+            var resp = new Community_ReadDict_Resp();
+            var dc = new DataThreadsDataContext();
+
+            var memberID = 0;
+            if (req.Params != null)
+            {
+                memberID = req.Params.MemberID;
+            }
+            else
+            {
+                memberID = 0;
+            }
+
+            try
+            {
+                foreach (Community_ReadSuggestDictResult comm in dc.Community_ReadSuggestDict(memberID))
+                {
+                    resp.Add(new wsCommunity()
+                    {
+                        ID = comm.ID,
+                        Name = comm.Name,
+                        Description = comm.Decription,
+                        OwnerID = comm.OwnerID ?? 0,
+                        IsMember = comm.IsMember ?? false,
+                        CreateDate = comm.CreateDate ?? System.DateTime.Now
+                    });
+                }
+                results.Data = resp;
+            }
+            catch
+            {
+                results.ErrCode = 0;
+                results.ErrText = "Error in Community_ReadSuggestDict";
             }
 
             return results;
@@ -177,7 +269,7 @@ namespace Threads
 
             try
             {
-                foreach (Community_ReadDictResult comm in dc.Community_ReadDict())
+                foreach (Community_ReadDictResult comm in dc.Community_ReadDict(1))
                 {
                     resp.Add(new wsCommunity()
                     {
@@ -185,6 +277,7 @@ namespace Threads
                         Name = comm.Name,
                         Description = comm.Decription,
                         OwnerID = comm.OwnerID ?? 0,
+                        IsMember = comm.IsMember ?? false,
                         CreateDate = comm.CreateDate ?? System.DateTime.Now
                     });
                 }
