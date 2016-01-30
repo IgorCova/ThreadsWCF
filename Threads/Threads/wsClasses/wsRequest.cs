@@ -28,13 +28,22 @@ namespace Threads
     [DataContract]
     public class Entry_ReadByCommunityID_Req
     {
-        [DataMember] public int CommunityID;
+        [DataMember]
+        public int CommunityID;
     }
 
     [DataContract]
-    public class News_ReadByPersonID_Req
+    public class News_ReadByMemberID_Req
     {
         [DataMember]
-        public int PersonID;
+        public int MemberID;
     }
+
+    [DataContract]
+    public class Member_ReadInstance_Req
+    {
+        [DataMember]
+        public int MemberID;
+    }
+
 }

@@ -6,7 +6,6 @@ using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
 using System.IO;
-using System.Web.Script.Serialization;
 
 namespace Threads
 {
@@ -26,7 +25,8 @@ namespace Threads
             if (req.Params != null)
             {
                 communityID = req.Params.CommunityID;
-            } else
+            }
+            else
             {
                 communityID = 0;
             }
@@ -56,23 +56,24 @@ namespace Threads
             return results;
         }
 
-        public wsResponse<News_ReadByPersonID_Resp> News_ReadByPersonID(wsRequest<News_ReadByPersonID_Req> req)
+        public wsResponse<News_ReadByMemberID_Resp> News_ReadByMemberID(wsRequest<News_ReadByMemberID_Req> req)
         {
-            var results = new wsResponse<News_ReadByPersonID_Resp>();
-            var resp = new News_ReadByPersonID_Resp();
+            var results = new wsResponse<News_ReadByMemberID_Resp>();
+            var resp = new News_ReadByMemberID_Resp();
             var dc = new DataThreadsDataContext();
-            var personID = 0;
+            var memberID = 0;
             if (req.Params != null)
             {
-                personID = req.Params.PersonID;
-            } else
+                memberID = req.Params.MemberID;
+            }
+            else
             {
-                personID = 0;
+                memberID = 0;
             }
 
             try
             {
-                foreach (News_ReadByPersonIDResult news in dc.News_ReadByPersonID(personID))
+                foreach (News_ReadByMemberIDResult news in dc.News_ReadByMemberID(memberID))
                 {
                     resp.Add(new wsEntry()
                     {
@@ -90,7 +91,7 @@ namespace Threads
             catch
             {
                 results.ErrCode = 1;
-                results.ErrText = String.Format("Error in News_ReadByPersonID {0}", personID);
+                results.ErrText = String.Format("Error in News_ReadByPersonID {0}", memberID);
             }
 
             return results;
@@ -102,7 +103,7 @@ namespace Threads
             var resp = new Community_ReadDict_Resp();
 
             DataThreadsDataContext dc = new DataThreadsDataContext();
-
+            
             try
             {
                 foreach (Community_ReadDictResult comm in dc.Community_ReadDict())
@@ -127,6 +128,45 @@ namespace Threads
             return results;
         }
 
+        public wsResponse<Member_ReadInstance_Resp> Member_ReadInstance(wsRequest<Member_ReadInstance_Req> req)
+        {
+            var results = new wsResponse<Member_ReadInstance_Resp>();
+            var resp = new Member_ReadInstance_Resp();
+            var dc = new DataThreadsDataContext();
+
+            var memberID = 0;
+            if (req.Params != null)
+            {
+                memberID = req.Params.MemberID;
+            }
+            else
+            {
+                memberID = 0;
+            }
+
+            try
+            {
+
+                foreach (Member_ReadInstanceResult mem in dc.Member_ReadInstance(memberID))
+                {
+                    resp.ID = mem.ID;
+                    resp.Name = mem.Name;
+                    resp.UserName = mem.UserName;
+                    resp.FullName = mem.FullName;
+                    resp.About = mem.About;
+                    resp.JoinedDate = mem.JoinedDate ?? System.DateTime.Now;
+                }
+
+                results.Data = resp;
+            }
+            catch
+            {
+                results.ErrCode = 1;
+                results.ErrText = String.Format("Error in Member_ReadInstance {0}", memberID);
+            }
+
+            return results;
+        }
 
         public wsResponse<Community_ReadDict_Resp> GetCommunity_ReadDict()
         {
