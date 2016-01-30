@@ -81,17 +81,6 @@
     <Parameter Name="EntryText" Parameter="entryText" Type="System.String" DbType="VarChar(4048)" />
     <Return Type="System.Int32" />
   </Function>
-  <Function Name="dbo.[Entry.ReadByCommunityID]" Method="Entry_ReadByCommunityID">
-    <Parameter Name="CommunityID" Parameter="communityID" Type="System.Int64" DbType="BigInt" />
-    <ElementType Name="Entry_ReadByCommunityIDResult">
-      <Column Name="Entry_ID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
-      <Column Name="Community_ID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
-      <Column Name="Community_Name" Type="System.String" DbType="VarChar(128)" CanBeNull="true" />
-      <Column Name="ColumnCommunity_Name" Type="System.String" DbType="VarChar(32)" CanBeNull="true" />
-      <Column Name="Entry_Text" Type="System.String" DbType="VarChar(4048)" CanBeNull="true" />
-      <Column Name="Entry_CreateDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-    </ElementType>
-  </Function>
   <Function Name="dbo.[News.ReadByMemberID]" Method="News_ReadByMemberID">
     <Parameter Name="MemberID" Parameter="memberID" Type="System.Int64" DbType="BigInt" />
     <ElementType Name="News_ReadByMemberIDResult">
@@ -115,5 +104,8 @@
       <Column Name="LeaveDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="LeaveNote" Type="System.String" DbType="VarChar(1024)" CanBeNull="true" />
     </ElementType>
+  </Function>
+  <Function Name="dbo.[Entry.ReadByCommunityID]" Method="Entry_ReadByCommunityID">
+    <Parameter Name="CommunityID" Parameter="communityID" Type="System.Int64" DbType="BigInt" />
   </Function>
 </Database>
