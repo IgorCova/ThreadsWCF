@@ -11,11 +11,167 @@ namespace Threads
 {
     public class ThreadsService : IService
     {
-        public string GetData(string value)
+        //----------------------------Community
+        public wsResponse<Community_ReadDict_Resp> GetCommunity_ReadDict()
         {
-            return string.Format("You entered: {0}", value);
+            var results = new wsResponse<Community_ReadDict_Resp>();
+            var resp = new Community_ReadDict_Resp();
+            var dc = new DataThreadsDataContext();
+
+            try
+            {
+                foreach (Community_ReadDictResult comm in dc.Community_ReadDict(1))
+                {
+                    resp.Add(new wsCommunity()
+                    {
+                        ID = comm.ID,
+                        Name = comm.Name,
+                        Description = comm.Decription,
+                        OwnerID = comm.OwnerID ?? 0,
+                        IsMember = comm.IsMember ?? false,
+                        CreateDate = comm.CreateDate ?? System.DateTime.Now,
+                        DefaultColumnID = 0
+                    });
+                }
+                results.Data = resp;
+            }
+            catch
+            {
+                results.ErrCode = 0;
+                results.ErrText = "Error in Community_ReadDict memberID: 1";
+            }
+
+            return results;
         }
 
+        public wsResponse<Community_ReadDict_Resp> Community_ReadDict(wsRequest<Community_ReadDict_Req> req)
+        {
+            var results = new wsResponse<Community_ReadDict_Resp>();
+            var resp = new Community_ReadDict_Resp();
+            var dc = new DataThreadsDataContext();
+
+            var memberID = 0;
+            if (req.Params != null)
+            {
+                memberID = req.Params.MemberID;
+            }
+            else
+            {
+                memberID = 0;
+            }
+
+            try
+            {
+                foreach (Community_ReadDictResult comm in dc.Community_ReadDict(memberID))
+                {
+                    resp.Add(new wsCommunity()
+                    {
+                        ID = comm.ID,
+                        Name = comm.Name,
+                        Description = comm.Decription,
+                        OwnerID = comm.OwnerID ?? 0,
+                        IsMember = comm.IsMember ?? false,
+                        CreateDate = comm.CreateDate ?? System.DateTime.Now,
+                        DefaultColumnID = 0
+                    });
+                }
+                results.Data = resp;
+            }
+            catch
+            {
+                results.ErrCode = 0;
+                results.ErrText = String.Format("Error in Community_ReadDict memberID: {0}", memberID);
+            }
+
+            return results;
+        }
+
+        public wsResponse<Community_ReadDict_Resp> Community_ReadMyDict(wsRequest<Community_ReadDict_Req> req)
+        {
+            var results = new wsResponse<Community_ReadDict_Resp>();
+            var resp = new Community_ReadDict_Resp();
+            var dc = new DataThreadsDataContext();
+
+            var memberID = 0;
+            if (req.Params != null)
+            {
+                memberID = req.Params.MemberID;
+            }
+            else
+            {
+                memberID = 0;
+            }
+
+            try
+            {
+                foreach (Community_ReadMyDictResult comm in dc.Community_ReadMyDict(memberID))
+                {
+                    resp.Add(new wsCommunity()
+                    {
+                        ID = comm.ID,
+                        Name = comm.Name,
+                        Description = comm.Decription,
+                        OwnerID = comm.OwnerID ?? 0,
+                        IsMember = comm.IsMember ?? false,
+                        CreateDate = comm.CreateDate ?? System.DateTime.Now,
+                        DefaultColumnID = comm.DefaultColumnID ?? 0
+                    });
+                }
+                results.Data = resp;
+            }
+            catch
+            {
+                results.ErrCode = 0;
+                results.ErrText = String.Format("Error in Community_ReadMyDict {0}", memberID);
+            }
+
+            return results;
+        }
+
+        public wsResponse<Community_ReadDict_Resp> Community_ReadSuggestDict(wsRequest<Community_ReadDict_Req> req)
+        {
+            var results = new wsResponse<Community_ReadDict_Resp>();
+            var resp = new Community_ReadDict_Resp();
+            var dc = new DataThreadsDataContext();
+
+            var memberID = 0;
+            if (req.Params != null)
+            {
+                memberID = req.Params.MemberID;
+            }
+            else
+            {
+                memberID = 0;
+            }
+
+            try
+            {
+                foreach (Community_ReadSuggestDictResult comm in dc.Community_ReadSuggestDict(memberID))
+                {
+                    resp.Add(new wsCommunity()
+                    {
+                        ID = comm.ID,
+                        Name = comm.Name,
+                        Description = comm.Decription,
+                        OwnerID = comm.OwnerID ?? 0,
+                        IsMember = comm.IsMember ?? false,
+                        CreateDate = comm.CreateDate ?? System.DateTime.Now,
+                        DefaultColumnID = comm.DefaultColumnID ?? 0
+                    });
+                }
+                results.Data = resp;
+            }
+            catch
+            {
+                results.ErrCode = 0;
+                results.ErrText = String.Format("Error in Community_ReadSuggestDict {0}", memberID);
+            }
+
+            return results;
+        }
+
+
+        //----------------------------Entry
         public wsResponse<Entry_ReadByCommunityID_Resp> Entry_ReadByCommunityID(wsRequest<Entry_ReadByCommunityID_Req> req)
         {
             var results = new wsResponse<Entry_ReadByCommunityID_Resp>();
@@ -56,6 +212,8 @@ namespace Threads
             return results;
         }
 
+
+        //----------------------------News
         public wsResponse<News_ReadByMemberID_Resp> News_ReadByMemberID(wsRequest<News_ReadByMemberID_Req> req)
         {
             var results = new wsResponse<News_ReadByMemberID_Resp>();
@@ -97,129 +255,8 @@ namespace Threads
             return results;
         }
 
-        public wsResponse<Community_ReadDict_Resp> Community_ReadDict(wsRequest<Community_ReadDict_Req> req)
-        {
-            var results = new wsResponse<Community_ReadDict_Resp>();
-            var resp = new Community_ReadDict_Resp();
-            var dc = new DataThreadsDataContext();
 
-            var memberID = 0;
-            if (req.Params != null)
-            {
-                memberID = req.Params.MemberID;
-            }
-            else
-            {
-                memberID = 0;
-            }
-
-            try
-            {
-                foreach (Community_ReadDictResult comm in dc.Community_ReadDict(memberID))
-                {
-                    resp.Add(new wsCommunity()
-                    {
-                        ID = comm.ID,
-                        Name = comm.Name,
-                        Description = comm.Decription,
-                        OwnerID = comm.OwnerID ?? 0,
-                        IsMember = comm.IsMember ?? false,
-                        CreateDate = comm.CreateDate ?? System.DateTime.Now
-                    });
-                }
-                results.Data = resp;
-            }
-            catch
-            {
-                results.ErrCode = 0;
-                results.ErrText = "Error in Community_ReadDict";
-            }
-
-            return results;
-        }
-
-        public wsResponse<Community_ReadDict_Resp> Community_ReadMyDict(wsRequest<Community_ReadDict_Req> req)
-        {
-            var results = new wsResponse<Community_ReadDict_Resp>();
-            var resp = new Community_ReadDict_Resp();
-            var dc = new DataThreadsDataContext();
-
-            var memberID = 0;
-            if (req.Params != null)
-            {
-                memberID = req.Params.MemberID;
-            }
-            else
-            {
-                memberID = 0;
-            }
-
-            try
-            {
-                foreach (Community_ReadMyDictResult comm in dc.Community_ReadMyDict(memberID))
-                {
-                    resp.Add(new wsCommunity()
-                    {
-                        ID = comm.ID,
-                        Name = comm.Name,
-                        Description = comm.Decription,
-                        OwnerID = comm.OwnerID ?? 0,
-                        IsMember = comm.IsMember ?? false,
-                        CreateDate = comm.CreateDate ?? System.DateTime.Now
-                    });
-                }
-                results.Data = resp;
-            }
-            catch
-            {
-                results.ErrCode = 0;
-                results.ErrText = "Error in Community_ReadMyDict";
-            }
-
-            return results;
-        }
-
-        public wsResponse<Community_ReadDict_Resp> Community_ReadSuggestDict(wsRequest<Community_ReadDict_Req> req)
-        {
-            var results = new wsResponse<Community_ReadDict_Resp>();
-            var resp = new Community_ReadDict_Resp();
-            var dc = new DataThreadsDataContext();
-
-            var memberID = 0;
-            if (req.Params != null)
-            {
-                memberID = req.Params.MemberID;
-            }
-            else
-            {
-                memberID = 0;
-            }
-
-            try
-            {
-                foreach (Community_ReadSuggestDictResult comm in dc.Community_ReadSuggestDict(memberID))
-                {
-                    resp.Add(new wsCommunity()
-                    {
-                        ID = comm.ID,
-                        Name = comm.Name,
-                        Description = comm.Decription,
-                        OwnerID = comm.OwnerID ?? 0,
-                        IsMember = comm.IsMember ?? false,
-                        CreateDate = comm.CreateDate ?? System.DateTime.Now
-                    });
-                }
-                results.Data = resp;
-            }
-            catch
-            {
-                results.ErrCode = 0;
-                results.ErrText = "Error in Community_ReadSuggestDict";
-            }
-
-            return results;
-        }
-
+        //----------------------------Member
         public wsResponse<Member_ReadInstance_Resp> Member_ReadInstance(wsRequest<Member_ReadInstance_Req> req)
         {
             var results = new wsResponse<Member_ReadInstance_Resp>();
@@ -258,52 +295,6 @@ namespace Threads
             }
 
             return results;
-        }
-
-        public wsResponse<Community_ReadDict_Resp> GetCommunity_ReadDict()
-        {
-            var results = new wsResponse<Community_ReadDict_Resp>();
-            var resp = new Community_ReadDict_Resp();
-
-            DataThreadsDataContext dc = new DataThreadsDataContext();
-
-            try
-            {
-                foreach (Community_ReadDictResult comm in dc.Community_ReadDict(1))
-                {
-                    resp.Add(new wsCommunity()
-                    {
-                        ID = comm.ID,
-                        Name = comm.Name,
-                        Description = comm.Decription,
-                        OwnerID = comm.OwnerID ?? 0,
-                        IsMember = comm.IsMember ?? false,
-                        CreateDate = comm.CreateDate ?? System.DateTime.Now
-                    });
-                }
-                results.Data = resp;
-            }
-            catch
-            {
-                results.ErrCode = 0;
-                results.ErrText = "Error in Community_ReadDict";
-            }
-
-            return results;
-        }
-
-
-        public CompositeType GetDataUsingDataContract(CompositeType composite)
-        {
-            if (composite == null)
-            {
-                throw new ArgumentNullException("composite");
-            }
-            if (composite.BoolValue)
-            {
-                composite.StringValue += "Suffix";
-            }
-            return composite;
         }
     }
 }

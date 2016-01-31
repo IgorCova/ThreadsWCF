@@ -26,6 +26,9 @@ namespace Threads
 
         [DataMember]
         public DateTime CreateDate { get; set; }
+
+        [DataMember]
+        public long DefaultColumnID { get; set; }
     }
 
     [DataContract]
