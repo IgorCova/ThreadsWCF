@@ -50,7 +50,8 @@ namespace Threads
             var resp = new Community_ReadDict_Resp();
             var dc = new DataThreadsDataContext();
 
-            var memberID = 0;
+            long memberID = 0;
+
             if (req.Params != null)
             {
                 memberID = req.Params.MemberID;
@@ -72,7 +73,7 @@ namespace Threads
                         OwnerID = comm.OwnerID ?? 0,
                         IsMember = comm.IsMember ?? false,
                         CreateDate = comm.CreateDate ?? System.DateTime.Now,
-                        DefaultColumnID = 0
+                        DefaultColumnID = comm.DefaultColumnID ?? 0
                     });
                 }
                 results.Data = resp;
@@ -92,7 +93,7 @@ namespace Threads
             var resp = new Community_ReadDict_Resp();
             var dc = new DataThreadsDataContext();
 
-            var memberID = 0;
+            long memberID = 0;
             if (req.Params != null)
             {
                 memberID = req.Params.MemberID;
@@ -134,7 +135,7 @@ namespace Threads
             var resp = new Community_ReadDict_Resp();
             var dc = new DataThreadsDataContext();
 
-            var memberID = 0;
+            long memberID = 0;
             if (req.Params != null)
             {
                 memberID = req.Params.MemberID;
@@ -177,7 +178,7 @@ namespace Threads
             var results = new wsResponse<Entry_ReadByCommunityID_Resp>();
             var resp = new Entry_ReadByCommunityID_Resp();
             var dc = new DataThreadsDataContext();
-            var communityID = 0;
+            long communityID = 0;
             if (req.Params != null)
             {
                 communityID = req.Params.CommunityID;
@@ -194,6 +195,7 @@ namespace Threads
                     resp.Add(new wsEntry()
                     {
                         Community_ID = entry.Community_ID,
+                        ColumnCommunity_ID = entry.ColumnCommunity_ID ?? 0,
                         Community_Name = entry.Community_Name,
                         Entry_ID = entry.Entry_ID,
                         ColumnCommunity_Name = entry.ColumnCommunity_Name,
@@ -207,11 +209,54 @@ namespace Threads
             catch
             {
                 results.ErrCode = 1;
-                results.ErrText = String.Format("Error in Entry_ReadByCommunityID{0}", communityID);
+                results.ErrText = String.Format("Error in Entry_ReadByCommunityID {0}", communityID);
             }
             return results;
         }
 
+        public wsResponse<Entry_Save_Resp> Entry_Save(wsRequest<Entry_Save_Req> req)
+        {
+            var results = new wsResponse<Entry_Save_Resp>();
+            var resp = new Entry_Save_Resp();
+            var dc = new DataThreadsDataContext();
+
+            long communityID = 0;
+            long columnID = 0;
+            long creatorID = 0;
+            String entryText = "";
+
+            if (req.Params != null)
+            {
+                communityID = req.Params.CommunityID;
+                columnID = req.Params.ColumnID;
+                creatorID = req.Params.CreatorID;
+                communityID = req.Params.CommunityID;
+                entryText = req.Params.EntryText;
+            }
+            else
+            {
+                communityID = 0;
+                columnID = 0;
+                creatorID = 0;
+                entryText = "";
+            }
+
+            try
+            {
+                foreach (Entry_SaveResult entry in dc.Entry_Save(communityID, columnID, creatorID, entryText))
+                {
+                    resp.ID = entry.ID;
+                }
+
+                results.Data = resp;
+            }
+            catch
+            {
+                results.ErrCode = 1;
+                results.ErrText = String.Format("Error in Entry_Save {0}", communityID);
+            }
+            return results;
+        }
 
         //----------------------------News
         public wsResponse<News_ReadByMemberID_Resp> News_ReadByMemberID(wsRequest<News_ReadByMemberID_Req> req)
@@ -219,7 +264,7 @@ namespace Threads
             var results = new wsResponse<News_ReadByMemberID_Resp>();
             var resp = new News_ReadByMemberID_Resp();
             var dc = new DataThreadsDataContext();
-            var memberID = 0;
+            long memberID = 0;
             if (req.Params != null)
             {
                 memberID = req.Params.MemberID;
@@ -238,6 +283,7 @@ namespace Threads
                         Community_ID = news.Community_ID,
                         Community_Name = news.Community_Name,
                         Entry_ID = news.Entry_ID,
+                        ColumnCommunity_ID = news.ColumnCommunity_ID,
                         ColumnCommunity_Name = news.ColumnCommunity_Name,
                         Entry_Text = news.Entry_Text,
                         Entry_CreateDate = news.Entry_CreateDate ?? System.DateTime.Now
@@ -255,15 +301,13 @@ namespace Threads
             return results;
         }
 
-
         //----------------------------Member
         public wsResponse<Member_ReadInstance_Resp> Member_ReadInstance(wsRequest<Member_ReadInstance_Req> req)
         {
             var results = new wsResponse<Member_ReadInstance_Resp>();
             var resp = new Member_ReadInstance_Resp();
             var dc = new DataThreadsDataContext();
-
-            var memberID = 0;
+            long memberID = 0;
             if (req.Params != null)
             {
                 memberID = req.Params.MemberID;

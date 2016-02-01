@@ -32,6 +32,12 @@ namespace Threads
     }
 
     [DataContract]
+    public class wsEntrySaveState
+    {
+        public long ID { get; set; }
+    }
+
+    [DataContract]
     public class wsEntry
     {
         [DataMember]
@@ -42,6 +48,9 @@ namespace Threads
 
         [DataMember]
         public long Entry_ID { get; set; }
+
+        [DataMember]
+        public long ColumnCommunity_ID { get; set; }
 
         [DataMember]
         public string ColumnCommunity_Name { get; set; }
@@ -68,7 +77,7 @@ namespace Threads
 
         [DataMember]
         public string FullName { get; set; }
-        
+
         [DataMember]
         public string About { get; set; }
 

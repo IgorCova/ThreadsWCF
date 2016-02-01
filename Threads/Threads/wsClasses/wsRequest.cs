@@ -26,28 +26,45 @@ namespace Threads
     public class Community_ReadDict_Req
     {
         [DataMember]
-        public int MemberID;
+        public long MemberID;
     }
 
     [DataContract]
     public class Entry_ReadByCommunityID_Req
     {
         [DataMember]
-        public int CommunityID;
+        public long CommunityID;
+    }
+
+    [DataContract]
+    public class Entry_Save_Req
+    {
+        [DataMember]
+        public long CommunityID;
+
+        [DataMember]
+        public long ColumnID;
+
+        [DataMember]
+        public long CreatorID;
+
+        [DataMember]
+        public String EntryText;
+
     }
 
     [DataContract]
     public class News_ReadByMemberID_Req
     {
         [DataMember]
-        public int MemberID;
+        public long MemberID;
     }
 
     [DataContract]
     public class Member_ReadInstance_Req
     {
         [DataMember]
-        public int MemberID;
+        public long MemberID;
     }
 
 }
