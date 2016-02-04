@@ -59,7 +59,10 @@ namespace Threads
         public string Entry_Text { get; set; }
 
         [DataMember]
-        public DateTime Entry_CreateDate { get; set; }
+        public string Entry_CreateDate { get; set; }
+
+        [DataMember]
+        public string Entry_CreateDateEst { get; set; }
 
     }
 

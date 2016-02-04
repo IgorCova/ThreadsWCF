@@ -194,13 +194,14 @@ namespace Threads
                 {
                     resp.Add(new wsEntry()
                     {
-                        Community_ID = entry.Community_ID,
-                        ColumnCommunity_ID = entry.ColumnCommunity_ID ?? 0,
-                        Community_Name = entry.Community_Name,
-                        Entry_ID = entry.Entry_ID,
+                        Community_ID         = entry.Community_ID ?? 0,
+                        ColumnCommunity_ID   = entry.ColumnCommunity_ID ?? 0,
+                        Community_Name       = entry.Community_Name,
+                        Entry_ID             = entry.Entry_ID,
                         ColumnCommunity_Name = entry.ColumnCommunity_Name,
-                        Entry_Text = entry.Entry_Text,
-                        Entry_CreateDate = entry.Entry_CreateDate ?? System.DateTime.Now
+                        Entry_Text           = entry.Entry_Text,
+                        Entry_CreateDate     = entry.Entry_CreateDate,
+                        Entry_CreateDateEst  = entry.Entry_CreateDateEst
                     });
                 }
 
@@ -286,7 +287,8 @@ namespace Threads
                         ColumnCommunity_ID = news.ColumnCommunity_ID,
                         ColumnCommunity_Name = news.ColumnCommunity_Name,
                         Entry_Text = news.Entry_Text,
-                        Entry_CreateDate = news.Entry_CreateDate ?? System.DateTime.Now
+                        Entry_CreateDate = news.Entry_CreateDate,
+                        Entry_CreateDateEst = news.Entry_CreateDateEst
                     });
                 }
 
