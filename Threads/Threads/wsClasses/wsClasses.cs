@@ -79,15 +79,15 @@ namespace Threads
         public string Name { get; set; }
 
         [DataMember]
-        public string UserName { get; set; }
+        public string Surname { get; set; }
 
         [DataMember]
-        public string FullName { get; set; }
+        public string UserName { get; set; }
 
         [DataMember]
         public string About { get; set; }
 
         [DataMember]
-        public DateTime JoinedDate { get; set; }
+        public string Phone { get; set; }
     }
 }

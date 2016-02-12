@@ -11,7 +11,7 @@ namespace Threads
 {
     public class ThreadsService : IService
     {
-        //----------------------------Community
+        #region Community
         public wsResponse<Community_ReadDict_Resp> GetCommunity_ReadDict()
         {
             var results = new wsResponse<Community_ReadDict_Resp>();
@@ -174,8 +174,9 @@ namespace Threads
 
             return results;
         }
+        #endregion
 
-
+        #region Entry
         //----------------------------Entry
         public wsResponse<Entry_ReadByCommunityID_Resp> Entry_ReadByCommunityID(wsRequest<Entry_ReadByCommunityID_Req> req)
         {
@@ -198,14 +199,14 @@ namespace Threads
                 {
                     resp.Add(new wsEntry()
                     {
-                        Community_ID         = entry.Community_ID ?? 0,
-                        ColumnCommunity_ID   = entry.ColumnCommunity_ID ?? 0,
-                        Community_Name       = entry.Community_Name,
-                        Entry_ID             = entry.Entry_ID,
+                        Community_ID = entry.Community_ID ?? 0,
+                        ColumnCommunity_ID = entry.ColumnCommunity_ID ?? 0,
+                        Community_Name = entry.Community_Name,
+                        Entry_ID = entry.Entry_ID,
                         ColumnCommunity_Name = entry.ColumnCommunity_Name,
-                        Entry_Text           = entry.Entry_Text,
-                        Entry_CreateDate     = entry.Entry_CreateDate,
-                        Entry_CreateDateEst  = entry.Entry_CreateDateEst
+                        Entry_Text = entry.Entry_Text,
+                        Entry_CreateDate = entry.Entry_CreateDate,
+                        Entry_CreateDateEst = entry.Entry_CreateDateEst
                     });
                 }
 
@@ -262,7 +263,9 @@ namespace Threads
             }
             return results;
         }
+        #endregion
 
+        #region News
         //----------------------------News
         public wsResponse<News_ReadByMemberID_Resp> News_ReadByMemberID(wsRequest<News_ReadByMemberID_Req> req)
         {
@@ -306,8 +309,9 @@ namespace Threads
 
             return results;
         }
+        #endregion
 
-        //----------------------------Member
+        #region Member
         public wsResponse<Member_ReadInstance_Resp> Member_ReadInstance(wsRequest<Member_ReadInstance_Req> req)
         {
             var results = new wsResponse<Member_ReadInstance_Resp>();
@@ -318,10 +322,6 @@ namespace Threads
             {
                 memberID = req.Params.MemberID;
             }
-            else
-            {
-                memberID = 0;
-            }
 
             try
             {
@@ -330,10 +330,11 @@ namespace Threads
                 {
                     resp.ID = mem.ID;
                     resp.Name = mem.Name;
+                    resp.Surname = mem.Surname;
                     resp.UserName = mem.UserName;
-                    resp.FullName = mem.FullName;
                     resp.About = mem.About;
-                    resp.JoinedDate = mem.JoinedDate ?? System.DateTime.Now;
+                    resp.Phone = mem.Phone;
+ 
                 }
 
                 results.Data = resp;
@@ -346,5 +347,56 @@ namespace Threads
 
             return results;
         }
+
+        public wsResponse<Member_Save_Resp> Member_Save(wsRequest<Member_Save_Req> req)
+        {
+            var results = new wsResponse<Member_Save_Resp>();
+            var resp = new Member_Save_Resp();
+            var dc = new DataThreadsDataContext();
+
+            long? mID = 0;
+            string mName = "";
+            string mSurname = "";
+            string mUserName = "";
+            string mAbout = "";
+            string mPhone = "";
+
+            if (req.Params != null)
+            {
+                mID = req.Params.Member.ID;
+                mName = req.Params.Member.Name;
+                mSurname = req.Params.Member.Surname;
+                mUserName = req.Params.Member.UserName;
+                mAbout = req.Params.Member.About;
+                mPhone = req.Params.Member.Phone;
+
+            }
+
+            try
+            {
+                foreach (Member_SaveResult mem in dc.Member_Save(ref mID, mName, mSurname, mUserName, mAbout, mPhone))
+                {
+                    resp.ID = mem.ID;
+                    resp.Name = mem.Name;
+                    resp.Surname = mem.Name;
+                    resp.UserName = mem.UserName;
+                    resp.About = mem.About;
+                    resp.Phone = mem.Phone;
+                }
+
+                results.Data = resp;
+            }
+
+
+            catch
+            {
+                results.ErrCode = 1;
+                results.ErrText = String.Format("Error in Member_Save {0}", mID);
+            }
+
+            return results;
+        }
+
+        #endregion
     }
 }

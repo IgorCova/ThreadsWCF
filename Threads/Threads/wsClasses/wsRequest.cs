@@ -67,4 +67,11 @@ namespace Threads
         public long MemberID;
     }
 
+    [DataContract]
+    public class Member_Save_Req
+    {
+        [DataMember]
+        public wsMember Member;
+
+    }
 }

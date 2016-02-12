@@ -24,4 +24,5 @@ namespace Threads
     public class News_ReadByMemberID_Resp : List<wsEntry> { }
     public class Member_ReadInstance_Resp : wsMember { }
     public class Entry_Save_Resp : wsEntrySaveState { }
+    public class Member_Save_Resp : wsMember { }
 }
