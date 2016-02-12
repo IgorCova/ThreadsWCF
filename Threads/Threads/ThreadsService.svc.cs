@@ -30,7 +30,8 @@ namespace Threads
                         OwnerID = comm.OwnerID ?? 0,
                         IsMember = comm.IsMember ?? false,
                         CreateDate = comm.CreateDate ?? System.DateTime.Now,
-                        DefaultColumnID = 0
+                        DefaultColumnID = 0,
+                        CountMembers = comm.CountMembers
                     });
                 }
                 results.Data = resp;
@@ -73,7 +74,8 @@ namespace Threads
                         OwnerID = comm.OwnerID ?? 0,
                         IsMember = comm.IsMember ?? false,
                         CreateDate = comm.CreateDate ?? System.DateTime.Now,
-                        DefaultColumnID = comm.DefaultColumnID ?? 0
+                        DefaultColumnID = comm.DefaultColumnID ?? 0,
+                        CountMembers = comm.CountMembers
                     });
                 }
                 results.Data = resp;
@@ -115,7 +117,8 @@ namespace Threads
                         OwnerID = comm.OwnerID ?? 0,
                         IsMember = comm.IsMember ?? false,
                         CreateDate = comm.CreateDate ?? System.DateTime.Now,
-                        DefaultColumnID = comm.DefaultColumnID ?? 0
+                        DefaultColumnID = comm.DefaultColumnID ?? 0,
+                        CountMembers = comm.CountMembers
                     });
                 }
                 results.Data = resp;
@@ -157,7 +160,8 @@ namespace Threads
                         OwnerID = comm.OwnerID ?? 0,
                         IsMember = comm.IsMember ?? false,
                         CreateDate = comm.CreateDate ?? System.DateTime.Now,
-                        DefaultColumnID = comm.DefaultColumnID ?? 0
+                        DefaultColumnID = comm.DefaultColumnID ?? 0,
+                        CountMembers = comm.CountMembers
                     });
                 }
                 results.Data = resp;

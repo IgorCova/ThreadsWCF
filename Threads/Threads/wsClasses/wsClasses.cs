@@ -29,6 +29,9 @@ namespace Threads
 
         [DataMember]
         public long DefaultColumnID { get; set; }
+
+        [DataMember]
+        public string CountMembers { get; set; }
     }
 
     [DataContract]

@@ -61,7 +61,7 @@
         <classShapeMoniker Id="bd35e70c-75af-4002-beda-78c42881fdb5" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(3.25 : 5.39510224080404); (6.75 : 5.39510224080404)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(3.25 : 5.39510224080404); (6.07291916666667 : 5.39510224080404 : JumpStart); (6.23958583333333 : 5.39510224080404 : JumpEnd); (6.75 : 5.39510224080404)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/DataThreadsDataContext/Person/Person_Entry" />
       <nodes>
         <classShapeMoniker Id="972d04ea-37cf-49da-9180-e53525b35f42" />
