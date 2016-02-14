@@ -88,6 +88,9 @@ namespace Threads
     {
         [DataMember]
         public long SessionReq_ID;
+
+        [DataMember]
+        public String DID;
     }
 
 }

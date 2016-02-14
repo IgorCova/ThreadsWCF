@@ -178,9 +178,9 @@ namespace Threads
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.[Session.Save]")]
-		public ISingleResult<Session_SaveResult> Session_Save([global::System.Data.Linq.Mapping.ParameterAttribute(Name="SessionReqID", DbType="BigInt")] System.Nullable<long> sessionReqID)
+		public ISingleResult<Session_SaveResult> Session_Save([global::System.Data.Linq.Mapping.ParameterAttribute(Name="SessionReqID", DbType="BigInt")] System.Nullable<long> sessionReqID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="DID", DbType="VarChar(64)")] string dID)
 		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), sessionReqID);
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), sessionReqID, dID);
 			return ((ISingleResult<Session_SaveResult>)(result.ReturnValue));
 		}
 	}

@@ -184,6 +184,7 @@
   </Function>
   <Function Name="dbo.[Session.Save]" Method="Session_Save">
     <Parameter Name="SessionReqID" Parameter="sessionReqID" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="DID" Parameter="dID" Type="System.String" DbType="VarChar(64)" />
     <ElementType Name="Session_SaveResult">
       <Column Name="SessionID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
       <Column Name="MemberID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />

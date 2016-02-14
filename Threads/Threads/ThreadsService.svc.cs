@@ -428,16 +428,18 @@ namespace Threads
             var resp = new Session_Save_Resp();
             var dc = new DataThreadsDataContext();
             long sessionReq_ID = 0;
+            string dID = "";
             string Phone = "";
 
             if (req.Params != null)
             {
                 sessionReq_ID = req.Params.SessionReq_ID;
+                dID = req.DID;
             }
 
             try
             {
-                foreach (Session_SaveResult res in dc.Session_Save(sessionReq_ID))
+                foreach (Session_SaveResult res in dc.Session_Save(sessionReq_ID, dID))
                 {
                     resp.SessionID = res.SessionID;
                     resp.MemberID = res.MemberID ?? 0;
