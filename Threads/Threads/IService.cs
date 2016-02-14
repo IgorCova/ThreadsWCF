@@ -30,6 +30,16 @@ namespace Threads
         wsResponse<Community_ReadDict_Resp> Community_ReadSuggestDict(wsRequest<Community_ReadDict_Req> req);
         #endregion
 
+        #region Country
+        [OperationContract]
+        [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "Country_ReadDict")]
+        wsResponse<Country_ReadDict_Resp> Country_ReadDict();
+
+        [OperationContract]
+        [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "GetCountry_ReadDict")]
+        wsResponse<Country_ReadDict_Resp> GetCountry_ReadDict();
+        #endregion
+
         #region Entry
         [OperationContract]
         [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "Entry_ReadByCommunityID")]
@@ -50,10 +60,24 @@ namespace Threads
         wsResponse<Member_Save_Resp> Member_Save(wsRequest<Member_Save_Req> req);
         #endregion
 
+        #region Session
+
+        [OperationContract]
+        [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "SessionReq_Save")]
+        wsResponse<SessionReq_Save_Resp> SessionReq_Save(wsRequest<SessionReq_Save_Req> req);
+
+        [OperationContract]
+        [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "Session_Save")]
+        wsResponse<Session_Save_Resp> Session_Save(wsRequest<Session_Save_Req> req);
+
+        #endregion
+
         #region News
         [OperationContract]
         [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "News_ReadByMemberID")]
         wsResponse<News_ReadByMemberID_Resp> News_ReadByMemberID(wsRequest<News_ReadByMemberID_Req> req);
         #endregion
+
+
     }
 }

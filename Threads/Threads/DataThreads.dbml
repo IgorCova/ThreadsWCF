@@ -167,4 +167,26 @@
       <Column Name="Phone" Type="System.String" DbType="VarChar(32)" CanBeNull="true" />
     </ElementType>
   </Function>
+  <Function Name="dbo.[Country.ReadDict]" Method="Country_ReadDict">
+    <ElementType Name="Country_ReadDictResult">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(256)" CanBeNull="true" />
+      <Column Name="Code" Type="System.String" DbType="VarChar(32)" CanBeNull="true" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.[SessionReq.Save]" Method="SessionReq_Save">
+    <Parameter Name="DID" Parameter="dID" Type="System.String" DbType="VarChar(64)" />
+    <Parameter Name="Phone" Parameter="phone" Type="System.String" DbType="VarChar(64)" />
+    <ElementType Name="SessionReq_SaveResult">
+      <Column Name="ID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.[Session.Save]" Method="Session_Save">
+    <Parameter Name="SessionReqID" Parameter="sessionReqID" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="Session_SaveResult">
+      <Column Name="SessionID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="MemberID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+    </ElementType>
+  </Function>
 </Database>

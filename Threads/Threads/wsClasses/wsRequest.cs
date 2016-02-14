@@ -74,4 +74,20 @@ namespace Threads
         public wsMember Member;
 
     }
+
+    [DataContract]
+    public class SessionReq_Save_Req
+    {
+        [DataMember]
+        public wsSessionReq SessionReq;
+
+    }
+
+    [DataContract]
+    public class Session_Save_Req
+    {
+        [DataMember]
+        public long SessionReq_ID;
+    }
+
 }

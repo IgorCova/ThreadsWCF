@@ -6,6 +6,7 @@ using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
 using System.IO;
+using System.Net;
 
 namespace Threads
 {
@@ -176,6 +177,65 @@ namespace Threads
         }
         #endregion
 
+        #region Country
+
+        public wsResponse<Country_ReadDict_Resp> Country_ReadDict()
+        {
+            var results = new wsResponse<Country_ReadDict_Resp>();
+            var resp = new Country_ReadDict_Resp();
+            var dc = new DataThreadsDataContext();
+
+            try
+            {
+                foreach (Country_ReadDictResult country in dc.Country_ReadDict())
+                {
+                    resp.Add(new wsCountry()
+                    {
+                        Code = country.Code,
+                        Name = country.Name
+
+                    });
+                }
+                results.Data = resp;
+            }
+            catch
+            {
+                results.ErrCode = 0;
+                results.ErrText = "Error in Country_ReadDict";
+            }
+
+            return results;
+        }
+
+        public wsResponse<Country_ReadDict_Resp> GetCountry_ReadDict()
+        {
+            var results = new wsResponse<Country_ReadDict_Resp>();
+            var resp = new Country_ReadDict_Resp();
+            var dc = new DataThreadsDataContext();
+
+            try
+            {
+                foreach (Country_ReadDictResult country in dc.Country_ReadDict())
+                {
+                    resp.Add(new wsCountry()
+                    {
+                        Code = country.Code,
+                        Name = country.Name
+
+                    });
+                }
+                results.Data = resp;
+            }
+            catch
+            {
+                results.ErrCode = 0;
+                results.ErrText = "Error in GetCountry_ReadDict";
+            }
+
+            return results;
+        }
+        #endregion
+
         #region Entry
         //----------------------------Entry
         public wsResponse<Entry_ReadByCommunityID_Resp> Entry_ReadByCommunityID(wsRequest<Entry_ReadByCommunityID_Req> req)
@@ -311,6 +371,91 @@ namespace Threads
         }
         #endregion
 
+        #region Session
+
+        public wsResponse<SessionReq_Save_Resp> SessionReq_Save(wsRequest<SessionReq_Save_Req> req)
+        {
+            var results = new wsResponse<SessionReq_Save_Resp>();
+            var resp = new SessionReq_Save_Resp();
+            var dc = new DataThreadsDataContext();
+            string DID = "";
+            string Phone = "";
+
+            Random generator = new Random();
+            string code = generator.Next(0, 1000).ToString("D4");
+
+            if (req.Params != null)
+            {
+                DID = req.Params.SessionReq.DID;
+                Phone = req.Params.SessionReq.Phone;
+            }
+
+            try
+            {
+                string message = String.Format("Comm+code+confirm:+{0}", code);
+                string http = String.Format("{0}sms.ru/sms/send?api_id={1}&to={2}&text={3}", "http://", "8B4D21F6-33D2-DBD4-8425-34631CD434BE", Phone, message);
+                var request = (HttpWebRequest)WebRequest.Create(http);
+                var response = (HttpWebResponse)request.GetResponse();
+                var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
+            }
+            catch
+            {
+                results.ErrCode = 2;
+                results.ErrText = String.Format("Error in Send sms {0}", Phone);
+            }
+            try
+            {
+                foreach (SessionReq_SaveResult res in dc.SessionReq_Save(DID, Phone))
+                {
+                    resp.ID = res.ID ?? 0;
+                    resp.Code = code;
+                }
+
+                results.Data = resp;
+            }
+            catch
+            {
+                results.ErrCode = 1;
+                results.ErrText = String.Format("Error in SessionReq_Save {0}", Phone);
+            }
+
+            return results;
+        }
+
+        public wsResponse<Session_Save_Resp> Session_Save(wsRequest<Session_Save_Req> req)
+        {
+            var results = new wsResponse<Session_Save_Resp>();
+            var resp = new Session_Save_Resp();
+            var dc = new DataThreadsDataContext();
+            long sessionReq_ID = 0;
+            string Phone = "";
+
+            if (req.Params != null)
+            {
+                sessionReq_ID = req.Params.SessionReq_ID;
+            }
+
+            try
+            {
+                foreach (Session_SaveResult res in dc.Session_Save(sessionReq_ID))
+                {
+                    resp.SessionID = res.SessionID;
+                    resp.MemberID = res.MemberID ?? 0;
+                }
+
+                results.Data = resp;
+            }
+            catch
+            {
+                results.ErrCode = 1;
+                results.ErrText = String.Format("Error in Session_Save {0}", Phone);
+            }
+
+            return results;
+        }
+
+        #endregion
+
         #region Member
         public wsResponse<Member_ReadInstance_Resp> Member_ReadInstance(wsRequest<Member_ReadInstance_Req> req)
         {
@@ -334,7 +479,7 @@ namespace Threads
                     resp.UserName = mem.UserName;
                     resp.About = mem.About;
                     resp.Phone = mem.Phone;
- 
+
                 }
 
                 results.Data = resp;

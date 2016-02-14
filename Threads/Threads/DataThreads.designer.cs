@@ -162,6 +162,27 @@ namespace Threads
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), iD);
 			return ((ISingleResult<Member_ReadInstanceResult>)(result.ReturnValue));
 		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.[Country.ReadDict]")]
+		public ISingleResult<Country_ReadDictResult> Country_ReadDict()
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
+			return ((ISingleResult<Country_ReadDictResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.[SessionReq.Save]")]
+		public ISingleResult<SessionReq_SaveResult> SessionReq_Save([global::System.Data.Linq.Mapping.ParameterAttribute(Name="DID", DbType="VarChar(64)")] string dID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Phone", DbType="VarChar(64)")] string phone)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), dID, phone);
+			return ((ISingleResult<SessionReq_SaveResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.[Session.Save]")]
+		public ISingleResult<Session_SaveResult> Session_Save([global::System.Data.Linq.Mapping.ParameterAttribute(Name="SessionReqID", DbType="BigInt")] System.Nullable<long> sessionReqID)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), sessionReqID);
+			return ((ISingleResult<Session_SaveResult>)(result.ReturnValue));
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ColumnCommunity")]
@@ -2625,6 +2646,156 @@ namespace Threads
 				if ((this._Phone != value))
 				{
 					this._Phone = value;
+				}
+			}
+		}
+	}
+	
+	public partial class Country_ReadDictResult
+	{
+		
+		private int _ID;
+		
+		private string _Name;
+		
+		private string _Code;
+		
+		private System.Nullable<bool> _IsActive;
+		
+		public Country_ReadDictResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", DbType="Int NOT NULL")]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this._ID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="VarChar(256)")]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this._Name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Code", DbType="VarChar(32)")]
+		public string Code
+		{
+			get
+			{
+				return this._Code;
+			}
+			set
+			{
+				if ((this._Code != value))
+				{
+					this._Code = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsActive", DbType="Bit")]
+		public System.Nullable<bool> IsActive
+		{
+			get
+			{
+				return this._IsActive;
+			}
+			set
+			{
+				if ((this._IsActive != value))
+				{
+					this._IsActive = value;
+				}
+			}
+		}
+	}
+	
+	public partial class SessionReq_SaveResult
+	{
+		
+		private System.Nullable<long> _ID;
+		
+		public SessionReq_SaveResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", DbType="BigInt")]
+		public System.Nullable<long> ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this._ID = value;
+				}
+			}
+		}
+	}
+	
+	public partial class Session_SaveResult
+	{
+		
+		private System.Nullable<System.Guid> _SessionID;
+		
+		private System.Nullable<long> _MemberID;
+		
+		public Session_SaveResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SessionID", DbType="UniqueIdentifier")]
+		public System.Nullable<System.Guid> SessionID
+		{
+			get
+			{
+				return this._SessionID;
+			}
+			set
+			{
+				if ((this._SessionID != value))
+				{
+					this._SessionID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MemberID", DbType="BigInt")]
+		public System.Nullable<long> MemberID
+		{
+			get
+			{
+				return this._MemberID;
+			}
+			set
+			{
+				if ((this._MemberID != value))
+				{
+					this._MemberID = value;
 				}
 			}
 		}

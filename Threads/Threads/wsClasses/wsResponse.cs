@@ -25,4 +25,8 @@ namespace Threads
     public class Member_ReadInstance_Resp : wsMember { }
     public class Entry_Save_Resp : wsEntrySaveState { }
     public class Member_Save_Resp : wsMember { }
+    public class SessionReq_Save_Resp : wsSessionReq_Out { }
+    public class Country_ReadDict_Resp : List<wsCountry> { }
+    public class Session_Save_Resp : wsSession { }
+
 }
