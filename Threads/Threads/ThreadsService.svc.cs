@@ -266,7 +266,9 @@ namespace Threads
                         ColumnCommunity_Name = entry.ColumnCommunity_Name,
                         Entry_Text = entry.Entry_Text,
                         Entry_CreateDate = entry.Entry_CreateDate,
-                        Entry_CreateDateEst = entry.Entry_CreateDateEst
+                        Entry_CreateDateEst = entry.Entry_CreateDateEst,
+                        CreatorID = entry.CreatorID ?? 0,
+                        CreatorID_Fullname = entry.CreatorID_Fullname
                     });
                 }
 
@@ -355,7 +357,9 @@ namespace Threads
                         ColumnCommunity_Name = news.ColumnCommunity_Name,
                         Entry_Text = news.Entry_Text,
                         Entry_CreateDate = news.Entry_CreateDate,
-                        Entry_CreateDateEst = news.Entry_CreateDateEst
+                        Entry_CreateDateEst = news.Entry_CreateDateEst,
+                        CreatorID = news.CreatorID ?? 0,
+                        CreatorID_Fullname = news.CreatorID_Fullname
                     });
                 }
 
@@ -392,11 +396,11 @@ namespace Threads
 
             try
             {
-                string message = String.Format("Comm+code+confirm:+{0}", code);
+              /*  string message = String.Format("Comm+code+confirm:+{0}", code);
                 string http = String.Format("{0}sms.ru/sms/send?api_id={1}&to={2}&text={3}", "http://", "8B4D21F6-33D2-DBD4-8425-34631CD434BE", Phone, message);
                 var request = (HttpWebRequest)WebRequest.Create(http);
                 var response = (HttpWebResponse)request.GetResponse();
-                var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
+                var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();*/
             }
             catch
             {

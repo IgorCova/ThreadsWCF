@@ -78,6 +78,12 @@ namespace Threads
         [DataMember]
         public string Entry_CreateDateEst { get; set; }
 
+        [DataMember]
+        public long CreatorID { get; set; }
+
+        [DataMember]
+        public string CreatorID_Fullname { get; set; }
+
     }
 
     [DataContract]
