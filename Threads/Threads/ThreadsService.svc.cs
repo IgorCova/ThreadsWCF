@@ -1,12 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.ServiceModel;
-using System.ServiceModel.Web;
-using System.Text;
-using System.IO;
-using System.Net;
 
 namespace Threads
 {
@@ -74,7 +66,7 @@ namespace Threads
                         Description = comm.Decription,
                         OwnerID = comm.OwnerID ?? 0,
                         IsMember = comm.IsMember ?? false,
-                        CreateDate = comm.CreateDate ?? System.DateTime.Now,
+                        CreateDate = comm.CreateDate ?? DateTime.Now,
                         DefaultColumnID = comm.DefaultColumnID ?? 0,
                         CountMembers = comm.CountMembers
                     });
@@ -84,7 +76,7 @@ namespace Threads
             catch
             {
                 results.ErrCode = 0;
-                results.ErrText = String.Format("Error in Community_ReadDict memberID: {0}", memberID);
+                results.ErrText = string.Format("Error in Community_ReadDict memberID: {0}", memberID);
             }
 
             return results;
@@ -117,7 +109,7 @@ namespace Threads
                         Description = comm.Decription,
                         OwnerID = comm.OwnerID ?? 0,
                         IsMember = comm.IsMember ?? false,
-                        CreateDate = comm.CreateDate ?? System.DateTime.Now,
+                        CreateDate = comm.CreateDate ?? DateTime.Now,
                         DefaultColumnID = comm.DefaultColumnID ?? 0,
                         CountMembers = comm.CountMembers
                     });
@@ -127,7 +119,7 @@ namespace Threads
             catch
             {
                 results.ErrCode = 0;
-                results.ErrText = String.Format("Error in Community_ReadMyDict {0}", memberID);
+                results.ErrText = string.Format("Error in Community_ReadMyDict {0}", memberID);
             }
 
             return results;
@@ -160,7 +152,7 @@ namespace Threads
                         Description = comm.Decription,
                         OwnerID = comm.OwnerID ?? 0,
                         IsMember = comm.IsMember ?? false,
-                        CreateDate = comm.CreateDate ?? System.DateTime.Now,
+                        CreateDate = comm.CreateDate ?? DateTime.Now,
                         DefaultColumnID = comm.DefaultColumnID ?? 0,
                         CountMembers = comm.CountMembers
                     });
@@ -170,7 +162,7 @@ namespace Threads
             catch
             {
                 results.ErrCode = 0;
-                results.ErrText = String.Format("Error in Community_ReadSuggestDict {0}", memberID);
+                results.ErrText = string.Format("Error in Community_ReadSuggestDict {0}", memberID);
             }
 
             return results;
@@ -277,7 +269,7 @@ namespace Threads
             catch
             {
                 results.ErrCode = 1;
-                results.ErrText = String.Format("Error in Entry_ReadByCommunityID {0}", communityID);
+                results.ErrText = string.Format("Error in Entry_ReadByCommunityID {0}", communityID);
             }
             return results;
         }
@@ -291,7 +283,7 @@ namespace Threads
             long communityID = 0;
             long columnID = 0;
             long creatorID = 0;
-            String entryText = "";
+            string entryText = "";
 
             if (req.Params != null)
             {
@@ -321,7 +313,7 @@ namespace Threads
             catch
             {
                 results.ErrCode = 1;
-                results.ErrText = String.Format("Error in Entry_Save {0}", communityID);
+                results.ErrText = string.Format("Error in Entry_Save {0}", communityID);
             }
             return results;
         }
@@ -368,7 +360,7 @@ namespace Threads
             catch
             {
                 results.ErrCode = 1;
-                results.ErrText = String.Format("Error in News_ReadByPersonID {0}", memberID);
+                results.ErrText = string.Format("Error in News_ReadByPersonID {0}", memberID);
             }
 
             return results;
@@ -390,14 +382,14 @@ namespace Threads
 
             if (req.Params != null)
             {
-                DID = req.Params.SessionReq.DID;
-                Phone = req.Params.SessionReq.Phone;
+                DID = req.DID;
+                Phone = req.Params.Phone;
             }
 
             try
             {
-              /*  string message = String.Format("Comm+code+confirm:+{0}", code);
-                string http = String.Format("{0}sms.ru/sms/send?api_id={1}&to={2}&text={3}", "http://", "8B4D21F6-33D2-DBD4-8425-34631CD434BE", Phone, message);
+              /*  string message = string.Format("Comm+code+confirm:+{0}", code);
+                string http = string.Format("{0}sms.ru/sms/send?api_id={1}&to={2}&text={3}", "http://", "8B4D21F6-33D2-DBD4-8425-34631CD434BE", Phone, message);
                 var request = (HttpWebRequest)WebRequest.Create(http);
                 var response = (HttpWebResponse)request.GetResponse();
                 var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();*/
@@ -405,7 +397,7 @@ namespace Threads
             catch
             {
                 results.ErrCode = 2;
-                results.ErrText = String.Format("Error in Send sms {0}", Phone);
+                results.ErrText = string.Format("Error in Send sms {0}", Phone);
             }
             try
             {
@@ -413,14 +405,16 @@ namespace Threads
                 {
                     resp.ID = res.ID ?? 0;
                     resp.Code = code;
+                    resp.MemberID = res.MemberID;
                 }
+
 
                 results.Data = resp;
             }
             catch
             {
                 results.ErrCode = 1;
-                results.ErrText = String.Format("Error in SessionReq_Save {0}", Phone);
+                results.ErrText = string.Format("Error in SessionReq_Save {0}", Phone);
             }
 
             return results;
@@ -447,14 +441,15 @@ namespace Threads
                 {
                     resp.SessionID = res.SessionID;
                     resp.MemberID = res.MemberID ?? 0;
+                    resp.IsNewMember = res.IsNewMember ?? true;
                 }
 
                 results.Data = resp;
             }
-            catch
+            catch (Exception e)
             {
                 results.ErrCode = 1;
-                results.ErrText = String.Format("Error in Session_Save {0}", Phone);
+                results.ErrText = string.Format("Error in Session_Save {0}: {1}", Phone, e.Message);
             }
 
             return results;
@@ -493,7 +488,7 @@ namespace Threads
             catch
             {
                 results.ErrCode = 1;
-                results.ErrText = String.Format("Error in Member_ReadInstance {0}", memberID);
+                results.ErrText = string.Format("Error in Member_ReadInstance {0}", memberID);
             }
 
             return results;
@@ -542,7 +537,7 @@ namespace Threads
             catch
             {
                 results.ErrCode = 1;
-                results.ErrText = String.Format("Error in Member_Save {0}", mID);
+                results.ErrText = string.Format("Error in Member_Save {0}", mID);
             }
 
             return results;

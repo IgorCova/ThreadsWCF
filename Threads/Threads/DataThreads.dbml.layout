@@ -2,66 +2,66 @@
 <ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="DataThreads">
   <DataContextMoniker Name="/DataThreadsDataContext" />
   <nestedChildShapes>
-    <classShape Id="24c52c63-efb8-4e3e-8641-1156b6f8a381" absoluteBounds="4.625, 0.625, 2, 2.1554996744791666">
+    <classShape Id="24c52c63-efb8-4e3e-8641-1156b6f8a381" isExpanded="false" absoluteBounds="3.375, 0.5, 2, 0.45">
       <DataClassMoniker Name="/DataThreadsDataContext/ColumnCommunity" />
       <nestedChildShapes>
-        <elementListCompartment Id="5f48657b-88ee-42bd-8ae1-2f0edb66f256" absoluteBounds="4.6400000000000006, 1.085, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="5f48657b-88ee-42bd-8ae1-2f0edb66f256" absoluteBounds="3.3900000000000006, 0.96, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="71b38161-4e5f-4904-bdc6-fdbcdaa8c685" absoluteBounds="1.125, 0.5, 2, 2.5401025390625">
+    <classShape Id="71b38161-4e5f-4904-bdc6-fdbcdaa8c685" isExpanded="false" absoluteBounds="0.5, 0.5, 2, 0.45">
       <DataClassMoniker Name="/DataThreadsDataContext/Community" />
       <nestedChildShapes>
-        <elementListCompartment Id="66c8b4bf-297d-48c3-aad0-2f951bf4a38c" absoluteBounds="1.1400000000000001, 0.96, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="66c8b4bf-297d-48c3-aad0-2f951bf4a38c" absoluteBounds="0.51500000000000012, 0.96, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(3.125 : 1.70274983723958); (4.625 : 1.70274983723958)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.5 : 0.725); (3.375 : 0.725)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/DataThreadsDataContext/Community/Community_ColumnCommunity" />
       <nodes>
         <classShapeMoniker Id="71b38161-4e5f-4904-bdc6-fdbcdaa8c685" />
         <classShapeMoniker Id="24c52c63-efb8-4e3e-8641-1156b6f8a381" />
       </nodes>
     </associationConnector>
-    <classShape Id="972d04ea-37cf-49da-9180-e53525b35f42" absoluteBounds="1.25, 4, 2, 2.5401025390625">
+    <classShape Id="972d04ea-37cf-49da-9180-e53525b35f42" isExpanded="false" absoluteBounds="0.5, 2.25, 2, 0.45">
       <DataClassMoniker Name="/DataThreadsDataContext/Person" />
       <nestedChildShapes>
-        <elementListCompartment Id="ef45a6e3-a008-4709-827b-9a3c6eb7ec2a" absoluteBounds="1.2650000000000006, 4.46, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="ef45a6e3-a008-4709-827b-9a3c6eb7ec2a" absoluteBounds="0.51500000000000057, 2.71, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(3.25 : 4.95253595214844); (5.625 : 4.95253595214844); (5.625 : 2.78049967447917)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.5 : 2.475); (4.71875 : 2.475); (4.71875 : 0.95)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/DataThreadsDataContext/Person/Person_ColumnCommunity" />
       <nodes>
         <classShapeMoniker Id="972d04ea-37cf-49da-9180-e53525b35f42" />
         <classShapeMoniker Id="24c52c63-efb8-4e3e-8641-1156b6f8a381" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.1875 : 4); (2.1875 : 3.0401025390625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(1.21875 : 2.25); (1.21875 : 0.95)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/DataThreadsDataContext/Person/Person_Community" />
       <nodes>
         <classShapeMoniker Id="972d04ea-37cf-49da-9180-e53525b35f42" />
         <classShapeMoniker Id="71b38161-4e5f-4904-bdc6-fdbcdaa8c685" />
       </nodes>
     </associationConnector>
-    <classShape Id="bd35e70c-75af-4002-beda-78c42881fdb5" absoluteBounds="6.75, 4.375, 2, 2.3478011067708335">
+    <classShape Id="bd35e70c-75af-4002-beda-78c42881fdb5" isExpanded="false" absoluteBounds="2, 1.5, 2, 0.45">
       <DataClassMoniker Name="/DataThreadsDataContext/Entry" />
       <nestedChildShapes>
-        <elementListCompartment Id="46a6f2f1-e55b-419b-a084-f16f989536f0" absoluteBounds="6.7650000000000006, 4.835, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="46a6f2f1-e55b-419b-a084-f16f989536f0" absoluteBounds="2.0150000000000006, 1.96, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(6.1562525 : 2.78049967447917); (6.1562525 : 5.83766852945964); (6.75 : 5.83766852945964)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(3.6875 : 0.95); (3.6875 : 1.5)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/DataThreadsDataContext/ColumnCommunity/ColumnCommunity_Entry" />
       <nodes>
         <classShapeMoniker Id="24c52c63-efb8-4e3e-8641-1156b6f8a381" />
         <classShapeMoniker Id="bd35e70c-75af-4002-beda-78c42881fdb5" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(1.15625 : 3.0401025390625); (1.15625 : 6.66270182291667); (6.75 : 6.66270182291667)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.25 : 0.95); (2.25 : 1.5)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/DataThreadsDataContext/Community/Community_Entry" />
       <nodes>
         <classShapeMoniker Id="71b38161-4e5f-4904-bdc6-fdbcdaa8c685" />
         <classShapeMoniker Id="bd35e70c-75af-4002-beda-78c42881fdb5" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(3.25 : 5.39510224080404); (6.75 : 5.39510224080404)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.25 : 2.25); (2.25 : 1.95)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/DataThreadsDataContext/Person/Person_Entry" />
       <nodes>
         <classShapeMoniker Id="972d04ea-37cf-49da-9180-e53525b35f42" />

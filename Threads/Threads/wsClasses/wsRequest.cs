@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Runtime.Serialization;
 
 namespace Threads
@@ -9,17 +6,17 @@ namespace Threads
     [DataContract]
     public class wsRequest
     {
-        [DataMember(Name = "Session")]
-        public String Session;
+        [DataMember]
+        public string Session;
 
-        [DataMember(Name = "DID")]
-        public String DID;
+        [DataMember]
+        public string DID;
     }
 
     [DataContract]
     public class wsRequest<T> : wsRequest where T : class
     {
-        [DataMember(Name = "Params")]
+        [DataMember]
         public T Params;
     }
 
@@ -49,7 +46,7 @@ namespace Threads
         public long CreatorID;
 
         [DataMember]
-        public String EntryText;
+        public string EntryText;
 
     }
 
@@ -79,7 +76,7 @@ namespace Threads
     public class SessionReq_Save_Req
     {
         [DataMember]
-        public wsSessionReq SessionReq;
+        public string Phone { get; set; }
 
     }
 
@@ -89,8 +86,6 @@ namespace Threads
         [DataMember]
         public long SessionReq_ID;
 
-        [DataMember]
-        public String DID;
     }
 
 }

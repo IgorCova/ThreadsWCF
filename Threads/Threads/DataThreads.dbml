@@ -149,21 +149,6 @@
       <Column Name="IsActive" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
     </ElementType>
   </Function>
-  <Function Name="dbo.[SessionReq.Save]" Method="SessionReq_Save">
-    <Parameter Name="DID" Parameter="dID" Type="System.String" DbType="VarChar(64)" />
-    <Parameter Name="Phone" Parameter="phone" Type="System.String" DbType="VarChar(64)" />
-    <ElementType Name="SessionReq_SaveResult">
-      <Column Name="ID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
-    </ElementType>
-  </Function>
-  <Function Name="dbo.[Session.Save]" Method="Session_Save">
-    <Parameter Name="SessionReqID" Parameter="sessionReqID" Type="System.Int64" DbType="BigInt" />
-    <Parameter Name="DID" Parameter="dID" Type="System.String" DbType="VarChar(64)" />
-    <ElementType Name="Session_SaveResult">
-      <Column Name="SessionID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Column Name="MemberID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
-    </ElementType>
-  </Function>
   <Function Name="dbo.[Entry.ReadByCommunityID]" Method="Entry_ReadByCommunityID">
     <Parameter Name="CommunityID" Parameter="communityID" Type="System.Int64" DbType="BigInt" />
     <ElementType Name="Entry_ReadByCommunityIDResult">
@@ -192,6 +177,23 @@
       <Column Name="Entry_CreateDateEst" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
       <Column Name="CreatorID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
       <Column Name="CreatorID_Fullname" Type="System.String" DbType="VarChar(513)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.[SessionReq.Save]" Method="SessionReq_Save">
+    <Parameter Name="DID" Parameter="dID" Type="System.String" DbType="VarChar(64)" />
+    <Parameter Name="Phone" Parameter="phone" Type="System.String" DbType="VarChar(64)" />
+    <ElementType Name="SessionReq_SaveResult">
+      <Column Name="ID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="MemberID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.[Session.Save]" Method="Session_Save">
+    <Parameter Name="SessionReqID" Parameter="sessionReqID" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="DID" Parameter="dID" Type="System.String" DbType="VarChar(64)" />
+    <ElementType Name="Session_SaveResult">
+      <Column Name="SessionID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="MemberID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="IsNewMember" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
     </ElementType>
   </Function>
 </Database>

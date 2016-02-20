@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Runtime.Serialization;
 
 namespace Threads
@@ -111,10 +108,6 @@ namespace Threads
     [DataContract]
     public class wsSessionReq
     {
-
-        [DataMember]
-        public string DID { get; set; }
-
         [DataMember]
         public string Phone { get; set; }
 
@@ -129,6 +122,9 @@ namespace Threads
         [DataMember]
         public string Code { get; set; }
 
+        [DataMember]
+        public long MemberID { get; set; }
+
     }
 
     [DataContract]
@@ -140,5 +136,7 @@ namespace Threads
         [DataMember]
         public long MemberID { get; set; }
 
+        [DataMember]
+        public Boolean IsNewMember { get; set; }
     }
 }
