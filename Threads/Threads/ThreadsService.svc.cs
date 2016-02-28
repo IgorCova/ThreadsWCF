@@ -480,6 +480,7 @@ namespace Threads
                     resp.UserName = mem.UserName;
                     resp.About = mem.About;
                     resp.Phone = mem.Phone;
+                    resp.IsMale = mem.IsMale ?? true;
 
                 }
 
@@ -506,6 +507,7 @@ namespace Threads
             string mUserName = "";
             string mAbout = "";
             string mPhone = "";
+            bool mIsMale = true;
 
             if (req.Params != null)
             {
@@ -515,12 +517,13 @@ namespace Threads
                 mUserName = req.Params.Member.UserName;
                 mAbout = req.Params.Member.About;
                 mPhone = req.Params.Member.Phone;
+                mIsMale = req.Params.Member.IsMale;
 
             }
 
             try
             {
-                foreach (Member_SaveResult mem in dc.Member_Save(ref mID, mName, mSurname, mUserName, mAbout, mPhone))
+                foreach (Member_SaveResult mem in dc.Member_Save(ref mID, mName, mSurname, mUserName, mAbout, mPhone, mIsMale))
                 {
                     resp.ID = mem.ID;
                     resp.Name = mem.Name;
@@ -528,6 +531,7 @@ namespace Threads
                     resp.UserName = mem.UserName;
                     resp.About = mem.About;
                     resp.Phone = mem.Phone;
+                    resp.IsMale = mem.IsMale ?? true;
                 }
 
                 results.Data = resp;

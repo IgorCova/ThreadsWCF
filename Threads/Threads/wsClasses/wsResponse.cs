@@ -6,13 +6,13 @@ namespace Threads
     [DataContract]
     public class wsResponse<T> where T : class
     {
-        [DataMember(Name = "Data")]
+        [DataMember]
         public T Data;
 
-        [DataMember(Name = "ErrCode")]
+        [DataMember]
         public int ErrCode;
 
-        [DataMember(Name = "ErrText")]
+        [DataMember]
         public string ErrText;
     }
 

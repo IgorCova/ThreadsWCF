@@ -103,6 +103,9 @@ namespace Threads
 
         [DataMember]
         public string Phone { get; set; }
+
+        [DataMember]
+        public bool IsMale { get; set; }
     }
 
     [DataContract]

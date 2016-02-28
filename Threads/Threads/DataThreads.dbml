@@ -112,35 +112,6 @@
       <Column Name="CountMembers" Type="System.String" DbType="VarChar(32)" CanBeNull="true" />
     </ElementType>
   </Function>
-  <Function Name="dbo.[Member.Save]" Method="Member_Save">
-    <Parameter Name="ID" Parameter="iD" Type="System.Int64" DbType="BigInt" Direction="InOut" />
-    <Parameter Name="Name" Parameter="name" Type="System.String" DbType="VarChar(256)" />
-    <Parameter Name="Surname" Parameter="surname" Type="System.String" DbType="VarChar(256)" />
-    <Parameter Name="UserName" Parameter="userName" Type="System.String" DbType="VarChar(32)" />
-    <Parameter Name="About" Parameter="about" Type="System.String" DbType="VarChar(1024)" />
-    <Parameter Name="Phone" Parameter="phone" Type="System.String" DbType="VarChar(32)" />
-    <ElementType Name="Member_SaveResult">
-      <Column Name="ID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" DbType="VarChar(256)" CanBeNull="true" />
-      <Column Name="Surname" Type="System.String" DbType="VarChar(256)" CanBeNull="true" />
-      <Column Name="FullName" Type="System.String" DbType="VarChar(513)" CanBeNull="true" />
-      <Column Name="UserName" Type="System.String" DbType="VarChar(32)" CanBeNull="true" />
-      <Column Name="About" Type="System.String" DbType="VarChar(1024)" CanBeNull="true" />
-      <Column Name="Phone" Type="System.String" DbType="VarChar(32)" CanBeNull="true" />
-      <Column Name="JoinedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-    </ElementType>
-  </Function>
-  <Function Name="dbo.[Member.ReadInstance]" Method="Member_ReadInstance">
-    <Parameter Name="ID" Parameter="iD" Type="System.Int64" DbType="BigInt" />
-    <ElementType Name="Member_ReadInstanceResult">
-      <Column Name="ID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" DbType="VarChar(256)" CanBeNull="true" />
-      <Column Name="Surname" Type="System.String" DbType="VarChar(256)" CanBeNull="true" />
-      <Column Name="UserName" Type="System.String" DbType="VarChar(32)" CanBeNull="true" />
-      <Column Name="About" Type="System.String" DbType="VarChar(7) NOT NULL" CanBeNull="false" />
-      <Column Name="Phone" Type="System.String" DbType="VarChar(32)" CanBeNull="true" />
-    </ElementType>
-  </Function>
   <Function Name="dbo.[Country.ReadDict]" Method="Country_ReadDict">
     <ElementType Name="Country_ReadDictResult">
       <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
@@ -194,6 +165,38 @@
       <Column Name="SessionID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
       <Column Name="MemberID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
       <Column Name="IsNewMember" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.[Member.ReadInstance]" Method="Member_ReadInstance">
+    <Parameter Name="ID" Parameter="iD" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="Member_ReadInstanceResult">
+      <Column Name="ID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(256)" CanBeNull="true" />
+      <Column Name="Surname" Type="System.String" DbType="VarChar(256) NOT NULL" CanBeNull="false" />
+      <Column Name="UserName" Type="System.String" DbType="VarChar(32) NOT NULL" CanBeNull="false" />
+      <Column Name="About" Type="System.String" DbType="VarChar(1024) NOT NULL" CanBeNull="false" />
+      <Column Name="Phone" Type="System.String" DbType="VarChar(256)" CanBeNull="true" />
+      <Column Name="IsMale" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.[Member.Save]" Method="Member_Save">
+    <Parameter Name="ID" Parameter="iD" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Parameter Name="Name" Parameter="name" Type="System.String" DbType="VarChar(256)" />
+    <Parameter Name="Surname" Parameter="surname" Type="System.String" DbType="VarChar(256)" />
+    <Parameter Name="UserName" Parameter="userName" Type="System.String" DbType="VarChar(32)" />
+    <Parameter Name="About" Parameter="about" Type="System.String" DbType="VarChar(1024)" />
+    <Parameter Name="Phone" Parameter="phone" Type="System.String" DbType="VarChar(32)" />
+    <Parameter Name="IsMale" Parameter="isMale" Type="System.Boolean" DbType="Bit" />
+    <ElementType Name="Member_SaveResult">
+      <Column Name="ID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(256)" CanBeNull="true" />
+      <Column Name="Surname" Type="System.String" DbType="VarChar(256) NOT NULL" CanBeNull="false" />
+      <Column Name="FullName" Type="System.String" DbType="VarChar(513)" CanBeNull="true" />
+      <Column Name="UserName" Type="System.String" DbType="VarChar(32) NOT NULL" CanBeNull="false" />
+      <Column Name="About" Type="System.String" DbType="VarChar(1024) NOT NULL" CanBeNull="false" />
+      <Column Name="Phone" Type="System.String" DbType="VarChar(32)" CanBeNull="true" />
+      <Column Name="IsMale" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="JoinedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
     </ElementType>
   </Function>
 </Database>

@@ -134,21 +134,6 @@ namespace Threads
 			return ((ISingleResult<Community_ReadMyDictResult>)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.[Member.Save]")]
-		public ISingleResult<Member_SaveResult> Member_Save([global::System.Data.Linq.Mapping.ParameterAttribute(Name="ID", DbType="BigInt")] ref System.Nullable<long> iD, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Name", DbType="VarChar(256)")] string name, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Surname", DbType="VarChar(256)")] string surname, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="UserName", DbType="VarChar(32)")] string userName, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="About", DbType="VarChar(1024)")] string about, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Phone", DbType="VarChar(32)")] string phone)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), iD, name, surname, userName, about, phone);
-			iD = ((System.Nullable<long>)(result.GetParameterValue(0)));
-			return ((ISingleResult<Member_SaveResult>)(result.ReturnValue));
-		}
-		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.[Member.ReadInstance]")]
-		public ISingleResult<Member_ReadInstanceResult> Member_ReadInstance([global::System.Data.Linq.Mapping.ParameterAttribute(Name="ID", DbType="BigInt")] System.Nullable<long> iD)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), iD);
-			return ((ISingleResult<Member_ReadInstanceResult>)(result.ReturnValue));
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.[Country.ReadDict]")]
 		public ISingleResult<Country_ReadDictResult> Country_ReadDict()
 		{
@@ -183,13 +168,28 @@ namespace Threads
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), sessionReqID, dID);
 			return ((ISingleResult<Session_SaveResult>)(result.ReturnValue));
 		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.[Member.ReadInstance]")]
+		public ISingleResult<Member_ReadInstanceResult> Member_ReadInstance([global::System.Data.Linq.Mapping.ParameterAttribute(Name="ID", DbType="BigInt")] System.Nullable<long> iD)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), iD);
+			return ((ISingleResult<Member_ReadInstanceResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.[Member.Save]")]
+		public ISingleResult<Member_SaveResult> Member_Save([global::System.Data.Linq.Mapping.ParameterAttribute(Name="ID", DbType="BigInt")] ref System.Nullable<long> iD, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Name", DbType="VarChar(256)")] string name, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Surname", DbType="VarChar(256)")] string surname, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="UserName", DbType="VarChar(32)")] string userName, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="About", DbType="VarChar(1024)")] string about, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Phone", DbType="VarChar(32)")] string phone, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IsMale", DbType="Bit")] System.Nullable<bool> isMale)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), iD, name, surname, userName, about, phone, isMale);
+			iD = ((System.Nullable<long>)(result.GetParameterValue(0)));
+			return ((ISingleResult<Member_SaveResult>)(result.ReturnValue));
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ColumnCommunity")]
 	public partial class ColumnCommunity : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(string.Empty);
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private long _ID;
 		
@@ -480,7 +480,7 @@ namespace Threads
 			}
 		}
 		
-		protected virtual void SendPropertyChanged(string propertyName)
+		protected virtual void SendPropertyChanged(String propertyName)
 		{
 			if ((this.PropertyChanged != null))
 			{
@@ -505,7 +505,7 @@ namespace Threads
 	public partial class Community : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(string.Empty);
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private long _ID;
 		
@@ -819,7 +819,7 @@ namespace Threads
 			}
 		}
 		
-		protected virtual void SendPropertyChanged(string propertyName)
+		protected virtual void SendPropertyChanged(String propertyName)
 		{
 			if ((this.PropertyChanged != null))
 			{
@@ -856,7 +856,7 @@ namespace Threads
 	public partial class Person : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(string.Empty);
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private long _ID;
 		
@@ -1145,7 +1145,7 @@ namespace Threads
 			}
 		}
 		
-		protected virtual void SendPropertyChanged(string propertyName)
+		protected virtual void SendPropertyChanged(String propertyName)
 		{
 			if ((this.PropertyChanged != null))
 			{
@@ -1194,7 +1194,7 @@ namespace Threads
 	public partial class Entry : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(string.Empty);
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private long _ID;
 		
@@ -1534,7 +1534,7 @@ namespace Threads
 			}
 		}
 		
-		protected virtual void SendPropertyChanged(string propertyName)
+		protected virtual void SendPropertyChanged(String propertyName)
 		{
 			if ((this.PropertyChanged != null))
 			{
@@ -2074,274 +2074,6 @@ namespace Threads
 				if ((this._CountMembers != value))
 				{
 					this._CountMembers = value;
-				}
-			}
-		}
-	}
-	
-	public partial class Member_SaveResult
-	{
-		
-		private long _ID;
-		
-		private string _Name;
-		
-		private string _Surname;
-		
-		private string _FullName;
-		
-		private string _UserName;
-		
-		private string _About;
-		
-		private string _Phone;
-		
-		private System.Nullable<System.DateTime> _JoinedDate;
-		
-		public Member_SaveResult()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", DbType="BigInt NOT NULL")]
-		public long ID
-		{
-			get
-			{
-				return this._ID;
-			}
-			set
-			{
-				if ((this._ID != value))
-				{
-					this._ID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="VarChar(256)")]
-		public string Name
-		{
-			get
-			{
-				return this._Name;
-			}
-			set
-			{
-				if ((this._Name != value))
-				{
-					this._Name = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Surname", DbType="VarChar(256)")]
-		public string Surname
-		{
-			get
-			{
-				return this._Surname;
-			}
-			set
-			{
-				if ((this._Surname != value))
-				{
-					this._Surname = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FullName", DbType="VarChar(513)")]
-		public string FullName
-		{
-			get
-			{
-				return this._FullName;
-			}
-			set
-			{
-				if ((this._FullName != value))
-				{
-					this._FullName = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserName", DbType="VarChar(32)")]
-		public string UserName
-		{
-			get
-			{
-				return this._UserName;
-			}
-			set
-			{
-				if ((this._UserName != value))
-				{
-					this._UserName = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_About", DbType="VarChar(1024)")]
-		public string About
-		{
-			get
-			{
-				return this._About;
-			}
-			set
-			{
-				if ((this._About != value))
-				{
-					this._About = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Phone", DbType="VarChar(32)")]
-		public string Phone
-		{
-			get
-			{
-				return this._Phone;
-			}
-			set
-			{
-				if ((this._Phone != value))
-				{
-					this._Phone = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_JoinedDate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> JoinedDate
-		{
-			get
-			{
-				return this._JoinedDate;
-			}
-			set
-			{
-				if ((this._JoinedDate != value))
-				{
-					this._JoinedDate = value;
-				}
-			}
-		}
-	}
-	
-	public partial class Member_ReadInstanceResult
-	{
-		
-		private long _ID;
-		
-		private string _Name;
-		
-		private string _Surname;
-		
-		private string _UserName;
-		
-		private string _About;
-		
-		private string _Phone;
-		
-		public Member_ReadInstanceResult()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", DbType="BigInt NOT NULL")]
-		public long ID
-		{
-			get
-			{
-				return this._ID;
-			}
-			set
-			{
-				if ((this._ID != value))
-				{
-					this._ID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="VarChar(256)")]
-		public string Name
-		{
-			get
-			{
-				return this._Name;
-			}
-			set
-			{
-				if ((this._Name != value))
-				{
-					this._Name = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Surname", DbType="VarChar(256)")]
-		public string Surname
-		{
-			get
-			{
-				return this._Surname;
-			}
-			set
-			{
-				if ((this._Surname != value))
-				{
-					this._Surname = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserName", DbType="VarChar(32)")]
-		public string UserName
-		{
-			get
-			{
-				return this._UserName;
-			}
-			set
-			{
-				if ((this._UserName != value))
-				{
-					this._UserName = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_About", DbType="VarChar(7) NOT NULL", CanBeNull=false)]
-		public string About
-		{
-			get
-			{
-				return this._About;
-			}
-			set
-			{
-				if ((this._About != value))
-				{
-					this._About = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Phone", DbType="VarChar(32)")]
-		public string Phone
-		{
-			get
-			{
-				return this._Phone;
-			}
-			set
-			{
-				if ((this._Phone != value))
-				{
-					this._Phone = value;
 				}
 			}
 		}
@@ -2904,6 +2636,310 @@ namespace Threads
 				if ((this._IsNewMember != value))
 				{
 					this._IsNewMember = value;
+				}
+			}
+		}
+	}
+	
+	public partial class Member_ReadInstanceResult
+	{
+		
+		private long _ID;
+		
+		private string _Name;
+		
+		private string _Surname;
+		
+		private string _UserName;
+		
+		private string _About;
+		
+		private string _Phone;
+		
+		private System.Nullable<bool> _IsMale;
+		
+		public Member_ReadInstanceResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", DbType="BigInt NOT NULL")]
+		public long ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this._ID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="VarChar(256)")]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this._Name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Surname", DbType="VarChar(256) NOT NULL", CanBeNull=false)]
+		public string Surname
+		{
+			get
+			{
+				return this._Surname;
+			}
+			set
+			{
+				if ((this._Surname != value))
+				{
+					this._Surname = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserName", DbType="VarChar(32) NOT NULL", CanBeNull=false)]
+		public string UserName
+		{
+			get
+			{
+				return this._UserName;
+			}
+			set
+			{
+				if ((this._UserName != value))
+				{
+					this._UserName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_About", DbType="VarChar(1024) NOT NULL", CanBeNull=false)]
+		public string About
+		{
+			get
+			{
+				return this._About;
+			}
+			set
+			{
+				if ((this._About != value))
+				{
+					this._About = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Phone", DbType="VarChar(256)")]
+		public string Phone
+		{
+			get
+			{
+				return this._Phone;
+			}
+			set
+			{
+				if ((this._Phone != value))
+				{
+					this._Phone = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsMale", DbType="Bit")]
+		public System.Nullable<bool> IsMale
+		{
+			get
+			{
+				return this._IsMale;
+			}
+			set
+			{
+				if ((this._IsMale != value))
+				{
+					this._IsMale = value;
+				}
+			}
+		}
+	}
+	
+	public partial class Member_SaveResult
+	{
+		
+		private long _ID;
+		
+		private string _Name;
+		
+		private string _Surname;
+		
+		private string _FullName;
+		
+		private string _UserName;
+		
+		private string _About;
+		
+		private string _Phone;
+		
+		private System.Nullable<bool> _IsMale;
+		
+		private System.Nullable<System.DateTime> _JoinedDate;
+		
+		public Member_SaveResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", DbType="BigInt NOT NULL")]
+		public long ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this._ID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="VarChar(256)")]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this._Name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Surname", DbType="VarChar(256) NOT NULL", CanBeNull=false)]
+		public string Surname
+		{
+			get
+			{
+				return this._Surname;
+			}
+			set
+			{
+				if ((this._Surname != value))
+				{
+					this._Surname = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FullName", DbType="VarChar(513)")]
+		public string FullName
+		{
+			get
+			{
+				return this._FullName;
+			}
+			set
+			{
+				if ((this._FullName != value))
+				{
+					this._FullName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserName", DbType="VarChar(32) NOT NULL", CanBeNull=false)]
+		public string UserName
+		{
+			get
+			{
+				return this._UserName;
+			}
+			set
+			{
+				if ((this._UserName != value))
+				{
+					this._UserName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_About", DbType="VarChar(1024) NOT NULL", CanBeNull=false)]
+		public string About
+		{
+			get
+			{
+				return this._About;
+			}
+			set
+			{
+				if ((this._About != value))
+				{
+					this._About = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Phone", DbType="VarChar(32)")]
+		public string Phone
+		{
+			get
+			{
+				return this._Phone;
+			}
+			set
+			{
+				if ((this._Phone != value))
+				{
+					this._Phone = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsMale", DbType="Bit")]
+		public System.Nullable<bool> IsMale
+		{
+			get
+			{
+				return this._IsMale;
+			}
+			set
+			{
+				if ((this._IsMale != value))
+				{
+					this._IsMale = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_JoinedDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> JoinedDate
+		{
+			get
+			{
+				return this._JoinedDate;
+			}
+			set
+			{
+				if ((this._JoinedDate != value))
+				{
+					this._JoinedDate = value;
 				}
 			}
 		}
