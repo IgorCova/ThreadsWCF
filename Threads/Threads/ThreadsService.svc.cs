@@ -1,4 +1,5 @@
 ﻿using System;
+using Threads.wsClasses;
 
 namespace Threads
 {
@@ -20,6 +21,7 @@ namespace Threads
                         ID = comm.ID,
                         Name = comm.Name,
                         Description = comm.Decription,
+                        Link = comm.Link,
                         OwnerID = comm.OwnerID ?? 0,
                         IsMember = comm.IsMember ?? false,
                         CreateDate = comm.CreateDate ?? System.DateTime.Now,
@@ -64,6 +66,7 @@ namespace Threads
                         ID = comm.ID,
                         Name = comm.Name,
                         Description = comm.Decription,
+                        Link = comm.Link,
                         OwnerID = comm.OwnerID ?? 0,
                         IsMember = comm.IsMember ?? false,
                         CreateDate = comm.CreateDate ?? DateTime.Now,
@@ -107,6 +110,7 @@ namespace Threads
                         ID = comm.ID,
                         Name = comm.Name,
                         Description = comm.Decription,
+                        Link = comm.Link,
                         OwnerID = comm.OwnerID ?? 0,
                         IsMember = comm.IsMember ?? false,
                         CreateDate = comm.CreateDate ?? DateTime.Now,
@@ -150,6 +154,7 @@ namespace Threads
                         ID = comm.ID,
                         Name = comm.Name,
                         Description = comm.Decription,
+                        Link = comm.Link,
                         OwnerID = comm.OwnerID ?? 0,
                         IsMember = comm.IsMember ?? false,
                         CreateDate = comm.CreateDate ?? DateTime.Now,
@@ -163,6 +168,47 @@ namespace Threads
             {
                 results.ErrCode = 0;
                 results.ErrText = string.Format("Error in Community_ReadSuggestDict {0}", memberID);
+            }
+
+            return results;
+        }
+
+        public wsResponse<Community_ReadInstance_Resp> Community_ReadInstance(wsRequest<Community_ReadInstance_Req> req)
+        {
+            var results = new wsResponse<Community_ReadInstance_Resp>();
+            var resp = new Community_ReadInstance_Resp();
+            var dc = new DataThreadsDataContext();
+
+            long memberID = 0;
+            long iD = 0;
+
+            if (req.Params != null)
+            {
+                memberID = req.Params.MemberID;
+                iD = req.Params.ID;
+            }
+
+            try
+            {
+                foreach (Community_ReadInstanceResult comm in dc.Community_ReadInstance(iD, memberID))
+                {
+                    resp.ID = comm.ID;
+                    resp.Name = comm.Name;
+                    resp.Link = comm.Link;
+                    resp.Description = comm.Decription;
+                    resp.OwnerID = comm.OwnerID ?? 0;
+                    resp.IsMember = comm.IsMember ?? false;
+                    resp.CreateDate = comm.CreateDate ?? DateTime.Now;
+                    resp.DefaultColumnID = comm.DefaultColumnID ?? 0;
+                    resp.CountMembers = comm.CountMembers;
+                };
+
+                results.Data = resp;
+            }
+            catch
+            {
+                results.ErrCode = 0;
+                results.ErrText = string.Format("Error in Community_ReadInstance memberID: {0}, communityID: {1}", memberID, iD);
             }
 
             return results;
@@ -319,6 +365,35 @@ namespace Threads
         }
         #endregion
 
+        #region Image
+        public wsResponse<LogoSave_Resp> LogoSave(wsRequest<LogoSave_Req> req)
+        {
+            var results = new wsResponse<LogoSave_Resp>();
+            var resp = new LogoSave_Resp();
+            var filename = "";
+            if (req.Params != null)
+            {
+                filename = string.Format("{0}.png", req.Params.id);
+            }
+            // Image logo = Image.FromStream(req.Params.logoData, true);
+            try
+            {
+                Tools.ObjectFileSaveToLocalHDD(filename, req.Params.logoData);
+            }
+            catch
+            {
+                results.ErrCode = 1;
+                results.ErrText = string.Format("Error in LogoSave {0}", req.Params.id);
+            }
+
+            resp.isOk = true;
+
+            results.Data = resp;
+
+            return results;
+        }
+        #endregion
+
         #region News
         //----------------------------News
         public wsResponse<News_ReadByMemberID_Resp> News_ReadByMemberID(wsRequest<News_ReadByMemberID_Req> req)
@@ -388,11 +463,11 @@ namespace Threads
 
             try
             {
-              /*  string message = string.Format("Comm+code+confirm:+{0}", code);
-                string http = string.Format("{0}sms.ru/sms/send?api_id={1}&to={2}&text={3}", "http://", "8B4D21F6-33D2-DBD4-8425-34631CD434BE", Phone, message);
-                var request = (HttpWebRequest)WebRequest.Create(http);
-                var response = (HttpWebResponse)request.GetResponse();
-                var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();*/
+                /*  string message = string.Format("Comm+code+confirm:+{0}", code);
+                  string http = string.Format("{0}sms.ru/sms/send?api_id={1}&to={2}&text={3}", "http://", "8B4D21F6-33D2-DBD4-8425-34631CD434BE", Phone, message);
+                  var request = (HttpWebRequest)WebRequest.Create(http);
+                  var response = (HttpWebResponse)request.GetResponse();
+                  var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();*/
             }
             catch
             {

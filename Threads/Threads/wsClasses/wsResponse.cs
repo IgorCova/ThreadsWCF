@@ -25,5 +25,7 @@ namespace Threads
     public class SessionReq_Save_Resp : wsSessionReq_Out { }
     public class Country_ReadDict_Resp : List<wsCountry> { }
     public class Session_Save_Resp : wsSession { }
+    public class LogoSave_Resp : wsLogoOut { }
+    public class Community_ReadInstance_Resp : wsCommunity { }
 
 }

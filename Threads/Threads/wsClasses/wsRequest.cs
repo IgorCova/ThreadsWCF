@@ -1,5 +1,5 @@
-﻿using System;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
+using System.IO;
 
 namespace Threads
 {
@@ -88,4 +88,26 @@ namespace Threads
 
     }
 
+    [DataContract]
+    public class LogoSave_Req
+    {
+        [DataMember]
+        public bool isMember { get; set; }
+
+        [DataMember]
+        public long id { get; set; }
+        
+        [DataMember]
+        public string logoData { get; set; }  // бинарный поток, закодированный в Base64
+    }
+
+    [DataContract]
+    public class Community_ReadInstance_Req
+    {
+        [DataMember]
+        public long ID { get; set; }
+
+        [DataMember]
+        public long MemberID { get; set; }
+    }
 }

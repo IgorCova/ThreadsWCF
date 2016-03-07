@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing.Imaging;
 using System.Runtime.Serialization;
 
 namespace Threads
@@ -14,6 +15,9 @@ namespace Threads
 
         [DataMember]
         public string Description { get; set; }
+
+        [DataMember]
+        public string Link { get; set; }
 
         [DataMember]
         public long OwnerID { get; set; }
@@ -140,6 +144,13 @@ namespace Threads
         public long MemberID { get; set; }
 
         [DataMember]
-        public Boolean IsNewMember { get; set; }
+        public bool IsNewMember { get; set; }
+    }
+
+    [DataContract]
+    public class wsLogoOut
+    {
+        [DataMember]
+        public bool isOk { get; set; }
     }
 }
