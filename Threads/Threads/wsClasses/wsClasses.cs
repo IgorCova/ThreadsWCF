@@ -110,6 +110,9 @@ namespace Threads
 
         [DataMember]
         public bool IsMale { get; set; }
+
+        [DataMember]
+        public string BirthdayDate { get; set; }
     }
 
     [DataContract]
