@@ -17,6 +17,9 @@ namespace Threads
         public string Description { get; set; }
 
         [DataMember]
+        public string Tagline { get; set; }
+
+        [DataMember]
         public string Link { get; set; }
 
         [DataMember]
@@ -84,6 +87,9 @@ namespace Threads
 
         [DataMember]
         public string CreatorID_Fullname { get; set; }
+
+        [DataMember]
+        public bool IsPin { get; set; }
 
     }
 
@@ -155,5 +161,12 @@ namespace Threads
     {
         [DataMember]
         public bool isOk { get; set; }
+    }
+
+    [DataContract]
+    public class wsCommunitySaveState
+    {
+        [DataMember]
+        public long ID { get; set; }
     }
 }

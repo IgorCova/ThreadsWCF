@@ -113,46 +113,11 @@ namespace Threads
 			return ((ISingleResult<Entry_SaveResult>)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.[Community.ReadDict]")]
-		public ISingleResult<Community_ReadDictResult> Community_ReadDict([global::System.Data.Linq.Mapping.ParameterAttribute(Name="MemberID", DbType="BigInt")] System.Nullable<long> memberID)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), memberID);
-			return ((ISingleResult<Community_ReadDictResult>)(result.ReturnValue));
-		}
-		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.[Community.ReadSuggestDict]")]
-		public ISingleResult<Community_ReadSuggestDictResult> Community_ReadSuggestDict([global::System.Data.Linq.Mapping.ParameterAttribute(Name="MemberID", DbType="BigInt")] System.Nullable<long> memberID)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), memberID);
-			return ((ISingleResult<Community_ReadSuggestDictResult>)(result.ReturnValue));
-		}
-		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.[Community.ReadMyDict]")]
-		public ISingleResult<Community_ReadMyDictResult> Community_ReadMyDict([global::System.Data.Linq.Mapping.ParameterAttribute(Name="MemberID", DbType="BigInt")] System.Nullable<long> memberID)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), memberID);
-			return ((ISingleResult<Community_ReadMyDictResult>)(result.ReturnValue));
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.[Country.ReadDict]")]
 		public ISingleResult<Country_ReadDictResult> Country_ReadDict()
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
 			return ((ISingleResult<Country_ReadDictResult>)(result.ReturnValue));
-		}
-		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.[Entry.ReadByCommunityID]")]
-		public ISingleResult<Entry_ReadByCommunityIDResult> Entry_ReadByCommunityID([global::System.Data.Linq.Mapping.ParameterAttribute(Name="CommunityID", DbType="BigInt")] System.Nullable<long> communityID)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), communityID);
-			return ((ISingleResult<Entry_ReadByCommunityIDResult>)(result.ReturnValue));
-		}
-		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.[News.ReadByMemberID]")]
-		public ISingleResult<News_ReadByMemberIDResult> News_ReadByMemberID([global::System.Data.Linq.Mapping.ParameterAttribute(Name="MemberID", DbType="BigInt")] System.Nullable<long> memberID)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), memberID);
-			return ((ISingleResult<News_ReadByMemberIDResult>)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.[SessionReq.Save]")]
@@ -169,21 +134,6 @@ namespace Threads
 			return ((ISingleResult<Session_SaveResult>)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.[Community.ReadInstance]")]
-		public ISingleResult<Community_ReadInstanceResult> Community_ReadInstance([global::System.Data.Linq.Mapping.ParameterAttribute(Name="ID", DbType="BigInt")] System.Nullable<long> iD, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="MemberID", DbType="BigInt")] System.Nullable<long> memberID)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), iD, memberID);
-			return ((ISingleResult<Community_ReadInstanceResult>)(result.ReturnValue));
-		}
-		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.[Community.Save]")]
-		public int Community_Save([global::System.Data.Linq.Mapping.ParameterAttribute(Name="ID", DbType="BigInt")] ref System.Nullable<long> iD, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Name", DbType="VarChar(128)")] string name, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Link", DbType="VarChar(1024)")] string link, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Decription", DbType="VarChar(1024)")] string decription, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="OwnerID", DbType="BigInt")] System.Nullable<long> ownerID)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), iD, name, link, decription, ownerID);
-			iD = ((System.Nullable<long>)(result.GetParameterValue(0)));
-			return ((int)(result.ReturnValue));
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.[Member.ReadInstance]")]
 		public ISingleResult<Member_ReadInstanceResult> Member_ReadInstance([global::System.Data.Linq.Mapping.ParameterAttribute(Name="ID", DbType="BigInt")] System.Nullable<long> iD)
 		{
@@ -197,6 +147,76 @@ namespace Threads
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), iD, name, surname, userName, about, phone, isMale, birthdayDate);
 			iD = ((System.Nullable<long>)(result.GetParameterValue(0)));
 			return ((ISingleResult<Member_SaveResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.ErrorLog_Save")]
+		public ISingleResult<ErrorLog_SaveResult> ErrorLog_Save([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Session", DbType="VarChar(64)")] string session, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="FuncName", DbType="NVarChar(128)")] string funcName, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Params", DbType="VarChar(MAX)")] string @params, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ErrorText", DbType="VarChar(MAX)")] string errorText)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), session, funcName, @params, errorText);
+			return ((ISingleResult<ErrorLog_SaveResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.[Community.ReadDict]")]
+		public ISingleResult<Community_ReadDictResult> Community_ReadDict([global::System.Data.Linq.Mapping.ParameterAttribute(Name="MemberID", DbType="BigInt")] System.Nullable<long> memberID)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), memberID);
+			return ((ISingleResult<Community_ReadDictResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.[Community.ReadInstance]")]
+		public ISingleResult<Community_ReadInstanceResult> Community_ReadInstance([global::System.Data.Linq.Mapping.ParameterAttribute(Name="ID", DbType="BigInt")] System.Nullable<long> iD, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="MemberID", DbType="BigInt")] System.Nullable<long> memberID)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), iD, memberID);
+			return ((ISingleResult<Community_ReadInstanceResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.[Community.ReadMyDict]")]
+		public ISingleResult<Community_ReadMyDictResult> Community_ReadMyDict([global::System.Data.Linq.Mapping.ParameterAttribute(Name="MemberID", DbType="BigInt")] System.Nullable<long> memberID)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), memberID);
+			return ((ISingleResult<Community_ReadMyDictResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.[Community.ReadSuggestDict]")]
+		public ISingleResult<Community_ReadSuggestDictResult> Community_ReadSuggestDict([global::System.Data.Linq.Mapping.ParameterAttribute(Name="MemberID", DbType="BigInt")] System.Nullable<long> memberID)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), memberID);
+			return ((ISingleResult<Community_ReadSuggestDictResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.[Community.Save]")]
+		public ISingleResult<Community_SaveResult> Community_Save([global::System.Data.Linq.Mapping.ParameterAttribute(Name="ID", DbType="BigInt")] System.Nullable<long> iD, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Name", DbType="VarChar(128)")] string name, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Link", DbType="VarChar(1024)")] string link, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Decription", DbType="VarChar(1024)")] string decription, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Tagline", DbType="VarChar(64)")] string tagline, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="OwnerID", DbType="BigInt")] System.Nullable<long> ownerID)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), iD, name, link, decription, tagline, ownerID);
+			return ((ISingleResult<Community_SaveResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.[Bookmark.Save]")]
+		public ISingleResult<Bookmark_SaveResult> Bookmark_Save([global::System.Data.Linq.Mapping.ParameterAttribute(Name="EntryID", DbType="BigInt")] System.Nullable<long> entryID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="MemberID", DbType="BigInt")] System.Nullable<long> memberID)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), entryID, memberID);
+			return ((ISingleResult<Bookmark_SaveResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.[Entry.ReadByCommunityID]")]
+		public ISingleResult<Entry_ReadByCommunityIDResult> Entry_ReadByCommunityID([global::System.Data.Linq.Mapping.ParameterAttribute(Name="CommunityID", DbType="BigInt")] System.Nullable<long> communityID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="MemberID", DbType="BigInt")] System.Nullable<long> memberID)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), communityID, memberID);
+			return ((ISingleResult<Entry_ReadByCommunityIDResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.[News.ReadByMemberID]")]
+		public ISingleResult<News_ReadByMemberIDResult> News_ReadByMemberID([global::System.Data.Linq.Mapping.ParameterAttribute(Name="MemberID", DbType="BigInt")] System.Nullable<long> memberID)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), memberID);
+			return ((ISingleResult<News_ReadByMemberIDResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.[Bookmark.ReadByMemberID]")]
+		public ISingleResult<Bookmark_ReadByMemberIDResult> Bookmark_ReadByMemberID([global::System.Data.Linq.Mapping.ParameterAttribute(Name="MemberID", DbType="BigInt")] System.Nullable<long> memberID)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), memberID);
+			return ((ISingleResult<Bookmark_ReadByMemberIDResult>)(result.ReturnValue));
 		}
 	}
 	
@@ -1584,516 +1604,6 @@ namespace Threads
 		}
 	}
 	
-	public partial class Community_ReadDictResult
-	{
-		
-		private long _ID;
-		
-		private string _Name;
-		
-		private string _Link;
-		
-		private string _Decription;
-		
-		private System.Nullable<long> _OwnerID;
-		
-		private System.Nullable<System.DateTime> _CreateDate;
-		
-		private System.Nullable<bool> _IsMember;
-		
-		private System.Nullable<long> _DefaultColumnID;
-		
-		private string _CountMembers;
-		
-		public Community_ReadDictResult()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", DbType="BigInt NOT NULL")]
-		public long ID
-		{
-			get
-			{
-				return this._ID;
-			}
-			set
-			{
-				if ((this._ID != value))
-				{
-					this._ID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="VarChar(128)")]
-		public string Name
-		{
-			get
-			{
-				return this._Name;
-			}
-			set
-			{
-				if ((this._Name != value))
-				{
-					this._Name = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Link", DbType="VarChar(1024)")]
-		public string Link
-		{
-			get
-			{
-				return this._Link;
-			}
-			set
-			{
-				if ((this._Link != value))
-				{
-					this._Link = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Decription", DbType="VarChar(1024)")]
-		public string Decription
-		{
-			get
-			{
-				return this._Decription;
-			}
-			set
-			{
-				if ((this._Decription != value))
-				{
-					this._Decription = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OwnerID", DbType="BigInt")]
-		public System.Nullable<long> OwnerID
-		{
-			get
-			{
-				return this._OwnerID;
-			}
-			set
-			{
-				if ((this._OwnerID != value))
-				{
-					this._OwnerID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreateDate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> CreateDate
-		{
-			get
-			{
-				return this._CreateDate;
-			}
-			set
-			{
-				if ((this._CreateDate != value))
-				{
-					this._CreateDate = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsMember", DbType="Bit")]
-		public System.Nullable<bool> IsMember
-		{
-			get
-			{
-				return this._IsMember;
-			}
-			set
-			{
-				if ((this._IsMember != value))
-				{
-					this._IsMember = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DefaultColumnID", DbType="BigInt")]
-		public System.Nullable<long> DefaultColumnID
-		{
-			get
-			{
-				return this._DefaultColumnID;
-			}
-			set
-			{
-				if ((this._DefaultColumnID != value))
-				{
-					this._DefaultColumnID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CountMembers", DbType="VarChar(32)")]
-		public string CountMembers
-		{
-			get
-			{
-				return this._CountMembers;
-			}
-			set
-			{
-				if ((this._CountMembers != value))
-				{
-					this._CountMembers = value;
-				}
-			}
-		}
-	}
-	
-	public partial class Community_ReadSuggestDictResult
-	{
-		
-		private long _ID;
-		
-		private string _Name;
-		
-		private string _Link;
-		
-		private string _Decription;
-		
-		private System.Nullable<long> _OwnerID;
-		
-		private System.Nullable<System.DateTime> _CreateDate;
-		
-		private System.Nullable<bool> _IsMember;
-		
-		private System.Nullable<long> _DefaultColumnID;
-		
-		private string _CountMembers;
-		
-		public Community_ReadSuggestDictResult()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", DbType="BigInt NOT NULL")]
-		public long ID
-		{
-			get
-			{
-				return this._ID;
-			}
-			set
-			{
-				if ((this._ID != value))
-				{
-					this._ID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="VarChar(128)")]
-		public string Name
-		{
-			get
-			{
-				return this._Name;
-			}
-			set
-			{
-				if ((this._Name != value))
-				{
-					this._Name = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Link", DbType="VarChar(1024)")]
-		public string Link
-		{
-			get
-			{
-				return this._Link;
-			}
-			set
-			{
-				if ((this._Link != value))
-				{
-					this._Link = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Decription", DbType="VarChar(1024)")]
-		public string Decription
-		{
-			get
-			{
-				return this._Decription;
-			}
-			set
-			{
-				if ((this._Decription != value))
-				{
-					this._Decription = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OwnerID", DbType="BigInt")]
-		public System.Nullable<long> OwnerID
-		{
-			get
-			{
-				return this._OwnerID;
-			}
-			set
-			{
-				if ((this._OwnerID != value))
-				{
-					this._OwnerID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreateDate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> CreateDate
-		{
-			get
-			{
-				return this._CreateDate;
-			}
-			set
-			{
-				if ((this._CreateDate != value))
-				{
-					this._CreateDate = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsMember", DbType="Bit")]
-		public System.Nullable<bool> IsMember
-		{
-			get
-			{
-				return this._IsMember;
-			}
-			set
-			{
-				if ((this._IsMember != value))
-				{
-					this._IsMember = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DefaultColumnID", DbType="BigInt")]
-		public System.Nullable<long> DefaultColumnID
-		{
-			get
-			{
-				return this._DefaultColumnID;
-			}
-			set
-			{
-				if ((this._DefaultColumnID != value))
-				{
-					this._DefaultColumnID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CountMembers", DbType="VarChar(32)")]
-		public string CountMembers
-		{
-			get
-			{
-				return this._CountMembers;
-			}
-			set
-			{
-				if ((this._CountMembers != value))
-				{
-					this._CountMembers = value;
-				}
-			}
-		}
-	}
-	
-	public partial class Community_ReadMyDictResult
-	{
-		
-		private long _ID;
-		
-		private string _Name;
-		
-		private string _Link;
-		
-		private string _Decription;
-		
-		private System.Nullable<long> _OwnerID;
-		
-		private System.Nullable<System.DateTime> _CreateDate;
-		
-		private System.Nullable<bool> _IsMember;
-		
-		private System.Nullable<long> _DefaultColumnID;
-		
-		private string _CountMembers;
-		
-		public Community_ReadMyDictResult()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", DbType="BigInt NOT NULL")]
-		public long ID
-		{
-			get
-			{
-				return this._ID;
-			}
-			set
-			{
-				if ((this._ID != value))
-				{
-					this._ID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="VarChar(128)")]
-		public string Name
-		{
-			get
-			{
-				return this._Name;
-			}
-			set
-			{
-				if ((this._Name != value))
-				{
-					this._Name = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Link", DbType="VarChar(1024)")]
-		public string Link
-		{
-			get
-			{
-				return this._Link;
-			}
-			set
-			{
-				if ((this._Link != value))
-				{
-					this._Link = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Decription", DbType="VarChar(1024)")]
-		public string Decription
-		{
-			get
-			{
-				return this._Decription;
-			}
-			set
-			{
-				if ((this._Decription != value))
-				{
-					this._Decription = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OwnerID", DbType="BigInt")]
-		public System.Nullable<long> OwnerID
-		{
-			get
-			{
-				return this._OwnerID;
-			}
-			set
-			{
-				if ((this._OwnerID != value))
-				{
-					this._OwnerID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreateDate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> CreateDate
-		{
-			get
-			{
-				return this._CreateDate;
-			}
-			set
-			{
-				if ((this._CreateDate != value))
-				{
-					this._CreateDate = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsMember", DbType="Bit")]
-		public System.Nullable<bool> IsMember
-		{
-			get
-			{
-				return this._IsMember;
-			}
-			set
-			{
-				if ((this._IsMember != value))
-				{
-					this._IsMember = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DefaultColumnID", DbType="BigInt")]
-		public System.Nullable<long> DefaultColumnID
-		{
-			get
-			{
-				return this._DefaultColumnID;
-			}
-			set
-			{
-				if ((this._DefaultColumnID != value))
-				{
-					this._DefaultColumnID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CountMembers", DbType="VarChar(32)")]
-		public string CountMembers
-		{
-			get
-			{
-				return this._CountMembers;
-			}
-			set
-			{
-				if ((this._CountMembers != value))
-				{
-					this._CountMembers = value;
-				}
-			}
-		}
-	}
-	
 	public partial class Country_ReadDictResult
 	{
 		
@@ -2169,382 +1679,6 @@ namespace Threads
 				if ((this._IsActive != value))
 				{
 					this._IsActive = value;
-				}
-			}
-		}
-	}
-	
-	public partial class Entry_ReadByCommunityIDResult
-	{
-		
-		private long _Entry_ID;
-		
-		private System.Nullable<long> _Community_ID;
-		
-		private string _Community_Name;
-		
-		private System.Nullable<long> _ColumnCommunity_ID;
-		
-		private string _ColumnCommunity_Name;
-		
-		private string _Entry_Text;
-		
-		private string _Entry_CreateDate;
-		
-		private string _Entry_CreateDateEst;
-		
-		private System.Nullable<long> _CreatorID;
-		
-		private string _CreatorID_Fullname;
-		
-		public Entry_ReadByCommunityIDResult()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Entry_ID", DbType="BigInt NOT NULL")]
-		public long Entry_ID
-		{
-			get
-			{
-				return this._Entry_ID;
-			}
-			set
-			{
-				if ((this._Entry_ID != value))
-				{
-					this._Entry_ID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Community_ID", DbType="BigInt")]
-		public System.Nullable<long> Community_ID
-		{
-			get
-			{
-				return this._Community_ID;
-			}
-			set
-			{
-				if ((this._Community_ID != value))
-				{
-					this._Community_ID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Community_Name", DbType="VarChar(256)")]
-		public string Community_Name
-		{
-			get
-			{
-				return this._Community_Name;
-			}
-			set
-			{
-				if ((this._Community_Name != value))
-				{
-					this._Community_Name = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ColumnCommunity_ID", DbType="BigInt")]
-		public System.Nullable<long> ColumnCommunity_ID
-		{
-			get
-			{
-				return this._ColumnCommunity_ID;
-			}
-			set
-			{
-				if ((this._ColumnCommunity_ID != value))
-				{
-					this._ColumnCommunity_ID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ColumnCommunity_Name", DbType="VarChar(256)")]
-		public string ColumnCommunity_Name
-		{
-			get
-			{
-				return this._ColumnCommunity_Name;
-			}
-			set
-			{
-				if ((this._ColumnCommunity_Name != value))
-				{
-					this._ColumnCommunity_Name = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Entry_Text", DbType="VarChar(4048)")]
-		public string Entry_Text
-		{
-			get
-			{
-				return this._Entry_Text;
-			}
-			set
-			{
-				if ((this._Entry_Text != value))
-				{
-					this._Entry_Text = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Entry_CreateDate", DbType="VarChar(50)")]
-		public string Entry_CreateDate
-		{
-			get
-			{
-				return this._Entry_CreateDate;
-			}
-			set
-			{
-				if ((this._Entry_CreateDate != value))
-				{
-					this._Entry_CreateDate = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Entry_CreateDateEst", DbType="VarChar(MAX)")]
-		public string Entry_CreateDateEst
-		{
-			get
-			{
-				return this._Entry_CreateDateEst;
-			}
-			set
-			{
-				if ((this._Entry_CreateDateEst != value))
-				{
-					this._Entry_CreateDateEst = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatorID", DbType="BigInt")]
-		public System.Nullable<long> CreatorID
-		{
-			get
-			{
-				return this._CreatorID;
-			}
-			set
-			{
-				if ((this._CreatorID != value))
-				{
-					this._CreatorID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatorID_Fullname", DbType="VarChar(512)")]
-		public string CreatorID_Fullname
-		{
-			get
-			{
-				return this._CreatorID_Fullname;
-			}
-			set
-			{
-				if ((this._CreatorID_Fullname != value))
-				{
-					this._CreatorID_Fullname = value;
-				}
-			}
-		}
-	}
-	
-	public partial class News_ReadByMemberIDResult
-	{
-		
-		private long _Community_ID;
-		
-		private string _Community_Name;
-		
-		private long _Entry_ID;
-		
-		private string _ColumnCommunity_Name;
-		
-		private long _ColumnCommunity_ID;
-		
-		private string _Entry_Text;
-		
-		private string _Entry_CreateDate;
-		
-		private string _Entry_CreateDateEst;
-		
-		private System.Nullable<long> _CreatorID;
-		
-		private string _CreatorID_Fullname;
-		
-		public News_ReadByMemberIDResult()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Community_ID", DbType="BigInt NOT NULL")]
-		public long Community_ID
-		{
-			get
-			{
-				return this._Community_ID;
-			}
-			set
-			{
-				if ((this._Community_ID != value))
-				{
-					this._Community_ID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Community_Name", DbType="VarChar(128)")]
-		public string Community_Name
-		{
-			get
-			{
-				return this._Community_Name;
-			}
-			set
-			{
-				if ((this._Community_Name != value))
-				{
-					this._Community_Name = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Entry_ID", DbType="BigInt NOT NULL")]
-		public long Entry_ID
-		{
-			get
-			{
-				return this._Entry_ID;
-			}
-			set
-			{
-				if ((this._Entry_ID != value))
-				{
-					this._Entry_ID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ColumnCommunity_Name", DbType="VarChar(32)")]
-		public string ColumnCommunity_Name
-		{
-			get
-			{
-				return this._ColumnCommunity_Name;
-			}
-			set
-			{
-				if ((this._ColumnCommunity_Name != value))
-				{
-					this._ColumnCommunity_Name = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ColumnCommunity_ID", DbType="BigInt NOT NULL")]
-		public long ColumnCommunity_ID
-		{
-			get
-			{
-				return this._ColumnCommunity_ID;
-			}
-			set
-			{
-				if ((this._ColumnCommunity_ID != value))
-				{
-					this._ColumnCommunity_ID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Entry_Text", DbType="VarChar(4573) NOT NULL", CanBeNull=false)]
-		public string Entry_Text
-		{
-			get
-			{
-				return this._Entry_Text;
-			}
-			set
-			{
-				if ((this._Entry_Text != value))
-				{
-					this._Entry_Text = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Entry_CreateDate", DbType="VarChar(50)")]
-		public string Entry_CreateDate
-		{
-			get
-			{
-				return this._Entry_CreateDate;
-			}
-			set
-			{
-				if ((this._Entry_CreateDate != value))
-				{
-					this._Entry_CreateDate = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Entry_CreateDateEst", DbType="VarChar(MAX)")]
-		public string Entry_CreateDateEst
-		{
-			get
-			{
-				return this._Entry_CreateDateEst;
-			}
-			set
-			{
-				if ((this._Entry_CreateDateEst != value))
-				{
-					this._Entry_CreateDateEst = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatorID", DbType="BigInt")]
-		public System.Nullable<long> CreatorID
-		{
-			get
-			{
-				return this._CreatorID;
-			}
-			set
-			{
-				if ((this._CreatorID != value))
-				{
-					this._CreatorID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatorID_Fullname", DbType="VarChar(513)")]
-		public string CreatorID_Fullname
-		{
-			get
-			{
-				return this._CreatorID_Fullname;
-			}
-			set
-			{
-				if ((this._CreatorID_Fullname != value))
-				{
-					this._CreatorID_Fullname = value;
 				}
 			}
 		}
@@ -2651,176 +1785,6 @@ namespace Threads
 				if ((this._IsNewMember != value))
 				{
 					this._IsNewMember = value;
-				}
-			}
-		}
-	}
-	
-	public partial class Community_ReadInstanceResult
-	{
-		
-		private long _ID;
-		
-		private string _Name;
-		
-		private string _Link;
-		
-		private string _Decription;
-		
-		private System.Nullable<long> _OwnerID;
-		
-		private System.Nullable<System.DateTime> _CreateDate;
-		
-		private System.Nullable<bool> _IsMember;
-		
-		private System.Nullable<long> _DefaultColumnID;
-		
-		private string _CountMembers;
-		
-		public Community_ReadInstanceResult()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", DbType="BigInt NOT NULL")]
-		public long ID
-		{
-			get
-			{
-				return this._ID;
-			}
-			set
-			{
-				if ((this._ID != value))
-				{
-					this._ID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="VarChar(128)")]
-		public string Name
-		{
-			get
-			{
-				return this._Name;
-			}
-			set
-			{
-				if ((this._Name != value))
-				{
-					this._Name = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Link", DbType="VarChar(1024)")]
-		public string Link
-		{
-			get
-			{
-				return this._Link;
-			}
-			set
-			{
-				if ((this._Link != value))
-				{
-					this._Link = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Decription", DbType="VarChar(1024)")]
-		public string Decription
-		{
-			get
-			{
-				return this._Decription;
-			}
-			set
-			{
-				if ((this._Decription != value))
-				{
-					this._Decription = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OwnerID", DbType="BigInt")]
-		public System.Nullable<long> OwnerID
-		{
-			get
-			{
-				return this._OwnerID;
-			}
-			set
-			{
-				if ((this._OwnerID != value))
-				{
-					this._OwnerID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreateDate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> CreateDate
-		{
-			get
-			{
-				return this._CreateDate;
-			}
-			set
-			{
-				if ((this._CreateDate != value))
-				{
-					this._CreateDate = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsMember", DbType="Bit")]
-		public System.Nullable<bool> IsMember
-		{
-			get
-			{
-				return this._IsMember;
-			}
-			set
-			{
-				if ((this._IsMember != value))
-				{
-					this._IsMember = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DefaultColumnID", DbType="BigInt")]
-		public System.Nullable<long> DefaultColumnID
-		{
-			get
-			{
-				return this._DefaultColumnID;
-			}
-			set
-			{
-				if ((this._DefaultColumnID != value))
-				{
-					this._DefaultColumnID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CountMembers", DbType="VarChar(32)")]
-		public string CountMembers
-		{
-			get
-			{
-				return this._CountMembers;
-			}
-			set
-			{
-				if ((this._CountMembers != value))
-				{
-					this._CountMembers = value;
 				}
 			}
 		}
@@ -3161,6 +2125,1454 @@ namespace Threads
 				if ((this._BirthdayDate != value))
 				{
 					this._BirthdayDate = value;
+				}
+			}
+		}
+	}
+	
+	public partial class ErrorLog_SaveResult
+	{
+		
+		private System.Nullable<long> _Column1;
+		
+		public ErrorLog_SaveResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="", Storage="_Column1", DbType="BigInt")]
+		public System.Nullable<long> Column1
+		{
+			get
+			{
+				return this._Column1;
+			}
+			set
+			{
+				if ((this._Column1 != value))
+				{
+					this._Column1 = value;
+				}
+			}
+		}
+	}
+	
+	public partial class Community_ReadDictResult
+	{
+		
+		private long _ID;
+		
+		private string _Name;
+		
+		private string _Link;
+		
+		private string _Decription;
+		
+		private string _Tagline;
+		
+		private System.Nullable<long> _OwnerID;
+		
+		private System.Nullable<System.DateTime> _CreateDate;
+		
+		private System.Nullable<bool> _IsMember;
+		
+		private System.Nullable<long> _DefaultColumnID;
+		
+		private string _CountMembers;
+		
+		public Community_ReadDictResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", DbType="BigInt NOT NULL")]
+		public long ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this._ID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="VarChar(128)")]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this._Name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Link", DbType="VarChar(1024)")]
+		public string Link
+		{
+			get
+			{
+				return this._Link;
+			}
+			set
+			{
+				if ((this._Link != value))
+				{
+					this._Link = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Decription", DbType="VarChar(1024)")]
+		public string Decription
+		{
+			get
+			{
+				return this._Decription;
+			}
+			set
+			{
+				if ((this._Decription != value))
+				{
+					this._Decription = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tagline", DbType="VarChar(64)")]
+		public string Tagline
+		{
+			get
+			{
+				return this._Tagline;
+			}
+			set
+			{
+				if ((this._Tagline != value))
+				{
+					this._Tagline = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OwnerID", DbType="BigInt")]
+		public System.Nullable<long> OwnerID
+		{
+			get
+			{
+				return this._OwnerID;
+			}
+			set
+			{
+				if ((this._OwnerID != value))
+				{
+					this._OwnerID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreateDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CreateDate
+		{
+			get
+			{
+				return this._CreateDate;
+			}
+			set
+			{
+				if ((this._CreateDate != value))
+				{
+					this._CreateDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsMember", DbType="Bit")]
+		public System.Nullable<bool> IsMember
+		{
+			get
+			{
+				return this._IsMember;
+			}
+			set
+			{
+				if ((this._IsMember != value))
+				{
+					this._IsMember = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DefaultColumnID", DbType="BigInt")]
+		public System.Nullable<long> DefaultColumnID
+		{
+			get
+			{
+				return this._DefaultColumnID;
+			}
+			set
+			{
+				if ((this._DefaultColumnID != value))
+				{
+					this._DefaultColumnID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CountMembers", DbType="VarChar(32)")]
+		public string CountMembers
+		{
+			get
+			{
+				return this._CountMembers;
+			}
+			set
+			{
+				if ((this._CountMembers != value))
+				{
+					this._CountMembers = value;
+				}
+			}
+		}
+	}
+	
+	public partial class Community_ReadInstanceResult
+	{
+		
+		private long _ID;
+		
+		private string _Name;
+		
+		private string _Link;
+		
+		private string _Decription;
+		
+		private string _Tagline;
+		
+		private System.Nullable<long> _OwnerID;
+		
+		private System.Nullable<System.DateTime> _CreateDate;
+		
+		private System.Nullable<bool> _IsMember;
+		
+		private System.Nullable<long> _DefaultColumnID;
+		
+		private string _CountMembers;
+		
+		public Community_ReadInstanceResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", DbType="BigInt NOT NULL")]
+		public long ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this._ID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="VarChar(128)")]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this._Name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Link", DbType="VarChar(1024)")]
+		public string Link
+		{
+			get
+			{
+				return this._Link;
+			}
+			set
+			{
+				if ((this._Link != value))
+				{
+					this._Link = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Decription", DbType="VarChar(1024)")]
+		public string Decription
+		{
+			get
+			{
+				return this._Decription;
+			}
+			set
+			{
+				if ((this._Decription != value))
+				{
+					this._Decription = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tagline", DbType="VarChar(64)")]
+		public string Tagline
+		{
+			get
+			{
+				return this._Tagline;
+			}
+			set
+			{
+				if ((this._Tagline != value))
+				{
+					this._Tagline = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OwnerID", DbType="BigInt")]
+		public System.Nullable<long> OwnerID
+		{
+			get
+			{
+				return this._OwnerID;
+			}
+			set
+			{
+				if ((this._OwnerID != value))
+				{
+					this._OwnerID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreateDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CreateDate
+		{
+			get
+			{
+				return this._CreateDate;
+			}
+			set
+			{
+				if ((this._CreateDate != value))
+				{
+					this._CreateDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsMember", DbType="Bit")]
+		public System.Nullable<bool> IsMember
+		{
+			get
+			{
+				return this._IsMember;
+			}
+			set
+			{
+				if ((this._IsMember != value))
+				{
+					this._IsMember = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DefaultColumnID", DbType="BigInt")]
+		public System.Nullable<long> DefaultColumnID
+		{
+			get
+			{
+				return this._DefaultColumnID;
+			}
+			set
+			{
+				if ((this._DefaultColumnID != value))
+				{
+					this._DefaultColumnID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CountMembers", DbType="VarChar(32)")]
+		public string CountMembers
+		{
+			get
+			{
+				return this._CountMembers;
+			}
+			set
+			{
+				if ((this._CountMembers != value))
+				{
+					this._CountMembers = value;
+				}
+			}
+		}
+	}
+	
+	public partial class Community_ReadMyDictResult
+	{
+		
+		private long _ID;
+		
+		private string _Name;
+		
+		private string _Link;
+		
+		private string _Decription;
+		
+		private string _Tagline;
+		
+		private System.Nullable<long> _OwnerID;
+		
+		private System.Nullable<System.DateTime> _CreateDate;
+		
+		private System.Nullable<bool> _IsMember;
+		
+		private System.Nullable<long> _DefaultColumnID;
+		
+		private string _CountMembers;
+		
+		public Community_ReadMyDictResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", DbType="BigInt NOT NULL")]
+		public long ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this._ID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="VarChar(128)")]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this._Name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Link", DbType="VarChar(1024)")]
+		public string Link
+		{
+			get
+			{
+				return this._Link;
+			}
+			set
+			{
+				if ((this._Link != value))
+				{
+					this._Link = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Decription", DbType="VarChar(1024)")]
+		public string Decription
+		{
+			get
+			{
+				return this._Decription;
+			}
+			set
+			{
+				if ((this._Decription != value))
+				{
+					this._Decription = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tagline", DbType="VarChar(64)")]
+		public string Tagline
+		{
+			get
+			{
+				return this._Tagline;
+			}
+			set
+			{
+				if ((this._Tagline != value))
+				{
+					this._Tagline = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OwnerID", DbType="BigInt")]
+		public System.Nullable<long> OwnerID
+		{
+			get
+			{
+				return this._OwnerID;
+			}
+			set
+			{
+				if ((this._OwnerID != value))
+				{
+					this._OwnerID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreateDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CreateDate
+		{
+			get
+			{
+				return this._CreateDate;
+			}
+			set
+			{
+				if ((this._CreateDate != value))
+				{
+					this._CreateDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsMember", DbType="Bit")]
+		public System.Nullable<bool> IsMember
+		{
+			get
+			{
+				return this._IsMember;
+			}
+			set
+			{
+				if ((this._IsMember != value))
+				{
+					this._IsMember = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DefaultColumnID", DbType="BigInt")]
+		public System.Nullable<long> DefaultColumnID
+		{
+			get
+			{
+				return this._DefaultColumnID;
+			}
+			set
+			{
+				if ((this._DefaultColumnID != value))
+				{
+					this._DefaultColumnID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CountMembers", DbType="VarChar(32)")]
+		public string CountMembers
+		{
+			get
+			{
+				return this._CountMembers;
+			}
+			set
+			{
+				if ((this._CountMembers != value))
+				{
+					this._CountMembers = value;
+				}
+			}
+		}
+	}
+	
+	public partial class Community_ReadSuggestDictResult
+	{
+		
+		private long _ID;
+		
+		private string _Name;
+		
+		private string _Link;
+		
+		private string _Decription;
+		
+		private string _Tagline;
+		
+		private System.Nullable<long> _OwnerID;
+		
+		private System.Nullable<System.DateTime> _CreateDate;
+		
+		private System.Nullable<bool> _IsMember;
+		
+		private System.Nullable<long> _DefaultColumnID;
+		
+		private string _CountMembers;
+		
+		public Community_ReadSuggestDictResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", DbType="BigInt NOT NULL")]
+		public long ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this._ID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="VarChar(128)")]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this._Name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Link", DbType="VarChar(1024)")]
+		public string Link
+		{
+			get
+			{
+				return this._Link;
+			}
+			set
+			{
+				if ((this._Link != value))
+				{
+					this._Link = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Decription", DbType="VarChar(1024)")]
+		public string Decription
+		{
+			get
+			{
+				return this._Decription;
+			}
+			set
+			{
+				if ((this._Decription != value))
+				{
+					this._Decription = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tagline", DbType="VarChar(64)")]
+		public string Tagline
+		{
+			get
+			{
+				return this._Tagline;
+			}
+			set
+			{
+				if ((this._Tagline != value))
+				{
+					this._Tagline = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OwnerID", DbType="BigInt")]
+		public System.Nullable<long> OwnerID
+		{
+			get
+			{
+				return this._OwnerID;
+			}
+			set
+			{
+				if ((this._OwnerID != value))
+				{
+					this._OwnerID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreateDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CreateDate
+		{
+			get
+			{
+				return this._CreateDate;
+			}
+			set
+			{
+				if ((this._CreateDate != value))
+				{
+					this._CreateDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsMember", DbType="Bit")]
+		public System.Nullable<bool> IsMember
+		{
+			get
+			{
+				return this._IsMember;
+			}
+			set
+			{
+				if ((this._IsMember != value))
+				{
+					this._IsMember = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DefaultColumnID", DbType="BigInt")]
+		public System.Nullable<long> DefaultColumnID
+		{
+			get
+			{
+				return this._DefaultColumnID;
+			}
+			set
+			{
+				if ((this._DefaultColumnID != value))
+				{
+					this._DefaultColumnID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CountMembers", DbType="VarChar(32)")]
+		public string CountMembers
+		{
+			get
+			{
+				return this._CountMembers;
+			}
+			set
+			{
+				if ((this._CountMembers != value))
+				{
+					this._CountMembers = value;
+				}
+			}
+		}
+	}
+	
+	public partial class Community_SaveResult
+	{
+		
+		private long _ID;
+		
+		public Community_SaveResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", DbType="BigInt NOT NULL")]
+		public long ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this._ID = value;
+				}
+			}
+		}
+	}
+	
+	public partial class Bookmark_SaveResult
+	{
+		
+		private System.Nullable<bool> _IsPin;
+		
+		public Bookmark_SaveResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsPin", DbType="Bit")]
+		public System.Nullable<bool> IsPin
+		{
+			get
+			{
+				return this._IsPin;
+			}
+			set
+			{
+				if ((this._IsPin != value))
+				{
+					this._IsPin = value;
+				}
+			}
+		}
+	}
+	
+	public partial class Entry_ReadByCommunityIDResult
+	{
+		
+		private long _Entry_ID;
+		
+		private System.Nullable<long> _Community_ID;
+		
+		private string _Community_Name;
+		
+		private System.Nullable<long> _ColumnCommunity_ID;
+		
+		private string _ColumnCommunity_Name;
+		
+		private string _Entry_Text;
+		
+		private string _Entry_CreateDate;
+		
+		private string _Entry_CreateDateEst;
+		
+		private System.Nullable<long> _CreatorID;
+		
+		private string _CreatorID_Fullname;
+		
+		private bool _IsPin;
+		
+		public Entry_ReadByCommunityIDResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Entry_ID", DbType="BigInt NOT NULL")]
+		public long Entry_ID
+		{
+			get
+			{
+				return this._Entry_ID;
+			}
+			set
+			{
+				if ((this._Entry_ID != value))
+				{
+					this._Entry_ID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Community_ID", DbType="BigInt")]
+		public System.Nullable<long> Community_ID
+		{
+			get
+			{
+				return this._Community_ID;
+			}
+			set
+			{
+				if ((this._Community_ID != value))
+				{
+					this._Community_ID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Community_Name", DbType="VarChar(256)")]
+		public string Community_Name
+		{
+			get
+			{
+				return this._Community_Name;
+			}
+			set
+			{
+				if ((this._Community_Name != value))
+				{
+					this._Community_Name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ColumnCommunity_ID", DbType="BigInt")]
+		public System.Nullable<long> ColumnCommunity_ID
+		{
+			get
+			{
+				return this._ColumnCommunity_ID;
+			}
+			set
+			{
+				if ((this._ColumnCommunity_ID != value))
+				{
+					this._ColumnCommunity_ID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ColumnCommunity_Name", DbType="VarChar(256)")]
+		public string ColumnCommunity_Name
+		{
+			get
+			{
+				return this._ColumnCommunity_Name;
+			}
+			set
+			{
+				if ((this._ColumnCommunity_Name != value))
+				{
+					this._ColumnCommunity_Name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Entry_Text", DbType="VarChar(4048)")]
+		public string Entry_Text
+		{
+			get
+			{
+				return this._Entry_Text;
+			}
+			set
+			{
+				if ((this._Entry_Text != value))
+				{
+					this._Entry_Text = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Entry_CreateDate", DbType="VarChar(50)")]
+		public string Entry_CreateDate
+		{
+			get
+			{
+				return this._Entry_CreateDate;
+			}
+			set
+			{
+				if ((this._Entry_CreateDate != value))
+				{
+					this._Entry_CreateDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Entry_CreateDateEst", DbType="VarChar(MAX)")]
+		public string Entry_CreateDateEst
+		{
+			get
+			{
+				return this._Entry_CreateDateEst;
+			}
+			set
+			{
+				if ((this._Entry_CreateDateEst != value))
+				{
+					this._Entry_CreateDateEst = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatorID", DbType="BigInt")]
+		public System.Nullable<long> CreatorID
+		{
+			get
+			{
+				return this._CreatorID;
+			}
+			set
+			{
+				if ((this._CreatorID != value))
+				{
+					this._CreatorID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatorID_Fullname", DbType="VarChar(512)")]
+		public string CreatorID_Fullname
+		{
+			get
+			{
+				return this._CreatorID_Fullname;
+			}
+			set
+			{
+				if ((this._CreatorID_Fullname != value))
+				{
+					this._CreatorID_Fullname = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsPin", DbType="Bit NOT NULL")]
+		public bool IsPin
+		{
+			get
+			{
+				return this._IsPin;
+			}
+			set
+			{
+				if ((this._IsPin != value))
+				{
+					this._IsPin = value;
+				}
+			}
+		}
+	}
+	
+	public partial class News_ReadByMemberIDResult
+	{
+		
+		private long _Community_ID;
+		
+		private string _Community_Name;
+		
+		private long _Entry_ID;
+		
+		private string _ColumnCommunity_Name;
+		
+		private long _ColumnCommunity_ID;
+		
+		private string _Entry_Text;
+		
+		private string _Entry_CreateDate;
+		
+		private string _Entry_CreateDateEst;
+		
+		private System.Nullable<long> _CreatorID;
+		
+		private string _CreatorID_Fullname;
+		
+		private bool _IsPin;
+		
+		public News_ReadByMemberIDResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Community_ID", DbType="BigInt NOT NULL")]
+		public long Community_ID
+		{
+			get
+			{
+				return this._Community_ID;
+			}
+			set
+			{
+				if ((this._Community_ID != value))
+				{
+					this._Community_ID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Community_Name", DbType="VarChar(128)")]
+		public string Community_Name
+		{
+			get
+			{
+				return this._Community_Name;
+			}
+			set
+			{
+				if ((this._Community_Name != value))
+				{
+					this._Community_Name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Entry_ID", DbType="BigInt NOT NULL")]
+		public long Entry_ID
+		{
+			get
+			{
+				return this._Entry_ID;
+			}
+			set
+			{
+				if ((this._Entry_ID != value))
+				{
+					this._Entry_ID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ColumnCommunity_Name", DbType="VarChar(32)")]
+		public string ColumnCommunity_Name
+		{
+			get
+			{
+				return this._ColumnCommunity_Name;
+			}
+			set
+			{
+				if ((this._ColumnCommunity_Name != value))
+				{
+					this._ColumnCommunity_Name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ColumnCommunity_ID", DbType="BigInt NOT NULL")]
+		public long ColumnCommunity_ID
+		{
+			get
+			{
+				return this._ColumnCommunity_ID;
+			}
+			set
+			{
+				if ((this._ColumnCommunity_ID != value))
+				{
+					this._ColumnCommunity_ID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Entry_Text", DbType="VarChar(MAX)")]
+		public string Entry_Text
+		{
+			get
+			{
+				return this._Entry_Text;
+			}
+			set
+			{
+				if ((this._Entry_Text != value))
+				{
+					this._Entry_Text = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Entry_CreateDate", DbType="VarChar(50)")]
+		public string Entry_CreateDate
+		{
+			get
+			{
+				return this._Entry_CreateDate;
+			}
+			set
+			{
+				if ((this._Entry_CreateDate != value))
+				{
+					this._Entry_CreateDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Entry_CreateDateEst", DbType="VarChar(MAX)")]
+		public string Entry_CreateDateEst
+		{
+			get
+			{
+				return this._Entry_CreateDateEst;
+			}
+			set
+			{
+				if ((this._Entry_CreateDateEst != value))
+				{
+					this._Entry_CreateDateEst = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatorID", DbType="BigInt")]
+		public System.Nullable<long> CreatorID
+		{
+			get
+			{
+				return this._CreatorID;
+			}
+			set
+			{
+				if ((this._CreatorID != value))
+				{
+					this._CreatorID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatorID_Fullname", DbType="VarChar(513)")]
+		public string CreatorID_Fullname
+		{
+			get
+			{
+				return this._CreatorID_Fullname;
+			}
+			set
+			{
+				if ((this._CreatorID_Fullname != value))
+				{
+					this._CreatorID_Fullname = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsPin", DbType="Bit NOT NULL")]
+		public bool IsPin
+		{
+			get
+			{
+				return this._IsPin;
+			}
+			set
+			{
+				if ((this._IsPin != value))
+				{
+					this._IsPin = value;
+				}
+			}
+		}
+	}
+	
+	public partial class Bookmark_ReadByMemberIDResult
+	{
+		
+		private long _Community_ID;
+		
+		private string _Community_Name;
+		
+		private long _Entry_ID;
+		
+		private string _ColumnCommunity_Name;
+		
+		private long _ColumnCommunity_ID;
+		
+		private string _Entry_Text;
+		
+		private string _Entry_CreateDate;
+		
+		private string _Entry_CreateDateEst;
+		
+		private System.Nullable<long> _CreatorID;
+		
+		private string _CreatorID_Fullname;
+		
+		private System.Nullable<bool> _IsPin;
+		
+		public Bookmark_ReadByMemberIDResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Community_ID", DbType="BigInt NOT NULL")]
+		public long Community_ID
+		{
+			get
+			{
+				return this._Community_ID;
+			}
+			set
+			{
+				if ((this._Community_ID != value))
+				{
+					this._Community_ID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Community_Name", DbType="VarChar(128)")]
+		public string Community_Name
+		{
+			get
+			{
+				return this._Community_Name;
+			}
+			set
+			{
+				if ((this._Community_Name != value))
+				{
+					this._Community_Name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Entry_ID", DbType="BigInt NOT NULL")]
+		public long Entry_ID
+		{
+			get
+			{
+				return this._Entry_ID;
+			}
+			set
+			{
+				if ((this._Entry_ID != value))
+				{
+					this._Entry_ID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ColumnCommunity_Name", DbType="VarChar(32)")]
+		public string ColumnCommunity_Name
+		{
+			get
+			{
+				return this._ColumnCommunity_Name;
+			}
+			set
+			{
+				if ((this._ColumnCommunity_Name != value))
+				{
+					this._ColumnCommunity_Name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ColumnCommunity_ID", DbType="BigInt NOT NULL")]
+		public long ColumnCommunity_ID
+		{
+			get
+			{
+				return this._ColumnCommunity_ID;
+			}
+			set
+			{
+				if ((this._ColumnCommunity_ID != value))
+				{
+					this._ColumnCommunity_ID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Entry_Text", DbType="VarChar(MAX)")]
+		public string Entry_Text
+		{
+			get
+			{
+				return this._Entry_Text;
+			}
+			set
+			{
+				if ((this._Entry_Text != value))
+				{
+					this._Entry_Text = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Entry_CreateDate", DbType="VarChar(50)")]
+		public string Entry_CreateDate
+		{
+			get
+			{
+				return this._Entry_CreateDate;
+			}
+			set
+			{
+				if ((this._Entry_CreateDate != value))
+				{
+					this._Entry_CreateDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Entry_CreateDateEst", DbType="VarChar(MAX)")]
+		public string Entry_CreateDateEst
+		{
+			get
+			{
+				return this._Entry_CreateDateEst;
+			}
+			set
+			{
+				if ((this._Entry_CreateDateEst != value))
+				{
+					this._Entry_CreateDateEst = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatorID", DbType="BigInt")]
+		public System.Nullable<long> CreatorID
+		{
+			get
+			{
+				return this._CreatorID;
+			}
+			set
+			{
+				if ((this._CreatorID != value))
+				{
+					this._CreatorID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatorID_Fullname", DbType="VarChar(513)")]
+		public string CreatorID_Fullname
+		{
+			get
+			{
+				return this._CreatorID_Fullname;
+			}
+			set
+			{
+				if ((this._CreatorID_Fullname != value))
+				{
+					this._CreatorID_Fullname = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsPin", DbType="Bit")]
+		public System.Nullable<bool> IsPin
+		{
+			get
+			{
+				return this._IsPin;
+			}
+			set
+			{
+				if ((this._IsPin != value))
+				{
+					this._IsPin = value;
 				}
 			}
 		}

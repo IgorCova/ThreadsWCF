@@ -67,7 +67,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="wsClasses\Tools.cs" />
+    <Compile Include="Tools.cs" />
     <Compile Include="wsClasses\wsRequest.cs" />
     <Compile Include="wsClasses\wsResponse.cs" />
     <Compile Include="wsClasses\wsClasses.cs" />

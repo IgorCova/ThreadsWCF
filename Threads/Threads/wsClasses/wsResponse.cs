@@ -27,5 +27,7 @@ namespace Threads
     public class Session_Save_Resp : wsSession { }
     public class LogoSave_Resp : wsLogoOut { }
     public class Community_ReadInstance_Resp : wsCommunity { }
-
+    public class Community_Save_Resp : wsCommunitySaveState { }
+    public class Bookmark_Save_Resp : wsBookmarkSave_Out { }
+    public class Bookmark_ReadByMemberID_Resp : List<wsEntry> { }
 }

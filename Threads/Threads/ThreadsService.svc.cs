@@ -1,47 +1,129 @@
 ﻿using System;
-using Threads.wsClasses;
 
 namespace Threads
 {
     public class ThreadsService : IService
     {
-        #region Community
-        public wsResponse<Community_ReadDict_Resp> GetCommunity_ReadDict()
+        #region Bookmark
+        public wsResponse<Bookmark_Save_Resp> Bookmark_Save(wsRequest<Bookmark_Save_Req> req)
         {
-            var results = new wsResponse<Community_ReadDict_Resp>();
-            var resp = new Community_ReadDict_Resp();
+            var funcName = "Bookmark_Save";
+            var errCode = 0;
+            var errorText = "";
+
+            var results = new wsResponse<Bookmark_Save_Resp>();
+            var resp = new Bookmark_Save_Resp();
             var dc = new DataThreadsDataContext();
+
+            long memberID = 0;
+            long entryID = 0;
+
+            if (req.Params != null)
+            {
+                memberID = req.Params.MemberID;
+                entryID = req.Params.EntryID;
+            }
+            else
+            {
+                errCode = 200;
+                errorText = Tools.GetErrorTextByCode(errCode);
+                Tools.ErrorLog_Save(req, "", funcName, errorText);
+
+                results.ErrText = string.Format("{0}\n{1}", funcName, errorText);
+                results.ErrCode = errCode;
+                return results;
+            }
 
             try
             {
-                foreach (Community_ReadDictResult comm in dc.Community_ReadDict(1))
+                foreach (Bookmark_SaveResult bmk in dc.Bookmark_Save(entryID, memberID))
                 {
-                    resp.Add(new wsCommunity()
-                    {
-                        ID = comm.ID,
-                        Name = comm.Name,
-                        Description = comm.Decription,
-                        Link = comm.Link,
-                        OwnerID = comm.OwnerID ?? 0,
-                        IsMember = comm.IsMember ?? false,
-                        CreateDate = comm.CreateDate ?? System.DateTime.Now,
-                        DefaultColumnID = 0,
-                        CountMembers = comm.CountMembers
-                    });
-                }
+                    resp.IsPin = bmk.IsPin ?? false;
+                };
+
                 results.Data = resp;
             }
-            catch
+            catch (Exception e)
             {
-                results.ErrCode = 0;
-                results.ErrText = "Error in Community_ReadDict memberID: 1";
+                errCode = 101;
+                string param = string.Format("memberID: {0}, entryID: {1}", memberID, entryID);
+                Tools.ErrorLog_Save(req, param, funcName, e.Message);
+
+                results.ErrCode = errCode;
+                results.ErrText = string.Format("{0}\n{1}\n{2}", funcName, Tools.GetErrorTextByCode(errCode), e.Message);
             }
 
             return results;
         }
 
+        public wsResponse<Bookmark_ReadByMemberID_Resp> Bookmark_ReadByMemberID(wsRequest<Bookmark_ReadByMemberID_Req> req)
+        {
+            var funcName = "Bookmark_ReadByMemberID";
+            var errCode = 0;
+            var errorText = "";
+
+            var results = new wsResponse<Bookmark_ReadByMemberID_Resp>();
+            var resp = new Bookmark_ReadByMemberID_Resp();
+            var dc = new DataThreadsDataContext();
+            long memberID = 0;
+            if (req.Params != null)
+            {
+                memberID = req.Params.MemberID;
+            }
+            else
+            {
+                errCode = 200;
+                errorText = Tools.GetErrorTextByCode(errCode);
+                Tools.ErrorLog_Save(req, "", funcName, errorText);
+
+                results.ErrText = string.Format("{0}\n{1}", funcName, errorText);
+                results.ErrCode = errCode;
+                return results;
+            }
+
+            try
+            {
+                foreach (Bookmark_ReadByMemberIDResult bmk in dc.Bookmark_ReadByMemberID(memberID))
+                {
+                    resp.Add(new wsEntry()
+                    {
+                        Community_ID = bmk.Community_ID,
+                        Community_Name = bmk.Community_Name,
+                        Entry_ID = bmk.Entry_ID,
+                        ColumnCommunity_ID = bmk.ColumnCommunity_ID,
+                        ColumnCommunity_Name = bmk.ColumnCommunity_Name,
+                        Entry_Text = bmk.Entry_Text,
+                        Entry_CreateDate = bmk.Entry_CreateDate,
+                        Entry_CreateDateEst = bmk.Entry_CreateDateEst,
+                        CreatorID = bmk.CreatorID ?? 0,
+                        CreatorID_Fullname = bmk.CreatorID_Fullname,
+                        IsPin = true
+                    });
+                }
+
+                results.Data = resp;
+            }
+            catch (Exception e)
+            {
+                errCode = 101;
+                string param = string.Format("memberID: {0}", memberID);
+                Tools.ErrorLog_Save(req, param, funcName, e.Message);
+
+                results.ErrCode = errCode;
+                results.ErrText = string.Format("{0}\n{1}\n{2}", funcName, Tools.GetErrorTextByCode(errCode), e.Message);
+            }
+
+            return results;
+        }
+        #endregion
+
+        #region Community
         public wsResponse<Community_ReadDict_Resp> Community_ReadDict(wsRequest<Community_ReadDict_Req> req)
         {
+            var funcName = "Community_ReadDict";
+            var errCode = 0;
+            var errorText = "";
+
             var results = new wsResponse<Community_ReadDict_Resp>();
             var resp = new Community_ReadDict_Resp();
             var dc = new DataThreadsDataContext();
@@ -54,7 +136,13 @@ namespace Threads
             }
             else
             {
-                memberID = 0;
+                errCode = 200;
+                errorText = Tools.GetErrorTextByCode(errCode);
+                Tools.ErrorLog_Save(req, "", funcName, errorText);
+
+                results.ErrText = string.Format("{0}\n{1}", funcName, errorText);
+                results.ErrCode = errCode;
+                return results;
             }
 
             try
@@ -66,6 +154,7 @@ namespace Threads
                         ID = comm.ID,
                         Name = comm.Name,
                         Description = comm.Decription,
+                        Tagline = comm.Tagline,
                         Link = comm.Link,
                         OwnerID = comm.OwnerID ?? 0,
                         IsMember = comm.IsMember ?? false,
@@ -76,10 +165,14 @@ namespace Threads
                 }
                 results.Data = resp;
             }
-            catch
+            catch (Exception e)
             {
-                results.ErrCode = 0;
-                results.ErrText = string.Format("Error in Community_ReadDict memberID: {0}", memberID);
+                errCode = 101;
+                string param = string.Format("memberID: {0}", memberID);
+                Tools.ErrorLog_Save(req, param, funcName, e.Message);
+
+                results.ErrCode = errCode;
+                results.ErrText = string.Format("{0}\n{1}\n{2}", funcName, Tools.GetErrorTextByCode(errCode), e.Message);
             }
 
             return results;
@@ -87,18 +180,28 @@ namespace Threads
 
         public wsResponse<Community_ReadDict_Resp> Community_ReadMyDict(wsRequest<Community_ReadDict_Req> req)
         {
+            var funcName = "Community_ReadMyDict";
+            var errCode = 0;
+            var errorText = "";
+
             var results = new wsResponse<Community_ReadDict_Resp>();
             var resp = new Community_ReadDict_Resp();
             var dc = new DataThreadsDataContext();
-
             long memberID = 0;
+
             if (req.Params != null)
             {
                 memberID = req.Params.MemberID;
             }
             else
             {
-                memberID = 0;
+                errCode = 200;
+                errorText = Tools.GetErrorTextByCode(errCode);
+                Tools.ErrorLog_Save(req, "", funcName, errorText);
+
+                results.ErrText = string.Format("{0}\n{1}", funcName, errorText);
+                results.ErrCode = errCode;
+                return results;
             }
 
             try
@@ -110,6 +213,7 @@ namespace Threads
                         ID = comm.ID,
                         Name = comm.Name,
                         Description = comm.Decription,
+                        Tagline = comm.Tagline,
                         Link = comm.Link,
                         OwnerID = comm.OwnerID ?? 0,
                         IsMember = comm.IsMember ?? false,
@@ -120,10 +224,14 @@ namespace Threads
                 }
                 results.Data = resp;
             }
-            catch
+            catch (Exception e)
             {
-                results.ErrCode = 0;
-                results.ErrText = string.Format("Error in Community_ReadMyDict {0}", memberID);
+                errCode = 101;
+                string param = string.Format("memberID: {0}", memberID);
+                Tools.ErrorLog_Save(req, param, funcName, e.Message);
+
+                results.ErrCode = errCode;
+                results.ErrText = string.Format("{0}\n{1}\n{2}", funcName, Tools.GetErrorTextByCode(errCode), e.Message);
             }
 
             return results;
@@ -131,6 +239,10 @@ namespace Threads
 
         public wsResponse<Community_ReadDict_Resp> Community_ReadSuggestDict(wsRequest<Community_ReadDict_Req> req)
         {
+            var funcName = "Community_ReadSuggestDict";
+            var errCode = 0;
+            var errorText = "";
+
             var results = new wsResponse<Community_ReadDict_Resp>();
             var resp = new Community_ReadDict_Resp();
             var dc = new DataThreadsDataContext();
@@ -142,7 +254,13 @@ namespace Threads
             }
             else
             {
-                memberID = 0;
+                errCode = 200;
+                errorText = Tools.GetErrorTextByCode(errCode);
+                Tools.ErrorLog_Save(req, "", funcName, errorText);
+
+                results.ErrText = string.Format("{0}\n{1}", funcName, errorText);
+                results.ErrCode = errCode;
+                return results;
             }
 
             try
@@ -154,6 +272,7 @@ namespace Threads
                         ID = comm.ID,
                         Name = comm.Name,
                         Description = comm.Decription,
+                        Tagline = comm.Tagline,
                         Link = comm.Link,
                         OwnerID = comm.OwnerID ?? 0,
                         IsMember = comm.IsMember ?? false,
@@ -164,10 +283,14 @@ namespace Threads
                 }
                 results.Data = resp;
             }
-            catch
+            catch (Exception e)
             {
-                results.ErrCode = 0;
-                results.ErrText = string.Format("Error in Community_ReadSuggestDict {0}", memberID);
+                errCode = 101;
+                string param = string.Format("memberID: {0}", memberID);
+                Tools.ErrorLog_Save(req, param, funcName, e.Message);
+
+                results.ErrCode = errCode;
+                results.ErrText = string.Format("{0}\n{1}\n{2}", funcName, Tools.GetErrorTextByCode(errCode), e.Message);
             }
 
             return results;
@@ -175,6 +298,10 @@ namespace Threads
 
         public wsResponse<Community_ReadInstance_Resp> Community_ReadInstance(wsRequest<Community_ReadInstance_Req> req)
         {
+            var funcName = "Community_ReadInstance";
+            var errCode = 0;
+            var errorText = "";
+
             var results = new wsResponse<Community_ReadInstance_Resp>();
             var resp = new Community_ReadInstance_Resp();
             var dc = new DataThreadsDataContext();
@@ -187,6 +314,16 @@ namespace Threads
                 memberID = req.Params.MemberID;
                 iD = req.Params.ID;
             }
+            else
+            {
+                errCode = 200;
+                errorText = Tools.GetErrorTextByCode(errCode);
+                Tools.ErrorLog_Save(req, "", funcName, errorText);
+
+                results.ErrText = string.Format("{0}\n{1}", funcName, errorText);
+                results.ErrCode = errCode;
+                return results;
+            }
 
             try
             {
@@ -196,6 +333,7 @@ namespace Threads
                     resp.Name = comm.Name;
                     resp.Link = comm.Link;
                     resp.Description = comm.Decription;
+                    resp.Tagline = comm.Tagline;
                     resp.OwnerID = comm.OwnerID ?? 0;
                     resp.IsMember = comm.IsMember ?? false;
                     resp.CreateDate = comm.CreateDate ?? DateTime.Now;
@@ -205,10 +343,73 @@ namespace Threads
 
                 results.Data = resp;
             }
-            catch
+            catch (Exception e)
             {
-                results.ErrCode = 0;
-                results.ErrText = string.Format("Error in Community_ReadInstance memberID: {0}, communityID: {1}", memberID, iD);
+                errCode = 101;
+                string param = string.Format("memberID: {0}, iD: {1}", memberID, iD);
+                Tools.ErrorLog_Save(req, param, funcName, e.Message);
+
+                results.ErrCode = errCode;
+                results.ErrText = string.Format("{0}\n{1}\n{2}", funcName, Tools.GetErrorTextByCode(errCode), e.Message);
+            }
+
+            return results;
+        }
+
+        public wsResponse<Community_Save_Resp> Community_Save(wsRequest<Community_Save_Req> req)
+        {
+            var funcName = "Community_Save";
+            var errCode = 0;
+            var errorText = "";
+
+            var results = new wsResponse<Community_Save_Resp>();
+            var resp = new Community_Save_Resp();
+            var dc = new DataThreadsDataContext();
+
+            long iD = 0;
+            string name = "";
+            string link = "";
+            string description = "";
+            string tagline = "";
+            long ownerId = 0;
+
+            if (req.Params != null)
+            {
+                iD = req.Params.Community.ID;
+                name = req.Params.Community.Name;
+                link = req.Params.Community.Link;
+                description = req.Params.Community.Description;
+                tagline = req.Params.Community.Tagline;
+                ownerId = req.Params.Community.OwnerID;
+            }
+            else
+            {
+                errCode = 200;
+                errorText = Tools.GetErrorTextByCode(errCode);
+                Tools.ErrorLog_Save(req, "", funcName, errorText);
+
+                results.ErrText = string.Format("{0}\n{1}", funcName, errorText);
+                results.ErrCode = errCode;
+                return results;
+            }
+
+            try
+            {
+                foreach (Community_SaveResult comm in dc.Community_Save(iD, name, link, description, tagline, ownerId))
+                {
+                    resp.ID = comm.ID;
+                }
+
+                results.Data = resp;
+            }
+            catch (Exception e)
+            {
+                errCode = 101;
+                string param = string.Format("iD: {0}, name: {1}, link: {2}, descripion: {3}, tagline: {4}, ownerId: {5}", iD, name, link, description, tagline, ownerId);
+                Tools.ErrorLog_Save(req, param, funcName, e.Message);
+
+                results.ErrCode = errCode;
+                results.ErrText = string.Format("{0}\n{1}\n{2}", funcName, Tools.GetErrorTextByCode(errCode), e.Message);
             }
 
             return results;
@@ -219,6 +420,7 @@ namespace Threads
 
         public wsResponse<Country_ReadDict_Resp> Country_ReadDict()
         {
+            var funcName = "Country_ReadDict";
             var results = new wsResponse<Country_ReadDict_Resp>();
             var resp = new Country_ReadDict_Resp();
             var dc = new DataThreadsDataContext();
@@ -236,38 +438,10 @@ namespace Threads
                 }
                 results.Data = resp;
             }
-            catch
+            catch (Exception e)
             {
-                results.ErrCode = 0;
-                results.ErrText = "Error in Country_ReadDict";
-            }
-
-            return results;
-        }
-
-        public wsResponse<Country_ReadDict_Resp> GetCountry_ReadDict()
-        {
-            var results = new wsResponse<Country_ReadDict_Resp>();
-            var resp = new Country_ReadDict_Resp();
-            var dc = new DataThreadsDataContext();
-
-            try
-            {
-                foreach (Country_ReadDictResult country in dc.Country_ReadDict())
-                {
-                    resp.Add(new wsCountry()
-                    {
-                        Code = country.Code,
-                        Name = country.Name
-
-                    });
-                }
-                results.Data = resp;
-            }
-            catch
-            {
-                results.ErrCode = 0;
-                results.ErrText = "Error in GetCountry_ReadDict";
+                results.ErrCode = 101;
+                results.ErrText = string.Format("{0}\nerror: {1}", funcName, e.Message);
             }
 
             return results;
@@ -278,22 +452,28 @@ namespace Threads
         //----------------------------Entry
         public wsResponse<Entry_ReadByCommunityID_Resp> Entry_ReadByCommunityID(wsRequest<Entry_ReadByCommunityID_Req> req)
         {
+            
             var results = new wsResponse<Entry_ReadByCommunityID_Resp>();
             var resp = new Entry_ReadByCommunityID_Resp();
             var dc = new DataThreadsDataContext();
             long communityID = 0;
+            long memberID = 1;
+
             if (req.Params != null)
             {
                 communityID = req.Params.CommunityID;
             }
             else
             {
-                communityID = 0;
+                results.ErrCode = 200;
+                results.ErrText = "Entry_ReadByCommunityID: No Params";
+
+                return results;
             }
 
             try
             {
-                foreach (Entry_ReadByCommunityIDResult entry in dc.Entry_ReadByCommunityID(communityID))
+                foreach (Entry_ReadByCommunityIDResult entry in dc.Entry_ReadByCommunityID(communityID, memberID))
                 {
                     resp.Add(new wsEntry()
                     {
@@ -306,22 +486,27 @@ namespace Threads
                         Entry_CreateDate = entry.Entry_CreateDate,
                         Entry_CreateDateEst = entry.Entry_CreateDateEst,
                         CreatorID = entry.CreatorID ?? 0,
-                        CreatorID_Fullname = entry.CreatorID_Fullname
+                        CreatorID_Fullname = entry.CreatorID_Fullname,
+                        IsPin = entry.IsPin
                     });
                 }
 
                 results.Data = resp;
             }
-            catch
+            catch (Exception e)
             {
-                results.ErrCode = 1;
-                results.ErrText = string.Format("Error in Entry_ReadByCommunityID {0}", communityID);
+                results.ErrCode = 101;
+                results.ErrText = string.Format("Entry_ReadByCommunityID {0}, error: {1}", communityID, e.Message);
             }
             return results;
         }
 
         public wsResponse<Entry_Save_Resp> Entry_Save(wsRequest<Entry_Save_Req> req)
         {
+            var funcName = "Entry_Save";
+            var errCode = 0;
+            var errorText = "";
+
             var results = new wsResponse<Entry_Save_Resp>();
             var resp = new Entry_Save_Resp();
             var dc = new DataThreadsDataContext();
@@ -336,15 +521,17 @@ namespace Threads
                 communityID = req.Params.CommunityID;
                 columnID = req.Params.ColumnID;
                 creatorID = req.Params.CreatorID;
-                communityID = req.Params.CommunityID;
                 entryText = req.Params.EntryText;
             }
             else
             {
-                communityID = 0;
-                columnID = 0;
-                creatorID = 0;
-                entryText = "";
+                errCode = 200;
+                errorText = Tools.GetErrorTextByCode(errCode);
+                Tools.ErrorLog_Save(req, "", funcName, errorText);
+
+                results.ErrText = string.Format("{0}\n{1}", funcName, errorText);
+                results.ErrCode = errCode;
+                return results;
             }
 
             try
@@ -356,11 +543,16 @@ namespace Threads
 
                 results.Data = resp;
             }
-            catch
+            catch (Exception e)
             {
-                results.ErrCode = 1;
-                results.ErrText = string.Format("Error in Entry_Save {0}", communityID);
+                errCode = 101;
+                string param = string.Format("communityID: {0}, columnID: {1}, creatorID: {2}, entryText: {3}", communityID, columnID, creatorID, entryText);
+                Tools.ErrorLog_Save(req, param, funcName, e.Message);
+
+                results.ErrCode = errCode;
+                results.ErrText = string.Format("{0}\n{1}\n{2}", funcName, Tools.GetErrorTextByCode(errCode), e.Message);
             }
+
             return results;
         }
         #endregion
@@ -371,22 +563,30 @@ namespace Threads
             var results = new wsResponse<LogoSave_Resp>();
             var resp = new LogoSave_Resp();
             var filename = "";
+
             if (req.Params != null)
             {
                 filename = string.Format("{0}.png", req.Params.id);
             }
-            // Image logo = Image.FromStream(req.Params.logoData, true);
+            else
+            {
+                results.ErrCode = 200;
+                results.ErrText = "LogoSave: No Params";
+
+                return results;
+            }
+
             try
             {
                 Tools.ObjectFileSaveToLocalHDD(filename, req.Params.logoData);
+                resp.isOk = true;
             }
-            catch
+            catch (Exception e)
             {
-                results.ErrCode = 1;
-                results.ErrText = string.Format("Error in LogoSave {0}", req.Params.id);
+                results.ErrCode = 101;
+                results.ErrText = string.Format("LogoSave {0}, error: {1}", req.Params.id, e.Message);
+                resp.isOk = false;
             }
-
-            resp.isOk = true;
 
             results.Data = resp;
 
@@ -398,6 +598,10 @@ namespace Threads
         //----------------------------News
         public wsResponse<News_ReadByMemberID_Resp> News_ReadByMemberID(wsRequest<News_ReadByMemberID_Req> req)
         {
+            var funcName = "News_ReadByMemberID";
+            var errCode = 0;
+            var errorText = "";
+
             var results = new wsResponse<News_ReadByMemberID_Resp>();
             var resp = new News_ReadByMemberID_Resp();
             var dc = new DataThreadsDataContext();
@@ -408,7 +612,13 @@ namespace Threads
             }
             else
             {
-                memberID = 0;
+                errCode = 200;
+                errorText = Tools.GetErrorTextByCode(errCode);
+                Tools.ErrorLog_Save(req, "", funcName, errorText);
+
+                results.ErrText = string.Format("{0}\n{1}", funcName, errorText);
+                results.ErrCode = errCode;
+                return results;
             }
 
             try
@@ -426,16 +636,21 @@ namespace Threads
                         Entry_CreateDate = news.Entry_CreateDate,
                         Entry_CreateDateEst = news.Entry_CreateDateEst,
                         CreatorID = news.CreatorID ?? 0,
-                        CreatorID_Fullname = news.CreatorID_Fullname
+                        CreatorID_Fullname = news.CreatorID_Fullname,
+                        IsPin = news.IsPin
                     });
                 }
 
                 results.Data = resp;
             }
-            catch
+            catch (Exception e)
             {
-                results.ErrCode = 1;
-                results.ErrText = string.Format("Error in News_ReadByPersonID {0}", memberID);
+                errCode = 101;
+                string param = string.Format("memberID: {0}", memberID);
+                Tools.ErrorLog_Save(req, param, funcName, e.Message);
+
+                results.ErrCode = errCode;
+                results.ErrText = string.Format("{0}\n{1}\n{2}", funcName, Tools.GetErrorTextByCode(errCode), e.Message);
             }
 
             return results;
@@ -460,20 +675,28 @@ namespace Threads
                 DID = req.DID;
                 Phone = req.Params.Phone;
             }
+            else
+            {
+                results.ErrCode = 200;
+                results.ErrText = "SessionReq_Save: No Params";
+                return results;
+            }
 
+            /*
             try
             {
-                /*  string message = string.Format("Comm+code+confirm:+{0}", code);
+                  string message = string.Format("Comm+code+confirm:+{0}", code);
                   string http = string.Format("{0}sms.ru/sms/send?api_id={1}&to={2}&text={3}", "http://", "8B4D21F6-33D2-DBD4-8425-34631CD434BE", Phone, message);
                   var request = (HttpWebRequest)WebRequest.Create(http);
                   var response = (HttpWebResponse)request.GetResponse();
-                  var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();*/
+                  var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
             }
-            catch
+            catch (Exception e)
             {
-                results.ErrCode = 2;
-                results.ErrText = string.Format("Error in Send sms {0}", Phone);
-            }
+                results.ErrCode = 40;
+                results.ErrText = string.Format("Send sms {0}, error: {1}", Phone, e.Message);
+            }*/
+
             try
             {
                 foreach (SessionReq_SaveResult res in dc.SessionReq_Save(DID, Phone))
@@ -482,14 +705,12 @@ namespace Threads
                     resp.Code = code;
                     resp.MemberID = res.MemberID;
                 }
-
-
                 results.Data = resp;
             }
-            catch
+            catch (Exception e)
             {
-                results.ErrCode = 1;
-                results.ErrText = string.Format("Error in SessionReq_Save {0}", Phone);
+                results.ErrCode = 101;
+                results.ErrText = string.Format("SessionReq_Save {0}, error: {1}", Phone, e.Message);
             }
 
             return results;
@@ -509,6 +730,12 @@ namespace Threads
                 sessionReq_ID = req.Params.SessionReq_ID;
                 dID = req.DID;
             }
+            else
+            {
+                results.ErrCode = 200;
+                results.ErrText = "Session_Save: No Params";
+                return results;
+            }
 
             try
             {
@@ -518,13 +745,12 @@ namespace Threads
                     resp.MemberID = res.MemberID ?? 0;
                     resp.IsNewMember = res.IsNewMember ?? true;
                 }
-
                 results.Data = resp;
             }
             catch (Exception e)
             {
-                results.ErrCode = 1;
-                results.ErrText = string.Format("Error in Session_Save {0}: {1}", Phone, e.Message);
+                results.ErrCode = 101;
+                results.ErrText = string.Format("Session_Save {0}: {1}", Phone, e.Message);
             }
 
             return results;
@@ -543,10 +769,16 @@ namespace Threads
             {
                 memberID = req.Params.MemberID;
             }
+            else
+            {
+                results.ErrCode = 200;
+                results.ErrText = "Member_ReadInstance: No Params";
+
+                return results;
+            }
 
             try
             {
-
                 foreach (Member_ReadInstanceResult mem in dc.Member_ReadInstance(memberID))
                 {
                     resp.ID = mem.ID;
@@ -561,10 +793,10 @@ namespace Threads
 
                 results.Data = resp;
             }
-            catch
+            catch (Exception e)
             {
-                results.ErrCode = 1;
-                results.ErrText = string.Format("Error in Member_ReadInstance {0}", memberID);
+                results.ErrCode = 101;
+                results.ErrText = string.Format("Member_ReadInstance {0}, error: {1}", memberID, e.Message);
             }
 
             return results;
@@ -596,6 +828,12 @@ namespace Threads
                 mIsMale = req.Params.Member.IsMale;
                 mBirthdayDate = req.Params.Member.BirthdayDate;
             }
+            else
+            {
+                results.ErrCode = 200;
+                results.ErrText = "Member_Save: No Params";
+                return results;
+            }
 
             try
             {
@@ -610,17 +848,13 @@ namespace Threads
                     resp.IsMale = mem.IsMale ?? true;
                     resp.BirthdayDate = mem.BirthdayDate;
                 }
-
                 results.Data = resp;
             }
-
-
-            catch
+            catch (Exception e)
             {
-                results.ErrCode = 1;
-                results.ErrText = string.Format("Error in Member_Save {0}", mID);
+                results.ErrCode = 101;
+                results.ErrText = string.Format("Member_Save {0}, error: {1}", mID, e.Message);
             }
-
             return results;
         }
 

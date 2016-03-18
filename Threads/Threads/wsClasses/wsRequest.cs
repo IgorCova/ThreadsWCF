@@ -58,6 +58,14 @@ namespace Threads
     }
 
     [DataContract]
+    public class Bookmark_ReadByMemberID_Req
+    {
+        [DataMember]
+        public long MemberID;
+    }
+    
+
+    [DataContract]
     public class Member_ReadInstance_Req
     {
         [DataMember]
@@ -96,7 +104,7 @@ namespace Threads
 
         [DataMember]
         public long id { get; set; }
-        
+
         [DataMember]
         public string logoData { get; set; }  // бинарный поток, закодированный в Base64
     }
@@ -110,4 +118,31 @@ namespace Threads
         [DataMember]
         public long MemberID { get; set; }
     }
+
+
+    [DataContract]
+    public class Community_Save_Req
+    {
+        [DataMember]
+        public wsCommunity Community { get; set; }
+    }
+
+    [DataContract]
+    public class Bookmark_Save_Req
+    {
+        [DataMember]
+        public long MemberID { get; set; }
+
+        [DataMember]
+        public long EntryID { get; set; }
+    }
+
+    [DataContract]
+    public class wsBookmarkSave_Out
+    {
+        [DataMember]
+        public bool IsPin { get; set; }
+    }
+    
+
 }

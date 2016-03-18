@@ -6,11 +6,17 @@ namespace Threads
     [ServiceContract]
     public interface IService
     {
-        #region Community
+        #region Bookmark
         [OperationContract]
-        [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "GetCommunity_ReadDict")]
-        wsResponse<Community_ReadDict_Resp> GetCommunity_ReadDict();
+        [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "Bookmark_Save")]
+        wsResponse<Bookmark_Save_Resp> Bookmark_Save(wsRequest<Bookmark_Save_Req> req);
 
+        [OperationContract]
+        [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "Bookmark_ReadByMemberID")]
+        wsResponse<Bookmark_ReadByMemberID_Resp> Bookmark_ReadByMemberID(wsRequest<Bookmark_ReadByMemberID_Req> req);
+        #endregion
+
+        #region Community
         [OperationContract]
         [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "Community_ReadDict")]
         wsResponse<Community_ReadDict_Resp> Community_ReadDict(wsRequest<Community_ReadDict_Req> req);
@@ -26,16 +32,16 @@ namespace Threads
         [OperationContract]
         [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "Community_ReadInstance")]
         wsResponse<Community_ReadInstance_Resp> Community_ReadInstance(wsRequest<Community_ReadInstance_Req> req);
+
+        [OperationContract]
+        [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "Community_Save")]
+        wsResponse<Community_Save_Resp> Community_Save(wsRequest<Community_Save_Req> req);
         #endregion
 
         #region Country
         [OperationContract]
         [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "Country_ReadDict")]
         wsResponse<Country_ReadDict_Resp> Country_ReadDict();
-
-        [OperationContract]
-        [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "GetCountry_ReadDict")]
-        wsResponse<Country_ReadDict_Resp> GetCountry_ReadDict();
         #endregion
 
         #region Entry
