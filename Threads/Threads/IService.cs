@@ -16,6 +16,12 @@ namespace Threads
         wsResponse<Bookmark_ReadByMemberID_Resp> Bookmark_ReadByMemberID(wsRequest<Bookmark_ReadByMemberID_Req> req);
         #endregion
 
+        #region ColumnCommunity
+        [OperationContract]
+        [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "ColumnCommunity_ReadDict")]
+        wsResponse<ColumnCommunity_ReadDict_Resp> ColumnCommunity_ReadDict(wsRequest<ColumnCommunity_ReadDict_Req> req);
+        #endregion
+
         #region Community
         [OperationContract]
         [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "Community_ReadDict")]

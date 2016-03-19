@@ -31,6 +31,9 @@ namespace Threads
     {
         [DataMember]
         public long CommunityID;
+
+        [DataMember]
+        public long? ColumnID;
     }
 
     [DataContract]
@@ -143,6 +146,13 @@ namespace Threads
         [DataMember]
         public bool IsPin { get; set; }
     }
-    
 
+    [DataContract]
+    public class ColumnCommunity_ReadDict_Req
+    {
+        [DataMember]
+        public long CommunityID { get; set; }
+    }
+
+    
 }

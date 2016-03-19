@@ -169,4 +169,14 @@ namespace Threads
         [DataMember]
         public long ID { get; set; }
     }
+
+    [DataContract]
+    public class wsColumnCommunity
+    {
+        [DataMember]
+        public long ID { get; set; }
+
+        [DataMember]
+        public string Name { get; set; }
+    }
 }

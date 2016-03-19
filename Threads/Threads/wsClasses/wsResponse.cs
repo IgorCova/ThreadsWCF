@@ -30,4 +30,5 @@ namespace Threads
     public class Community_Save_Resp : wsCommunitySaveState { }
     public class Bookmark_Save_Resp : wsBookmarkSave_Out { }
     public class Bookmark_ReadByMemberID_Resp : List<wsEntry> { }
+    public class ColumnCommunity_ReadDict_Resp : List<wsColumnCommunity> { }
 }

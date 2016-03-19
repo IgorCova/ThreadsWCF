@@ -117,6 +117,61 @@ namespace Threads
         }
         #endregion
 
+        #region ColumnCommunity
+        public wsResponse<ColumnCommunity_ReadDict_Resp> ColumnCommunity_ReadDict(wsRequest<ColumnCommunity_ReadDict_Req> req)
+        {
+            var funcName = "ColumnCommunity_ReadDict";
+            var errCode = 0;
+            var errorText = "";
+
+            var results = new wsResponse<ColumnCommunity_ReadDict_Resp>();
+            var resp = new ColumnCommunity_ReadDict_Resp();
+            var dc = new DataThreadsDataContext();
+
+            long communityID = 0;
+
+            if (req.Params != null)
+            {
+                communityID = req.Params.CommunityID;
+            }
+            else
+            {
+                errCode = 200;
+                errorText = Tools.GetErrorTextByCode(errCode);
+                Tools.ErrorLog_Save(req, "", funcName, errorText);
+
+                results.ErrText = string.Format("{0}\n{1}", funcName, errorText);
+                results.ErrCode = errCode;
+                return results;
+            }
+
+            try
+            {
+                foreach (ColumnCommunity_ReadDictResult clmn in dc.ColumnCommunity_ReadDict(communityID))
+                {
+                    resp.Add(new wsColumnCommunity()
+                    {
+                        Name = clmn.Name,
+                        ID = clmn.ID
+                    });
+
+                    results.Data = resp;
+                }
+            }
+            catch (Exception e)
+            {
+                errCode = 101;
+                string param = string.Format("communityID: {0}", communityID);
+                Tools.ErrorLog_Save(req, param, funcName, e.Message);
+
+                results.ErrCode = errCode;
+                results.ErrText = string.Format("{0}\n{1}\n{2}", funcName, Tools.GetErrorTextByCode(errCode), e.Message);
+            }
+
+            return results;
+        }
+        #endregion
+
         #region Community
         public wsResponse<Community_ReadDict_Resp> Community_ReadDict(wsRequest<Community_ReadDict_Req> req)
         {
@@ -457,11 +512,13 @@ namespace Threads
             var resp = new Entry_ReadByCommunityID_Resp();
             var dc = new DataThreadsDataContext();
             long communityID = 0;
+            long columnID = 0;
             long memberID = 1;
 
             if (req.Params != null)
             {
                 communityID = req.Params.CommunityID;
+                columnID = req.Params.ColumnID ?? 0;
             }
             else
             {
@@ -473,7 +530,7 @@ namespace Threads
 
             try
             {
-                foreach (Entry_ReadByCommunityIDResult entry in dc.Entry_ReadByCommunityID(communityID, memberID))
+                foreach (Entry_ReadByCommunityIDResult entry in dc.Entry_ReadByCommunityID(communityID, columnID, memberID))
                 {
                     resp.Add(new wsEntry()
                     {

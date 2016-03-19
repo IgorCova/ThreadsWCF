@@ -218,23 +218,6 @@
       <Column Name="IsPin" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
     </ElementType>
   </Function>
-  <Function Name="dbo.[Entry.ReadByCommunityID]" Method="Entry_ReadByCommunityID">
-    <Parameter Name="CommunityID" Parameter="communityID" Type="System.Int64" DbType="BigInt" />
-    <Parameter Name="MemberID" Parameter="memberID" Type="System.Int64" DbType="BigInt" />
-    <ElementType Name="Entry_ReadByCommunityIDResult">
-      <Column Name="Entry_ID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
-      <Column Name="Community_ID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
-      <Column Name="Community_Name" Type="System.String" DbType="VarChar(256)" CanBeNull="true" />
-      <Column Name="ColumnCommunity_ID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
-      <Column Name="ColumnCommunity_Name" Type="System.String" DbType="VarChar(256)" CanBeNull="true" />
-      <Column Name="Entry_Text" Type="System.String" DbType="VarChar(4048)" CanBeNull="true" />
-      <Column Name="Entry_CreateDate" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="Entry_CreateDateEst" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
-      <Column Name="CreatorID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
-      <Column Name="CreatorID_Fullname" Type="System.String" DbType="VarChar(512)" CanBeNull="true" />
-      <Column Name="IsPin" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-    </ElementType>
-  </Function>
   <Function Name="dbo.[News.ReadByMemberID]" Method="News_ReadByMemberID">
     <Parameter Name="MemberID" Parameter="memberID" Type="System.Int64" DbType="BigInt" />
     <ElementType Name="News_ReadByMemberIDResult">
@@ -265,6 +248,31 @@
       <Column Name="CreatorID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
       <Column Name="CreatorID_Fullname" Type="System.String" DbType="VarChar(513)" CanBeNull="true" />
       <Column Name="IsPin" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.[ColumnCommunity.ReadDict]" Method="ColumnCommunity_ReadDict">
+    <Parameter Name="CommunityID" Parameter="communityID" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="ColumnCommunity_ReadDictResult">
+      <Column Name="ID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(32)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.[Entry.ReadByCommunityID]" Method="Entry_ReadByCommunityID">
+    <Parameter Name="CommunityID" Parameter="communityID" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="ColumnID" Parameter="columnID" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="MemberID" Parameter="memberID" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="Entry_ReadByCommunityIDResult">
+      <Column Name="Entry_ID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="Community_ID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Community_Name" Type="System.String" DbType="VarChar(256)" CanBeNull="true" />
+      <Column Name="ColumnCommunity_ID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="ColumnCommunity_Name" Type="System.String" DbType="VarChar(256)" CanBeNull="true" />
+      <Column Name="Entry_Text" Type="System.String" DbType="VarChar(4048)" CanBeNull="true" />
+      <Column Name="Entry_CreateDate" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Entry_CreateDateEst" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="CreatorID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="CreatorID_Fullname" Type="System.String" DbType="VarChar(512)" CanBeNull="true" />
+      <Column Name="IsPin" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
     </ElementType>
   </Function>
 </Database>
