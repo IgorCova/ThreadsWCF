@@ -103,12 +103,6 @@ namespace Threads
     public class LogoSave_Req
     {
         [DataMember]
-        public bool isMember { get; set; }
-
-        [DataMember]
-        public long id { get; set; }
-
-        [DataMember]
         public string logoData { get; set; }  // бинарный поток, закодированный в Base64
     }
 
