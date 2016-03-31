@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Hub" Class="DataHubDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=95.84.164.113;Initial Catalog=Hub;Persist Security Info=True;User ID=hubber" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="HubConnectionString" Provider="System.Data.SqlClient" />
+  <Function Name="dbo.SessionReq_Save" Method="SessionReq_Save">
+    <Parameter Name="dID" Type="System.String" DbType="VarChar(64)" />
+    <Parameter Name="phone" Type="System.String" DbType="VarChar(64)" />
+    <ElementType Name="SessionReq_SaveResult">
+      <Column Name="id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="ownerHubID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SubjectComm_Save" Method="SubjectComm_Save">
+    <Parameter Name="id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="ownerHubID" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="name" Type="System.String" DbType="VarChar(256)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.AdminComm_ReadDict" Method="AdminComm_ReadDict">
+    <Parameter Name="ownerHubID" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="AdminComm_ReadDictResult">
+      <Column Name="id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="ownerHubId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="firstName" Type="System.String" DbType="VarChar(512)" CanBeNull="true" />
+      <Column Name="lastName" Type="System.String" DbType="VarChar(512)" CanBeNull="true" />
+      <Column Name="phone" Type="System.String" DbType="VarChar(32)" CanBeNull="true" />
+      <Column Name="linkFB" Type="System.String" DbType="VarChar(512)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.AdminComm_Save" Method="AdminComm_Save">
+    <Parameter Name="id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="ownerHubID" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="firstName" Type="System.String" DbType="VarChar(512)" />
+    <Parameter Name="lastName" Type="System.String" DbType="VarChar(512)" />
+    <Parameter Name="phone" Type="System.String" DbType="VarChar(32)" />
+    <Parameter Name="linkFB" Type="System.String" DbType="VarChar(512)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.Comm_Read" Method="Comm_Read">
+    <Parameter Name="id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="ownerHubID" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="Comm_ReadResult">
+      <Column Name="id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="ownerHubID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="subjectCommID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="areaCommID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="name" Type="System.String" DbType="VarChar(256)" CanBeNull="true" />
+      <Column Name="adminCommID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Comm_Save" Method="Comm_Save">
+    <Parameter Name="id" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Parameter Name="ownerHubID" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="subjectCommID" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="areaCommID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="name" Type="System.String" DbType="VarChar(256)" />
+    <Parameter Name="adminCommID" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="link" Type="System.String" DbType="VarChar(512)" />
+    <ElementType Name="Comm_SaveResult">
+      <Column Name="id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="ownerHubID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="subjectCommID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="areaCommID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="name" Type="System.String" DbType="VarChar(256)" CanBeNull="true" />
+      <Column Name="adminCommID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.OwnerHub_Read" Method="OwnerHub_Read">
+    <Parameter Name="id" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="OwnerHub_ReadResult">
+      <Column Name="id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="firstName" Type="System.String" DbType="VarChar(512)" CanBeNull="true" />
+      <Column Name="lastName" Type="System.String" DbType="VarChar(512)" CanBeNull="true" />
+      <Column Name="phone" Type="System.String" DbType="VarChar(32)" CanBeNull="true" />
+      <Column Name="linkFB" Type="System.String" DbType="VarChar(512)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.OwnerHub_Save" Method="OwnerHub_Save">
+    <Parameter Name="id" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Parameter Name="firstName" Type="System.String" DbType="VarChar(512)" />
+    <Parameter Name="lastName" Type="System.String" DbType="VarChar(512)" />
+    <Parameter Name="phone" Type="System.String" DbType="VarChar(32)" />
+    <Parameter Name="linkFB" Type="System.String" DbType="VarChar(512)" />
+    <ElementType Name="OwnerHub_SaveResult">
+      <Column Name="id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="firstName" Type="System.String" DbType="VarChar(512)" CanBeNull="true" />
+      <Column Name="lastName" Type="System.String" DbType="VarChar(512)" CanBeNull="true" />
+      <Column Name="phone" Type="System.String" DbType="VarChar(32)" CanBeNull="true" />
+      <Column Name="linkFB" Type="System.String" DbType="VarChar(512)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Session_Save" Method="Session_Save">
+    <Parameter Name="sessionReqID" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="dID" Type="System.String" DbType="VarChar(64)" />
+    <ElementType Name="Session_SaveResult">
+      <Column Name="id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="firstName" Type="System.String" DbType="VarChar(512)" CanBeNull="true" />
+      <Column Name="lastName" Type="System.String" DbType="VarChar(512)" CanBeNull="true" />
+      <Column Name="phone" Type="System.String" DbType="VarChar(32)" CanBeNull="true" />
+      <Column Name="linkFB" Type="System.String" DbType="VarChar(512)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SubjectComm_Del" Method="SubjectComm_Del">
+    <Parameter Name="id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="ownerHubID" Type="System.Int64" DbType="BigInt" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SubjectComm_ReadDict" Method="SubjectComm_ReadDict">
+    <Parameter Name="ownerHubID" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="SubjectComm_ReadDictResult">
+      <Column Name="id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="ownerHubID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="name" Type="System.String" DbType="VarChar(256)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.ErrorLog_Save" Method="ErrorLog_Save">
+    <Parameter Name="Session" Parameter="session" Type="System.String" DbType="VarChar(64)" />
+    <Parameter Name="FuncName" Parameter="funcName" Type="System.String" DbType="NVarChar(128)" />
+    <Parameter Name="Params" Parameter="params" Type="System.String" DbType="VarChar(MAX)" />
+    <Parameter Name="ErrorText" Parameter="errorText" Type="System.String" DbType="VarChar(MAX)" />
+    <ElementType Name="ErrorLog_SaveResult">
+      <Column Name="" Member="Column1" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+    </ElementType>
+  </Function>
+</Database>
