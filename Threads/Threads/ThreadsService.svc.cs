@@ -623,7 +623,7 @@ namespace Threads
 
             if (req.Params != null)
             {
-                filename = string.Format("{0}.png", req.Params.id);
+                filename = string.Format("{0}.png", 1);
             }
             else
             {
@@ -641,7 +641,7 @@ namespace Threads
             catch (Exception e)
             {
                 results.ErrCode = 101;
-                results.ErrText = string.Format("LogoSave {0}, error: {1}", req.Params.id, e.Message);
+                results.ErrText = string.Format("LogoSave {0}, error: {1}", 1, e.Message);
                 resp.isOk = false;
             }
 
