@@ -81,17 +81,6 @@
       <Column Name="" Member="Column1" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
     </ElementType>
   </Function>
-  <Function Name="dbo.StatsCommVK_Save" Method="StatsCommVK_Save">
-    <Parameter Name="ownerHubID" Type="System.Int64" DbType="BigInt" />
-    <Parameter Name="commID" Type="System.Int64" DbType="BigInt" />
-    <Parameter Name="commViews" Type="System.Int64" DbType="BigInt" />
-    <Parameter Name="commVisitors" Type="System.Int64" DbType="BigInt" />
-    <Parameter Name="commReach" Type="System.Int64" DbType="BigInt" />
-    <Parameter Name="commReachSubscribers" Type="System.Int64" DbType="BigInt" />
-    <Parameter Name="commSubscribed" Type="System.Int64" DbType="BigInt" />
-    <Parameter Name="commUnsubscribed" Type="System.Int64" DbType="BigInt" />
-    <Return Type="System.Int32" />
-  </Function>
   <Function Name="dbo.AdminComm_ReadDict" Method="AdminComm_ReadDict">
     <Parameter Name="ownerHubID" Type="System.Int64" DbType="BigInt" />
     <ElementType Name="AdminComm_ReadDictResult">
@@ -134,5 +123,19 @@
       <Column Name="phone" Type="System.String" DbType="VarChar(32)" CanBeNull="true" />
       <Column Name="linkFB" Type="System.String" DbType="VarChar(512)" CanBeNull="true" />
     </ElementType>
+  </Function>
+  <Function Name="dbo.StatsCommVK_Save" Method="StatsCommVK_Save">
+    <Parameter Name="commID" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="commViews" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="commVisitors" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="commReach" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="commReachSubscribers" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="commSubscribed" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="commUnsubscribed" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="commLikes" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="commComments" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="commReposts" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="commPostCount" Type="System.Int64" DbType="BigInt" />
+    <Return Type="System.Int32" />
   </Function>
 </Database>

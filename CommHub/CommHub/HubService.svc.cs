@@ -2,11 +2,17 @@
 using System;
 using VkNet;
 using VkNet.Enums.Filters;
+using VkNet.Model.RequestParams;
+using VkNet.Enums;
+using VkNet.Model;
+using System;
+using System.Threading;
 
 namespace CommHub
 {
     public class HubService : IService
     {
+        public WallFilter Owner { get; private set; }
         #region AdminComm
         public wsResponse<AdminComm_ReadDict_Resp> AdminComm_ReadDict(wsRequest<AdminComm_ReadDict_Req> req)
         {
@@ -109,7 +115,7 @@ namespace CommHub
                     resp.lastName = itm.lastName;
                     resp.phone = itm.phone;
                     resp.linkFB = itm.linkFB;
-             
+
                 };
 
                 results.Data = resp;
@@ -140,7 +146,7 @@ namespace CommHub
             var resp = new SubjectComm_ReadDict_Resp();
             var dc = new DataHubDataContext();
             long ownerHubID = 0;
-            
+
             if (req.Params != null)
             {
                 ownerHubID = req.Params.ownerHubID;
@@ -236,17 +242,64 @@ namespace CommHub
             long subscribed = res[0].Subscribed ?? 0;
             long unsubscribed = res[0].Unsubscribed ?? 0;
 
-            dc.StatsCommVK_Save(1, 3, views, visitors, reach, reach_subscribers, subscribed, unsubscribed);
+            long likes = 0;
+            long comments = 0;
+            long reposts = 0;                       
+
+            var respWall = api.Wall.Get(new WallGetParams
+            {
+                OwnerId = 0 - groupId,
+                Offset = 0,
+                Count = 100,
+                Filter = Owner,
+                Extended = false
+            });
+
+            var cnt = respWall.TotalCount;
+            var countPost = (long)cnt;
+
+            foreach (Post post in respWall.WallPosts)
+            {
+                likes += post.Likes.Count;
+                comments += post.Comments.Count;
+                reposts += post.Reposts.Count;
+            };
+
+            ulong offset = 100;
+
+            while (offset < cnt)
+            {
+                respWall = api.Wall.Get(new WallGetParams
+                {
+                    OwnerId = 0 - groupId,
+                    Offset = offset,
+                    Count = 100,
+                    Filter = Owner,
+                    Extended = false
+                });                              
+
+                foreach (Post post in respWall.WallPosts)
+                {
+                    likes += post.Likes.Count;
+                    comments += post.Comments.Count;
+                    reposts += post.Reposts.Count;
+                };
+
+                offset += 100;
+            }
+
+            dc.StatsCommVK_Save(3, views, visitors, reach, reach_subscribers, subscribed, unsubscribed, likes, comments, reposts, countPost);
 
             return results;
         }
-        
+ 
+
         public void VK_Stats_GetNorm()
         {
             var results = new wsResponse();
             var dc = new DataHubDataContext();
 
-            long groupId = 91298636;
+            long groupId = 10639516;
             DateTime dateFrom = DateTime.Today.AddDays(-1).Date;
             DateTime? dateTo = DateTime.Today.Date;
             //int appId = 5391843; // указываем id приложения
@@ -262,7 +315,7 @@ namespace CommHub
                 Password = password,
                 Settings = settings
             }); // авторизуемся
-            
+
             var res = api.Stats.GetByGroup(groupId, dateFrom, dateTo);
 
             long views = res[0].Views;
@@ -271,8 +324,59 @@ namespace CommHub
             long reach_subscribers = res[0].ReachSubscribers ?? 0;
             long subscribed = res[0].Subscribed ?? 0;
             long unsubscribed = res[0].Unsubscribed ?? 0;
-             
-            dc.StatsCommVK_Save(1, 4, views, visitors, reach, reach_subscribers, subscribed, unsubscribed);
+
+            long likes = 0;
+            long comments = 0;
+            long reposts = 0;
+
+            var respWall = api.Wall.Get(new WallGetParams
+            {
+                OwnerId = 0-groupId,
+                Offset = 0,
+                Count = 100,
+                Filter = Owner,
+                Extended = false
+            });
+
+            var cnt = respWall.TotalCount;
+            var countPost = (long)cnt;
+
+            foreach (Post post in respWall.WallPosts)
+            {
+                likes += post.Likes.Count;
+                comments += post.Comments.Count;
+                reposts += post.Reposts.Count;
+            };
+
+            ulong offset = 100;
+
+            while (offset < cnt)
+            {
+                respWall = api.Wall.Get(new WallGetParams
+                {
+                    OwnerId = 0 - groupId,
+                    Offset = offset,
+                    Count = 100,
+                    Filter = Owner,
+                    Extended = false
+                });
+
+                foreach (Post post in respWall.WallPosts)
+                {
+                    likes += post.Likes.Count;
+                    comments += post.Comments.Count;
+                    reposts += post.Reposts.Count;
+                };
+                                
+                offset += 100;
+
+                if ((offset / 900) == 0)
+                {
+                    Thread.Sleep(1000);
+                }
+            }
+
+            dc.StatsCommVK_Save(3, views, visitors, reach, reach_subscribers, subscribed, unsubscribed, likes, comments, reposts, countPost);
         }
         #endregion
 
