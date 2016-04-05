@@ -91,14 +91,6 @@
       <Column Name="linkFB" Type="System.String" DbType="VarChar(512)" CanBeNull="true" />
     </ElementType>
   </Function>
-  <Function Name="dbo.SessionReq_Save" Method="SessionReq_Save">
-    <Parameter Name="dID" Type="System.String" DbType="VarChar(64)" />
-    <Parameter Name="phone" Type="System.String" DbType="VarChar(64)" />
-    <ElementType Name="SessionReq_SaveResult">
-      <Column Name="id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
-      <Column Name="ownerHubID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
-    </ElementType>
-  </Function>
   <Function Name="dbo.Session_Save" Method="Session_Save">
     <Parameter Name="sessionReqID" Type="System.Int64" DbType="BigInt" />
     <Parameter Name="dID" Type="System.String" DbType="VarChar(64)" />
@@ -137,5 +129,13 @@
     <Parameter Name="commReposts" Type="System.Int64" DbType="BigInt" />
     <Parameter Name="commPostCount" Type="System.Int64" DbType="BigInt" />
     <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SessionReq_Save" Method="SessionReq_Save">
+    <Parameter Name="dID" Type="System.String" DbType="VarChar(64)" />
+    <Parameter Name="phone" Type="System.String" DbType="VarChar(64)" />
+    <ElementType Name="SessionReq_SaveResult">
+      <Column Name="id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="ownerHubID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+    </ElementType>
   </Function>
 </Database>

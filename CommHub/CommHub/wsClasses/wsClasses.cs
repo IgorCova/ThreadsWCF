@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Drawing.Imaging;
 using System.Runtime.Serialization;
 
 namespace CommHub.wsClasses
 {
+    [DataContract]
     public class wsSubjectComm
     {
         [DataMember]
@@ -16,6 +16,7 @@ namespace CommHub.wsClasses
         public string name { get; set; }
     }
 
+    [DataContract]
     public class wsAdminComm
     {
         [DataMember]
@@ -60,4 +61,5 @@ namespace CommHub.wsClasses
         [DataMember]
         public bool IsNewMember { get; set; }
     }
+    
 }

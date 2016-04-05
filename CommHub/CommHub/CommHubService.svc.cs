@@ -5,14 +5,14 @@ using VkNet.Enums.Filters;
 using VkNet.Model.RequestParams;
 using VkNet.Enums;
 using VkNet.Model;
-using System;
 using System.Threading;
 
 namespace CommHub
 {
-    public class HubService : IService
+    public class CommHubService : IService
     {
         public WallFilter Owner { get; private set; }
+
         #region AdminComm
         public wsResponse<AdminComm_ReadDict_Resp> AdminComm_ReadDict(wsRequest<AdminComm_ReadDict_Req> req)
         {
@@ -191,13 +191,12 @@ namespace CommHub
 
         #region VK_Stats
 
-        public wsResponse VK_Stats_Get(wsRequest<VK_Stats_Get_Req> req)
+        public wsResponseSimple VK_Stats_Get(wsRequest<VK_Stats_Get_Req> req)
         {
             var funcName = "VK_Stats_Get";
             var errCode = 0;
             var errorText = "";
 
-            var results = new wsResponse();
             var dc = new DataHubDataContext();
 
             long groupId = 0;
@@ -218,94 +217,7 @@ namespace CommHub
                 errCode = 200;
                 errorText = Tools.GetErrorTextByCode(errCode);
                 Tools.ErrorLog_Save(req, "", funcName, errorText);
-
-                results.ErrText = string.Format("{0}\n{1}", funcName, errorText);
-                results.ErrCode = -1;
-                return results;
             }
-
-            var api = new VkApi();
-            api.Authorize(new ApiAuthParams
-            {
-                ApplicationId = 5391843,
-                Login = email,
-                Password = password,
-                Settings = settings
-            }); // авторизуемся
-
-            var res = api.Stats.GetByGroup(groupId, dateFrom, dateTo);
-
-            long views = res[0].Views;
-            long visitors = res[0].Visitors;
-            long reach = res[0].Reach ?? 0;
-            long reach_subscribers = res[0].ReachSubscribers ?? 0;
-            long subscribed = res[0].Subscribed ?? 0;
-            long unsubscribed = res[0].Unsubscribed ?? 0;
-
-            long likes = 0;
-            long comments = 0;
-            long reposts = 0;                       
-
-            var respWall = api.Wall.Get(new WallGetParams
-            {
-                OwnerId = 0 - groupId,
-                Offset = 0,
-                Count = 100,
-                Filter = Owner,
-                Extended = false
-            });
-
-            var cnt = respWall.TotalCount;
-            var countPost = (long)cnt;
-
-            foreach (Post post in respWall.WallPosts)
-            {
-                likes += post.Likes.Count;
-                comments += post.Comments.Count;
-                reposts += post.Reposts.Count;
-            };
-
-            ulong offset = 100;
-
-            while (offset < cnt)
-            {
-                respWall = api.Wall.Get(new WallGetParams
-                {
-                    OwnerId = 0 - groupId,
-                    Offset = offset,
-                    Count = 100,
-                    Filter = Owner,
-                    Extended = false
-                });                              
-
-                foreach (Post post in respWall.WallPosts)
-                {
-                    likes += post.Likes.Count;
-                    comments += post.Comments.Count;
-                    reposts += post.Reposts.Count;
-                };
-
-                offset += 100;
-            }
-
-            dc.StatsCommVK_Save(3, views, visitors, reach, reach_subscribers, subscribed, unsubscribed, likes, comments, reposts, countPost);
-
-            return results;
-        }
- 
-
-        public void VK_Stats_GetNorm()
-        {
-            var results = new wsResponse();
-            var dc = new DataHubDataContext();
-
-            long groupId = 10639516;
-            DateTime dateFrom = DateTime.Today.AddDays(-1).Date;
-            DateTime? dateTo = DateTime.Today.Date;
-            //int appId = 5391843; // указываем id приложения
-            string email = "89164913669"; // email для авторизации
-            string password = "PressNon798520"; // пароль
-            Settings settings = Settings.All; // уровень доступа к данным
 
             var api = new VkApi();
             api.Authorize(new ApiAuthParams
@@ -331,7 +243,7 @@ namespace CommHub
 
             var respWall = api.Wall.Get(new WallGetParams
             {
-                OwnerId = 0-groupId,
+                OwnerId = 0 - groupId,
                 Offset = 0,
                 Count = 100,
                 Filter = Owner,
@@ -367,16 +279,101 @@ namespace CommHub
                     comments += post.Comments.Count;
                     reposts += post.Reposts.Count;
                 };
-                                
-                offset += 100;
 
-                if ((offset / 900) == 0)
-                {
-                    Thread.Sleep(1000);
-                }
+                offset += 100;
             }
 
             dc.StatsCommVK_Save(3, views, visitors, reach, reach_subscribers, subscribed, unsubscribed, likes, comments, reposts, countPost);
+            wsResponseSimple resp = new wsResponseSimple();
+            resp.ErrCode = 0;
+            resp.ErrText = "No Error";
+            return resp;
+        }
+
+        public void VK_Stats_GetNorm()
+        {
+            var dc = new DataHubDataContext();
+
+            long groupId = 10639516; // http://vk.com/MDK
+            DateTime dateFrom = DateTime.Today.AddDays(-1).Date;
+            DateTime? dateTo = DateTime.Today.Date;
+            ulong appId = 5391843; // указываем id приложения
+            string email = "89164913669"; // email для авторизации
+            string password = "PressNon798520"; // пароль
+            Settings settings = Settings.All; // уровень доступа к данным
+
+            var api = new VkApi();
+            api.Authorize(new ApiAuthParams
+            {
+                ApplicationId = appId,
+                Login = email,
+                Password = password,
+                Settings = settings
+            }); // авторизуемся
+
+            var res = api.Stats.GetByGroup(groupId, dateFrom, dateTo);
+
+            long views = res[0].Views;
+            long visitors = res[0].Visitors;
+            long reach = res[0].Reach ?? 0;
+            long reach_subscribers = res[0].ReachSubscribers ?? 0;
+            long subscribed = res[0].Subscribed ?? 0;
+            long unsubscribed = res[0].Unsubscribed ?? 0;
+
+            long likes = 0;
+            long comments = 0;
+            long reposts = 0;
+
+            var respWall = api.Wall.Get(new WallGetParams
+            {
+                OwnerId = 0 - groupId,
+                Offset = 0,
+                Count = 100,
+                Filter = Owner,
+                Extended = false
+            });
+
+            var cnt = respWall.TotalCount;
+            var countPost = (long)cnt;
+
+            foreach (Post post in respWall.WallPosts)
+            {
+                likes += post.Likes.Count;
+                comments += post.Comments.Count;
+                reposts += post.Reposts.Count;
+            };
+
+            ulong offset = 100;
+
+            int reqCount = 0;
+            while (offset < cnt)
+            {
+                if ((reqCount % 3) == 0) // 3 запроса в секунду
+                {
+                    Thread.Sleep(1500);
+                    reqCount = 0;
+                }
+                respWall = api.Wall.Get(new WallGetParams
+                {
+                    OwnerId = 0 - groupId,
+                    Offset = offset,
+                    Count = 100,
+                    Filter = Owner,
+                    Extended = false
+                });
+                reqCount++;
+
+                foreach (Post post in respWall.WallPosts)
+                {
+                    likes += post.Likes.Count;
+                    comments += post.Comments.Count;
+                    reposts += post.Reposts.Count;
+                };
+
+                offset += 100;
+            }
+
+            dc.StatsCommVK_Save(57, views, visitors, reach, reach_subscribers, subscribed, unsubscribed, likes, comments, reposts, countPost);
         }
         #endregion
 
@@ -480,5 +477,12 @@ namespace CommHub
         }
 
         #endregion
+
+
+        public string RequestStatVk()
+        {
+            VK_Stats_GetNorm();
+            return "No Error";
+        }
     }
 }

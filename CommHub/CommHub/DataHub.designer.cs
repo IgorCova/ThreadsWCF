@@ -127,13 +127,6 @@ namespace CommHub
 			return ((ISingleResult<AdminComm_ReadDictResult>)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SessionReq_Save")]
-		public ISingleResult<SessionReq_SaveResult> SessionReq_Save([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(64)")] string dID, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(64)")] string phone)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), dID, phone);
-			return ((ISingleResult<SessionReq_SaveResult>)(result.ReturnValue));
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.Session_Save")]
 		public ISingleResult<Session_SaveResult> Session_Save([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> sessionReqID, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(64)")] string dID)
 		{
@@ -153,6 +146,13 @@ namespace CommHub
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), commID, commViews, commVisitors, commReach, commReachSubscribers, commSubscribed, commUnsubscribed, commLikes, commComments, commReposts, commPostCount);
 			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SessionReq_Save")]
+		public ISingleResult<SessionReq_SaveResult> SessionReq_Save([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(64)")] string dID, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(64)")] string phone)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), dID, phone);
+			return ((ISingleResult<SessionReq_SaveResult>)(result.ReturnValue));
 		}
 	}
 	
@@ -770,50 +770,6 @@ namespace CommHub
 		}
 	}
 	
-	public partial class SessionReq_SaveResult
-	{
-		
-		private System.Nullable<long> _id;
-		
-		private long _ownerHubID;
-		
-		public SessionReq_SaveResult()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", DbType="BigInt")]
-		public System.Nullable<long> id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this._id = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ownerHubID", DbType="BigInt NOT NULL")]
-		public long ownerHubID
-		{
-			get
-			{
-				return this._ownerHubID;
-			}
-			set
-			{
-				if ((this._ownerHubID != value))
-				{
-					this._ownerHubID = value;
-				}
-			}
-		}
-	}
-	
 	public partial class Session_SaveResult
 	{
 		
@@ -987,6 +943,50 @@ namespace CommHub
 				if ((this._linkFB != value))
 				{
 					this._linkFB = value;
+				}
+			}
+		}
+	}
+	
+	public partial class SessionReq_SaveResult
+	{
+		
+		private System.Nullable<long> _id;
+		
+		private long _ownerHubID;
+		
+		public SessionReq_SaveResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", DbType="BigInt")]
+		public System.Nullable<long> id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this._id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ownerHubID", DbType="BigInt NOT NULL")]
+		public long ownerHubID
+		{
+			get
+			{
+				return this._ownerHubID;
+			}
+			set
+			{
+				if ((this._ownerHubID != value))
+				{
+					this._ownerHubID = value;
 				}
 			}
 		}

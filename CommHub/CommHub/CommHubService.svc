@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="CommHub.CommHubService" CodeBehind="CommHubService.svc.cs" %>

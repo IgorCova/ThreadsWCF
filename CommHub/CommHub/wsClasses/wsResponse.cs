@@ -20,7 +20,7 @@ namespace CommHub
     }
 
     [DataContract]
-    public class wsResponse
+    public class wsResponseSimple
     {
         [DataMember]
         public int ErrCode;
@@ -28,7 +28,7 @@ namespace CommHub
         [DataMember]
         public string ErrText;
     }
-
+    
     public class SubjectComm_ReadDict_Resp : List<wsSubjectComm> { }
     public class AdminComm_ReadDict_Resp : List<wsAdminComm> { }
 

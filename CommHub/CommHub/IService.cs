@@ -22,11 +22,14 @@ namespace CommHub
 
         [OperationContract]
         [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "VK_Stats_Get")]
-        wsResponse VK_Stats_Get(wsRequest<VK_Stats_Get_Req> req);
+        wsResponseSimple VK_Stats_Get(wsRequest<VK_Stats_Get_Req> req);
 
         [OperationContract]
         [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "VK_Stats_GetNorm")]
         void VK_Stats_GetNorm();
+
+        [OperationContract]
+        string RequestStatVk();
 
         #region Session
 
