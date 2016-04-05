@@ -1,13 +1,11 @@
 ﻿using System.ServiceModel;
 using System.ServiceModel.Web;
 
-
 namespace CommHub
 {
     [ServiceContract]
     public interface IService
     {
-
         [OperationContract]
         [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "SubjectComm_ReadDict")]
         wsResponse<SubjectComm_ReadDict_Resp> SubjectComm_ReadDict(wsRequest<SubjectComm_ReadDict_Req> req);
