@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using CommHub.wsClasses;
+using System.Runtime.Serialization;
 
 namespace CommHub
 {
@@ -21,21 +22,12 @@ namespace CommHub
     }
     #endregion
 
-    [DataContract]
-    public class AdminComm_ReadDict_Req
-    {
-        [DataMember]
-        public long ownerHubID;
-    }
 
     [DataContract]
     public class AdminComm_Save_Req
     {
         [DataMember]
         public long? id;
-
-        [DataMember]
-        public long ownerHubID;
 
         [DataMember]
         public string firstName { get; set; }
@@ -51,17 +43,10 @@ namespace CommHub
     }
 
     [DataContract]
-    public class Comm_ReadDict_Req
+    public class Comm_Save_Req
     {
         [DataMember]
-        public long ownerHubID;
-    }
-
-    [DataContract]
-    public class SubjectComm_ReadDict_Req
-    {
-        [DataMember]
-        public long ownerHubID;
+        public wsComm comm { get; set; }
     }
 
     [DataContract]
@@ -71,9 +56,6 @@ namespace CommHub
         public long id { get; set; }
 
         [DataMember]
-        public long ownerHubID { get; set; }
-
-        [DataMember]
         public string name { get; set; }
     }
 
@@ -81,7 +63,10 @@ namespace CommHub
     public class SessionReq_Save_Req
     {
         [DataMember]
-        public string Phone { get; set; }
+        public string did { get; set; }
+
+        [DataMember]
+        public string phone { get; set; }
 
     }
 
@@ -92,4 +77,13 @@ namespace CommHub
         public long SessionReq_ID;
 
     }
+
+    [DataContract]
+    public class InstanceID
+    {
+        [DataMember]
+        public long id;
+
+    }
+    
 }

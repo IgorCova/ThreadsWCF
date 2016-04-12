@@ -6,11 +6,8 @@ namespace CommHub
 {
     #region Response
     [DataContract]
-    public class wsResponse<T> where T : class
+    public class wsResponse
     {
-        [DataMember]
-        public T Data;
-
         [DataMember]
         public int ErrCode;
 
@@ -19,13 +16,10 @@ namespace CommHub
     }
 
     [DataContract]
-    public class wsResponseSimple
+    public class wsResponse<T> : wsResponse where T : class
     {
         [DataMember]
-        public int ErrCode;
-
-        [DataMember]
-        public string ErrText;
+        public T Data;
     }
     #endregion
 
@@ -39,6 +33,7 @@ namespace CommHub
 
     public class SubjectComm_Save_Resp : wsSubjectComm { }
 
-    public class Comm_ReadDict_Resp: List<wsComm> { }
+    public class Comm_ReadDict_Resp: List<wsComm_Extended> { }
 
+    public class AdminComm_Del_Resp: wsAdminComm_Del { }
 }

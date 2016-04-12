@@ -22,21 +22,17 @@ namespace CommHub.wsClasses
         [DataMember]
         public string linkFB { get; set; }
     }
+    public class wsAdminComm_Del
+    {
+        [DataMember]
+        public bool isSuccessful { get; set; }
+    }
     #endregion
 
     #region Comm
     [DataContract]
-    public class wsComm
+    public class wsComm_Extended: wsComm
     {
-        [DataMember]
-        public long id { get; set; }
-        
-        [DataMember]
-        public string name { get; set; }
-
-        [DataMember]
-        public long ownerHubID { get; set; }
-
         [DataMember]
         public string ownerHubID_firstName { get; set; }
 
@@ -47,19 +43,10 @@ namespace CommHub.wsClasses
         public string ownerHubID_linkFB { get; set; }
 
         [DataMember]
-        public long subjectCommID { get; set; }
-
-        [DataMember]
         public string subjectCommID_name { get; set; }
 
         [DataMember]
-        public long areaCommID { get; set; }
-
-        [DataMember]
         public string areaCommID_name { get; set; }
-
-        [DataMember]
-        public long adminCommID { get; set; }
 
         [DataMember]
         public string adminCommID_firstName { get; set; }
@@ -72,6 +59,35 @@ namespace CommHub.wsClasses
 
         [DataMember]
         public string adminCommID_linkFB { get; set; }
+    }
+
+    [DataContract]
+    public class wsComm
+    {
+        [DataMember]
+        public long id { get; set; }
+
+        [DataMember]
+        public string name { get; set; }
+
+        [DataMember]
+        public long ownerHubID { get; set; }
+
+        [DataMember]
+        public long subjectCommID { get; set; }
+      
+        [DataMember]
+        public int areaCommID { get; set; }
+
+        [DataMember]
+        public long adminCommID { get; set; }
+
+        [DataMember]
+        public string link { get; set; }
+
+        [DataMember]
+        public long groupID { get; set; }
+
     }
     #endregion
 

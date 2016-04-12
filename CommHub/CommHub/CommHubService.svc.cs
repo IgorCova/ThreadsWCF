@@ -1,5 +1,7 @@
 ﻿using CommHub.wsClasses;
 using System;
+using System.IO;
+using System.Net;
 
 namespace CommHub
 {
@@ -7,7 +9,59 @@ namespace CommHub
     {
 
         #region AdminComm
-        public wsResponse<AdminComm_ReadDict_Resp> AdminComm_ReadDict(wsRequest<AdminComm_ReadDict_Req> req)
+        public wsResponse<AdminComm_Del_Resp> AdminComm_Del(wsRequest<InstanceID> req)
+        {
+            var funcName = "AdminComm_Del";
+            var errCode = 0;
+            var errorText = "";
+
+            var results = new wsResponse<AdminComm_Del_Resp>();
+            var resp = new AdminComm_Del_Resp();
+            var dc = new DataHubDataContext();
+            long id = 0;
+            long ownerHubID = 0;
+
+            if (req.Params != null)
+            {
+                id = req.Params.id;
+            }
+            else
+            {
+                errCode = 200;
+                errorText = Tools.GetErrorTextByCode(errCode);
+                Tools.ErrorLog_Save(req, "", funcName, errorText);
+
+                results.ErrText = string.Format("{0}\n{1}", funcName, errorText);
+                results.ErrCode = errCode;
+                return results;
+            }
+
+            try
+            {
+                foreach (GetOwnerHubIDResult own in dc.GetOwnerHubID(req.Session))
+                {
+                    ownerHubID = own.ownerHubID;
+                }
+
+                dc.AdminComm_Del(id, ownerHubID);
+
+                resp.isSuccessful = true;
+                results.Data = resp;
+            }
+            catch (Exception e)
+            {
+                errCode = 101;
+                string param = string.Format("id: {0}, ownerHubID: {1}", id, ownerHubID);
+                Tools.ErrorLog_Save(req, param, funcName, e.Message);
+                results.ErrCode = errCode;
+                results.ErrText = string.Format("{0}\n{1}\n{2}", funcName, Tools.GetErrorTextByCode(errCode), e.Message);
+
+                resp.isSuccessful = false;
+                results.Data = resp;
+            }
+            return results;
+        }
+        public wsResponse<AdminComm_ReadDict_Resp> AdminComm_ReadDict(wsRequest req)
         {
             var funcName = "AdminComm_ReadDict";
             var errCode = 0;
@@ -18,23 +72,24 @@ namespace CommHub
             var dc = new DataHubDataContext();
             long ownerHubID = 0;
 
-            if (req.Params != null)
-            {
-                ownerHubID = req.Params.ownerHubID;
-            }
-            else
+            if (req == null)
             {
                 errCode = 200;
                 errorText = Tools.GetErrorTextByCode(errCode);
                 Tools.ErrorLog_Save(req, "", funcName, errorText);
 
                 results.ErrText = string.Format("{0}\n{1}", funcName, errorText);
-                results.ErrCode = -1;
+                results.ErrCode = errCode;
                 return results;
             }
 
             try
             {
+                foreach (GetOwnerHubIDResult own in dc.GetOwnerHubID(req.Session))
+                {
+                    ownerHubID = own.ownerHubID;
+                }
+
                 foreach (AdminComm_ReadDictResult itm in dc.AdminComm_ReadDict(ownerHubID))
                 {
                     resp.Add(new wsAdminComm()
@@ -54,11 +109,9 @@ namespace CommHub
                 errCode = 101;
                 string param = string.Format("ownerHubID: {0}", ownerHubID);
                 Tools.ErrorLog_Save(req, param, funcName, e.Message);
-
                 results.ErrCode = errCode;
                 results.ErrText = string.Format("{0}\n{1}\n{2}", funcName, Tools.GetErrorTextByCode(errCode), e.Message);
             }
-
             return results;
         }
 
@@ -82,7 +135,6 @@ namespace CommHub
             if (req.Params != null)
             {
                 id = req.Params.id ?? 0;
-                ownerHubID = req.Params.ownerHubID;
                 firstName = req.Params.firstName;
                 lastName = req.Params.lastName;
                 phone = req.Params.phone;
@@ -95,12 +147,17 @@ namespace CommHub
                 Tools.ErrorLog_Save(req, "", funcName, errorText);
 
                 results.ErrText = string.Format("{0}\n{1}", funcName, errorText);
-                results.ErrCode = -1;
+                results.ErrCode = errCode;
                 return results;
             }
 
             try
             {
+                foreach (GetOwnerHubIDResult own in dc.GetOwnerHubID(req.Session))
+                {
+                    ownerHubID = own.ownerHubID;
+                }
+
                 foreach (AdminComm_SaveResult itm in dc.AdminComm_Save(id, ownerHubID, firstName, lastName, phone, linkFB))
                 {
                     resp.id = itm.id;
@@ -121,14 +178,61 @@ namespace CommHub
                 results.ErrCode = errCode;
                 results.ErrText = string.Format("{0}\n{1}\n{2}", funcName, Tools.GetErrorTextByCode(errCode), e.Message);
             }
-
             return results;
         }
 
         #endregion
 
         #region Comm
-        public wsResponse<Comm_ReadDict_Resp> Comm_ReadDict(wsRequest<Comm_ReadDict_Req> req)
+        public wsResponse Comm_Del(wsRequest<InstanceID> req)
+        {
+            var funcName = "Comm_Del";
+            var errCode = 0;
+            var errorText = "";
+
+            var results = new wsResponse();
+            var dc = new DataHubDataContext();
+            long ownerHubID = 0;
+            long id;
+
+            if (req != null)
+            {
+                id = req.Params.id;
+            }
+            else
+            {
+                errCode = 200;
+                errorText = Tools.GetErrorTextByCode(errCode);
+                Tools.ErrorLog_Save(req, "", funcName, errorText);
+
+                results.ErrText = string.Format("{0}\n{1}", funcName, errorText);
+                results.ErrCode = errCode;
+                return results;
+            }
+
+            try
+            {
+                foreach (GetOwnerHubIDResult own in dc.GetOwnerHubID(req.Session))
+                {
+                    ownerHubID = own.ownerHubID;
+                }
+
+                dc.Comm_Del(id, ownerHubID);
+                
+            }
+            catch (Exception e)
+            {
+                errCode = 101;
+                string param = string.Format("id: {0}, ownerHubID: {0}", id, ownerHubID);
+                Tools.ErrorLog_Save(req, param, funcName, e.Message);
+
+                results.ErrCode = errCode;
+                results.ErrText = string.Format("{0}\n{1}\n{2}", funcName, Tools.GetErrorTextByCode(errCode), e.Message);
+            }
+
+            return results;
+        }
+        public wsResponse<Comm_ReadDict_Resp> Comm_ReadDict(wsRequest req)
         {
             var funcName = "Comm_ReadDict";
             var errCode = 0;
@@ -139,11 +243,7 @@ namespace CommHub
             var dc = new DataHubDataContext();
             long ownerHubID = 0;
 
-            if (req.Params != null)
-            {
-                ownerHubID = req.Params.ownerHubID;
-            }
-            else
+            if (req == null)
             {
                 errCode = 200;
                 errorText = Tools.GetErrorTextByCode(errCode);
@@ -156,9 +256,14 @@ namespace CommHub
 
             try
             {
+                foreach (GetOwnerHubIDResult own in dc.GetOwnerHubID(req.Session))
+                {
+                    ownerHubID = own.ownerHubID;
+                }
+
                 foreach (Comm_ReadDictResult itm in dc.Comm_ReadDict(ownerHubID))
                 {
-                    resp.Add(new wsComm()
+                    resp.Add(new wsComm_Extended()
                     {
                         id = itm.id,
                         name = itm.name,
@@ -195,10 +300,73 @@ namespace CommHub
 
             return results;
         }
+
+        public wsResponse Comm_Save(wsRequest<Comm_Save_Req> req)
+        {
+            var funcName = "Comm_ReadDict";
+            var errCode = 0;
+            var errorText = "";
+
+            var results = new wsResponse();
+            var dc = new DataHubDataContext();
+
+            long id = 0;
+            long ownerHubID = 0;
+            string name;
+            long adminCommID;
+            int areaCommID = 0;
+            long subjectCommID;
+            string link;
+            long groupID;
+
+            if (req != null)
+            {
+                wsComm comm = req.Params.comm;
+
+                name = comm.name;
+                adminCommID = comm.adminCommID;
+                areaCommID = comm.areaCommID;
+                subjectCommID = comm.subjectCommID;
+                link = comm.link;
+                groupID = comm.groupID;
+            }
+            else
+            {
+                errCode = 200;
+                errorText = Tools.GetErrorTextByCode(errCode);
+                Tools.ErrorLog_Save(req, "", funcName, errorText);
+
+                results.ErrText = string.Format("{0}\n{1}", funcName, errorText);
+                results.ErrCode = errCode;
+                return results;
+            }
+
+            try
+            {
+                foreach (GetOwnerHubIDResult own in dc.GetOwnerHubID(req.Session))
+                {
+                    ownerHubID = own.ownerHubID;
+                }
+
+                dc.Comm_Save(id, ownerHubID, subjectCommID, areaCommID, name, adminCommID, link, groupID);
+
+            }
+            catch (Exception e)
+            {
+                errCode = 101;
+                string param = string.Format("id: {0}, ownerHubID: {1}, subjectCommID: {2}, areaCommID: {3}, name: {4}, adminCommID: {5}, link: {6}, groupID: {7}", id, ownerHubID, subjectCommID, areaCommID, name, adminCommID, link, groupID);
+                Tools.ErrorLog_Save(req, param, funcName, e.Message);
+
+                results.ErrCode = errCode;
+                results.ErrText = string.Format("{0}\n{1}\n{2}", funcName, Tools.GetErrorTextByCode(errCode), e.Message);
+            }
+
+            return results;
+        }
         #endregion
 
         #region SubjectComm
-        public wsResponse<SubjectComm_ReadDict_Resp> SubjectComm_ReadDict(wsRequest<SubjectComm_ReadDict_Req> req)
+        public wsResponse<SubjectComm_ReadDict_Resp> SubjectComm_ReadDict(wsRequest req)
         {
             var funcName = "SubjectComm_ReadDict";
             var errCode = 0;
@@ -209,11 +377,7 @@ namespace CommHub
             var dc = new DataHubDataContext();
             long ownerHubID = 0;
 
-            if (req.Params != null)
-            {
-                ownerHubID = req.Params.ownerHubID;
-            }
-            else
+            if (req == null)
             {
                 errCode = 200;
                 errorText = Tools.GetErrorTextByCode(errCode);
@@ -226,6 +390,11 @@ namespace CommHub
 
             try
             {
+                foreach (GetOwnerHubIDResult own in dc.GetOwnerHubID(req.Session))
+                {
+                    ownerHubID = own.ownerHubID;
+                }
+
                 foreach (SubjectComm_ReadDictResult itm in dc.SubjectComm_ReadDict(ownerHubID))
                 {
                     resp.Add(new wsSubjectComm()
@@ -266,7 +435,6 @@ namespace CommHub
             if (req.Params != null)
             {
                 id = req.Params.id;
-                ownerHubID = req.Params.ownerHubID;
                 name = req.Params.name;
             }
             else
@@ -276,12 +444,17 @@ namespace CommHub
                 Tools.ErrorLog_Save(req, "", funcName, errorText);
 
                 results.ErrText = string.Format("{0}\n{1}", funcName, errorText);
-                results.ErrCode = -1;
+                results.ErrCode = errCode;
                 return results;
             }
 
             try
             {
+                foreach (GetOwnerHubIDResult own in dc.GetOwnerHubID(req.Session))
+                {
+                    ownerHubID = own.ownerHubID;
+                }
+
                 foreach (SubjectComm_SaveResult itm in dc.SubjectComm_Save(id, ownerHubID, name))
                 {
                     resp.id = itm.id;
@@ -302,25 +475,73 @@ namespace CommHub
 
             return results;
         }
+
+        public wsResponse SubjectComm_Del(wsRequest<InstanceID> req)
+        {
+            var funcName = "SubjectComm_Del";
+            var errCode = 0;
+            var errorText = "";
+
+            var results = new wsResponse();
+            var dc = new DataHubDataContext();
+            long id = 0;
+            long ownerHubID = 0;
+
+            if (req.Params != null)
+            {
+                id = req.Params.id;
+            }
+            else
+            {
+                errCode = 200;
+                errorText = Tools.GetErrorTextByCode(errCode);
+                Tools.ErrorLog_Save(req, "", funcName, errorText);
+
+                results.ErrText = string.Format("{0}\n{1}", funcName, errorText);
+                results.ErrCode = errCode;
+                return results;
+            }
+
+            try
+            {
+                foreach (GetOwnerHubIDResult own in dc.GetOwnerHubID(req.Session))
+                {
+                    ownerHubID = own.ownerHubID;
+                }
+
+                dc.SubjectComm_Del(id, ownerHubID);
+            }
+            catch (Exception e)
+            {
+                errCode = 101;
+                string param = string.Format("id: {0}, ownerHubID: {1}", id, ownerHubID);
+                Tools.ErrorLog_Save(req, param, funcName, e.Message);
+
+                results.ErrCode = errCode;
+                results.ErrText = string.Format("{0}\n{1}\n{2}", funcName, Tools.GetErrorTextByCode(errCode), e.Message);
+            }
+
+            return results;
+        }
         #endregion
 
         #region Session
 
-        public wsResponse<SessionReq_Save_Resp> SessionReq_Save(wsRequest<SessionReq_Save_Req> req)
+        public wsResponse<SessionReq_Save_Resp> SessionReq_Save(SessionReq_Save_Req req)
         {
             var results = new wsResponse<SessionReq_Save_Resp>();
             var resp = new SessionReq_Save_Resp();
             var dc = new DataHubDataContext();
-            string DID = "";
-            string Phone = "";
+            string did;
+            string phone;
 
             Random generator = new Random();
             string code = generator.Next(0, 1000).ToString("D4");
 
-            if (req.Params != null)
+            if (req != null)
             {
-                DID = req.DID;
-                Phone = req.Params.Phone;
+                did = req.did;
+                phone = req.phone;
             }
             else
             {
@@ -329,24 +550,23 @@ namespace CommHub
                 return results;
             }
 
-            /*
-            try
+            /*try
             {
-                  string message = string.Format("Comm+code+confirm:+{0}", code);
-                  string http = string.Format("{0}sms.ru/sms/send?api_id={1}&to={2}&text={3}", "http://", "8B4D21F6-33D2-DBD4-8425-34631CD434BE", Phone, message);
-                  var request = (HttpWebRequest)WebRequest.Create(http);
-                  var response = (HttpWebResponse)request.GetResponse();
-                  var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
+                string message = string.Format("Comm+code+confirm:+{0}", code);
+                string http = string.Format("{0}sms.ru/sms/send?api_id={1}&to={2}&text={3}", "http://", "8B4D21F6-33D2-DBD4-8425-34631CD434BE", Phone, message);
+                var request = (HttpWebRequest)WebRequest.Create(http);
+                var response = (HttpWebResponse)request.GetResponse();
+                var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
             }
             catch (Exception e)
             {
                 results.ErrCode = 40;
-                results.ErrText = string.Format("Send sms {0}, error: {1}", Phone, e.Message);
-            }*/
-
+                results.ErrText = string.Format("Send sms {0}, error: {1}", phone, e.Message);
+            }
+            */
             try
             {
-                foreach (SessionReq_SaveResult res in dc.SessionReq_Save(DID, Phone))
+                foreach (SessionReq_SaveResult res in dc.SessionReq_Save(did, phone))
                 {
                     resp.id = res.id ?? 0;
                     resp.code = code;
@@ -357,7 +577,7 @@ namespace CommHub
             catch (Exception e)
             {
                 results.ErrCode = 101;
-                results.ErrText = string.Format("SessionReq_Save {0}, error: {1}", Phone, e.Message);
+                results.ErrText = string.Format("SessionReq_Save {0}, error: {1}", phone, e.Message);
             }
 
             return results;
@@ -402,8 +622,6 @@ namespace CommHub
 
             return results;
         }
-
         #endregion
-
     }
 }

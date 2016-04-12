@@ -6,11 +6,14 @@ namespace CommHub
     [ServiceContract]
     public interface IService
     {
-
         #region AdminComm
         [OperationContract]
+        [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "AdminComm_Del")]
+        wsResponse<AdminComm_Del_Resp> AdminComm_Del(wsRequest<InstanceID> req);
+
+        [OperationContract]
         [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "AdminComm_ReadDict")]
-        wsResponse<AdminComm_ReadDict_Resp> AdminComm_ReadDict(wsRequest<AdminComm_ReadDict_Req> req);
+        wsResponse<AdminComm_ReadDict_Resp> AdminComm_ReadDict(wsRequest req);
 
         [OperationContract]
         [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "AdminComm_Save")]
@@ -19,14 +22,26 @@ namespace CommHub
 
         #region Comm
         [OperationContract]
+        [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "Comm_Del")]
+        wsResponse Comm_Del(wsRequest<InstanceID> req);
+
+        [OperationContract]
         [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "Comm_ReadDict")]
-        wsResponse<Comm_ReadDict_Resp> Comm_ReadDict(wsRequest<Comm_ReadDict_Req> req);
+        wsResponse<Comm_ReadDict_Resp> Comm_ReadDict(wsRequest req);
+
+        [OperationContract]
+        [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "Comm_Save")]
+        wsResponse Comm_Save(wsRequest<Comm_Save_Req> req);
         #endregion
 
         #region SubjectComm
         [OperationContract]
+        [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "SubjectComm_Del")]
+        wsResponse SubjectComm_Del(wsRequest<InstanceID> req);
+
+        [OperationContract]
         [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "SubjectComm_ReadDict")]
-        wsResponse<SubjectComm_ReadDict_Resp> SubjectComm_ReadDict(wsRequest<SubjectComm_ReadDict_Req> req);
+        wsResponse<SubjectComm_ReadDict_Resp> SubjectComm_ReadDict(wsRequest req);
         
         [OperationContract]
         [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "SubjectComm_Save")]
@@ -36,7 +51,7 @@ namespace CommHub
         #region Session
         [OperationContract]
         [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "SessionReq_Save")]
-        wsResponse<SessionReq_Save_Resp> SessionReq_Save(wsRequest<SessionReq_Save_Req> req);
+        wsResponse<SessionReq_Save_Resp> SessionReq_Save(SessionReq_Save_Req req);
 
         [OperationContract]
         [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "Session_Save")]
