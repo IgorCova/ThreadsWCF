@@ -1,9 +1,8 @@
 ﻿using System.Runtime.Serialization;
-using System.IO;
-using System;
 
 namespace CommHub
 {
+    #region Request
     [DataContract]
     public class wsRequest
     {
@@ -20,6 +19,7 @@ namespace CommHub
         [DataMember]
         public T Params;
     }
+    #endregion
 
     [DataContract]
     public class AdminComm_ReadDict_Req
@@ -48,8 +48,14 @@ namespace CommHub
 
         [DataMember]
         public string linkFB { get; set; }
-    }    
+    }
 
+    [DataContract]
+    public class Comm_ReadDict_Req
+    {
+        [DataMember]
+        public long ownerHubID;
+    }
 
     [DataContract]
     public class SubjectComm_ReadDict_Req
@@ -59,16 +65,16 @@ namespace CommHub
     }
 
     [DataContract]
-    public class VK_Stats_Get_Req
+    public class SubjectComm_Save_Req
     {
         [DataMember]
-        public long groupId;
+        public long id { get; set; }
 
         [DataMember]
-        public DateTime dateFrom;
+        public long ownerHubID { get; set; }
 
         [DataMember]
-        public DateTime? dateTo = null;
+        public string name { get; set; }
     }
 
     [DataContract]

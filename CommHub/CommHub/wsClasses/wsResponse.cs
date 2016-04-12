@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
 using CommHub.wsClasses;
-using VkNet.Model;
-using System.Collections.ObjectModel;
 
 namespace CommHub
 {
+    #region Response
     [DataContract]
     public class wsResponse<T> where T : class
     {
@@ -28,7 +27,8 @@ namespace CommHub
         [DataMember]
         public string ErrText;
     }
-    
+    #endregion
+
     public class SubjectComm_ReadDict_Resp : List<wsSubjectComm> { }
     public class AdminComm_ReadDict_Resp : List<wsAdminComm> { }
 
@@ -36,5 +36,9 @@ namespace CommHub
     public class Session_Save_Resp : wsSession { }
 
     public class AdminComm_Save_Resp : wsAdminComm { }
-    
+
+    public class SubjectComm_Save_Resp : wsSubjectComm { }
+
+    public class Comm_ReadDict_Resp: List<wsComm> { }
+
 }

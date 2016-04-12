@@ -3,19 +3,7 @@ using System.Runtime.Serialization;
 
 namespace CommHub.wsClasses
 {
-    [DataContract]
-    public class wsSubjectComm
-    {
-        [DataMember]
-        public long id { get; set; }
-
-        [DataMember]
-        public long ownerHubID { get; set; }
-
-        [DataMember]
-        public string name { get; set; }
-    }
-
+    #region AdminComm
     [DataContract]
     public class wsAdminComm
     {
@@ -34,7 +22,75 @@ namespace CommHub.wsClasses
         [DataMember]
         public string linkFB { get; set; }
     }
+    #endregion
 
+    #region Comm
+    [DataContract]
+    public class wsComm
+    {
+        [DataMember]
+        public long id { get; set; }
+        
+        [DataMember]
+        public string name { get; set; }
+
+        [DataMember]
+        public long ownerHubID { get; set; }
+
+        [DataMember]
+        public string ownerHubID_firstName { get; set; }
+
+        [DataMember]
+        public string ownerHubID_lastName { get; set; }
+
+        [DataMember]
+        public string ownerHubID_linkFB { get; set; }
+
+        [DataMember]
+        public long subjectCommID { get; set; }
+
+        [DataMember]
+        public string subjectCommID_name { get; set; }
+
+        [DataMember]
+        public long areaCommID { get; set; }
+
+        [DataMember]
+        public string areaCommID_name { get; set; }
+
+        [DataMember]
+        public long adminCommID { get; set; }
+
+        [DataMember]
+        public string adminCommID_firstName { get; set; }
+
+        [DataMember]
+        public string adminCommID_lastName { get; set; }
+
+        [DataMember]
+        public string adminCommID_phone { get; set; }
+
+        [DataMember]
+        public string adminCommID_linkFB { get; set; }
+    }
+    #endregion
+
+    #region SubjectComm
+    [DataContract]
+    public class wsSubjectComm
+    {
+        [DataMember]
+        public long id { get; set; }
+
+        [DataMember]
+        public long ownerHubID { get; set; }
+
+        [DataMember]
+        public string name { get; set; }
+    }
+    #endregion
+
+    #region Session
     [DataContract]
     public class wsSessionReq_Out
     {
@@ -61,5 +117,5 @@ namespace CommHub.wsClasses
         [DataMember]
         public bool IsNewMember { get; set; }
     }
-    
+    #endregion
 }
