@@ -583,19 +583,18 @@ namespace CommHub
             return results;
         }
 
-        public wsResponse<Session_Save_Resp> Session_Save(wsRequest<Session_Save_Req> req)
+        public wsResponse<Session_Save_Resp> Session_Save(Session_Save_Req req)
         {
             var results = new wsResponse<Session_Save_Resp>();
             var resp = new Session_Save_Resp();
             var dc = new DataHubDataContext();
-            long sessionReq_ID = 0;
-            string dID = "";
-            string Phone = "";
+            long sessionReqID = 0;
+            string did = "";
 
-            if (req.Params != null)
+            if (req != null)
             {
-                sessionReq_ID = req.Params.SessionReq_ID;
-                dID = req.DID;
+                sessionReqID = req.sessionReqID;
+                did = req.did;
             }
             else
             {
@@ -606,7 +605,7 @@ namespace CommHub
 
             try
             {
-                foreach (Session_SaveResult res in dc.Session_Save(sessionReq_ID, dID))
+                foreach (Session_SaveResult res in dc.Session_Save(sessionReqID, did))
                 {
                     resp.SessionID = res.sessionID;
                     resp.ownerHubID = res.ownerHubID ?? 0;
@@ -617,7 +616,7 @@ namespace CommHub
             catch (Exception e)
             {
                 results.ErrCode = 101;
-                results.ErrText = string.Format("Session_Save {0}: {1}", Phone, e.Message);
+                results.ErrText = string.Format("Session_Save {0}: {1}", sessionReqID, e.Message);
             }
 
             return results;

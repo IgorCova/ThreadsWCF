@@ -74,8 +74,10 @@ namespace CommHub
     public class Session_Save_Req
     {
         [DataMember]
-        public long SessionReq_ID;
+        public string did { get; set; }
 
+        [DataMember]
+        public long sessionReqID;
     }
 
     [DataContract]

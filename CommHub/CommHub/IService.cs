@@ -55,7 +55,7 @@ namespace CommHub
 
         [OperationContract]
         [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "Session_Save")]
-        wsResponse<Session_Save_Resp> Session_Save(wsRequest<Session_Save_Req> req);
+        wsResponse<Session_Save_Resp> Session_Save(Session_Save_Req req);
         #endregion
     }
 }
