@@ -13,6 +13,7 @@
     <Parameter Name="commComments" Type="System.Int64" DbType="BigInt" />
     <Parameter Name="commReposts" Type="System.Int64" DbType="BigInt" />
     <Parameter Name="commPostCount" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="commMembers" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
   </Function>
 </Database>

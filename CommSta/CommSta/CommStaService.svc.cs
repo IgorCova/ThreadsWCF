@@ -46,6 +46,13 @@ namespace CommSta
             long subscribed = res[0].Subscribed ?? 0;
             long unsubscribed = res[0].Unsubscribed ?? 0;
 
+            int members = 0;
+            GroupsGetMembersParams prms = new GroupsGetMembersParams();
+            prms.Count = 0;
+            prms.GroupId = groupId.ToString();
+            prms.Offset = 0;
+            api.Groups.GetMembers(out members, prms);
+
             long likes = 0;
             long comments = 0;
             long reposts = 0;
@@ -99,7 +106,7 @@ namespace CommSta
                 offset += 100;
             }
 
-            dc.StaCommVK_Save(groupId, dateStart, views, visitors, reach, reach_subscribers, subscribed, unsubscribed, likes, comments, reposts, countPost);
+            dc.StaCommVK_Save(groupId, dateStart, views, visitors, reach, reach_subscribers, subscribed, unsubscribed, likes, comments, reposts, countPost, members);
         }
     }
 }
