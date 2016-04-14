@@ -42,6 +42,21 @@ namespace CommHub
         public string linkFB { get; set; }
     }
 
+    public class OwnerHub_Save_Req
+    {
+        [DataMember]
+        public string firstName { get; set; }
+
+        [DataMember]
+        public string lastName { get; set; }
+
+        [DataMember]
+        public string phone { get; set; }
+
+        [DataMember]
+        public string linkFB { get; set; }
+    }
+
     [DataContract]
     public class Comm_Save_Req
     {

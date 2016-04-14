@@ -36,4 +36,6 @@ namespace CommHub
     public class Comm_ReadDict_Resp: List<wsComm_Extended> { }
 
     public class AdminComm_Del_Resp: wsAdminComm_Del { }
+
+    public class OwnerHub_Read_Resp : wsOwnerHub { }
 }

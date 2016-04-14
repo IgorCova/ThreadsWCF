@@ -22,6 +22,22 @@ namespace CommHub.wsClasses
         [DataMember]
         public string linkFB { get; set; }
     }
+
+    public class wsOwnerHub
+    {
+        [DataMember]
+        public string firstName { get; set; }
+
+        [DataMember]
+        public string lastName { get; set; }
+
+        [DataMember]
+        public string phone { get; set; }
+
+        [DataMember]
+        public string linkFB { get; set; }
+    }
+
     public class wsAdminComm_Del
     {
         [DataMember]
