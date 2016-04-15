@@ -16,4 +16,21 @@
     <Parameter Name="commMembers" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
   </Function>
+  <Function Name="dbo.GroupAccess_Save" Method="GroupAccess_Save">
+    <Parameter Name="groupID" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="exception" Type="System.String" DbType="VarChar(4028)" />
+    <Parameter Name="innerException" Type="System.String" DbType="VarChar(4028)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.Exception_Save" Method="Exception_Save">
+    <Parameter Name="methodName" Type="System.String" DbType="NVarChar(128)" />
+    <Parameter Name="note" Type="System.String" DbType="VarChar(MAX)" />
+    <Parameter Name="exMessage" Type="System.String" DbType="VarChar(MAX)" />
+    <Parameter Name="exInnerExceptionMessage" Type="System.String" DbType="VarChar(MAX)" />
+    <Parameter Name="exHelpLink" Type="System.String" DbType="VarChar(MAX)" />
+    <Parameter Name="exHResult" Type="System.Int32" DbType="Int" />
+    <Parameter Name="exSource" Type="System.String" DbType="VarChar(MAX)" />
+    <Parameter Name="exStackTrace" Type="System.String" DbType="VarChar(MAX)" />
+    <Return Type="System.Int32" />
+  </Function>
 </Database>

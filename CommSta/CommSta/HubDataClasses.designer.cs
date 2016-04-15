@@ -68,6 +68,20 @@ namespace CommSta
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), groupID, requestStartDate, commViews, commVisitors, commReach, commReachSubscribers, commSubscribed, commUnsubscribed, commLikes, commComments, commReposts, commPostCount, commMembers);
 			return ((int)(result.ReturnValue));
 		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GroupAccess_Save")]
+		public int GroupAccess_Save([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> groupID, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(4028)")] string exception, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(4028)")] string innerException)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), groupID, exception, innerException);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.Exception_Save")]
+		public int Exception_Save([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(128)")] string methodName, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(MAX)")] string note, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(MAX)")] string exMessage, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(MAX)")] string exInnerExceptionMessage, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(MAX)")] string exHelpLink, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> exHResult, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(MAX)")] string exSource, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(MAX)")] string exStackTrace)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), methodName, note, exMessage, exInnerExceptionMessage, exHelpLink, exHResult, exSource, exStackTrace);
+			return ((int)(result.ReturnValue));
+		}
 	}
 }
 #pragma warning restore 1591
