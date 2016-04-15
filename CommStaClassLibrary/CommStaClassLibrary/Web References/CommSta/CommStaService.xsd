@@ -10,9 +10,19 @@
   </xs:element>
   <xs:element name="VKontakte_StaResponse">
     <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="VKontakte_Sta_ByDate">
+    <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="VKontakte_StaResult" nillable="true" type="xs:string" />
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/CommSta" minOccurs="0" name="req" nillable="true" type="q2:wsRequestByDate" />
       </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="VKontakte_Sta_ByDateResponse">
+    <xs:complexType>
+      <xs:sequence />
     </xs:complexType>
   </xs:element>
 </xs:schema>

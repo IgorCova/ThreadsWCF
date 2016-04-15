@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System;
+using System.Runtime.Serialization;
 
 namespace CommSta
 {
@@ -9,4 +10,16 @@ namespace CommSta
         public long groupID;
 
     }
+
+    public class wsRequestByDate : wsRequest
+    {
+        [DataMember]
+        public DateTime dateFrom;
+
+        [DataMember]
+        public DateTime dateTo;
+
+    }
+
+
 }

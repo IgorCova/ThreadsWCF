@@ -37,14 +37,29 @@ namespace CommSta
             api.Groups.GetMembers(out members, prms);
             return members;
         }
+
         public void VKontakte_Sta(wsRequest req)
         {
-            HubDataClassesDataContext dc = new HubDataClassesDataContext();
-            long groupId = req.groupID;
-            DateTime dateStart = DateTime.Now;
-
             DateTime dateFrom = DateTime.Today.AddDays(-1).Date;
-            DateTime? dateTo = DateTime.Today.Date;
+            DateTime dateTo = DateTime.Today.Date;
+
+            wsRequestByDate exreq = new wsRequestByDate();
+            exreq.dateFrom = DateTime.Today.AddDays(-1).Date;
+            exreq.dateTo = DateTime.Today.Date;
+            exreq.groupID = req.groupID;
+
+            VKontakte_Sta_ByDate(exreq);
+        }
+
+        public void VKontakte_Sta_ByDate(wsRequestByDate req)
+        {
+            long groupId = req.groupID;
+            DateTime dateFrom = req.dateFrom;
+            DateTime dateTo = req.dateTo;
+
+            HubDataClassesDataContext dc = new HubDataClassesDataContext();
+           
+            DateTime dateStart = DateTime.Now;
 
             ulong appId = 5391843; // указываем id приложения
             string email = "89164913669"; // email для авторизации

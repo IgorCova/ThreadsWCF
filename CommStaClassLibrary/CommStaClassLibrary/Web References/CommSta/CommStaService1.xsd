@@ -6,4 +6,15 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="wsRequest" nillable="true" type="tns:wsRequest" />
+  <xs:complexType name="wsRequestByDate">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:wsRequest">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="dateFrom" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="dateTo" type="xs:dateTime" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="wsRequestByDate" nillable="true" type="tns:wsRequestByDate" />
 </xs:schema>
