@@ -17,7 +17,7 @@ namespace CommSta
         public DateTime dateFrom;
 
         [DataMember]
-        public DateTime dateTo;
+        public DateTime? dateTo;
 
     }
 

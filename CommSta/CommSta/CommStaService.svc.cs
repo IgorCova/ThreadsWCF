@@ -40,12 +40,10 @@ namespace CommSta
 
         public void VKontakte_Sta(wsRequest req)
         {
-            DateTime dateFrom = DateTime.Today.AddDays(-1).Date;
-            DateTime dateTo = DateTime.Today.Date;
-
+            DateTime dateFrom = DateTime.Today.Date;
+  
             wsRequestByDate exreq = new wsRequestByDate();
-            exreq.dateFrom = DateTime.Today.AddDays(-1).Date;
-            exreq.dateTo = DateTime.Today.Date;
+            exreq.dateFrom = DateTime.Now;
             exreq.groupID = req.groupID;
 
             VKontakte_Sta_ByDate(exreq);
@@ -55,7 +53,7 @@ namespace CommSta
         {
             long groupId = req.groupID;
             DateTime dateFrom = req.dateFrom;
-            DateTime dateTo = req.dateTo;
+            DateTime? dateTo = req.dateTo;
 
             HubDataClassesDataContext dc = new HubDataClassesDataContext();
            
