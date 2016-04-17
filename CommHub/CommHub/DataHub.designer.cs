@@ -181,6 +181,20 @@ namespace CommHub
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), id, ownerHubID);
 			return ((int)(result.ReturnValue));
 		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.StaCommVKDaily_ReportDay")]
+		public ISingleResult<StaCommVKDaily_ReportDayResult> StaCommVKDaily_ReportDay([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> ownerHubID)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), ownerHubID);
+			return ((ISingleResult<StaCommVKDaily_ReportDayResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.StaCommVKDaily_ReportWeek")]
+		public ISingleResult<StaCommVKDaily_ReportWeekResult> StaCommVKDaily_ReportWeek([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> ownerHubID)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), ownerHubID);
+			return ((ISingleResult<StaCommVKDaily_ReportWeekResult>)(result.ReturnValue));
+		}
 	}
 	
 	public partial class Comm_ReadResult
@@ -1246,6 +1260,1462 @@ namespace CommHub
 				if ((this._ownerHubID != value))
 				{
 					this._ownerHubID = value;
+				}
+			}
+		}
+	}
+	
+	public partial class StaCommVKDaily_ReportDayResult
+	{
+		
+		private long _comm_id;
+		
+		private string _comm_name;
+		
+		private System.Nullable<long> _comm_groupID;
+		
+		private string _subjectComm_name;
+		
+		private string _areaComm_code;
+		
+		private string _adminComm_fullName;
+		
+		private string _adminComm_linkFB;
+		
+		private System.Nullable<int> _members;
+		
+		private System.Nullable<int> _membersNew;
+		
+		private System.Nullable<decimal> _membersNewPercent;
+		
+		private System.Nullable<long> _subscribed;
+		
+		private System.Nullable<long> _subscribedNew;
+		
+		private System.Nullable<decimal> _subscribedNewPercent;
+		
+		private System.Nullable<long> _unsubscribed;
+		
+		private System.Nullable<long> _unsubscribedNew;
+		
+		private System.Nullable<decimal> _unsubscribedNewPercent;
+		
+		private System.Nullable<long> _visitors;
+		
+		private System.Nullable<long> _visitorsNew;
+		
+		private System.Nullable<decimal> _visitorsNewPercent;
+		
+		private System.Nullable<long> _views;
+		
+		private System.Nullable<long> _viewsNew;
+		
+		private System.Nullable<decimal> _viewsNewPercent;
+		
+		private System.Nullable<long> _reach;
+		
+		private System.Nullable<long> _reachNew;
+		
+		private System.Nullable<decimal> _reachNewPercent;
+		
+		private System.Nullable<long> _reachSubscribers;
+		
+		private System.Nullable<long> _reachSubscribersNew;
+		
+		private System.Nullable<decimal> _reachSubscribersNewPercent;
+		
+		private System.Nullable<long> _postCount;
+		
+		private System.Nullable<long> _postCountNew;
+		
+		private System.Nullable<decimal> _postCountNewPercent;
+		
+		private System.Nullable<long> _likes;
+		
+		private System.Nullable<long> _likesNew;
+		
+		private System.Nullable<decimal> _likesNewPercent;
+		
+		private System.Nullable<long> _comments;
+		
+		private System.Nullable<long> _commentsNew;
+		
+		private System.Nullable<decimal> _commentsNewPercent;
+		
+		private System.Nullable<long> _reposts;
+		
+		private System.Nullable<long> _repostsNew;
+		
+		private System.Nullable<decimal> _repostsNewPercent;
+		
+		public StaCommVKDaily_ReportDayResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_comm_id", DbType="BigInt NOT NULL")]
+		public long comm_id
+		{
+			get
+			{
+				return this._comm_id;
+			}
+			set
+			{
+				if ((this._comm_id != value))
+				{
+					this._comm_id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_comm_name", DbType="VarChar(256)")]
+		public string comm_name
+		{
+			get
+			{
+				return this._comm_name;
+			}
+			set
+			{
+				if ((this._comm_name != value))
+				{
+					this._comm_name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_comm_groupID", DbType="BigInt")]
+		public System.Nullable<long> comm_groupID
+		{
+			get
+			{
+				return this._comm_groupID;
+			}
+			set
+			{
+				if ((this._comm_groupID != value))
+				{
+					this._comm_groupID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_subjectComm_name", DbType="VarChar(256)")]
+		public string subjectComm_name
+		{
+			get
+			{
+				return this._subjectComm_name;
+			}
+			set
+			{
+				if ((this._subjectComm_name != value))
+				{
+					this._subjectComm_name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_areaComm_code", DbType="VarChar(32)")]
+		public string areaComm_code
+		{
+			get
+			{
+				return this._areaComm_code;
+			}
+			set
+			{
+				if ((this._areaComm_code != value))
+				{
+					this._areaComm_code = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_adminComm_fullName", DbType="VarChar(1025) NOT NULL", CanBeNull=false)]
+		public string adminComm_fullName
+		{
+			get
+			{
+				return this._adminComm_fullName;
+			}
+			set
+			{
+				if ((this._adminComm_fullName != value))
+				{
+					this._adminComm_fullName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_adminComm_linkFB", DbType="VarChar(512)")]
+		public string adminComm_linkFB
+		{
+			get
+			{
+				return this._adminComm_linkFB;
+			}
+			set
+			{
+				if ((this._adminComm_linkFB != value))
+				{
+					this._adminComm_linkFB = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_members", DbType="Int")]
+		public System.Nullable<int> members
+		{
+			get
+			{
+				return this._members;
+			}
+			set
+			{
+				if ((this._members != value))
+				{
+					this._members = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_membersNew", DbType="Int")]
+		public System.Nullable<int> membersNew
+		{
+			get
+			{
+				return this._membersNew;
+			}
+			set
+			{
+				if ((this._membersNew != value))
+				{
+					this._membersNew = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_membersNewPercent", DbType="Decimal(16,2)")]
+		public System.Nullable<decimal> membersNewPercent
+		{
+			get
+			{
+				return this._membersNewPercent;
+			}
+			set
+			{
+				if ((this._membersNewPercent != value))
+				{
+					this._membersNewPercent = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_subscribed", DbType="BigInt")]
+		public System.Nullable<long> subscribed
+		{
+			get
+			{
+				return this._subscribed;
+			}
+			set
+			{
+				if ((this._subscribed != value))
+				{
+					this._subscribed = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_subscribedNew", DbType="BigInt")]
+		public System.Nullable<long> subscribedNew
+		{
+			get
+			{
+				return this._subscribedNew;
+			}
+			set
+			{
+				if ((this._subscribedNew != value))
+				{
+					this._subscribedNew = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_subscribedNewPercent", DbType="Decimal(16,2)")]
+		public System.Nullable<decimal> subscribedNewPercent
+		{
+			get
+			{
+				return this._subscribedNewPercent;
+			}
+			set
+			{
+				if ((this._subscribedNewPercent != value))
+				{
+					this._subscribedNewPercent = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_unsubscribed", DbType="BigInt")]
+		public System.Nullable<long> unsubscribed
+		{
+			get
+			{
+				return this._unsubscribed;
+			}
+			set
+			{
+				if ((this._unsubscribed != value))
+				{
+					this._unsubscribed = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_unsubscribedNew", DbType="BigInt")]
+		public System.Nullable<long> unsubscribedNew
+		{
+			get
+			{
+				return this._unsubscribedNew;
+			}
+			set
+			{
+				if ((this._unsubscribedNew != value))
+				{
+					this._unsubscribedNew = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_unsubscribedNewPercent", DbType="Decimal(16,2)")]
+		public System.Nullable<decimal> unsubscribedNewPercent
+		{
+			get
+			{
+				return this._unsubscribedNewPercent;
+			}
+			set
+			{
+				if ((this._unsubscribedNewPercent != value))
+				{
+					this._unsubscribedNewPercent = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_visitors", DbType="BigInt")]
+		public System.Nullable<long> visitors
+		{
+			get
+			{
+				return this._visitors;
+			}
+			set
+			{
+				if ((this._visitors != value))
+				{
+					this._visitors = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_visitorsNew", DbType="BigInt")]
+		public System.Nullable<long> visitorsNew
+		{
+			get
+			{
+				return this._visitorsNew;
+			}
+			set
+			{
+				if ((this._visitorsNew != value))
+				{
+					this._visitorsNew = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_visitorsNewPercent", DbType="Decimal(16,2)")]
+		public System.Nullable<decimal> visitorsNewPercent
+		{
+			get
+			{
+				return this._visitorsNewPercent;
+			}
+			set
+			{
+				if ((this._visitorsNewPercent != value))
+				{
+					this._visitorsNewPercent = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_views", DbType="BigInt")]
+		public System.Nullable<long> views
+		{
+			get
+			{
+				return this._views;
+			}
+			set
+			{
+				if ((this._views != value))
+				{
+					this._views = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_viewsNew", DbType="BigInt")]
+		public System.Nullable<long> viewsNew
+		{
+			get
+			{
+				return this._viewsNew;
+			}
+			set
+			{
+				if ((this._viewsNew != value))
+				{
+					this._viewsNew = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_viewsNewPercent", DbType="Decimal(16,2)")]
+		public System.Nullable<decimal> viewsNewPercent
+		{
+			get
+			{
+				return this._viewsNewPercent;
+			}
+			set
+			{
+				if ((this._viewsNewPercent != value))
+				{
+					this._viewsNewPercent = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_reach", DbType="BigInt")]
+		public System.Nullable<long> reach
+		{
+			get
+			{
+				return this._reach;
+			}
+			set
+			{
+				if ((this._reach != value))
+				{
+					this._reach = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_reachNew", DbType="BigInt")]
+		public System.Nullable<long> reachNew
+		{
+			get
+			{
+				return this._reachNew;
+			}
+			set
+			{
+				if ((this._reachNew != value))
+				{
+					this._reachNew = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_reachNewPercent", DbType="Decimal(16,2)")]
+		public System.Nullable<decimal> reachNewPercent
+		{
+			get
+			{
+				return this._reachNewPercent;
+			}
+			set
+			{
+				if ((this._reachNewPercent != value))
+				{
+					this._reachNewPercent = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_reachSubscribers", DbType="BigInt")]
+		public System.Nullable<long> reachSubscribers
+		{
+			get
+			{
+				return this._reachSubscribers;
+			}
+			set
+			{
+				if ((this._reachSubscribers != value))
+				{
+					this._reachSubscribers = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_reachSubscribersNew", DbType="BigInt")]
+		public System.Nullable<long> reachSubscribersNew
+		{
+			get
+			{
+				return this._reachSubscribersNew;
+			}
+			set
+			{
+				if ((this._reachSubscribersNew != value))
+				{
+					this._reachSubscribersNew = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_reachSubscribersNewPercent", DbType="Decimal(16,2)")]
+		public System.Nullable<decimal> reachSubscribersNewPercent
+		{
+			get
+			{
+				return this._reachSubscribersNewPercent;
+			}
+			set
+			{
+				if ((this._reachSubscribersNewPercent != value))
+				{
+					this._reachSubscribersNewPercent = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_postCount", DbType="BigInt")]
+		public System.Nullable<long> postCount
+		{
+			get
+			{
+				return this._postCount;
+			}
+			set
+			{
+				if ((this._postCount != value))
+				{
+					this._postCount = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_postCountNew", DbType="BigInt")]
+		public System.Nullable<long> postCountNew
+		{
+			get
+			{
+				return this._postCountNew;
+			}
+			set
+			{
+				if ((this._postCountNew != value))
+				{
+					this._postCountNew = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_postCountNewPercent", DbType="Decimal(16,2)")]
+		public System.Nullable<decimal> postCountNewPercent
+		{
+			get
+			{
+				return this._postCountNewPercent;
+			}
+			set
+			{
+				if ((this._postCountNewPercent != value))
+				{
+					this._postCountNewPercent = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_likes", DbType="BigInt")]
+		public System.Nullable<long> likes
+		{
+			get
+			{
+				return this._likes;
+			}
+			set
+			{
+				if ((this._likes != value))
+				{
+					this._likes = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_likesNew", DbType="BigInt")]
+		public System.Nullable<long> likesNew
+		{
+			get
+			{
+				return this._likesNew;
+			}
+			set
+			{
+				if ((this._likesNew != value))
+				{
+					this._likesNew = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_likesNewPercent", DbType="Decimal(16,2)")]
+		public System.Nullable<decimal> likesNewPercent
+		{
+			get
+			{
+				return this._likesNewPercent;
+			}
+			set
+			{
+				if ((this._likesNewPercent != value))
+				{
+					this._likesNewPercent = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_comments", DbType="BigInt")]
+		public System.Nullable<long> comments
+		{
+			get
+			{
+				return this._comments;
+			}
+			set
+			{
+				if ((this._comments != value))
+				{
+					this._comments = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_commentsNew", DbType="BigInt")]
+		public System.Nullable<long> commentsNew
+		{
+			get
+			{
+				return this._commentsNew;
+			}
+			set
+			{
+				if ((this._commentsNew != value))
+				{
+					this._commentsNew = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_commentsNewPercent", DbType="Decimal(16,2)")]
+		public System.Nullable<decimal> commentsNewPercent
+		{
+			get
+			{
+				return this._commentsNewPercent;
+			}
+			set
+			{
+				if ((this._commentsNewPercent != value))
+				{
+					this._commentsNewPercent = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_reposts", DbType="BigInt")]
+		public System.Nullable<long> reposts
+		{
+			get
+			{
+				return this._reposts;
+			}
+			set
+			{
+				if ((this._reposts != value))
+				{
+					this._reposts = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_repostsNew", DbType="BigInt")]
+		public System.Nullable<long> repostsNew
+		{
+			get
+			{
+				return this._repostsNew;
+			}
+			set
+			{
+				if ((this._repostsNew != value))
+				{
+					this._repostsNew = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_repostsNewPercent", DbType="Decimal(16,2)")]
+		public System.Nullable<decimal> repostsNewPercent
+		{
+			get
+			{
+				return this._repostsNewPercent;
+			}
+			set
+			{
+				if ((this._repostsNewPercent != value))
+				{
+					this._repostsNewPercent = value;
+				}
+			}
+		}
+	}
+	
+	public partial class StaCommVKDaily_ReportWeekResult
+	{
+		
+		private long _comm_id;
+		
+		private string _comm_name;
+		
+		private System.Nullable<long> _comm_groupID;
+		
+		private string _subjectComm_name;
+		
+		private string _areaComm_code;
+		
+		private string _adminComm_fullName;
+		
+		private string _adminComm_linkFB;
+		
+		private System.Nullable<int> _members;
+		
+		private System.Nullable<int> _membersNew;
+		
+		private System.Nullable<decimal> _membersNewPercent;
+		
+		private System.Nullable<long> _subscribed;
+		
+		private System.Nullable<long> _subscribedNew;
+		
+		private System.Nullable<decimal> _subscribedNewPercent;
+		
+		private System.Nullable<long> _unsubscribed;
+		
+		private System.Nullable<long> _unsubscribedNew;
+		
+		private System.Nullable<decimal> _unsubscribedNewPercent;
+		
+		private System.Nullable<long> _visitors;
+		
+		private System.Nullable<long> _visitorsNew;
+		
+		private System.Nullable<decimal> _visitorsNewPercent;
+		
+		private System.Nullable<long> _views;
+		
+		private System.Nullable<long> _viewsNew;
+		
+		private System.Nullable<decimal> _viewsNewPercent;
+		
+		private System.Nullable<long> _reach;
+		
+		private System.Nullable<long> _reachNew;
+		
+		private System.Nullable<decimal> _reachNewPercent;
+		
+		private System.Nullable<long> _reachSubscribers;
+		
+		private System.Nullable<long> _reachSubscribersNew;
+		
+		private System.Nullable<decimal> _reachSubscribersNewPercent;
+		
+		private System.Nullable<long> _postCount;
+		
+		private System.Nullable<long> _postCountNew;
+		
+		private System.Nullable<decimal> _postCountNewPercent;
+		
+		private System.Nullable<long> _likes;
+		
+		private System.Nullable<long> _likesNew;
+		
+		private System.Nullable<decimal> _likesNewPercent;
+		
+		private System.Nullable<long> _comments;
+		
+		private System.Nullable<long> _commentsNew;
+		
+		private System.Nullable<decimal> _commentsNewPercent;
+		
+		private System.Nullable<long> _reposts;
+		
+		private System.Nullable<long> _repostsNew;
+		
+		private System.Nullable<decimal> _repostsNewPercent;
+		
+		public StaCommVKDaily_ReportWeekResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_comm_id", DbType="BigInt NOT NULL")]
+		public long comm_id
+		{
+			get
+			{
+				return this._comm_id;
+			}
+			set
+			{
+				if ((this._comm_id != value))
+				{
+					this._comm_id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_comm_name", DbType="VarChar(256)")]
+		public string comm_name
+		{
+			get
+			{
+				return this._comm_name;
+			}
+			set
+			{
+				if ((this._comm_name != value))
+				{
+					this._comm_name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_comm_groupID", DbType="BigInt")]
+		public System.Nullable<long> comm_groupID
+		{
+			get
+			{
+				return this._comm_groupID;
+			}
+			set
+			{
+				if ((this._comm_groupID != value))
+				{
+					this._comm_groupID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_subjectComm_name", DbType="VarChar(256)")]
+		public string subjectComm_name
+		{
+			get
+			{
+				return this._subjectComm_name;
+			}
+			set
+			{
+				if ((this._subjectComm_name != value))
+				{
+					this._subjectComm_name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_areaComm_code", DbType="VarChar(32)")]
+		public string areaComm_code
+		{
+			get
+			{
+				return this._areaComm_code;
+			}
+			set
+			{
+				if ((this._areaComm_code != value))
+				{
+					this._areaComm_code = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_adminComm_fullName", DbType="VarChar(1025) NOT NULL", CanBeNull=false)]
+		public string adminComm_fullName
+		{
+			get
+			{
+				return this._adminComm_fullName;
+			}
+			set
+			{
+				if ((this._adminComm_fullName != value))
+				{
+					this._adminComm_fullName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_adminComm_linkFB", DbType="VarChar(512)")]
+		public string adminComm_linkFB
+		{
+			get
+			{
+				return this._adminComm_linkFB;
+			}
+			set
+			{
+				if ((this._adminComm_linkFB != value))
+				{
+					this._adminComm_linkFB = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_members", DbType="Int")]
+		public System.Nullable<int> members
+		{
+			get
+			{
+				return this._members;
+			}
+			set
+			{
+				if ((this._members != value))
+				{
+					this._members = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_membersNew", DbType="Int")]
+		public System.Nullable<int> membersNew
+		{
+			get
+			{
+				return this._membersNew;
+			}
+			set
+			{
+				if ((this._membersNew != value))
+				{
+					this._membersNew = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_membersNewPercent", DbType="Decimal(16,2)")]
+		public System.Nullable<decimal> membersNewPercent
+		{
+			get
+			{
+				return this._membersNewPercent;
+			}
+			set
+			{
+				if ((this._membersNewPercent != value))
+				{
+					this._membersNewPercent = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_subscribed", DbType="BigInt")]
+		public System.Nullable<long> subscribed
+		{
+			get
+			{
+				return this._subscribed;
+			}
+			set
+			{
+				if ((this._subscribed != value))
+				{
+					this._subscribed = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_subscribedNew", DbType="BigInt")]
+		public System.Nullable<long> subscribedNew
+		{
+			get
+			{
+				return this._subscribedNew;
+			}
+			set
+			{
+				if ((this._subscribedNew != value))
+				{
+					this._subscribedNew = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_subscribedNewPercent", DbType="Decimal(16,2)")]
+		public System.Nullable<decimal> subscribedNewPercent
+		{
+			get
+			{
+				return this._subscribedNewPercent;
+			}
+			set
+			{
+				if ((this._subscribedNewPercent != value))
+				{
+					this._subscribedNewPercent = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_unsubscribed", DbType="BigInt")]
+		public System.Nullable<long> unsubscribed
+		{
+			get
+			{
+				return this._unsubscribed;
+			}
+			set
+			{
+				if ((this._unsubscribed != value))
+				{
+					this._unsubscribed = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_unsubscribedNew", DbType="BigInt")]
+		public System.Nullable<long> unsubscribedNew
+		{
+			get
+			{
+				return this._unsubscribedNew;
+			}
+			set
+			{
+				if ((this._unsubscribedNew != value))
+				{
+					this._unsubscribedNew = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_unsubscribedNewPercent", DbType="Decimal(16,2)")]
+		public System.Nullable<decimal> unsubscribedNewPercent
+		{
+			get
+			{
+				return this._unsubscribedNewPercent;
+			}
+			set
+			{
+				if ((this._unsubscribedNewPercent != value))
+				{
+					this._unsubscribedNewPercent = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_visitors", DbType="BigInt")]
+		public System.Nullable<long> visitors
+		{
+			get
+			{
+				return this._visitors;
+			}
+			set
+			{
+				if ((this._visitors != value))
+				{
+					this._visitors = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_visitorsNew", DbType="BigInt")]
+		public System.Nullable<long> visitorsNew
+		{
+			get
+			{
+				return this._visitorsNew;
+			}
+			set
+			{
+				if ((this._visitorsNew != value))
+				{
+					this._visitorsNew = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_visitorsNewPercent", DbType="Decimal(16,2)")]
+		public System.Nullable<decimal> visitorsNewPercent
+		{
+			get
+			{
+				return this._visitorsNewPercent;
+			}
+			set
+			{
+				if ((this._visitorsNewPercent != value))
+				{
+					this._visitorsNewPercent = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_views", DbType="BigInt")]
+		public System.Nullable<long> views
+		{
+			get
+			{
+				return this._views;
+			}
+			set
+			{
+				if ((this._views != value))
+				{
+					this._views = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_viewsNew", DbType="BigInt")]
+		public System.Nullable<long> viewsNew
+		{
+			get
+			{
+				return this._viewsNew;
+			}
+			set
+			{
+				if ((this._viewsNew != value))
+				{
+					this._viewsNew = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_viewsNewPercent", DbType="Decimal(16,2)")]
+		public System.Nullable<decimal> viewsNewPercent
+		{
+			get
+			{
+				return this._viewsNewPercent;
+			}
+			set
+			{
+				if ((this._viewsNewPercent != value))
+				{
+					this._viewsNewPercent = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_reach", DbType="BigInt")]
+		public System.Nullable<long> reach
+		{
+			get
+			{
+				return this._reach;
+			}
+			set
+			{
+				if ((this._reach != value))
+				{
+					this._reach = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_reachNew", DbType="BigInt")]
+		public System.Nullable<long> reachNew
+		{
+			get
+			{
+				return this._reachNew;
+			}
+			set
+			{
+				if ((this._reachNew != value))
+				{
+					this._reachNew = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_reachNewPercent", DbType="Decimal(16,2)")]
+		public System.Nullable<decimal> reachNewPercent
+		{
+			get
+			{
+				return this._reachNewPercent;
+			}
+			set
+			{
+				if ((this._reachNewPercent != value))
+				{
+					this._reachNewPercent = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_reachSubscribers", DbType="BigInt")]
+		public System.Nullable<long> reachSubscribers
+		{
+			get
+			{
+				return this._reachSubscribers;
+			}
+			set
+			{
+				if ((this._reachSubscribers != value))
+				{
+					this._reachSubscribers = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_reachSubscribersNew", DbType="BigInt")]
+		public System.Nullable<long> reachSubscribersNew
+		{
+			get
+			{
+				return this._reachSubscribersNew;
+			}
+			set
+			{
+				if ((this._reachSubscribersNew != value))
+				{
+					this._reachSubscribersNew = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_reachSubscribersNewPercent", DbType="Decimal(16,2)")]
+		public System.Nullable<decimal> reachSubscribersNewPercent
+		{
+			get
+			{
+				return this._reachSubscribersNewPercent;
+			}
+			set
+			{
+				if ((this._reachSubscribersNewPercent != value))
+				{
+					this._reachSubscribersNewPercent = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_postCount", DbType="BigInt")]
+		public System.Nullable<long> postCount
+		{
+			get
+			{
+				return this._postCount;
+			}
+			set
+			{
+				if ((this._postCount != value))
+				{
+					this._postCount = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_postCountNew", DbType="BigInt")]
+		public System.Nullable<long> postCountNew
+		{
+			get
+			{
+				return this._postCountNew;
+			}
+			set
+			{
+				if ((this._postCountNew != value))
+				{
+					this._postCountNew = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_postCountNewPercent", DbType="Decimal(16,2)")]
+		public System.Nullable<decimal> postCountNewPercent
+		{
+			get
+			{
+				return this._postCountNewPercent;
+			}
+			set
+			{
+				if ((this._postCountNewPercent != value))
+				{
+					this._postCountNewPercent = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_likes", DbType="BigInt")]
+		public System.Nullable<long> likes
+		{
+			get
+			{
+				return this._likes;
+			}
+			set
+			{
+				if ((this._likes != value))
+				{
+					this._likes = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_likesNew", DbType="BigInt")]
+		public System.Nullable<long> likesNew
+		{
+			get
+			{
+				return this._likesNew;
+			}
+			set
+			{
+				if ((this._likesNew != value))
+				{
+					this._likesNew = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_likesNewPercent", DbType="Decimal(16,2)")]
+		public System.Nullable<decimal> likesNewPercent
+		{
+			get
+			{
+				return this._likesNewPercent;
+			}
+			set
+			{
+				if ((this._likesNewPercent != value))
+				{
+					this._likesNewPercent = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_comments", DbType="BigInt")]
+		public System.Nullable<long> comments
+		{
+			get
+			{
+				return this._comments;
+			}
+			set
+			{
+				if ((this._comments != value))
+				{
+					this._comments = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_commentsNew", DbType="BigInt")]
+		public System.Nullable<long> commentsNew
+		{
+			get
+			{
+				return this._commentsNew;
+			}
+			set
+			{
+				if ((this._commentsNew != value))
+				{
+					this._commentsNew = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_commentsNewPercent", DbType="Decimal(16,2)")]
+		public System.Nullable<decimal> commentsNewPercent
+		{
+			get
+			{
+				return this._commentsNewPercent;
+			}
+			set
+			{
+				if ((this._commentsNewPercent != value))
+				{
+					this._commentsNewPercent = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_reposts", DbType="BigInt")]
+		public System.Nullable<long> reposts
+		{
+			get
+			{
+				return this._reposts;
+			}
+			set
+			{
+				if ((this._reposts != value))
+				{
+					this._reposts = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_repostsNew", DbType="BigInt")]
+		public System.Nullable<long> repostsNew
+		{
+			get
+			{
+				return this._repostsNew;
+			}
+			set
+			{
+				if ((this._repostsNew != value))
+				{
+					this._repostsNew = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_repostsNewPercent", DbType="Decimal(16,2)")]
+		public System.Nullable<decimal> repostsNewPercent
+		{
+			get
+			{
+				return this._repostsNewPercent;
+			}
+			set
+			{
+				if ((this._repostsNewPercent != value))
+				{
+					this._repostsNewPercent = value;
 				}
 			}
 		}
