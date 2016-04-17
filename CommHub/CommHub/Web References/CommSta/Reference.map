@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DiscoveryClientResultsFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Results>
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.ContractReference" url="http://major-comm.com/CommStaService.svc?wsdl" filename="CommStaService.wsdl" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.DiscoveryDocumentReference" url="http://major-comm.com/CommStaService.svc?disco" filename="CommStaService.disco" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="http://major-comm.com/CommStaService.svc?xsd=xsd0" filename="CommStaService.xsd" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="http://major-comm.com/CommStaService.svc?xsd=xsd1" filename="CommStaService0.xsd" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="http://major-comm.com/CommStaService.svc?xsd=xsd2" filename="CommStaService1.xsd" />
+  </Results>
+</DiscoveryClientResultsFile>

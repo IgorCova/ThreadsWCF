@@ -21,5 +21,11 @@ namespace CommSta
 
     }
 
+    public class wsCommVK_GetPhoto_Req
+    {
+        [DataMember]
+        public long groupID;
+
+    }
 
 }

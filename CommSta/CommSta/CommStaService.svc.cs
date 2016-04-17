@@ -38,6 +38,46 @@ namespace CommSta
             return members;
         }
 
+        public string CommVK_GetPhoto(wsCommVK_GetPhoto_Req req)
+        {
+            string linkTo = "";
+            string category = "";
+            HubDataClassesDataContext dc = new HubDataClassesDataContext();
+
+            ulong appId = 5391843; // указываем id приложения
+            string email = "89164913669"; // email для авторизации
+            string password = "PressNon798520"; // пароль
+            Settings settings = Settings.All; // уровень доступа к данным
+
+            VkApi api = new VkApi();
+            try
+            {
+                api.Authorize(new ApiAuthParams
+                {
+                    ApplicationId = appId,
+                    Login = email,
+                    Password = password,
+                    Settings = settings
+                }); // авторизуемся
+            }
+            catch (Exception e)
+            {
+                string exInnerExceptionMessage = "";
+                if (e.InnerException != null)
+                {
+                    exInnerExceptionMessage = e.InnerException.Message;
+                }
+                dc.Exception_Save("CommVK_GetPhoto", "VkApi.Authorize", e.Message, exInnerExceptionMessage, e.HelpLink, e.HResult, e.Source, e.StackTrace);
+                return linkTo;
+            }
+
+
+            Group group = api.Groups.GetById(req.groupID);
+
+            linkTo = group.Photo100.ToString();
+            return linkTo;
+        }
+
         public void VKontakte_Sta(wsRequest req)
         {
             DateTime dateFrom = DateTime.Today.Date;
@@ -112,7 +152,7 @@ namespace CommSta
                     reach_subscribers = res[0].ReachSubscribers ?? 0;
                     subscribed = res[0].Subscribed ?? 0;
                     unsubscribed = res[0].Unsubscribed ?? 0;
-                   
+
                 }
 
                 members = GetCountMembers(api, groupId);
@@ -135,7 +175,7 @@ namespace CommSta
                 };
 
                 offset = 100;
-          
+
                 int reqCount = 0;
                 while (offset < cnt)
                 {

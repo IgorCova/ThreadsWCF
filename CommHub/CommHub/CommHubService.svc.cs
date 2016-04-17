@@ -2,11 +2,27 @@
 using System;
 using System.IO;
 using System.Net;
+using CommHub.CommSta;
 
 namespace CommHub
 {
     public class CommHubService : IService
     {
+        private string GetLinkPhoto(long groupID)
+        {
+            string linkPhoto;
+
+            using (CommStaService svc = new CommStaService())
+            {
+                
+                wsCommVK_GetPhoto_Req req = new wsCommVK_GetPhoto_Req();
+                req.groupID = groupID;
+                req.groupIDSpecified = true;
+                linkPhoto = svc.CommVK_GetPhoto(req);
+            }
+
+            return linkPhoto;
+        }
 
         #region AdminComm
         public wsResponse<AdminComm_Del_Resp> AdminComm_Del(wsRequest<InstanceID> req)
@@ -218,7 +234,7 @@ namespace CommHub
                 }
 
                 dc.Comm_Del(id, ownerHubID);
-                
+
             }
             catch (Exception e)
             {
@@ -561,6 +577,7 @@ namespace CommHub
                     {
                         comm_id = itm.comm_id,
                         comm_name = itm.comm_name,
+                        comm_photoLink = GetLinkPhoto(itm.comm_groupID ?? 0),
                         comm_groupID = itm.comm_groupID ?? 0,
 
                         subjectComm_name = itm.subjectComm_name,
@@ -666,6 +683,7 @@ namespace CommHub
                     {
                         comm_id = itm.comm_id,
                         comm_name = itm.comm_name,
+                        comm_photoLink = GetLinkPhoto(itm.comm_groupID ?? 0),
                         comm_groupID = itm.comm_groupID ?? 0,
 
                         subjectComm_name = itm.subjectComm_name,

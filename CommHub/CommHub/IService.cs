@@ -34,7 +34,7 @@ namespace CommHub
         wsResponse Comm_Save(wsRequest<Comm_Save_Req> req);
         #endregion
 
-        #region StaCommVKDaily
+        #region StaComm
         [OperationContract]
         [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "StaCommVKDaily_ReportDay")]
         wsResponse<StaCommVKDaily_Report_Resp> StaCommVKDaily_ReportDay(wsRequest req);

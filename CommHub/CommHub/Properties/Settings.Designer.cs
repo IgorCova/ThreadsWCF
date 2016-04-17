@@ -22,5 +22,15 @@ namespace CommHub.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://major-comm.com/CommStaService.svc")]
+        public string CommHub_CommSta_CommStaService {
+            get {
+                return ((string)(this["CommHub_CommSta_CommStaService"]));
+            }
+        }
     }
 }

@@ -116,6 +116,9 @@ namespace CommHub.wsClasses
         public string comm_name { get; set; }
 
         [DataMember]
+        public string comm_photoLink { get; set; }
+
+        [DataMember]
         public long comm_groupID { get; set; }
 
         [DataMember]
