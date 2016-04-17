@@ -41,7 +41,7 @@ namespace CommSta
         public void VKontakte_Sta(wsRequest req)
         {
             DateTime dateFrom = DateTime.Today.Date;
-  
+
             wsRequestByDate exreq = new wsRequestByDate();
             exreq.dateFrom = DateTime.Now;
             exreq.groupID = req.groupID;
@@ -56,13 +56,25 @@ namespace CommSta
             DateTime? dateTo = req.dateTo;
 
             HubDataClassesDataContext dc = new HubDataClassesDataContext();
-           
+
             DateTime dateStart = DateTime.Now;
+
+            long views = 0;
+            long visitors = 0;
+            long reach = 0;
+            long reach_subscribers = 0;
+            long subscribed = 0;
+            long unsubscribed = 0;
+            int members = 0;
+            long likes = 0;
+            long comments = 0;
+            long reposts = 0;
+            ulong offset = 0;
 
             ulong appId = 5391843; // указываем id приложения
             string email = "89164913669"; // email для авторизации
             string password = "PressNon798520"; // пароль
-            Settings settings = Settings.Wall; // уровень доступа к данным
+            Settings settings = Settings.All; // уровень доступа к данным
 
             VkApi api = new VkApi();
             try
@@ -82,7 +94,8 @@ namespace CommSta
                 {
                     exInnerExceptionMessage = e.InnerException.Message;
                 }
-                dc.Exception_Save("VKontakte_Sta", "VkApi.Authorize", e.Message, exInnerExceptionMessage, e.HelpLink, e.HResult, e.Source, e.StackTrace);
+                dc.Exception_Save("VKontakte_Sta_ByDate", "VkApi.Authorize", e.Message, exInnerExceptionMessage, e.HelpLink, e.HResult, e.Source, e.StackTrace);
+                return;
             }
 
             ReadOnlyCollection<StatsPeriod> res;
@@ -91,17 +104,23 @@ namespace CommSta
             {
                 res = api.Stats.GetByGroup(groupId, dateFrom, dateTo);
 
-                long views = res[0].Views;
-                long visitors = res[0].Visitors;
-                long reach = res[0].Reach ?? 0;
-                long reach_subscribers = res[0].ReachSubscribers ?? 0;
-                long subscribed = res[0].Subscribed ?? 0;
-                long unsubscribed = res[0].Unsubscribed ?? 0;
-                int members = GetCountMembers(api, groupId);
-                long likes = 0;
-                long comments = 0;
-                long reposts = 0;
-                ulong offset = 0;
+                if (res.Count > 0)
+                {
+                    views = res[0].Views;
+                    visitors = res[0].Visitors;
+                    reach = res[0].Reach ?? 0;
+                    reach_subscribers = res[0].ReachSubscribers ?? 0;
+                    subscribed = res[0].Subscribed ?? 0;
+                    unsubscribed = res[0].Unsubscribed ?? 0;
+                   
+                }
+
+                members = GetCountMembers(api, groupId);
+
+                likes = 0;
+                comments = 0;
+                reposts = 0;
+                offset = 0;
 
                 WallGetObject respWall = api_Wall_Get(api, groupId, offset);
 
@@ -116,11 +135,11 @@ namespace CommSta
                 };
 
                 offset = 100;
-
+          
                 int reqCount = 0;
                 while (offset < cnt)
                 {
-                    if ((reqCount % 9) == 0) // 3 запроса в секунду
+                    if ((reqCount % 3) == 0) // 3 запроса в секунду
                     {
                         Thread.Sleep(1500);
                         reqCount = 0;
@@ -149,7 +168,7 @@ namespace CommSta
                     offset += 100;
                 }
 
-                dc.StaCommVK_Save(groupId, dateStart, views, visitors, reach, reach_subscribers, subscribed, unsubscribed, likes, comments, reposts, countPost, members);
+                dc.StaCommVKDaily_Save(groupId, dateFrom, views, visitors, reach, reach_subscribers, subscribed, unsubscribed, likes, comments, reposts, countPost, members);
             }
             catch (AccessDeniedException e)
             {
@@ -173,7 +192,7 @@ namespace CommSta
                 {
                     exInnerExceptionMessage = e.InnerException.Message;
                 }
-                dc.Exception_Save("VKontakte_Sta", "", e.Message, exInnerExceptionMessage, e.HelpLink, e.HResult, e.Source, e.StackTrace);
+                dc.Exception_Save("VKontakte_Sta_ByDate", "", e.Message, exInnerExceptionMessage, e.HelpLink, e.HResult, e.Source, e.StackTrace);
             }
         }
     }
