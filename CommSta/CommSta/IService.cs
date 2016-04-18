@@ -13,9 +13,5 @@ namespace CommSta
         [OperationContract]
         [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "VKontakte_Sta_ByDate")]
         void VKontakte_Sta_ByDate(wsRequestByDate req);
-
-        [OperationContract]
-        [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "CommVK_GetPhoto")]
-        string CommVK_GetPhoto(wsCommVK_GetPhoto_Req req);
     }
 }

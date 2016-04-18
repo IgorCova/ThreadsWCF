@@ -20,12 +20,4 @@ namespace CommSta
         public DateTime? dateTo;
 
     }
-
-    public class wsCommVK_GetPhoto_Req
-    {
-        [DataMember]
-        public long groupID;
-
-    }
-
 }

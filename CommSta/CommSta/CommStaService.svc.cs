@@ -7,6 +7,7 @@ using VkNet.Model;
 using VkNet.Exception;
 using System.Threading;
 using System.Collections.ObjectModel;
+using System.Collections.Generic;
 
 namespace CommSta
 {
@@ -38,43 +39,16 @@ namespace CommSta
             return members;
         }
 
-        public string CommVK_GetPhoto(wsCommVK_GetPhoto_Req req)
+        private string GetPhotoLink(VkApi api, long groupId)
         {
             string linkTo = "";
-            string category = "";
-            HubDataClassesDataContext dc = new HubDataClassesDataContext();
+            IEnumerable<string> groupIds = new string[] { groupId.ToString()};
+            ReadOnlyCollection<Group> groups = api.Groups.GetById(groupIds, "", GroupsFields.Description);
 
-            ulong appId = 5391843; // указываем id приложения
-            string email = "89164913669"; // email для авторизации
-            string password = "PressNon798520"; // пароль
-            Settings settings = Settings.All; // уровень доступа к данным
-
-            VkApi api = new VkApi();
-            try
+            foreach (Group group in groups)
             {
-                api.Authorize(new ApiAuthParams
-                {
-                    ApplicationId = appId,
-                    Login = email,
-                    Password = password,
-                    Settings = settings
-                }); // авторизуемся
+                linkTo = group.Photo100.ToString();
             }
-            catch (Exception e)
-            {
-                string exInnerExceptionMessage = "";
-                if (e.InnerException != null)
-                {
-                    exInnerExceptionMessage = e.InnerException.Message;
-                }
-                dc.Exception_Save("CommVK_GetPhoto", "VkApi.Authorize", e.Message, exInnerExceptionMessage, e.HelpLink, e.HResult, e.Source, e.StackTrace);
-                return linkTo;
-            }
-
-
-            Group group = api.Groups.GetById(req.groupID);
-
-            linkTo = group.Photo100.ToString();
             return linkTo;
         }
 
@@ -110,6 +84,7 @@ namespace CommSta
             long comments = 0;
             long reposts = 0;
             ulong offset = 0;
+            string photoLink = "";
 
             ulong appId = 5391843; // указываем id приложения
             string email = "89164913669"; // email для авторизации
@@ -152,11 +127,10 @@ namespace CommSta
                     reach_subscribers = res[0].ReachSubscribers ?? 0;
                     subscribed = res[0].Subscribed ?? 0;
                     unsubscribed = res[0].Unsubscribed ?? 0;
-
                 }
 
                 members = GetCountMembers(api, groupId);
-
+                photoLink = GetPhotoLink(api, groupId);
                 likes = 0;
                 comments = 0;
                 reposts = 0;
@@ -181,7 +155,7 @@ namespace CommSta
                 {
                     if ((reqCount % 3) == 0) // 3 запроса в секунду
                     {
-                        Thread.Sleep(1500);
+                        Thread.Sleep(1200);
                         reqCount = 0;
                     }
 
@@ -191,7 +165,7 @@ namespace CommSta
                     }
                     catch (TooManyRequestsException)
                     {
-                        Thread.Sleep(1500);
+                        Thread.Sleep(1200);
                         reqCount = 0;
                         respWall = api_Wall_Get(api, groupId, offset);
                     }
@@ -208,7 +182,7 @@ namespace CommSta
                     offset += 100;
                 }
 
-                dc.StaCommVKDaily_Save(groupId, dateFrom, views, visitors, reach, reach_subscribers, subscribed, unsubscribed, likes, comments, reposts, countPost, members);
+                dc.StaCommVKDaily_Save(groupId, dateFrom, views, visitors, reach, reach_subscribers, subscribed, unsubscribed, likes, comments, reposts, countPost, members, photoLink);
             }
             catch (AccessDeniedException e)
             {

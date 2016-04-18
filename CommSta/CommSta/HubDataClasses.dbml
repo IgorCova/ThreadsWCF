@@ -1,21 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Hub" Class="HubDataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Connection Mode="WebSettings" ConnectionString="Data Source=95.84.164.113;Initial Catalog=Hub;User ID=hubber" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="HubConnectionString" Provider="System.Data.SqlClient" />
-  <Function Name="dbo.StaCommVK_Save" Method="StaCommVK_Save">
-    <Parameter Name="groupID" Type="System.Int64" DbType="BigInt" />
-    <Parameter Name="requestStartDate" Type="System.DateTime" DbType="DateTime" />
-    <Parameter Name="commViews" Type="System.Int64" DbType="BigInt" />
-    <Parameter Name="commVisitors" Type="System.Int64" DbType="BigInt" />
-    <Parameter Name="commReach" Type="System.Int64" DbType="BigInt" />
-    <Parameter Name="commReachSubscribers" Type="System.Int64" DbType="BigInt" />
-    <Parameter Name="commSubscribed" Type="System.Int64" DbType="BigInt" />
-    <Parameter Name="commUnsubscribed" Type="System.Int64" DbType="BigInt" />
-    <Parameter Name="commLikes" Type="System.Int64" DbType="BigInt" />
-    <Parameter Name="commComments" Type="System.Int64" DbType="BigInt" />
-    <Parameter Name="commReposts" Type="System.Int64" DbType="BigInt" />
-    <Parameter Name="commPostCount" Type="System.Int64" DbType="BigInt" />
-    <Parameter Name="commMembers" Type="System.Int32" DbType="Int" />
-    <Return Type="System.Int32" />
-  </Function>
   <Function Name="dbo.GroupAccess_Save" Method="GroupAccess_Save">
     <Parameter Name="groupID" Type="System.Int64" DbType="BigInt" />
     <Parameter Name="exception" Type="System.String" DbType="VarChar(4028)" />
@@ -47,6 +31,7 @@
     <Parameter Name="commReposts" Type="System.Int64" DbType="BigInt" />
     <Parameter Name="commPostCount" Type="System.Int64" DbType="BigInt" />
     <Parameter Name="commMembers" Type="System.Int32" DbType="Int" />
+    <Parameter Name="commPhotoLink" Type="System.String" DbType="VarChar(512)" />
     <Return Type="System.Int32" />
   </Function>
 </Database>
