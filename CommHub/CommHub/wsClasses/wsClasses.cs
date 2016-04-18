@@ -71,6 +71,9 @@ namespace CommHub.wsClasses
         public string name { get; set; }
 
         [DataMember]
+        public string photoLink { get; set; }
+
+        [DataMember]
         public long ownerHubID { get; set; }
 
         [DataMember]

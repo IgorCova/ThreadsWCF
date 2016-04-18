@@ -19,7 +19,7 @@
                 case 200:
                     errorText = "No params";
                     break;
-                case 280:
+                case 101:
                     errorText = "Sql";
                     break;
                 case 400:

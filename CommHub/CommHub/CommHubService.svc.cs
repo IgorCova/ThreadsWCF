@@ -2,28 +2,11 @@
 using System;
 using System.IO;
 using System.Net;
-using CommHub.CommSta;
 
 namespace CommHub
 {
     public class CommHubService : IService
     {
-        private string GetLinkPhoto(long groupID)
-        {
-            string linkPhoto;
-
-            using (CommStaService svc = new CommStaService())
-            {
-                
-                wsCommVK_GetPhoto_Req req = new wsCommVK_GetPhoto_Req();
-                req.groupID = groupID;
-                req.groupIDSpecified = true;
-                linkPhoto = svc.CommVK_GetPhoto(req);
-            }
-
-            return linkPhoto;
-        }
-
         #region AdminComm
         public wsResponse<AdminComm_Del_Resp> AdminComm_Del(wsRequest<InstanceID> req)
         {
@@ -266,7 +249,7 @@ namespace CommHub
                 Tools.ErrorLog_Save(req, "", funcName, errorText);
 
                 results.ErrText = string.Format("{0}\n{1}", funcName, errorText);
-                results.ErrCode = -1;
+                results.ErrCode = errCode;
                 return results;
             }
 
@@ -283,6 +266,7 @@ namespace CommHub
                     {
                         id = itm.id,
                         name = itm.name,
+                        photoLink = itm.photoLink,
                         adminCommID = itm.adminCommID ?? 0,
                         adminCommID_firstName = itm.adminCommID_firstName,
                         adminCommID_lastName = itm.adminCommID_lastName,
@@ -319,7 +303,7 @@ namespace CommHub
 
         public wsResponse Comm_Save(wsRequest<Comm_Save_Req> req)
         {
-            var funcName = "Comm_ReadDict";
+            var funcName = "Comm_Save";
             var errCode = 0;
             var errorText = "";
 
@@ -551,7 +535,7 @@ namespace CommHub
             var results = new wsResponse<StaCommVKDaily_Report_Resp>();
             var resp = new StaCommVKDaily_Report_Resp();
             var dc = new DataHubDataContext();
-            long ownerHubID = 0;
+            long ownerHubID = 3;
 
             if (req == null)
             {
@@ -565,19 +549,19 @@ namespace CommHub
             }
 
             try
-            {
+            {/*
                 foreach (GetOwnerHubIDResult own in dc.GetOwnerHubID(req.Session))
                 {
                     ownerHubID = own.ownerHubID;
                 }
-
+                */
                 foreach (StaCommVKDaily_ReportDayResult itm in dc.StaCommVKDaily_ReportDay(ownerHubID))
                 {
                     resp.Add(new wsStaComm()
                     {
                         comm_id = itm.comm_id,
                         comm_name = itm.comm_name,
-                        comm_photoLink = GetLinkPhoto(itm.comm_groupID ?? 0),
+                        comm_photoLink = itm.comm_photoLink,
                         comm_groupID = itm.comm_groupID ?? 0,
 
                         subjectComm_name = itm.subjectComm_name,
@@ -586,49 +570,49 @@ namespace CommHub
                         adminComm_fullName = itm.adminComm_fullName,
                         adminComm_linkFB = itm.adminComm_linkFB,
 
-                        members = itm.members ?? 0,
-                        membersNew = itm.membersNew ?? 0,
-                        membersNewPercent = itm.membersNewPercent ?? 0,
+                        members = itm.members,
+                        membersNew = itm.membersNew,
+                        membersNewPercent = itm.membersNewPercent,
 
-                        subscribed = itm.subscribed ?? 0,
-                        subscribedNew = itm.subscribedNew ?? 0,
-                        subscribedNewPercent = itm.subscribedNewPercent ?? 0,
+                        subscribed = itm.subscribed,
+                        subscribedNew = itm.subscribedNew,
+                        subscribedNewPercent = itm.subscribedNewPercent,
 
-                        unsubscribed = itm.unsubscribed ?? 0,
-                        unsubscribedNew = itm.unsubscribedNew ?? 0,
-                        unsubscribedNewPercent = itm.unsubscribedNewPercent ?? 0,
+                        unsubscribed = itm.unsubscribed,
+                        unsubscribedNew = itm.unsubscribedNew,
+                        unsubscribedNewPercent = itm.unsubscribedNewPercent,
 
-                        visitors = itm.visitors ?? 0,
-                        visitorsNew = itm.visitorsNew ?? 0,
-                        visitorsNewPercent = itm.visitorsNewPercent ?? 0,
+                        visitors = itm.visitors,
+                        visitorsNew = itm.visitorsNew,
+                        visitorsNewPercent = itm.visitorsNewPercent,
 
-                        views = itm.views ?? 0,
-                        viewsNew = itm.viewsNew ?? 0,
-                        viewsNewPercent = itm.viewsNewPercent ?? 0,
+                        views = itm.views,
+                        viewsNew = itm.viewsNew,
+                        viewsNewPercent = itm.viewsNewPercent,
 
-                        reach = itm.reach ?? 0,
-                        reachNew = itm.reachNew ?? 0,
-                        reachNewPercent = itm.reachNewPercent ?? 0,
+                        reach = itm.reach,
+                        reachNew = itm.reachNew,
+                        reachNewPercent = itm.reachNewPercent,
 
-                        reachSubscribers = itm.reachSubscribers ?? 0,
-                        reachSubscribersNew = itm.reachSubscribersNew ?? 0,
-                        reachSubscribersNewPercent = itm.reachSubscribersNewPercent ?? 0,
+                        reachSubscribers = itm.reachSubscribers,
+                        reachSubscribersNew = itm.reachSubscribersNew,
+                        reachSubscribersNewPercent = itm.reachSubscribersNewPercent,
 
-                        postCount = itm.postCount ?? 0,
-                        postCountNew = itm.postCountNew ?? 0,
-                        postCountNewPercent = itm.postCountNewPercent ?? 0,
+                        postCount = itm.postCount,
+                        postCountNew = itm.postCountNew,
+                        postCountNewPercent = itm.postCountNewPercent,
 
-                        likes = itm.likes ?? 0,
-                        likesNew = itm.likesNew ?? 0,
-                        likesNewPercent = itm.likesNewPercent ?? 0,
+                        likes = itm.likes,
+                        likesNew = itm.likesNew,
+                        likesNewPercent = itm.likesNewPercent,
 
-                        comments = itm.comments ?? 0,
-                        commentsNew = itm.commentsNew ?? 0,
-                        commentsNewPercent = itm.commentsNewPercent ?? 0,
+                        comments = itm.comments,
+                        commentsNew = itm.commentsNew,
+                        commentsNewPercent = itm.commentsNewPercent,
 
-                        reposts = itm.reposts ?? 0,
-                        repostsNew = itm.repostsNew ?? 0,
-                        repostsNewPercent = itm.repostsNewPercent ?? 0,
+                        reposts = itm.reposts,
+                        repostsNew = itm.repostsNew,
+                        repostsNewPercent = itm.repostsNewPercent,
 
                     });
                 };
@@ -642,113 +626,7 @@ namespace CommHub
                 Tools.ErrorLog_Save(req, param, funcName, e.Message);
 
                 results.ErrCode = errCode;
-                results.ErrText = string.Format("{0}\n{1}\n{2}", funcName, Tools.GetErrorTextByCode(errCode), e.Message);
-            }
-
-            return results;
-        }
-
-        public wsResponse<StaCommVKDaily_Report_Resp> StaCommVKDaily_ReportWeek(wsRequest req)
-        {
-            var funcName = "StaCommVKDaily_ReportWeek";
-            var errCode = 0;
-            var errorText = "";
-
-            var results = new wsResponse<StaCommVKDaily_Report_Resp>();
-            var resp = new StaCommVKDaily_Report_Resp();
-            var dc = new DataHubDataContext();
-            long ownerHubID = 0;
-
-            if (req == null)
-            {
-                errCode = 200;
-                errorText = Tools.GetErrorTextByCode(errCode);
-                Tools.ErrorLog_Save(req, "", funcName, errorText);
-
-                results.ErrText = string.Format("{0}\n{1}", funcName, errorText);
-                results.ErrCode = -1;
-                return results;
-            }
-
-            try
-            {
-                foreach (GetOwnerHubIDResult own in dc.GetOwnerHubID(req.Session))
-                {
-                    ownerHubID = own.ownerHubID;
-                }
-
-                foreach (StaCommVKDaily_ReportWeekResult itm in dc.StaCommVKDaily_ReportWeek(ownerHubID))
-                {
-                    resp.Add(new wsStaComm()
-                    {
-                        comm_id = itm.comm_id,
-                        comm_name = itm.comm_name,
-                        comm_photoLink = GetLinkPhoto(itm.comm_groupID ?? 0),
-                        comm_groupID = itm.comm_groupID ?? 0,
-
-                        subjectComm_name = itm.subjectComm_name,
-                        areaComm_code = itm.areaComm_code,
-
-                        adminComm_fullName = itm.adminComm_fullName,
-                        adminComm_linkFB = itm.adminComm_linkFB,
-
-                        members = itm.members ?? 0,
-                        membersNew = itm.membersNew ?? 0,
-                        membersNewPercent = itm.membersNewPercent ?? 0,
-
-                        subscribed = itm.subscribed ?? 0,
-                        subscribedNew = itm.subscribedNew ?? 0,
-                        subscribedNewPercent = itm.subscribedNewPercent ?? 0,
-
-                        unsubscribed = itm.unsubscribed ?? 0,
-                        unsubscribedNew = itm.unsubscribedNew ?? 0,
-                        unsubscribedNewPercent = itm.unsubscribedNewPercent ?? 0,
-
-                        visitors = itm.visitors ?? 0,
-                        visitorsNew = itm.visitorsNew ?? 0,
-                        visitorsNewPercent = itm.visitorsNewPercent ?? 0,
-
-                        views = itm.views ?? 0,
-                        viewsNew = itm.viewsNew ?? 0,
-                        viewsNewPercent = itm.viewsNewPercent ?? 0,
-
-                        reach = itm.reach ?? 0,
-                        reachNew = itm.reachNew ?? 0,
-                        reachNewPercent = itm.reachNewPercent ?? 0,
-
-                        reachSubscribers = itm.reachSubscribers ?? 0,
-                        reachSubscribersNew = itm.reachSubscribersNew ?? 0,
-                        reachSubscribersNewPercent = itm.reachSubscribersNewPercent ?? 0,
-
-                        postCount = itm.postCount ?? 0,
-                        postCountNew = itm.postCountNew ?? 0,
-                        postCountNewPercent = itm.postCountNewPercent ?? 0,
-
-                        likes = itm.likes ?? 0,
-                        likesNew = itm.likesNew ?? 0,
-                        likesNewPercent = itm.likesNewPercent ?? 0,
-
-                        comments = itm.comments ?? 0,
-                        commentsNew = itm.commentsNew ?? 0,
-                        commentsNewPercent = itm.commentsNewPercent ?? 0,
-
-                        reposts = itm.reposts ?? 0,
-                        repostsNew = itm.repostsNew ?? 0,
-                        repostsNewPercent = itm.repostsNewPercent ?? 0,
-
-                    });
-                };
-
-                results.Data = resp;
-            }
-            catch (Exception e)
-            {
-                errCode = 101;
-                string param = string.Format("ownerHubID: {0}", ownerHubID);
-                Tools.ErrorLog_Save(req, param, funcName, e.Message);
-
-                results.ErrCode = errCode;
-                results.ErrText = string.Format("{0}\n{1}\n{2}", funcName, Tools.GetErrorTextByCode(errCode), e.Message);
+                results.ErrText = string.Format("funcName: {0}, errCode: {1}, Message: {2}", funcName, Tools.GetErrorTextByCode(errCode), e.Message);
             }
 
             return results;
