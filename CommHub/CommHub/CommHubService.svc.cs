@@ -535,7 +535,7 @@ namespace CommHub
             var results = new wsResponse<StaCommVKDaily_Report_Resp>();
             var resp = new StaCommVKDaily_Report_Resp();
             var dc = new DataHubDataContext();
-            long ownerHubID = 3;
+            long ownerHubID = 0;
 
             if (req == null)
             {
@@ -549,12 +549,12 @@ namespace CommHub
             }
 
             try
-            {/*
+            {
                 foreach (GetOwnerHubIDResult own in dc.GetOwnerHubID(req.Session))
                 {
                     ownerHubID = own.ownerHubID;
                 }
-                */
+                
                 foreach (StaCommVKDaily_ReportDayResult itm in dc.StaCommVKDaily_ReportDay(ownerHubID))
                 {
                     resp.Add(new wsStaComm()
