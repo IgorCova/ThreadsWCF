@@ -327,10 +327,8 @@ namespace CommSta
         #region VKontakte_StaForNew
         public void VKontakte_StaForNew()
         {
-            DateTime dateFrom = DateTime.Today.Date;
-
             wsRequestByDate exreq = new wsRequestByDate();
-            exreq.dateFrom = DateTime.Now;
+            exreq.dateFrom = DateTime.Today.Date;
 
             var lst = GetVKGroups(true);
 
@@ -338,6 +336,7 @@ namespace CommSta
             {
                 exreq.groupID = gr.groupID;
                 VKontakte_Sta_ByDate(exreq);
+                Thread.Sleep(1500);
             }
         }
         #endregion
@@ -346,15 +345,17 @@ namespace CommSta
         public void VKontakte_Sta()
         {
             wsRequestByDate exreq = new wsRequestByDate();
-            exreq.dateFrom = DateTime.Today.Date;
-            exreq.dateTo = DateTime.Now;
+            // exreq.dateFrom = DateTime.Today.Date;
+            // exreq.dateTo = DateTime.Now;
+
+            exreq.dateFrom = DateTime.Today.Date.AddDays(-4);
+            exreq.dateTo = DateTime.Today.Date.AddDays(-3).AddMilliseconds(-1);
 
             var lst = GetVKGroups(false);
 
             foreach (var gr in lst.dir)
             {
                 exreq.groupID = gr.groupID;
-
                 VKontakte_Sta_ByDate_Parallels(exreq);
                 Thread.Sleep(1500);
             }

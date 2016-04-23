@@ -109,6 +109,171 @@ namespace CommHub.wsClasses
     }
     #endregion
 
+    #region wsSta
+    [DataContract]
+    public class wsSta
+    {
+        [DataMember]
+        public long comm_id { get; set; }
+
+        [DataMember]
+        public string comm_name { get; set; }
+
+        [DataMember]
+        public string comm_photoLink { get; set; }
+
+        [DataMember]
+        public long comm_groupID { get; set; }
+
+        [DataMember]
+        public string subjectComm_name { get; set; }
+
+        [DataMember]
+        public string areaComm_code { get; set; }
+
+        [DataMember]
+        public string adminComm_fullName { get; set; }
+
+        [DataMember]
+        public string adminComm_linkFB { get; set; }
+
+
+        [DataMember]
+        public long members { get; set; }
+
+        [DataMember]
+        public long membersNew { get; set; }
+
+        [DataMember]
+        public long membersOld { get; set; }
+
+        [DataMember]
+        public decimal membersDifPercent { get; set; }
+
+
+        [DataMember]
+        public long subscribed { get; set; }
+
+        [DataMember]
+        public long subscribedNew { get; set; }
+
+        [DataMember]
+        public long subscribedOld { get; set; }
+
+        [DataMember]
+        public decimal subscribedDifPercent { get; set; }
+
+        [DataMember]
+        public long unsubscribed { get; set; }
+
+        [DataMember]
+        public long unsubscribedNew { get; set; }
+
+        [DataMember]
+        public long unsubscribedOld { get; set; }
+
+        [DataMember]
+        public decimal unsubscribedDifPercent { get; set; }
+
+        [DataMember]
+        public long visitors { get; set; }
+
+        [DataMember]
+        public long visitorsNew { get; set; }
+
+        [DataMember]
+        public long visitorsOld { get; set; }
+
+        [DataMember]
+        public decimal visitorsDifPercent { get; set; }
+
+        [DataMember]
+        public long views { get; set; }
+
+        [DataMember]
+        public long viewsNew { get; set; }
+
+        [DataMember]
+        public long viewsOld { get; set; }
+
+        [DataMember]
+        public decimal viewsDifPercent { get; set; }
+
+        [DataMember]
+        public long reach { get; set; }
+
+        [DataMember]
+        public long reachNew { get; set; }
+
+        [DataMember]
+        public long reachOld { get; set; }
+
+        [DataMember]
+        public decimal reachDifPercent { get; set; }
+
+        [DataMember]
+        public long reachSubscribers { get; set; }
+
+        [DataMember]
+        public long reachSubscribersNew { get; set; }
+
+        [DataMember]
+        public long reachSubscribersOld { get; set; }
+
+        [DataMember]
+        public decimal reachSubscribersDifPercent { get; set; }
+
+        [DataMember]
+        public long postCount { get; set; }
+
+        [DataMember]
+        public long postCountNew { get; set; }
+
+        [DataMember]
+        public long postCountOld { get; set; }
+
+        [DataMember]
+        public decimal postCountDifPercent { get; set; }
+
+        [DataMember]
+        public long likes { get; set; }
+
+        [DataMember]
+        public long likesNew { get; set; }
+
+        [DataMember]
+        public long likesOld { get; set; }
+
+        [DataMember]
+        public decimal likesDifPercent { get; set; }
+
+        [DataMember]
+        public long comments { get; set; }
+
+        [DataMember]
+        public long commentsNew { get; set; }
+
+        [DataMember]
+        public long commentsOld { get; set; }
+
+        [DataMember]
+        public decimal commentsDifPercent { get; set; }
+
+        [DataMember]
+        public long reposts { get; set; }
+
+        [DataMember]
+        public long repostsNew { get; set; }
+
+        [DataMember]
+        public long repostsOld { get; set; }
+
+        [DataMember]
+        public decimal repostsDifPercent { get; set; }
+
+    }
+#endregion
+
     [DataContract]
     public class wsStaComm
     {
@@ -234,7 +399,6 @@ namespace CommHub.wsClasses
 
         [DataMember]
         public decimal repostsNewPercent { get; set; }
-
     }
 
     #region Session
