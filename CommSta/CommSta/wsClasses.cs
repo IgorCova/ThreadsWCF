@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace CommSta
@@ -10,7 +11,7 @@ namespace CommSta
         public long groupID;
 
     }
-
+    [DataContract]
     public class wsRequestByDate : wsRequest
     {
         [DataMember]
@@ -20,4 +21,36 @@ namespace CommSta
         public DateTime? dateTo;
 
     }
+
+    [DataContract]
+    public class wsGroup
+    {
+        [DataMember]
+        public long groupID { get; set; }
+    }
+
+    [DataContract]
+    public class wsGroups<T> where T : class
+    {
+        [DataMember]
+        public T dir;
+    }
+
+    [DataContract]
+    public class commPosts
+    {
+        [DataMember]
+        public long likes;
+
+        [DataMember]
+        public long repost;
+
+        [DataMember]
+        public long comments;
+
+        [DataMember]
+        public long count;
+    }
+
+    public class Comm_ReadForSta_Resp : List<wsGroup> { }
 }

@@ -5,14 +5,11 @@ namespace CommStaClassLibrary
 {
     public class Main
     {
-        public static void VKontakte_Sta(long groupID)
+        public static void VKontakte_Sta()
         {
             using (CommStaService svc = new CommStaService())
             {
-                wsRequest req = new wsRequest();
-                req.groupID = groupID;
-                req.groupIDSpecified = true;
-                svc.VKontakte_Sta(req);
+                svc.VKontakte_Sta();
             }
         }
 

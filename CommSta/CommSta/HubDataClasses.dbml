@@ -34,4 +34,10 @@
     <Parameter Name="commPhotoLink" Type="System.String" DbType="VarChar(512)" />
     <Return Type="System.Int32" />
   </Function>
+  <Function Name="dbo.Comm_ReadForSta" Method="Comm_ReadForSta">
+    <Parameter Name="IsNewComm" Parameter="isNewComm" Type="System.Boolean" DbType="Bit" />
+    <ElementType Name="Comm_ReadForStaResult">
+      <Column Name="groupID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+    </ElementType>
+  </Function>
 </Database>

@@ -268,6 +268,8 @@ namespace CommHub
                         name = itm.name,
                         photoLink = itm.photoLink,
                         adminCommID = itm.adminCommID ?? 0,
+                        groupID = itm.groupID ?? 0,
+                        link = itm.link,
                         adminCommID_firstName = itm.adminCommID_firstName,
                         adminCommID_lastName = itm.adminCommID_lastName,
                         adminCommID_linkFB = itm.adminCommID_linkFB,

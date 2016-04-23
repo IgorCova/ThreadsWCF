@@ -3,9 +3,7 @@
   <xs:import schemaLocation="http://major-comm.com/CommStaService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/CommSta" />
   <xs:element name="VKontakte_Sta">
     <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/CommSta" minOccurs="0" name="req" nillable="true" type="q1:wsRequest" />
-      </xs:sequence>
+      <xs:sequence />
     </xs:complexType>
   </xs:element>
   <xs:element name="VKontakte_StaResponse">
@@ -16,7 +14,7 @@
   <xs:element name="VKontakte_Sta_ByDate">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/CommSta" minOccurs="0" name="req" nillable="true" type="q2:wsRequestByDate" />
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/CommSta" minOccurs="0" name="req" nillable="true" type="q1:wsRequestByDate" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

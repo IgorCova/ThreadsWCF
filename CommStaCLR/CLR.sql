@@ -1,7 +1,11 @@
 use Hub
 --alter database Hub set trustworthy on
-drop procedure dbo.spCalWCFService
+drop procedure dbo.sp_ws_VKontakte_Sta
 go
+
+drop procedure dbo.sp_ws_VKontakte_Sta_ByDate
+go
+
 -- CommStaCLR
 if exists ( select * from sys.assemblies where [name] = N'CommStaCLR')
   drop assembly CommStaCLR
@@ -25,7 +29,6 @@ create assembly CommStaCLR
 go
 
 create procedure dbo.sp_ws_VKontakte_Sta
-   @groupID bigint
 with execute as caller
 as external name CommStaCLR.StoredProcedures.sp_ws_VKontakte_Sta
 go

@@ -4,11 +4,11 @@ using Microsoft.SqlServer.Server;
 public partial class StoredProcedures
 {
     [SqlProcedure]
-    public static void sp_ws_VKontakte_Sta(long groupID)
+    public static void sp_ws_VKontakte_Sta()
     {
         try
         {
-            CommStaClassLibrary.Main.VKontakte_Sta(groupID);
+            CommStaClassLibrary.Main.VKontakte_Sta();
         }
         catch (Exception ex)
         {

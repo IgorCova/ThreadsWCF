@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/CommSta" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/CommSta" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="wsRequestByDate">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:wsRequest">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="dateFrom" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="dateTo" nillable="true" type="xs:dateTime" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="wsRequestByDate" nillable="true" type="tns:wsRequestByDate" />
   <xs:complexType name="wsRequest">
     <xs:sequence>
       <xs:element minOccurs="0" name="groupID" type="xs:long" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="wsRequest" nillable="true" type="tns:wsRequest" />
-  <xs:complexType name="wsRequestByDate">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:wsRequest">
-        <xs:sequence>
-          <xs:element minOccurs="0" name="dateFrom" type="xs:dateTime" />
-          <xs:element minOccurs="0" name="dateTo" type="xs:dateTime" />
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="wsRequestByDate" nillable="true" type="tns:wsRequestByDate" />
 </xs:schema>

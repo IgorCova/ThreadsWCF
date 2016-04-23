@@ -82,6 +82,39 @@ namespace CommSta
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), groupID, dayDate, commViews, commVisitors, commReach, commReachSubscribers, commSubscribed, commUnsubscribed, commLikes, commComments, commReposts, commPostCount, commMembers, commPhotoLink);
 			return ((int)(result.ReturnValue));
 		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.Comm_ReadForSta")]
+		public ISingleResult<Comm_ReadForStaResult> Comm_ReadForSta([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IsNewComm", DbType="Bit")] System.Nullable<bool> isNewComm)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), isNewComm);
+			return ((ISingleResult<Comm_ReadForStaResult>)(result.ReturnValue));
+		}
+	}
+	
+	public partial class Comm_ReadForStaResult
+	{
+		
+		private System.Nullable<long> _groupID;
+		
+		public Comm_ReadForStaResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_groupID", DbType="BigInt")]
+		public System.Nullable<long> groupID
+		{
+			get
+			{
+				return this._groupID;
+			}
+			set
+			{
+				if ((this._groupID != value))
+				{
+					this._groupID = value;
+				}
+			}
+		}
 	}
 }
 #pragma warning restore 1591

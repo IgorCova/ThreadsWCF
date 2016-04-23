@@ -27,6 +27,7 @@ namespace CommStaClassLibrary.CommSta {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Web.Services.WebServiceBindingAttribute(Name="BasicHttpBinding_IService", Namespace="http://tempuri.org/")]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(wsRequest))]
     public partial class CommStaService : System.Web.Services.Protocols.SoapHttpClientProtocol {
         
         private System.Threading.SendOrPostCallback VKontakte_StaOperationCompleted;
@@ -79,23 +80,21 @@ namespace CommStaClassLibrary.CommSta {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IService/VKontakte_Sta", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public void VKontakte_Sta([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] wsRequest req) {
-            this.Invoke("VKontakte_Sta", new object[] {
-                        req});
+        public void VKontakte_Sta() {
+            this.Invoke("VKontakte_Sta", new object[0]);
         }
         
         /// <remarks/>
-        public void VKontakte_StaAsync(wsRequest req) {
-            this.VKontakte_StaAsync(req, null);
+        public void VKontakte_StaAsync() {
+            this.VKontakte_StaAsync(null);
         }
         
         /// <remarks/>
-        public void VKontakte_StaAsync(wsRequest req, object userState) {
+        public void VKontakte_StaAsync(object userState) {
             if ((this.VKontakte_StaOperationCompleted == null)) {
                 this.VKontakte_StaOperationCompleted = new System.Threading.SendOrPostCallback(this.OnVKontakte_StaOperationCompleted);
             }
-            this.InvokeAsync("VKontakte_Sta", new object[] {
-                        req}, this.VKontakte_StaOperationCompleted, userState);
+            this.InvokeAsync("VKontakte_Sta", new object[0], this.VKontakte_StaOperationCompleted, userState);
         }
         
         private void OnVKontakte_StaOperationCompleted(object arg) {
@@ -153,6 +152,66 @@ namespace CommStaClassLibrary.CommSta {
     }
     
     /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1055.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://schemas.datacontract.org/2004/07/CommSta")]
+    public partial class wsRequestByDate : wsRequest {
+        
+        private System.DateTime dateFromField;
+        
+        private bool dateFromFieldSpecified;
+        
+        private System.Nullable<System.DateTime> dateToField;
+        
+        private bool dateToFieldSpecified;
+        
+        /// <remarks/>
+        public System.DateTime dateFrom {
+            get {
+                return this.dateFromField;
+            }
+            set {
+                this.dateFromField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool dateFromSpecified {
+            get {
+                return this.dateFromFieldSpecified;
+            }
+            set {
+                this.dateFromFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<System.DateTime> dateTo {
+            get {
+                return this.dateToField;
+            }
+            set {
+                this.dateToField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool dateToSpecified {
+            get {
+                return this.dateToFieldSpecified;
+            }
+            set {
+                this.dateToFieldSpecified = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(wsRequestByDate))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1055.0")]
     [System.SerializableAttribute()]
@@ -183,65 +242,6 @@ namespace CommStaClassLibrary.CommSta {
             }
             set {
                 this.groupIDFieldSpecified = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1055.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://schemas.datacontract.org/2004/07/CommSta")]
-    public partial class wsRequestByDate : wsRequest {
-        
-        private System.DateTime dateFromField;
-        
-        private bool dateFromFieldSpecified;
-        
-        private System.DateTime dateToField;
-        
-        private bool dateToFieldSpecified;
-        
-        /// <remarks/>
-        public System.DateTime dateFrom {
-            get {
-                return this.dateFromField;
-            }
-            set {
-                this.dateFromField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool dateFromSpecified {
-            get {
-                return this.dateFromFieldSpecified;
-            }
-            set {
-                this.dateFromFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        public System.DateTime dateTo {
-            get {
-                return this.dateToField;
-            }
-            set {
-                this.dateToField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool dateToSpecified {
-            get {
-                return this.dateToFieldSpecified;
-            }
-            set {
-                this.dateToFieldSpecified = value;
             }
         }
     }
