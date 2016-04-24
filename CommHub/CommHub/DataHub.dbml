@@ -22,20 +22,6 @@
       <Column Name="linkFB" Type="System.String" DbType="VarChar(512)" CanBeNull="true" />
     </ElementType>
   </Function>
-  <Function Name="dbo.OwnerHub_Save" Method="OwnerHub_Save">
-    <Parameter Name="id" Type="System.Int64" DbType="BigInt" Direction="InOut" />
-    <Parameter Name="firstName" Type="System.String" DbType="VarChar(512)" />
-    <Parameter Name="lastName" Type="System.String" DbType="VarChar(512)" />
-    <Parameter Name="phone" Type="System.String" DbType="VarChar(32)" />
-    <Parameter Name="linkFB" Type="System.String" DbType="VarChar(512)" />
-    <ElementType Name="OwnerHub_SaveResult">
-      <Column Name="id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
-      <Column Name="firstName" Type="System.String" DbType="VarChar(512)" CanBeNull="true" />
-      <Column Name="lastName" Type="System.String" DbType="VarChar(512)" CanBeNull="true" />
-      <Column Name="phone" Type="System.String" DbType="VarChar(32)" CanBeNull="true" />
-      <Column Name="linkFB" Type="System.String" DbType="VarChar(512)" CanBeNull="true" />
-    </ElementType>
-  </Function>
   <Function Name="dbo.SubjectComm_Del" Method="SubjectComm_Del">
     <Parameter Name="id" Type="System.Int64" DbType="BigInt" />
     <Parameter Name="ownerHubID" Type="System.Int64" DbType="BigInt" />
@@ -290,5 +276,13 @@
       <Column Name="reachSubscribersDif" Type="System.Decimal" DbType="Decimal(16,2) NOT NULL" CanBeNull="false" />
       <Column Name="reachSubscribersDifPercent" Type="System.Decimal" DbType="Decimal(16,0)" CanBeNull="true" />
     </ElementType>
+  </Function>
+  <Function Name="dbo.OwnerHub_Save" Method="OwnerHub_Save">
+    <Parameter Name="id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="firstName" Type="System.String" DbType="VarChar(512)" />
+    <Parameter Name="lastName" Type="System.String" DbType="VarChar(512)" />
+    <Parameter Name="phone" Type="System.String" DbType="VarChar(32)" />
+    <Parameter Name="linkFB" Type="System.String" DbType="VarChar(512)" />
+    <Return Type="System.Int32" />
   </Function>
 </Database>

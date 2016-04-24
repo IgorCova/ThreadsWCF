@@ -5,7 +5,13 @@ namespace CommHub.wsClasses
 {
     #region AdminComm
     [DataContract]
-    public class wsAdminComm
+    public class wsAdminComm : wsPerson { }
+
+    [DataContract]
+    public class wsOwnerHub : wsPerson { }
+
+    [DataContract]
+    public class wsPerson
     {
         [DataMember]
         public long id { get; set; }
@@ -22,6 +28,7 @@ namespace CommHub.wsClasses
         [DataMember]
         public string linkFB { get; set; }
     }
+
     public class wsAdminComm_Del
     {
         [DataMember]
@@ -272,7 +279,7 @@ namespace CommHub.wsClasses
         public decimal repostsDifPercent { get; set; }
 
     }
-#endregion
+    #endregion
 
     [DataContract]
     public class wsStaComm
@@ -309,7 +316,7 @@ namespace CommHub.wsClasses
 
         [DataMember]
         public decimal membersNewPercent { get; set; }
-        
+
         [DataMember]
         public long subscribed { get; set; }
 
@@ -327,7 +334,7 @@ namespace CommHub.wsClasses
 
         [DataMember]
         public decimal unsubscribedNewPercent { get; set; }
-        
+
         [DataMember]
         public long visitors { get; set; }
 
@@ -336,7 +343,7 @@ namespace CommHub.wsClasses
 
         [DataMember]
         public decimal visitorsNewPercent { get; set; }
-        
+
         [DataMember]
         public long views { get; set; }
 
@@ -372,7 +379,7 @@ namespace CommHub.wsClasses
 
         [DataMember]
         public decimal postCountNewPercent { get; set; }
-        
+
         [DataMember]
         public long likes { get; set; }
 
@@ -381,7 +388,7 @@ namespace CommHub.wsClasses
 
         [DataMember]
         public decimal likesNewPercent { get; set; }
-    
+
         [DataMember]
         public long comments { get; set; }
 

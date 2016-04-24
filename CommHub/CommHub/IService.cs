@@ -20,6 +20,16 @@ namespace CommHub
         wsResponse<AdminComm_Save_Resp> AdminComm_Save(wsRequest<AdminComm_Save_Req> req);
         #endregion
 
+        #region OwnerHub
+        [OperationContract]
+        [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "OwnerHub_Save")]
+        wsResponse OwnerHub_Save(wsRequest<OwnerHub_Save_Req> req);
+
+        [OperationContract]
+        [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "OwnerHub_Read")]
+        wsResponse<OwnerHub_Read_Resp> OwnerHub_Read(wsRequest req);
+        #endregion
+
         #region Comm
         [OperationContract]
         [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "Comm_Del")]

@@ -345,11 +345,8 @@ namespace CommSta
         public void VKontakte_Sta()
         {
             wsRequestByDate exreq = new wsRequestByDate();
-            // exreq.dateFrom = DateTime.Today.Date;
-            // exreq.dateTo = DateTime.Now;
-
-            exreq.dateFrom = DateTime.Today.Date.AddDays(-4);
-            exreq.dateTo = DateTime.Today.Date.AddDays(-3).AddMilliseconds(-1);
+            exreq.dateFrom = DateTime.Today.Date;
+            exreq.dateTo = DateTime.Now;
 
             var lst = GetVKGroups(false);
 

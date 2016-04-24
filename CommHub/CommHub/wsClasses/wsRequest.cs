@@ -43,6 +43,25 @@ namespace CommHub
     }
 
     [DataContract]
+    public class OwnerHub_Save_Req
+    {
+        [DataMember]
+        public long? id;
+
+        [DataMember]
+        public string firstName { get; set; }
+
+        [DataMember]
+        public string lastName { get; set; }
+
+        [DataMember]
+        public string phone { get; set; }
+
+        [DataMember]
+        public string linkFB { get; set; }
+    }
+
+    [DataContract]
     public class Comm_Save_Req
     {
         [DataMember]

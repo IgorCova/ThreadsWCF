@@ -76,14 +76,6 @@ namespace CommHub
 			return ((ISingleResult<OwnerHub_ReadResult>)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.OwnerHub_Save")]
-		public ISingleResult<OwnerHub_SaveResult> OwnerHub_Save([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] ref System.Nullable<long> id, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(512)")] string firstName, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(512)")] string lastName, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(32)")] string phone, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(512)")] string linkFB)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), id, firstName, lastName, phone, linkFB);
-			id = ((System.Nullable<long>)(result.GetParameterValue(0)));
-			return ((ISingleResult<OwnerHub_SaveResult>)(result.ReturnValue));
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SubjectComm_Del")]
 		public int SubjectComm_Del([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> id, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> ownerHubID)
 		{
@@ -194,6 +186,13 @@ namespace CommHub
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), ownerHubID);
 			return ((ISingleResult<StaCommVKDaily_ReportResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.OwnerHub_Save")]
+		public int OwnerHub_Save([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> id, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(512)")] string firstName, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(512)")] string lastName, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(32)")] string phone, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(512)")] string linkFB)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), id, firstName, lastName, phone, linkFB);
+			return ((int)(result.ReturnValue));
 		}
 	}
 	
@@ -327,104 +326,6 @@ namespace CommHub
 		private string _linkFB;
 		
 		public OwnerHub_ReadResult()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", DbType="BigInt NOT NULL")]
-		public long id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this._id = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_firstName", DbType="VarChar(512)")]
-		public string firstName
-		{
-			get
-			{
-				return this._firstName;
-			}
-			set
-			{
-				if ((this._firstName != value))
-				{
-					this._firstName = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_lastName", DbType="VarChar(512)")]
-		public string lastName
-		{
-			get
-			{
-				return this._lastName;
-			}
-			set
-			{
-				if ((this._lastName != value))
-				{
-					this._lastName = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_phone", DbType="VarChar(32)")]
-		public string phone
-		{
-			get
-			{
-				return this._phone;
-			}
-			set
-			{
-				if ((this._phone != value))
-				{
-					this._phone = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_linkFB", DbType="VarChar(512)")]
-		public string linkFB
-		{
-			get
-			{
-				return this._linkFB;
-			}
-			set
-			{
-				if ((this._linkFB != value))
-				{
-					this._linkFB = value;
-				}
-			}
-		}
-	}
-	
-	public partial class OwnerHub_SaveResult
-	{
-		
-		private long _id;
-		
-		private string _firstName;
-		
-		private string _lastName;
-		
-		private string _phone;
-		
-		private string _linkFB;
-		
-		public OwnerHub_SaveResult()
 		{
 		}
 		

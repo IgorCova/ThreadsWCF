@@ -37,6 +37,8 @@ namespace CommHub
 
     public class AdminComm_Del_Resp: wsAdminComm_Del { }
 
+    public class OwnerHub_Read_Resp : wsOwnerHub { }
+
     public class StaCommVKDaily_ReportDay_Resp : List<wsStaComm> { }
 
     public class StaCommVKDaily_Report_Resp : List<wsSta> { }
