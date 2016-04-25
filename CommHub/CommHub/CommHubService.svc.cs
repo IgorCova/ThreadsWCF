@@ -633,7 +633,7 @@ namespace CommHub
         #endregion
 
         #region StaComm 
-        public wsResponse<StaCommVKDaily_Report_Resp> StaCommVKDaily_Report(wsRequest req)
+        public wsResponse<StaCommVKDaily_Report_Resp> StaCommVKDaily_Report(wsRequest<StaCommVKDaily_Report_Req> req)
         {
             var funcName = "StaCommVKDaily_Report";
             var errCode = 0;
@@ -662,7 +662,7 @@ namespace CommHub
                     ownerHubID = own.ownerHubID;
                 }
 
-                foreach (StaCommVKDaily_ReportResult itm in dc.StaCommVKDaily_Report(ownerHubID))
+                foreach (StaCommVKDaily_ReportResult itm in dc.StaCommVKDaily_Report(ownerHubID, req.Params.isPast))
                 {
                     resp.Add(new wsSta()
                     {
@@ -680,6 +680,9 @@ namespace CommHub
                         members = itm.members,
                         membersNew = itm.membersNew,
                         membersDifPercent = itm.membersDifPercent ?? 0,
+
+                        increaseNew = itm.increaseNew,
+                        increaseDifPercent = itm.increaseDifPercent ?? 0,
 
                         subscribed = itm.subscribed,
                         subscribedNew = itm.subscribedNew,
@@ -870,10 +873,10 @@ namespace CommHub
                 return results;
             }
 
-            /*try
+            try
             {
-                string message = string.Format("Comm+code+confirm:+{0}", code);
-                string http = string.Format("{0}sms.ru/sms/send?api_id={1}&to={2}&text={3}", "http://", "8B4D21F6-33D2-DBD4-8425-34631CD434BE", Phone, message);
+                string message = string.Format("CommHub+code+confirm:+{0}", code);
+                string http = string.Format("{0}sms.ru/sms/send?api_id={1}&to={2}&text={3}", "http://", "8B4D21F6-33D2-DBD4-8425-34631CD434BE", phone, message);
                 var request = (HttpWebRequest)WebRequest.Create(http);
                 var response = (HttpWebResponse)request.GetResponse();
                 var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
@@ -883,7 +886,7 @@ namespace CommHub
                 results.ErrCode = 40;
                 results.ErrText = string.Format("Send sms {0}, error: {1}", phone, e.Message);
             }
-            */
+            
             try
             {
                 foreach (SessionReq_SaveResult res in dc.SessionReq_Save(did, phone))

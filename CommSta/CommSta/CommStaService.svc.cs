@@ -176,12 +176,16 @@ namespace CommSta
 
             DateTime dateStart = DateTime.Now;
 
-            long views = 0;
-            long visitors = 0;
-            long reach = 0;
-            long reach_subscribers = 0;
+            // - Periodically ↓↓↓
             long subscribed = 0;
             long unsubscribed = 0;
+            long visitors = 0;
+            long views = 0;            
+            long reach = 0;
+            long reach_subscribers = 0;
+
+            // - Periodically ↑↑↑
+
             int members = 0;
 
             string photoLink = "";
@@ -217,6 +221,7 @@ namespace CommSta
                 long comments = 0;
                 long reposts = 0;
                 long countPost = 0;
+
                 int remaining = 5;
 
                 ulong leftover = cnt % 100;

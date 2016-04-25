@@ -51,7 +51,7 @@ namespace CommHub
 
         [OperationContract]
         [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "StaCommVKDaily_Report")]
-        wsResponse<StaCommVKDaily_Report_Resp> StaCommVKDaily_Report(wsRequest req);
+        wsResponse<StaCommVKDaily_Report_Resp> StaCommVKDaily_Report(wsRequest<StaCommVKDaily_Report_Req> req);
         #endregion
 
         #region SubjectComm

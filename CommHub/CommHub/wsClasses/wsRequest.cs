@@ -106,5 +106,12 @@ namespace CommHub
         public long id;
 
     }
+
+    [DataContract]
+    public class StaCommVKDaily_Report_Req
+    {
+        [DataMember]
+        public bool isPast;
+    }
     
 }

@@ -181,18 +181,18 @@ namespace CommHub
 			return ((int)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.StaCommVKDaily_Report")]
-		public ISingleResult<StaCommVKDaily_ReportResult> StaCommVKDaily_Report([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> ownerHubID)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), ownerHubID);
-			return ((ISingleResult<StaCommVKDaily_ReportResult>)(result.ReturnValue));
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.OwnerHub_Save")]
 		public int OwnerHub_Save([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> id, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(512)")] string firstName, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(512)")] string lastName, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(32)")] string phone, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(512)")] string linkFB)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), id, firstName, lastName, phone, linkFB);
 			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.StaCommVKDaily_Report")]
+		public ISingleResult<StaCommVKDaily_ReportResult> StaCommVKDaily_Report([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> ownerHubID, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Bit")] System.Nullable<bool> isPast)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), ownerHubID, isPast);
+			return ((ISingleResult<StaCommVKDaily_ReportResult>)(result.ReturnValue));
 		}
 	}
 	
@@ -1985,15 +1985,21 @@ namespace CommHub
 		
 		private string _adminComm_linkFB;
 		
+		private System.Nullable<System.DateTime> _lastRequestDate;
+		
+		private long _increaseNew;
+		
+		private System.Nullable<int> _increaseDifPercent;
+		
 		private int _subscribed;
 		
 		private long _subscribedNew;
 		
 		private long _subscribedOld;
 		
-		private decimal _subscribedDif;
+		private int _subscribedDif;
 		
-		private System.Nullable<decimal> _subscribedDifPercent;
+		private System.Nullable<int> _subscribedDifPercent;
 		
 		private int _unsubscribed;
 		
@@ -2001,9 +2007,9 @@ namespace CommHub
 		
 		private long _unsubscribedOld;
 		
-		private decimal _unsubscribedDif;
+		private int _unsubscribedDif;
 		
-		private System.Nullable<decimal> _unsubscribedDifPercent;
+		private System.Nullable<int> _unsubscribedDifPercent;
 		
 		private int _visitors;
 		
@@ -2011,9 +2017,9 @@ namespace CommHub
 		
 		private long _visitorsOld;
 		
-		private decimal _visitorsDif;
+		private int _visitorsDif;
 		
-		private System.Nullable<decimal> _visitorsDifPercent;
+		private System.Nullable<int> _visitorsDifPercent;
 		
 		private int _views;
 		
@@ -2021,59 +2027,9 @@ namespace CommHub
 		
 		private long _viewsOld;
 		
-		private decimal _viewsDif;
+		private int _viewsDif;
 		
-		private System.Nullable<decimal> _viewsDifPercent;
-		
-		private int _members;
-		
-		private int _membersNew;
-		
-		private int _membersOld;
-		
-		private decimal _membersDif;
-		
-		private System.Nullable<decimal> _membersDifPercent;
-		
-		private int _postCount;
-		
-		private long _postCountNew;
-		
-		private long _postCountOld;
-		
-		private decimal _postCountDif;
-		
-		private System.Nullable<decimal> _postCountDifPercent;
-		
-		private int _likes;
-		
-		private long _likesNew;
-		
-		private long _likesOld;
-		
-		private decimal _likesDif;
-		
-		private System.Nullable<decimal> _likesDifPercent;
-		
-		private int _comments;
-		
-		private long _commentsNew;
-		
-		private long _commentsOld;
-		
-		private decimal _commentsDif;
-		
-		private System.Nullable<decimal> _commentsDifPercent;
-		
-		private int _reposts;
-		
-		private long _repostsNew;
-		
-		private long _repostsOld;
-		
-		private decimal _repostsDif;
-		
-		private System.Nullable<decimal> _repostsDifPercent;
+		private System.Nullable<int> _viewsDifPercent;
 		
 		private int _reach;
 		
@@ -2081,9 +2037,9 @@ namespace CommHub
 		
 		private long _reachOld;
 		
-		private decimal _reachDif;
+		private int _reachDif;
 		
-		private System.Nullable<decimal> _reachDifPercent;
+		private System.Nullable<int> _reachDifPercent;
 		
 		private int _reachSubscribers;
 		
@@ -2091,9 +2047,59 @@ namespace CommHub
 		
 		private long _reachSubscribersOld;
 		
-		private decimal _reachSubscribersDif;
+		private int _reachSubscribersDif;
 		
-		private System.Nullable<decimal> _reachSubscribersDifPercent;
+		private System.Nullable<int> _reachSubscribersDifPercent;
+		
+		private int _postCount;
+		
+		private long _postCountNew;
+		
+		private long _postCountOld;
+		
+		private int _postCountDif;
+		
+		private System.Nullable<int> _postCountDifPercent;
+		
+		private int _members;
+		
+		private int _membersNew;
+		
+		private int _membersOld;
+		
+		private int _membersDif;
+		
+		private System.Nullable<int> _membersDifPercent;
+		
+		private long _likes;
+		
+		private long _likesNew;
+		
+		private long _likesOld;
+		
+		private int _likesDif;
+		
+		private System.Nullable<int> _likesDifPercent;
+		
+		private long _comments;
+		
+		private long _commentsNew;
+		
+		private long _commentsOld;
+		
+		private int _commentsDif;
+		
+		private System.Nullable<int> _commentsDifPercent;
+		
+		private long _reposts;
+		
+		private long _repostsNew;
+		
+		private long _repostsOld;
+		
+		private int _repostsDif;
+		
+		private System.Nullable<int> _repostsDifPercent;
 		
 		public StaCommVKDaily_ReportResult()
 		{
@@ -2227,6 +2233,54 @@ namespace CommHub
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_lastRequestDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> lastRequestDate
+		{
+			get
+			{
+				return this._lastRequestDate;
+			}
+			set
+			{
+				if ((this._lastRequestDate != value))
+				{
+					this._lastRequestDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_increaseNew", DbType="BigInt NOT NULL")]
+		public long increaseNew
+		{
+			get
+			{
+				return this._increaseNew;
+			}
+			set
+			{
+				if ((this._increaseNew != value))
+				{
+					this._increaseNew = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_increaseDifPercent", DbType="Int")]
+		public System.Nullable<int> increaseDifPercent
+		{
+			get
+			{
+				return this._increaseDifPercent;
+			}
+			set
+			{
+				if ((this._increaseDifPercent != value))
+				{
+					this._increaseDifPercent = value;
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_subscribed", DbType="Int NOT NULL")]
 		public int subscribed
 		{
@@ -2275,8 +2329,8 @@ namespace CommHub
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_subscribedDif", DbType="Decimal(16,2) NOT NULL")]
-		public decimal subscribedDif
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_subscribedDif", DbType="Int NOT NULL")]
+		public int subscribedDif
 		{
 			get
 			{
@@ -2291,8 +2345,8 @@ namespace CommHub
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_subscribedDifPercent", DbType="Decimal(16,0)")]
-		public System.Nullable<decimal> subscribedDifPercent
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_subscribedDifPercent", DbType="Int")]
+		public System.Nullable<int> subscribedDifPercent
 		{
 			get
 			{
@@ -2355,8 +2409,8 @@ namespace CommHub
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_unsubscribedDif", DbType="Decimal(16,2) NOT NULL")]
-		public decimal unsubscribedDif
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_unsubscribedDif", DbType="Int NOT NULL")]
+		public int unsubscribedDif
 		{
 			get
 			{
@@ -2371,8 +2425,8 @@ namespace CommHub
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_unsubscribedDifPercent", DbType="Decimal(16,0)")]
-		public System.Nullable<decimal> unsubscribedDifPercent
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_unsubscribedDifPercent", DbType="Int")]
+		public System.Nullable<int> unsubscribedDifPercent
 		{
 			get
 			{
@@ -2435,8 +2489,8 @@ namespace CommHub
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_visitorsDif", DbType="Decimal(16,2) NOT NULL")]
-		public decimal visitorsDif
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_visitorsDif", DbType="Int NOT NULL")]
+		public int visitorsDif
 		{
 			get
 			{
@@ -2451,8 +2505,8 @@ namespace CommHub
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_visitorsDifPercent", DbType="Decimal(16,0)")]
-		public System.Nullable<decimal> visitorsDifPercent
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_visitorsDifPercent", DbType="Int")]
+		public System.Nullable<int> visitorsDifPercent
 		{
 			get
 			{
@@ -2515,8 +2569,8 @@ namespace CommHub
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_viewsDif", DbType="Decimal(16,2) NOT NULL")]
-		public decimal viewsDif
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_viewsDif", DbType="Int NOT NULL")]
+		public int viewsDif
 		{
 			get
 			{
@@ -2531,8 +2585,8 @@ namespace CommHub
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_viewsDifPercent", DbType="Decimal(16,0)")]
-		public System.Nullable<decimal> viewsDifPercent
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_viewsDifPercent", DbType="Int")]
+		public System.Nullable<int> viewsDifPercent
 		{
 			get
 			{
@@ -2543,406 +2597,6 @@ namespace CommHub
 				if ((this._viewsDifPercent != value))
 				{
 					this._viewsDifPercent = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_members", DbType="Int NOT NULL")]
-		public int members
-		{
-			get
-			{
-				return this._members;
-			}
-			set
-			{
-				if ((this._members != value))
-				{
-					this._members = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_membersNew", DbType="Int NOT NULL")]
-		public int membersNew
-		{
-			get
-			{
-				return this._membersNew;
-			}
-			set
-			{
-				if ((this._membersNew != value))
-				{
-					this._membersNew = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_membersOld", DbType="Int NOT NULL")]
-		public int membersOld
-		{
-			get
-			{
-				return this._membersOld;
-			}
-			set
-			{
-				if ((this._membersOld != value))
-				{
-					this._membersOld = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_membersDif", DbType="Decimal(16,2) NOT NULL")]
-		public decimal membersDif
-		{
-			get
-			{
-				return this._membersDif;
-			}
-			set
-			{
-				if ((this._membersDif != value))
-				{
-					this._membersDif = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_membersDifPercent", DbType="Decimal(16,0)")]
-		public System.Nullable<decimal> membersDifPercent
-		{
-			get
-			{
-				return this._membersDifPercent;
-			}
-			set
-			{
-				if ((this._membersDifPercent != value))
-				{
-					this._membersDifPercent = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_postCount", DbType="Int NOT NULL")]
-		public int postCount
-		{
-			get
-			{
-				return this._postCount;
-			}
-			set
-			{
-				if ((this._postCount != value))
-				{
-					this._postCount = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_postCountNew", DbType="BigInt NOT NULL")]
-		public long postCountNew
-		{
-			get
-			{
-				return this._postCountNew;
-			}
-			set
-			{
-				if ((this._postCountNew != value))
-				{
-					this._postCountNew = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_postCountOld", DbType="BigInt NOT NULL")]
-		public long postCountOld
-		{
-			get
-			{
-				return this._postCountOld;
-			}
-			set
-			{
-				if ((this._postCountOld != value))
-				{
-					this._postCountOld = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_postCountDif", DbType="Decimal(16,2) NOT NULL")]
-		public decimal postCountDif
-		{
-			get
-			{
-				return this._postCountDif;
-			}
-			set
-			{
-				if ((this._postCountDif != value))
-				{
-					this._postCountDif = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_postCountDifPercent", DbType="Decimal(16,0)")]
-		public System.Nullable<decimal> postCountDifPercent
-		{
-			get
-			{
-				return this._postCountDifPercent;
-			}
-			set
-			{
-				if ((this._postCountDifPercent != value))
-				{
-					this._postCountDifPercent = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_likes", DbType="Int NOT NULL")]
-		public int likes
-		{
-			get
-			{
-				return this._likes;
-			}
-			set
-			{
-				if ((this._likes != value))
-				{
-					this._likes = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_likesNew", DbType="BigInt NOT NULL")]
-		public long likesNew
-		{
-			get
-			{
-				return this._likesNew;
-			}
-			set
-			{
-				if ((this._likesNew != value))
-				{
-					this._likesNew = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_likesOld", DbType="BigInt NOT NULL")]
-		public long likesOld
-		{
-			get
-			{
-				return this._likesOld;
-			}
-			set
-			{
-				if ((this._likesOld != value))
-				{
-					this._likesOld = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_likesDif", DbType="Decimal(16,2) NOT NULL")]
-		public decimal likesDif
-		{
-			get
-			{
-				return this._likesDif;
-			}
-			set
-			{
-				if ((this._likesDif != value))
-				{
-					this._likesDif = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_likesDifPercent", DbType="Decimal(16,0)")]
-		public System.Nullable<decimal> likesDifPercent
-		{
-			get
-			{
-				return this._likesDifPercent;
-			}
-			set
-			{
-				if ((this._likesDifPercent != value))
-				{
-					this._likesDifPercent = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_comments", DbType="Int NOT NULL")]
-		public int comments
-		{
-			get
-			{
-				return this._comments;
-			}
-			set
-			{
-				if ((this._comments != value))
-				{
-					this._comments = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_commentsNew", DbType="BigInt NOT NULL")]
-		public long commentsNew
-		{
-			get
-			{
-				return this._commentsNew;
-			}
-			set
-			{
-				if ((this._commentsNew != value))
-				{
-					this._commentsNew = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_commentsOld", DbType="BigInt NOT NULL")]
-		public long commentsOld
-		{
-			get
-			{
-				return this._commentsOld;
-			}
-			set
-			{
-				if ((this._commentsOld != value))
-				{
-					this._commentsOld = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_commentsDif", DbType="Decimal(16,2) NOT NULL")]
-		public decimal commentsDif
-		{
-			get
-			{
-				return this._commentsDif;
-			}
-			set
-			{
-				if ((this._commentsDif != value))
-				{
-					this._commentsDif = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_commentsDifPercent", DbType="Decimal(16,0)")]
-		public System.Nullable<decimal> commentsDifPercent
-		{
-			get
-			{
-				return this._commentsDifPercent;
-			}
-			set
-			{
-				if ((this._commentsDifPercent != value))
-				{
-					this._commentsDifPercent = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_reposts", DbType="Int NOT NULL")]
-		public int reposts
-		{
-			get
-			{
-				return this._reposts;
-			}
-			set
-			{
-				if ((this._reposts != value))
-				{
-					this._reposts = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_repostsNew", DbType="BigInt NOT NULL")]
-		public long repostsNew
-		{
-			get
-			{
-				return this._repostsNew;
-			}
-			set
-			{
-				if ((this._repostsNew != value))
-				{
-					this._repostsNew = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_repostsOld", DbType="BigInt NOT NULL")]
-		public long repostsOld
-		{
-			get
-			{
-				return this._repostsOld;
-			}
-			set
-			{
-				if ((this._repostsOld != value))
-				{
-					this._repostsOld = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_repostsDif", DbType="Decimal(16,2) NOT NULL")]
-		public decimal repostsDif
-		{
-			get
-			{
-				return this._repostsDif;
-			}
-			set
-			{
-				if ((this._repostsDif != value))
-				{
-					this._repostsDif = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_repostsDifPercent", DbType="Decimal(16,0)")]
-		public System.Nullable<decimal> repostsDifPercent
-		{
-			get
-			{
-				return this._repostsDifPercent;
-			}
-			set
-			{
-				if ((this._repostsDifPercent != value))
-				{
-					this._repostsDifPercent = value;
 				}
 			}
 		}
@@ -2995,8 +2649,8 @@ namespace CommHub
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_reachDif", DbType="Decimal(16,2) NOT NULL")]
-		public decimal reachDif
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_reachDif", DbType="Int NOT NULL")]
+		public int reachDif
 		{
 			get
 			{
@@ -3011,8 +2665,8 @@ namespace CommHub
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_reachDifPercent", DbType="Decimal(16,0)")]
-		public System.Nullable<decimal> reachDifPercent
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_reachDifPercent", DbType="Int")]
+		public System.Nullable<int> reachDifPercent
 		{
 			get
 			{
@@ -3075,8 +2729,8 @@ namespace CommHub
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_reachSubscribersDif", DbType="Decimal(16,2) NOT NULL")]
-		public decimal reachSubscribersDif
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_reachSubscribersDif", DbType="Int NOT NULL")]
+		public int reachSubscribersDif
 		{
 			get
 			{
@@ -3091,8 +2745,8 @@ namespace CommHub
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_reachSubscribersDifPercent", DbType="Decimal(16,0)")]
-		public System.Nullable<decimal> reachSubscribersDifPercent
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_reachSubscribersDifPercent", DbType="Int")]
+		public System.Nullable<int> reachSubscribersDifPercent
 		{
 			get
 			{
@@ -3103,6 +2757,406 @@ namespace CommHub
 				if ((this._reachSubscribersDifPercent != value))
 				{
 					this._reachSubscribersDifPercent = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_postCount", DbType="Int NOT NULL")]
+		public int postCount
+		{
+			get
+			{
+				return this._postCount;
+			}
+			set
+			{
+				if ((this._postCount != value))
+				{
+					this._postCount = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_postCountNew", DbType="BigInt NOT NULL")]
+		public long postCountNew
+		{
+			get
+			{
+				return this._postCountNew;
+			}
+			set
+			{
+				if ((this._postCountNew != value))
+				{
+					this._postCountNew = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_postCountOld", DbType="BigInt NOT NULL")]
+		public long postCountOld
+		{
+			get
+			{
+				return this._postCountOld;
+			}
+			set
+			{
+				if ((this._postCountOld != value))
+				{
+					this._postCountOld = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_postCountDif", DbType="Int NOT NULL")]
+		public int postCountDif
+		{
+			get
+			{
+				return this._postCountDif;
+			}
+			set
+			{
+				if ((this._postCountDif != value))
+				{
+					this._postCountDif = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_postCountDifPercent", DbType="Int")]
+		public System.Nullable<int> postCountDifPercent
+		{
+			get
+			{
+				return this._postCountDifPercent;
+			}
+			set
+			{
+				if ((this._postCountDifPercent != value))
+				{
+					this._postCountDifPercent = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_members", DbType="Int NOT NULL")]
+		public int members
+		{
+			get
+			{
+				return this._members;
+			}
+			set
+			{
+				if ((this._members != value))
+				{
+					this._members = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_membersNew", DbType="Int NOT NULL")]
+		public int membersNew
+		{
+			get
+			{
+				return this._membersNew;
+			}
+			set
+			{
+				if ((this._membersNew != value))
+				{
+					this._membersNew = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_membersOld", DbType="Int NOT NULL")]
+		public int membersOld
+		{
+			get
+			{
+				return this._membersOld;
+			}
+			set
+			{
+				if ((this._membersOld != value))
+				{
+					this._membersOld = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_membersDif", DbType="Int NOT NULL")]
+		public int membersDif
+		{
+			get
+			{
+				return this._membersDif;
+			}
+			set
+			{
+				if ((this._membersDif != value))
+				{
+					this._membersDif = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_membersDifPercent", DbType="Int")]
+		public System.Nullable<int> membersDifPercent
+		{
+			get
+			{
+				return this._membersDifPercent;
+			}
+			set
+			{
+				if ((this._membersDifPercent != value))
+				{
+					this._membersDifPercent = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_likes", DbType="BigInt NOT NULL")]
+		public long likes
+		{
+			get
+			{
+				return this._likes;
+			}
+			set
+			{
+				if ((this._likes != value))
+				{
+					this._likes = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_likesNew", DbType="BigInt NOT NULL")]
+		public long likesNew
+		{
+			get
+			{
+				return this._likesNew;
+			}
+			set
+			{
+				if ((this._likesNew != value))
+				{
+					this._likesNew = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_likesOld", DbType="BigInt NOT NULL")]
+		public long likesOld
+		{
+			get
+			{
+				return this._likesOld;
+			}
+			set
+			{
+				if ((this._likesOld != value))
+				{
+					this._likesOld = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_likesDif", DbType="Int NOT NULL")]
+		public int likesDif
+		{
+			get
+			{
+				return this._likesDif;
+			}
+			set
+			{
+				if ((this._likesDif != value))
+				{
+					this._likesDif = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_likesDifPercent", DbType="Int")]
+		public System.Nullable<int> likesDifPercent
+		{
+			get
+			{
+				return this._likesDifPercent;
+			}
+			set
+			{
+				if ((this._likesDifPercent != value))
+				{
+					this._likesDifPercent = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_comments", DbType="BigInt NOT NULL")]
+		public long comments
+		{
+			get
+			{
+				return this._comments;
+			}
+			set
+			{
+				if ((this._comments != value))
+				{
+					this._comments = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_commentsNew", DbType="BigInt NOT NULL")]
+		public long commentsNew
+		{
+			get
+			{
+				return this._commentsNew;
+			}
+			set
+			{
+				if ((this._commentsNew != value))
+				{
+					this._commentsNew = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_commentsOld", DbType="BigInt NOT NULL")]
+		public long commentsOld
+		{
+			get
+			{
+				return this._commentsOld;
+			}
+			set
+			{
+				if ((this._commentsOld != value))
+				{
+					this._commentsOld = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_commentsDif", DbType="Int NOT NULL")]
+		public int commentsDif
+		{
+			get
+			{
+				return this._commentsDif;
+			}
+			set
+			{
+				if ((this._commentsDif != value))
+				{
+					this._commentsDif = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_commentsDifPercent", DbType="Int")]
+		public System.Nullable<int> commentsDifPercent
+		{
+			get
+			{
+				return this._commentsDifPercent;
+			}
+			set
+			{
+				if ((this._commentsDifPercent != value))
+				{
+					this._commentsDifPercent = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_reposts", DbType="BigInt NOT NULL")]
+		public long reposts
+		{
+			get
+			{
+				return this._reposts;
+			}
+			set
+			{
+				if ((this._reposts != value))
+				{
+					this._reposts = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_repostsNew", DbType="BigInt NOT NULL")]
+		public long repostsNew
+		{
+			get
+			{
+				return this._repostsNew;
+			}
+			set
+			{
+				if ((this._repostsNew != value))
+				{
+					this._repostsNew = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_repostsOld", DbType="BigInt NOT NULL")]
+		public long repostsOld
+		{
+			get
+			{
+				return this._repostsOld;
+			}
+			set
+			{
+				if ((this._repostsOld != value))
+				{
+					this._repostsOld = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_repostsDif", DbType="Int NOT NULL")]
+		public int repostsDif
+		{
+			get
+			{
+				return this._repostsDif;
+			}
+			set
+			{
+				if ((this._repostsDif != value))
+				{
+					this._repostsDif = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_repostsDifPercent", DbType="Int")]
+		public System.Nullable<int> repostsDifPercent
+		{
+			get
+			{
+				return this._repostsDifPercent;
+			}
+			set
+			{
+				if ((this._repostsDifPercent != value))
+				{
+					this._repostsDifPercent = value;
 				}
 			}
 		}

@@ -209,8 +209,17 @@
     <Parameter Name="commPhotoLink" Type="System.String" DbType="VarChar(512)" />
     <Return Type="System.Int32" />
   </Function>
+  <Function Name="dbo.OwnerHub_Save" Method="OwnerHub_Save">
+    <Parameter Name="id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="firstName" Type="System.String" DbType="VarChar(512)" />
+    <Parameter Name="lastName" Type="System.String" DbType="VarChar(512)" />
+    <Parameter Name="phone" Type="System.String" DbType="VarChar(32)" />
+    <Parameter Name="linkFB" Type="System.String" DbType="VarChar(512)" />
+    <Return Type="System.Int32" />
+  </Function>
   <Function Name="dbo.StaCommVKDaily_Report" Method="StaCommVKDaily_Report">
     <Parameter Name="ownerHubID" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="isPast" Type="System.Boolean" DbType="Bit" />
     <ElementType Name="StaCommVKDaily_ReportResult">
       <Column Name="comm_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
       <Column Name="comm_name" Type="System.String" DbType="VarChar(256)" CanBeNull="true" />
@@ -220,69 +229,64 @@
       <Column Name="areaComm_code" Type="System.String" DbType="VarChar(32)" CanBeNull="true" />
       <Column Name="adminComm_fullName" Type="System.String" DbType="VarChar(1025) NOT NULL" CanBeNull="false" />
       <Column Name="adminComm_linkFB" Type="System.String" DbType="VarChar(512)" CanBeNull="true" />
+      <Column Name="lastRequestDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="increaseNew" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="increaseDifPercent" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="subscribed" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="subscribedNew" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
       <Column Name="subscribedOld" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
-      <Column Name="subscribedDif" Type="System.Decimal" DbType="Decimal(16,2) NOT NULL" CanBeNull="false" />
-      <Column Name="subscribedDifPercent" Type="System.Decimal" DbType="Decimal(16,0)" CanBeNull="true" />
+      <Column Name="subscribedDif" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="subscribedDifPercent" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="unsubscribed" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="unsubscribedNew" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
       <Column Name="unsubscribedOld" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
-      <Column Name="unsubscribedDif" Type="System.Decimal" DbType="Decimal(16,2) NOT NULL" CanBeNull="false" />
-      <Column Name="unsubscribedDifPercent" Type="System.Decimal" DbType="Decimal(16,0)" CanBeNull="true" />
+      <Column Name="unsubscribedDif" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="unsubscribedDifPercent" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="visitors" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="visitorsNew" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
       <Column Name="visitorsOld" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
-      <Column Name="visitorsDif" Type="System.Decimal" DbType="Decimal(16,2) NOT NULL" CanBeNull="false" />
-      <Column Name="visitorsDifPercent" Type="System.Decimal" DbType="Decimal(16,0)" CanBeNull="true" />
+      <Column Name="visitorsDif" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="visitorsDifPercent" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="views" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="viewsNew" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
       <Column Name="viewsOld" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
-      <Column Name="viewsDif" Type="System.Decimal" DbType="Decimal(16,2) NOT NULL" CanBeNull="false" />
-      <Column Name="viewsDifPercent" Type="System.Decimal" DbType="Decimal(16,0)" CanBeNull="true" />
-      <Column Name="members" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="membersNew" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="membersOld" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="membersDif" Type="System.Decimal" DbType="Decimal(16,2) NOT NULL" CanBeNull="false" />
-      <Column Name="membersDifPercent" Type="System.Decimal" DbType="Decimal(16,0)" CanBeNull="true" />
-      <Column Name="postCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="postCountNew" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
-      <Column Name="postCountOld" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
-      <Column Name="postCountDif" Type="System.Decimal" DbType="Decimal(16,2) NOT NULL" CanBeNull="false" />
-      <Column Name="postCountDifPercent" Type="System.Decimal" DbType="Decimal(16,0)" CanBeNull="true" />
-      <Column Name="likes" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="likesNew" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
-      <Column Name="likesOld" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
-      <Column Name="likesDif" Type="System.Decimal" DbType="Decimal(16,2) NOT NULL" CanBeNull="false" />
-      <Column Name="likesDifPercent" Type="System.Decimal" DbType="Decimal(16,0)" CanBeNull="true" />
-      <Column Name="comments" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="commentsNew" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
-      <Column Name="commentsOld" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
-      <Column Name="commentsDif" Type="System.Decimal" DbType="Decimal(16,2) NOT NULL" CanBeNull="false" />
-      <Column Name="commentsDifPercent" Type="System.Decimal" DbType="Decimal(16,0)" CanBeNull="true" />
-      <Column Name="reposts" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="repostsNew" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
-      <Column Name="repostsOld" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
-      <Column Name="repostsDif" Type="System.Decimal" DbType="Decimal(16,2) NOT NULL" CanBeNull="false" />
-      <Column Name="repostsDifPercent" Type="System.Decimal" DbType="Decimal(16,0)" CanBeNull="true" />
+      <Column Name="viewsDif" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="viewsDifPercent" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="reach" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="reachNew" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
       <Column Name="reachOld" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
-      <Column Name="reachDif" Type="System.Decimal" DbType="Decimal(16,2) NOT NULL" CanBeNull="false" />
-      <Column Name="reachDifPercent" Type="System.Decimal" DbType="Decimal(16,0)" CanBeNull="true" />
+      <Column Name="reachDif" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="reachDifPercent" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="reachSubscribers" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="reachSubscribersNew" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
       <Column Name="reachSubscribersOld" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
-      <Column Name="reachSubscribersDif" Type="System.Decimal" DbType="Decimal(16,2) NOT NULL" CanBeNull="false" />
-      <Column Name="reachSubscribersDifPercent" Type="System.Decimal" DbType="Decimal(16,0)" CanBeNull="true" />
+      <Column Name="reachSubscribersDif" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="reachSubscribersDifPercent" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="postCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="postCountNew" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="postCountOld" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="postCountDif" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="postCountDifPercent" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="members" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="membersNew" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="membersOld" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="membersDif" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="membersDifPercent" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="likes" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="likesNew" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="likesOld" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="likesDif" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="likesDifPercent" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="comments" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="commentsNew" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="commentsOld" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="commentsDif" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="commentsDifPercent" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="reposts" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="repostsNew" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="repostsOld" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="repostsDif" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="repostsDifPercent" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </ElementType>
-  </Function>
-  <Function Name="dbo.OwnerHub_Save" Method="OwnerHub_Save">
-    <Parameter Name="id" Type="System.Int64" DbType="BigInt" />
-    <Parameter Name="firstName" Type="System.String" DbType="VarChar(512)" />
-    <Parameter Name="lastName" Type="System.String" DbType="VarChar(512)" />
-    <Parameter Name="phone" Type="System.String" DbType="VarChar(32)" />
-    <Parameter Name="linkFB" Type="System.String" DbType="VarChar(512)" />
-    <Return Type="System.Int32" />
   </Function>
 </Database>

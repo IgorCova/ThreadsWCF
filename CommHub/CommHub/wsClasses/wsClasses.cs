@@ -155,8 +155,13 @@ namespace CommHub.wsClasses
         public long membersOld { get; set; }
 
         [DataMember]
-        public decimal membersDifPercent { get; set; }
+        public int membersDifPercent { get; set; }
 
+        [DataMember]
+        public long increaseNew { get; set; }
+
+        [DataMember]
+        public long increaseDifPercent { get; set; }
 
         [DataMember]
         public long subscribed { get; set; }
@@ -168,7 +173,7 @@ namespace CommHub.wsClasses
         public long subscribedOld { get; set; }
 
         [DataMember]
-        public decimal subscribedDifPercent { get; set; }
+        public int subscribedDifPercent { get; set; }
 
         [DataMember]
         public long unsubscribed { get; set; }
@@ -180,7 +185,7 @@ namespace CommHub.wsClasses
         public long unsubscribedOld { get; set; }
 
         [DataMember]
-        public decimal unsubscribedDifPercent { get; set; }
+        public int unsubscribedDifPercent { get; set; }
 
         [DataMember]
         public long visitors { get; set; }
@@ -192,7 +197,7 @@ namespace CommHub.wsClasses
         public long visitorsOld { get; set; }
 
         [DataMember]
-        public decimal visitorsDifPercent { get; set; }
+        public int visitorsDifPercent { get; set; }
 
         [DataMember]
         public long views { get; set; }
@@ -204,7 +209,7 @@ namespace CommHub.wsClasses
         public long viewsOld { get; set; }
 
         [DataMember]
-        public decimal viewsDifPercent { get; set; }
+        public int viewsDifPercent { get; set; }
 
         [DataMember]
         public long reach { get; set; }
@@ -216,7 +221,7 @@ namespace CommHub.wsClasses
         public long reachOld { get; set; }
 
         [DataMember]
-        public decimal reachDifPercent { get; set; }
+        public int reachDifPercent { get; set; }
 
         [DataMember]
         public long reachSubscribers { get; set; }
@@ -228,7 +233,7 @@ namespace CommHub.wsClasses
         public long reachSubscribersOld { get; set; }
 
         [DataMember]
-        public decimal reachSubscribersDifPercent { get; set; }
+        public int reachSubscribersDifPercent { get; set; }
 
         [DataMember]
         public long postCount { get; set; }
@@ -240,7 +245,7 @@ namespace CommHub.wsClasses
         public long postCountOld { get; set; }
 
         [DataMember]
-        public decimal postCountDifPercent { get; set; }
+        public int postCountDifPercent { get; set; }
 
         [DataMember]
         public long likes { get; set; }
@@ -252,7 +257,7 @@ namespace CommHub.wsClasses
         public long likesOld { get; set; }
 
         [DataMember]
-        public decimal likesDifPercent { get; set; }
+        public int likesDifPercent { get; set; }
 
         [DataMember]
         public long comments { get; set; }
@@ -264,7 +269,7 @@ namespace CommHub.wsClasses
         public long commentsOld { get; set; }
 
         [DataMember]
-        public decimal commentsDifPercent { get; set; }
+        public int commentsDifPercent { get; set; }
 
         [DataMember]
         public long reposts { get; set; }
@@ -276,7 +281,7 @@ namespace CommHub.wsClasses
         public long repostsOld { get; set; }
 
         [DataMember]
-        public decimal repostsDifPercent { get; set; }
+        public int repostsDifPercent { get; set; }
 
     }
     #endregion
