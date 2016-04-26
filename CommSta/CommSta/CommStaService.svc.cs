@@ -180,10 +180,9 @@ namespace CommSta
             long subscribed = 0;
             long unsubscribed = 0;
             long visitors = 0;
-            long views = 0;            
+            long views = 0;
             long reach = 0;
             long reach_subscribers = 0;
-
             // - Periodically ↑↑↑
 
             int members = 0;
@@ -257,7 +256,7 @@ namespace CommSta
                             mre.Set();
                         }
                     });
-                }               
+                }
             }
             catch (AccessDeniedException e)
             {
@@ -350,6 +349,33 @@ namespace CommSta
         public void VKontakte_Sta()
         {
             wsRequestByDate exreq = new wsRequestByDate();
+            
+            // Для новых сообществ за вчера и позавчера считаем стаитистику
+            var newlst = GetVKGroups(true);
+            if (newlst.dir.Count > 0)
+            {
+                exreq.dateFrom = DateTime.Today.Date.AddDays(-1);
+                exreq.dateTo = DateTime.Today.Date.AddMilliseconds(-1);
+
+                foreach (var gr in newlst.dir)
+                {
+                    exreq.groupID = gr.groupID;
+                    VKontakte_Sta_ByDate_Parallels(exreq);
+                    Thread.Sleep(1500);
+                }
+
+                exreq.dateFrom = DateTime.Today.Date.AddDays(-2);
+                exreq.dateTo = DateTime.Today.Date.AddDays(-1).AddMilliseconds(-1);
+
+                foreach (var gr in newlst.dir)
+                {
+                    exreq.groupID = gr.groupID;
+                    VKontakte_Sta_ByDate_Parallels(exreq);
+                    Thread.Sleep(1500);
+                }
+            }
+
+            // теперь для всех сообществ за вчера и позавчера считаем статистику
             exreq.dateFrom = DateTime.Today.Date;
             exreq.dateTo = DateTime.Now;
 
@@ -361,6 +387,7 @@ namespace CommSta
                 VKontakte_Sta_ByDate_Parallels(exreq);
                 Thread.Sleep(1500);
             }
+
         }
         #endregion
 
@@ -399,7 +426,7 @@ namespace CommSta
             HubDataClassesDataContext dc = new HubDataClassesDataContext();
 
             string login; // login для авторизации
-            
+
             switch (thread)
             {
                 case 1:
