@@ -32,6 +32,8 @@ namespace CommStaClassLibrary.CommSta {
         
         private System.Threading.SendOrPostCallback VKontakte_StaOperationCompleted;
         
+        private System.Threading.SendOrPostCallback VKontakte_Sta_ForNewOperationCompleted;
+        
         private System.Threading.SendOrPostCallback VKontakte_Sta_ByDateOperationCompleted;
         
         private bool useDefaultCredentialsSetExplicitly;
@@ -76,6 +78,9 @@ namespace CommStaClassLibrary.CommSta {
         public event VKontakte_StaCompletedEventHandler VKontakte_StaCompleted;
         
         /// <remarks/>
+        public event VKontakte_Sta_ForNewCompletedEventHandler VKontakte_Sta_ForNewCompleted;
+        
+        /// <remarks/>
         public event VKontakte_Sta_ByDateCompletedEventHandler VKontakte_Sta_ByDateCompleted;
         
         /// <remarks/>
@@ -101,6 +106,32 @@ namespace CommStaClassLibrary.CommSta {
             if ((this.VKontakte_StaCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.VKontakte_StaCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IService/VKontakte_Sta_ForNew", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public void VKontakte_Sta_ForNew() {
+            this.Invoke("VKontakte_Sta_ForNew", new object[0]);
+        }
+        
+        /// <remarks/>
+        public void VKontakte_Sta_ForNewAsync() {
+            this.VKontakte_Sta_ForNewAsync(null);
+        }
+        
+        /// <remarks/>
+        public void VKontakte_Sta_ForNewAsync(object userState) {
+            if ((this.VKontakte_Sta_ForNewOperationCompleted == null)) {
+                this.VKontakte_Sta_ForNewOperationCompleted = new System.Threading.SendOrPostCallback(this.OnVKontakte_Sta_ForNewOperationCompleted);
+            }
+            this.InvokeAsync("VKontakte_Sta_ForNew", new object[0], this.VKontakte_Sta_ForNewOperationCompleted, userState);
+        }
+        
+        private void OnVKontakte_Sta_ForNewOperationCompleted(object arg) {
+            if ((this.VKontakte_Sta_ForNewCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.VKontakte_Sta_ForNewCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -249,6 +280,10 @@ namespace CommStaClassLibrary.CommSta {
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")]
     public delegate void VKontakte_StaCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")]
+    public delegate void VKontakte_Sta_ForNewCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")]

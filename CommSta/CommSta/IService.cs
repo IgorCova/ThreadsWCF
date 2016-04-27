@@ -11,6 +11,10 @@ namespace CommSta
         void VKontakte_Sta();
 
         [OperationContract]
+        [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "VKontakte_Sta_ForNew")]
+        void VKontakte_Sta_ForNew();
+
+        [OperationContract]
         [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "VKontakte_Sta_ByDate")]
         void VKontakte_Sta_ByDate(wsRequestByDate req);
     }

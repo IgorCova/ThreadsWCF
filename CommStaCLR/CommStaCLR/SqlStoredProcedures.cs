@@ -16,6 +16,18 @@ public partial class StoredProcedures
         }
     }
 
+    public static void sp_ws_VKontakte_Sta_ForNew()
+    {
+        try
+        {
+            CommStaClassLibrary.Main.VKontakte_Sta_ForNew();
+        }
+        catch (Exception ex)
+        {
+            SqlContext.Pipe.Send(ex.Message);
+        }
+    }
+
     public static void sp_ws_VKontakte_Sta_ByDate(long groupID, DateTime dateFrom, DateTime dateTo)
     {
         try

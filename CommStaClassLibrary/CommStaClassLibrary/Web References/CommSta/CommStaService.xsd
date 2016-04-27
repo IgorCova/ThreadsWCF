@@ -11,6 +11,16 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
+  <xs:element name="VKontakte_Sta_ForNew">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="VKontakte_Sta_ForNewResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
   <xs:element name="VKontakte_Sta_ByDate">
     <xs:complexType>
       <xs:sequence>
