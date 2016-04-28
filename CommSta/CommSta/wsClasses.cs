@@ -27,6 +27,9 @@ namespace CommSta
     {
         [DataMember]
         public long groupID { get; set; }
+
+        [DataMember]
+        public string link { get; set; }
     }
 
     [DataContract]

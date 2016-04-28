@@ -107,17 +107,6 @@
       <Column Name="ownerHubID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
     </ElementType>
   </Function>
-  <Function Name="dbo.Comm_Save" Method="Comm_Save">
-    <Parameter Name="id" Type="System.Int64" DbType="BigInt" />
-    <Parameter Name="ownerHubID" Type="System.Int64" DbType="BigInt" />
-    <Parameter Name="subjectCommID" Type="System.Int64" DbType="BigInt" />
-    <Parameter Name="areaCommID" Type="System.Int32" DbType="Int" />
-    <Parameter Name="name" Type="System.String" DbType="VarChar(256)" />
-    <Parameter Name="adminCommID" Type="System.Int64" DbType="BigInt" />
-    <Parameter Name="link" Type="System.String" DbType="VarChar(512)" />
-    <Parameter Name="groupID" Type="System.Int64" DbType="BigInt" />
-    <Return Type="System.Int32" />
-  </Function>
   <Function Name="dbo.Comm_Del" Method="Comm_Del">
     <Parameter Name="id" Type="System.Int64" DbType="BigInt" />
     <Parameter Name="ownerHubID" Type="System.Int64" DbType="BigInt" />
@@ -288,5 +277,14 @@
       <Column Name="repostsDif" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="repostsDifPercent" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </ElementType>
+  </Function>
+  <Function Name="dbo.Comm_Save" Method="Comm_Save">
+    <Parameter Name="id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="ownerHubID" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="subjectCommID" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="name" Type="System.String" DbType="VarChar(256)" />
+    <Parameter Name="adminCommID" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="link" Type="System.String" DbType="VarChar(512)" />
+    <Return Type="System.Int32" />
   </Function>
 </Database>

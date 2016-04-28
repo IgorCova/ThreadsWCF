@@ -40,7 +40,6 @@ namespace CommSta
             long reposts = 0;
             ulong offset = 0;
             long countPost = 0;
-            string photoLink = "";
 
             ulong appId = 5391843; // указываем id приложения
             string email = "89652562584"; // email для авторизации
@@ -88,7 +87,6 @@ namespace CommSta
                 }
 
                 members = GetCountMembers(api, groupId);
-                photoLink = GetPhotoLink(api, groupId);
                 likes = 0;
                 comments = 0;
                 reposts = 0;
@@ -136,7 +134,7 @@ namespace CommSta
                     offset += 100;
                 }
 
-                dc.StaCommVKDaily_Save(groupId, dateFrom, views, visitors, reach, reach_subscribers, subscribed, unsubscribed, likes, comments, reposts, countPost, members, photoLink);
+                dc.StaCommVKDaily_Save(groupId, dateFrom, views, visitors, reach, reach_subscribers, subscribed, unsubscribed, likes, comments, reposts, countPost, members);
             }
             catch (AccessDeniedException e)
             {
@@ -187,8 +185,6 @@ namespace CommSta
 
             int members = 0;
 
-            string photoLink = "";
-
             VkApi api = api_Authorize(6);
 
             ReadOnlyCollection<StatsPeriod> res;
@@ -208,7 +204,6 @@ namespace CommSta
                 }
 
                 members = GetCountMembers(api, groupId);
-                photoLink = GetPhotoLink(api, groupId);
 
                 WallGetObject respWall = api_Wall_Get(api, groupId, 0);
 
@@ -249,7 +244,7 @@ namespace CommSta
                             countPost += cmp.count;
                         }
 
-                        dc.StaCommVKDaily_Save(groupId, dateFrom, views, visitors, reach, reach_subscribers, subscribed, unsubscribed, likes, comments, reposts, countPost, members, photoLink);
+                        dc.StaCommVKDaily_Save(groupId, dateFrom, views, visitors, reach, reach_subscribers, subscribed, unsubscribed, likes, comments, reposts, countPost, members);
                         // проверяем, не последнее ли это задание выполнилось
                         if (Interlocked.Decrement(ref remaining) == 0)
                         {
@@ -328,23 +323,6 @@ namespace CommSta
         }
         #endregion
 
-        #region VKontakte_StaForNew
-        public void VKontakte_StaForNew()
-        {
-            wsRequestByDate exreq = new wsRequestByDate();
-            exreq.dateFrom = DateTime.Today.Date;
-
-            var lst = GetVKGroups(true);
-
-            foreach (var gr in lst.dir)
-            {
-                exreq.groupID = gr.groupID;
-                VKontakte_Sta_ByDate(exreq);
-                Thread.Sleep(1500);
-            }
-        }
-        #endregion
-
         #region VKontakte_Sta
         public void VKontakte_Sta()
         {
@@ -377,6 +355,15 @@ namespace CommSta
 
                 foreach (var gr in newlst.dir)
                 {
+                    if (gr.groupID == 0)
+                    {
+                        gr.groupID = SetCommVK(gr.link);
+                        Thread.Sleep(1000);
+                    }
+                }
+
+                foreach (var gr in newlst.dir)
+                {
                     exreq.groupID = gr.groupID;
                     VKontakte_Sta_ByDate_Parallels(exreq);
                     Thread.Sleep(1500);
@@ -405,18 +392,28 @@ namespace CommSta
         }
         #endregion
 
-        #region GetPhotoLink
-        private string GetPhotoLink(VkApi api, long groupId)
+        #region SetCommVK
+        private static long SetCommVK(string link)
         {
-            string linkTo = "";
-            IEnumerable<string> groupIds = new string[] { groupId.ToString() };
+            long groupID = 0;
+            string name = "";
+            string photoLink = "";
+            HubDataClassesDataContext dc = new HubDataClassesDataContext();
+
+            VkApi api = api_Authorize(3);
+
+            IEnumerable<string> groupIds = new string[] { link };
             ReadOnlyCollection<Group> groups = api.Groups.GetById(groupIds, "", GroupsFields.Description);
 
             foreach (Group group in groups)
             {
-                linkTo = group.Photo100.ToString();
+                groupID = group.Id;
+                name = group.Name;
+                photoLink = group.Photo100.ToString();
             }
-            return linkTo;
+
+            dc.Comm_Set(link, groupID, name, photoLink);
+            return groupID;
         }
         #endregion
 
@@ -435,7 +432,7 @@ namespace CommSta
         #endregion
 
         #region api_Authorize
-        private VkApi api_Authorize(int thread)
+        private static VkApi api_Authorize(int thread)
         {
             HubDataClassesDataContext dc = new HubDataClassesDataContext();
 
@@ -546,12 +543,13 @@ namespace CommSta
             var results = new wsGroups<Comm_ReadForSta_Resp>();
             var resp = new Comm_ReadForSta_Resp();
             HubDataClassesDataContext dc = new HubDataClassesDataContext();
-
+           
             foreach (Comm_ReadForStaResult comm in dc.Comm_ReadForSta(isNewComm))
             {
                 resp.Add(new wsGroup()
                 {
-                    groupID = comm.groupID ?? 0
+                    groupID = comm.groupID ?? 0,
+                    link = comm.link
                 });
             };
 
