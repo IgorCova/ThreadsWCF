@@ -21,6 +21,16 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
+  <xs:element name="VKontakte_Sta_CloseDay">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="VKontakte_Sta_CloseDayResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
   <xs:element name="VKontakte_Sta_ByDate">
     <xs:complexType>
       <xs:sequence>

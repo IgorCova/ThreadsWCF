@@ -16,6 +16,19 @@ public partial class StoredProcedures
         }
     }
 
+    [SqlProcedure]
+    public static void sp_ws_VKontakte_Sta_CloseDay()
+    {
+        try
+        {
+            CommStaClassLibrary.Main.VKontakte_Sta_CloseDay();
+        }
+        catch (Exception ex)
+        {
+            SqlContext.Pipe.Send(ex.Message);
+        }
+    }
+
     public static void sp_ws_VKontakte_Sta_ForNew()
     {
         try

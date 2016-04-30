@@ -34,6 +34,8 @@ namespace CommStaClassLibrary.CommSta {
         
         private System.Threading.SendOrPostCallback VKontakte_Sta_ForNewOperationCompleted;
         
+        private System.Threading.SendOrPostCallback VKontakte_Sta_CloseDayOperationCompleted;
+        
         private System.Threading.SendOrPostCallback VKontakte_Sta_ByDateOperationCompleted;
         
         private bool useDefaultCredentialsSetExplicitly;
@@ -79,6 +81,9 @@ namespace CommStaClassLibrary.CommSta {
         
         /// <remarks/>
         public event VKontakte_Sta_ForNewCompletedEventHandler VKontakte_Sta_ForNewCompleted;
+        
+        /// <remarks/>
+        public event VKontakte_Sta_CloseDayCompletedEventHandler VKontakte_Sta_CloseDayCompleted;
         
         /// <remarks/>
         public event VKontakte_Sta_ByDateCompletedEventHandler VKontakte_Sta_ByDateCompleted;
@@ -132,6 +137,32 @@ namespace CommStaClassLibrary.CommSta {
             if ((this.VKontakte_Sta_ForNewCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.VKontakte_Sta_ForNewCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IService/VKontakte_Sta_CloseDay", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public void VKontakte_Sta_CloseDay() {
+            this.Invoke("VKontakte_Sta_CloseDay", new object[0]);
+        }
+        
+        /// <remarks/>
+        public void VKontakte_Sta_CloseDayAsync() {
+            this.VKontakte_Sta_CloseDayAsync(null);
+        }
+        
+        /// <remarks/>
+        public void VKontakte_Sta_CloseDayAsync(object userState) {
+            if ((this.VKontakte_Sta_CloseDayOperationCompleted == null)) {
+                this.VKontakte_Sta_CloseDayOperationCompleted = new System.Threading.SendOrPostCallback(this.OnVKontakte_Sta_CloseDayOperationCompleted);
+            }
+            this.InvokeAsync("VKontakte_Sta_CloseDay", new object[0], this.VKontakte_Sta_CloseDayOperationCompleted, userState);
+        }
+        
+        private void OnVKontakte_Sta_CloseDayOperationCompleted(object arg) {
+            if ((this.VKontakte_Sta_CloseDayCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.VKontakte_Sta_CloseDayCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -284,6 +315,10 @@ namespace CommStaClassLibrary.CommSta {
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")]
     public delegate void VKontakte_Sta_ForNewCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")]
+    public delegate void VKontakte_Sta_CloseDayCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")]

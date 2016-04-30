@@ -13,6 +13,14 @@ namespace CommStaClassLibrary
             }
         }
 
+        public static void VKontakte_Sta_CloseDay()
+        {
+            using (CommStaService svc = new CommStaService())
+            {
+                svc.VKontakte_Sta_CloseDay();
+            }
+        }
+
         public static void VKontakte_Sta_ForNew()
         {
             using (CommStaService svc = new CommStaService())

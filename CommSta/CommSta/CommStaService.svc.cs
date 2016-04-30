@@ -298,9 +298,12 @@ namespace CommSta
 
                 foreach (Post post in respWall.WallPosts)
                 {
-                    likes += post.Likes.Count;
-                    comments += post.Comments.Count;
-                    reposts += post.Reposts.Count;
+                    if (post.Date <= dateTo)
+                    {
+                        likes += post.Likes.Count;
+                        comments += post.Comments.Count;
+                        reposts += post.Reposts.Count;
+                    }
 
                     if ((dateFrom < post.Date) && (dateTo > post.Date))
                     {
@@ -326,8 +329,13 @@ namespace CommSta
         #region VKontakte_Sta
         public void VKontakte_Sta()
         {
+            if (DateTime.Now.Hour == 0)
+            {
+                VKontakte_Sta_CloseDay();
+            }
+
             wsRequestByDate exreq = new wsRequestByDate();
-         
+
             exreq.dateFrom = DateTime.Today.Date;
             exreq.dateTo = DateTime.Now;
 
@@ -339,7 +347,23 @@ namespace CommSta
                 VKontakte_Sta_ByDate_Parallels(exreq);
                 Thread.Sleep(1500);
             }
+        }
 
+        public void VKontakte_Sta_CloseDay()
+        {
+            wsRequestByDate exreq = new wsRequestByDate();
+
+            exreq.dateFrom = DateTime.Today.AddDays(-1).Date;
+            exreq.dateTo = DateTime.Today.Date.AddMilliseconds(-1);
+
+            var lst = GetVKGroups(false);
+
+            foreach (var gr in lst.dir)
+            {
+                exreq.groupID = gr.groupID;
+                VKontakte_Sta_ByDate_Parallels(exreq);
+                Thread.Sleep(1500);
+            }
         }
 
         public void VKontakte_Sta_ForNew()
@@ -387,7 +411,7 @@ namespace CommSta
                     exreq.groupID = gr.groupID;
                     VKontakte_Sta_ByDate_Parallels(exreq);
                     Thread.Sleep(1500);
-                }                
+                }
             }
         }
         #endregion
@@ -455,10 +479,10 @@ namespace CommSta
                 case 5:
                     login = "89299833547";
                     break;
-                case 6: //For New Comms
+                case 6:
                     login = "89157232003";
                     break;
-                case 7: //For New Comms
+                case 7:
                     login = "89299833566";
                     break;
                 default:
@@ -485,17 +509,8 @@ namespace CommSta
             }
             catch (TooManyRequestsException)
             {
-                Thread.Sleep(1500);
-                string safetylogin = "89299833566"; // login на случай эксепшена
-                api.Authorize(new ApiAuthParams
-                {
-                    ApplicationId = appId,
-                    Login = safetylogin,
-                    Password = password,
-                    Settings = settings
-                }); // авторизуемся
-
-                api.Stats.TrackVisitor();
+                Thread.Sleep(1000);
+                api = api_Authorize(7);
             }
             catch (Exception e)
             {
@@ -543,7 +558,7 @@ namespace CommSta
             var results = new wsGroups<Comm_ReadForSta_Resp>();
             var resp = new Comm_ReadForSta_Resp();
             HubDataClassesDataContext dc = new HubDataClassesDataContext();
-           
+
             foreach (Comm_ReadForStaResult comm in dc.Comm_ReadForSta(isNewComm))
             {
                 resp.Add(new wsGroup()
