@@ -631,14 +631,14 @@ namespace CommHub
         #endregion
 
         #region StaComm 
-        public wsResponse<StaCommVKDaily_Report_Resp> StaCommVKDaily_Report(wsRequest<StaCommVKDaily_Report_Req> req)
+        public wsResponse<StaCommVK_Report_Resp> StaCommVKDaily_Report(wsRequest<StaCommVKDaily_Report_Req> req)
         {
             var funcName = "StaCommVKDaily_Report";
             var errCode = 0;
             var errorText = "";
 
-            wsResponse<StaCommVKDaily_Report_Resp> results = new wsResponse<StaCommVKDaily_Report_Resp>();
-            StaCommVKDaily_Report_Resp resp = new StaCommVKDaily_Report_Resp();
+            wsResponse<StaCommVK_Report_Resp> results = new wsResponse<StaCommVK_Report_Resp>();
+            StaCommVK_Report_Resp resp = new StaCommVK_Report_Resp();
             DataHubDataContext dc = new DataHubDataContext();
             long ownerHubID = 0;
 
@@ -738,6 +738,115 @@ namespace CommHub
 
             return results;
         }
+
+        public wsResponse<StaCommVK_Report_Resp> StaCommVKWeekly_Report(wsRequest req)
+        {
+            var funcName = "StaCommVKWeekly_Report";
+            var errCode = 0;
+            var errorText = "";
+
+            wsResponse<StaCommVK_Report_Resp> results = new wsResponse<StaCommVK_Report_Resp>();
+            StaCommVK_Report_Resp resp = new StaCommVK_Report_Resp();
+            DataHubDataContext dc = new DataHubDataContext();
+            long ownerHubID = 0;
+
+            if (req == null)
+            {
+                errCode = 200;
+                errorText = Tools.GetErrorTextByCode(errCode);
+                Tools.ErrorLog_Save(req, "", funcName, errorText);
+
+                results.ErrText = string.Format("{0}\n{1}", funcName, errorText);
+                results.ErrCode = errCode;
+                return results;
+            }
+
+            try
+            {
+                foreach (GetOwnerHubIDResult own in dc.GetOwnerHubID(req.Session))
+                {
+                    ownerHubID = own.ownerHubID;
+                }
+
+                foreach (StaCommVKWeekly_ReportResult itm in dc.StaCommVKWeekly_Report(ownerHubID))
+                {
+                    resp.Add(new wsSta()
+                    {
+                        comm_id = itm.comm_id,
+                        comm_name = itm.comm_name,
+                        comm_photoLink = itm.comm_photoLink,
+                        comm_groupID = itm.comm_groupID ?? 0,
+
+                        subjectComm_name = itm.subjectComm_name,
+                        areaComm_code = itm.areaComm_code,
+
+                        adminComm_fullName = itm.adminComm_fullName,
+                        adminComm_linkFB = itm.adminComm_linkFB,
+
+                        members = itm.members,
+                        membersNew = itm.membersNew,
+                        membersDifPercent = itm.membersDifPercent ?? 0,
+
+                        increaseNew = itm.increaseNew,
+                        increaseDifPercent = itm.increaseDifPercent ?? 0,
+
+                        subscribed = itm.subscribed,
+                        subscribedNew = itm.subscribedNew,
+                        subscribedDifPercent = itm.subscribedDifPercent ?? 0,
+
+                        unsubscribed = itm.unsubscribed,
+                        unsubscribedNew = itm.unsubscribedNew,
+                        unsubscribedDifPercent = itm.unsubscribedDifPercent ?? 0,
+
+                        visitors = itm.visitors,
+                        visitorsNew = itm.visitorsNew,
+                        visitorsDifPercent = itm.visitorsDifPercent ?? 0,
+
+                        views = itm.views,
+                        viewsNew = itm.viewsNew,
+                        viewsDifPercent = itm.viewsDifPercent ?? 0,
+
+                        reach = itm.reach,
+                        reachNew = itm.reachNew,
+                        reachDifPercent = itm.reachDifPercent ?? 0,
+
+                        reachSubscribers = itm.reachSubscribers,
+                        reachSubscribersNew = itm.reachSubscribersNew,
+                        reachSubscribersDifPercent = itm.reachSubscribersDifPercent ?? 0,
+
+                        postCount = itm.postCount,
+                        postCountNew = itm.postCountNew,
+                        postCountDifPercent = itm.postCountDifPercent ?? 0,
+
+                        likes = itm.likes,
+                        likesNew = itm.likesNew,
+                        likesDifPercent = itm.likesDifPercent ?? 0,
+
+                        comments = itm.comments,
+                        commentsNew = itm.commentsNew,
+                        commentsDifPercent = itm.commentsDifPercent ?? 0,
+
+                        reposts = itm.reposts,
+                        repostsNew = itm.repostsNew,
+                        repostsDifPercent = itm.repostsDifPercent ?? 0,
+                    });
+                };
+
+                results.Data = resp;
+            }
+            catch (Exception e)
+            {
+                errCode = 101;
+                string param = string.Format("ownerHubID: {0}", ownerHubID);
+                Tools.ErrorLog_Save(req, param, funcName, e.Message);
+
+                results.ErrCode = errCode;
+                results.ErrText = string.Format("funcName: {0}, errCode: {1}, Message: {2}", funcName, Tools.GetErrorTextByCode(errCode), e.Message);
+            }
+
+            return results;
+        }
+
         #endregion
 
         #region Session
@@ -764,7 +873,7 @@ namespace CommHub
                 results.ErrText = "SessionReq_Save: No Params";
                 return results;
             }
-
+            /*
             try
             {
                 string message = string.Format("CommHub+code+confirm:+{0}", code);
@@ -777,7 +886,7 @@ namespace CommHub
             {
                 results.ErrCode = 40;
                 results.ErrText = string.Format("Send sms {0}, error: {1}", phone, e.Message);
-            }
+            }*/
             
             try
             {

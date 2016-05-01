@@ -17,6 +17,176 @@ namespace CommSta
         public WallFilter Owner { get; private set; }
         #endregion
 
+        #region VKontakte_Sta
+        public void VKontakte_Sta()
+        {
+            if (DateTime.Now.Hour == 0)
+            {
+                VKontakte_Sta_CloseDay();
+            }
+
+            wsRequestByDate exreq = new wsRequestByDate();
+
+            exreq.dateFrom = DateTime.Today.Date;
+            exreq.dateTo = DateTime.Now;
+            exreq.dateType = DateType.day;
+
+            var lst = GetVKGroups(false);
+
+            foreach (var gr in lst.dir)
+            {
+                exreq.groupID = gr.groupID;
+                VKontakte_Sta_ByDate_Parallels(exreq);
+                Thread.Sleep(1500);
+            }
+
+            //
+            wsRequestByDate exreqW = new wsRequestByDate();
+            var dw = (int)DateTime.Today.DayOfWeek;
+
+            exreqW.dateFrom = DateTime.Today.Date.AddDays(-dw + 1);
+            exreqW.dateTo = DateTime.Now;
+            exreqW.dateType = DateType.week;
+
+            foreach (var gr in lst.dir)
+            {
+                exreqW.groupID = gr.groupID;
+                VKontakte_Sta_ByDate_Parallels(exreqW);
+                Thread.Sleep(1500);
+            }
+        }
+
+        public void VKontakte_Sta_CloseDay()
+        {
+            wsRequestByDate exreq = new wsRequestByDate();
+
+            exreq.dateFrom = DateTime.Today.AddDays(-1).Date;
+            exreq.dateTo = DateTime.Today.Date.AddMilliseconds(-1);
+            exreq.dateType = DateType.day;
+
+            var lst = GetVKGroups(false);
+
+            foreach (var gr in lst.dir)
+            {
+                exreq.groupID = gr.groupID;
+                VKontakte_Sta_ByDate_Parallels(exreq);
+                Thread.Sleep(1500);
+            }
+
+            if ((int)DateTime.Now.DayOfWeek == 1)
+            {
+                VKontakte_Sta_CloseWeek();
+            }
+        }
+
+        public void VKontakte_Sta_CloseWeek()
+        {
+            wsRequestByDate exreq = new wsRequestByDate();
+
+            var dw = (int)DateTime.Today.DayOfWeek;
+
+            exreq.dateFrom = DateTime.Today.Date.AddDays(-dw + 1);
+            exreq.dateTo = DateTime.Today.Date.AddMilliseconds(-1);
+            exreq.dateType = DateType.week;
+
+            var lst = GetVKGroups(false);
+
+            foreach (var gr in lst.dir)
+            {
+                exreq.groupID = gr.groupID;
+                VKontakte_Sta_ByDate_Parallels(exreq);
+                Thread.Sleep(1500);
+            }
+        }
+
+        public void VKontakte_Sta_ForNew()
+        {
+            wsRequestByDate exreq = new wsRequestByDate();
+            exreq.dateType = DateType.day;
+
+            // Для новых сообществ за вчера и позавчера считаем стаитистику
+            var newlst = GetVKGroups(true);
+            if (newlst.dir.Count > 0)
+            {
+                exreq.dateFrom = DateTime.Today.Date;
+                exreq.dateTo = DateTime.Now;
+
+                foreach (var gr in newlst.dir)
+                {
+                    if (gr.groupID == 0)
+                    {
+                        gr.groupID = SetCommVK(gr.link);
+                        Thread.Sleep(1000);
+                    }
+                }
+
+                foreach (var gr in newlst.dir)
+                {
+                    exreq.groupID = gr.groupID;
+                    VKontakte_Sta_ByDate_Parallels(exreq);
+                    Thread.Sleep(1500);
+                }
+
+                exreq.dateFrom = DateTime.Today.Date.AddDays(-1);
+                exreq.dateTo = DateTime.Today.Date.AddMilliseconds(-1);
+
+                foreach (var gr in newlst.dir)
+                {
+                    exreq.groupID = gr.groupID;
+                    VKontakte_Sta_ByDate_Parallels(exreq);
+                    Thread.Sleep(1500);
+                }
+
+                exreq.dateFrom = DateTime.Today.Date.AddDays(-2);
+                exreq.dateTo = DateTime.Today.Date.AddDays(-1).AddMilliseconds(-1);
+
+                foreach (var gr in newlst.dir)
+                {
+                    exreq.groupID = gr.groupID;
+                    VKontakte_Sta_ByDate_Parallels(exreq);
+                    Thread.Sleep(1500);
+                }
+
+                // weekly report
+                wsRequestByDate exreqW = new wsRequestByDate();
+
+                var dw = (int)DateTime.Today.DayOfWeek;
+                exreqW.dateType = DateType.week;
+
+                exreqW.dateFrom = DateTime.Today.Date.AddDays(-dw + 1).AddDays(-14);
+                exreqW.dateTo = DateTime.Today.Date.AddDays(-dw + 1).AddDays(-7).AddMilliseconds(-1);
+
+                foreach (var gr in newlst.dir)
+                {
+                    exreqW.groupID = gr.groupID;
+                    VKontakte_Sta_ByDate_Parallels(exreqW);
+                    Thread.Sleep(1500);
+                }
+
+                exreqW.dateFrom = DateTime.Today.Date.AddDays(-dw + 1).AddDays(-7);
+                exreqW.dateTo = DateTime.Today.Date.AddDays(-dw + 1).AddMilliseconds(-1);
+
+                foreach (var gr in newlst.dir)
+                {
+                    exreqW.groupID = gr.groupID;
+                    VKontakte_Sta_ByDate_Parallels(exreqW);
+                    Thread.Sleep(1500);
+                }
+
+                exreqW.dateFrom = DateTime.Today.Date.AddDays(-dw + 1);
+                exreqW.dateTo = DateTime.Now;
+                exreqW.dateType = DateType.week;
+
+                foreach (var gr in newlst.dir)
+                {
+                    exreqW.groupID = gr.groupID;
+                    VKontakte_Sta_ByDate_Parallels(exreqW);
+                    Thread.Sleep(1500);
+                }
+            }
+        }
+        #endregion
+
         #region VKontakte_Sta_ByDate
         public void VKontakte_Sta_ByDate(wsRequestByDate req)
         {
@@ -244,7 +414,14 @@ namespace CommSta
                             countPost += cmp.count;
                         }
 
-                        dc.StaCommVKDaily_Save(groupId, dateFrom, views, visitors, reach, reach_subscribers, subscribed, unsubscribed, likes, comments, reposts, countPost, members);
+                        if (req.dateType == DateType.week)
+                        {
+                            dc.StaCommVKWeekly_Save(groupId, dateFrom, views, visitors, reach, reach_subscribers, subscribed, unsubscribed, likes, comments, reposts, countPost, members);
+                        }
+                        else if (req.dateType == DateType.day)
+                        {
+                            dc.StaCommVKDaily_Save(groupId, dateFrom, views, visitors, reach, reach_subscribers, subscribed, unsubscribed, likes, comments, reposts, countPost, members);
+                        }
                         // проверяем, не последнее ли это задание выполнилось
                         if (Interlocked.Decrement(ref remaining) == 0)
                         {
@@ -323,96 +500,6 @@ namespace CommSta
             };
 
             return calcPost;
-        }
-        #endregion
-
-        #region VKontakte_Sta
-        public void VKontakte_Sta()
-        {
-            if (DateTime.Now.Hour == 0)
-            {
-                VKontakte_Sta_CloseDay();
-            }
-
-            wsRequestByDate exreq = new wsRequestByDate();
-
-            exreq.dateFrom = DateTime.Today.Date;
-            exreq.dateTo = DateTime.Now;
-
-            var lst = GetVKGroups(false);
-
-            foreach (var gr in lst.dir)
-            {
-                exreq.groupID = gr.groupID;
-                VKontakte_Sta_ByDate_Parallels(exreq);
-                Thread.Sleep(1500);
-            }
-        }
-
-        public void VKontakte_Sta_CloseDay()
-        {
-            wsRequestByDate exreq = new wsRequestByDate();
-
-            exreq.dateFrom = DateTime.Today.AddDays(-1).Date;
-            exreq.dateTo = DateTime.Today.Date.AddMilliseconds(-1);
-
-            var lst = GetVKGroups(false);
-
-            foreach (var gr in lst.dir)
-            {
-                exreq.groupID = gr.groupID;
-                VKontakte_Sta_ByDate_Parallels(exreq);
-                Thread.Sleep(1500);
-            }
-        }
-
-        public void VKontakte_Sta_ForNew()
-        {
-            wsRequestByDate exreq = new wsRequestByDate();
-
-            // Для новых сообществ за вчера и позавчера считаем стаитистику
-            var newlst = GetVKGroups(true);
-            if (newlst.dir.Count > 0)
-            {
-                exreq.dateFrom = DateTime.Today.Date;
-                exreq.dateTo = DateTime.Now;
-
-                foreach (var gr in newlst.dir)
-                {
-                    if (gr.groupID == 0)
-                    {
-                        gr.groupID = SetCommVK(gr.link);
-                        Thread.Sleep(1000);
-                    }
-                }
-
-                foreach (var gr in newlst.dir)
-                {
-                    exreq.groupID = gr.groupID;
-                    VKontakte_Sta_ByDate_Parallels(exreq);
-                    Thread.Sleep(1500);
-                }
-
-                exreq.dateFrom = DateTime.Today.Date.AddDays(-1);
-                exreq.dateTo = DateTime.Today.Date.AddMilliseconds(-1);
-
-                foreach (var gr in newlst.dir)
-                {
-                    exreq.groupID = gr.groupID;
-                    VKontakte_Sta_ByDate_Parallels(exreq);
-                    Thread.Sleep(1500);
-                }
-
-                exreq.dateFrom = DateTime.Today.Date.AddDays(-2);
-                exreq.dateTo = DateTime.Today.Date.AddDays(-1).AddMilliseconds(-1);
-
-                foreach (var gr in newlst.dir)
-                {
-                    exreq.groupID = gr.groupID;
-                    VKontakte_Sta_ByDate_Parallels(exreq);
-                    Thread.Sleep(1500);
-                }
-            }
         }
         #endregion
 

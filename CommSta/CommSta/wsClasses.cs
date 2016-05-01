@@ -11,6 +11,10 @@ namespace CommSta
         public long groupID;
 
     }
+
+    [DataContract]
+    public enum DateType { day, week, month, year}
+
     [DataContract]
     public class wsRequestByDate : wsRequest
     {
@@ -20,6 +24,8 @@ namespace CommSta
         [DataMember]
         public DateTime? dateTo;
 
+        [DataMember]
+        public DateType dateType;
     }
 
     [DataContract]

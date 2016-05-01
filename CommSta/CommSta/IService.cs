@@ -19,6 +19,10 @@ namespace CommSta
         void VKontakte_Sta_CloseDay();
 
         [OperationContract]
+        [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "VKontakte_Sta_CloseWeek")]
+        void VKontakte_Sta_CloseWeek();        
+
+        [OperationContract]
         [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "VKontakte_Sta_ByDate")]
         void VKontakte_Sta_ByDate(wsRequestByDate req);           
     }

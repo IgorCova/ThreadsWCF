@@ -47,4 +47,20 @@
     <Parameter Name="commMembers" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
   </Function>
+  <Function Name="dbo.StaCommVKWeekly_Save" Method="StaCommVKWeekly_Save">
+    <Parameter Name="groupID" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="weekDate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="commViews" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="commVisitors" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="commReach" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="commReachSubscribers" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="commSubscribed" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="commUnsubscribed" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="commLikes" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="commComments" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="commReposts" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="commPostCount" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="commMembers" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
 </Database>

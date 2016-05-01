@@ -41,5 +41,7 @@ namespace CommHub
 
     public class StaCommVKDaily_ReportDay_Resp : List<wsStaComm> { }
 
-    public class StaCommVKDaily_Report_Resp : List<wsSta> { }
+    public class StaCommVK_Report_Resp : List<wsSta> { }
+
+
 }
