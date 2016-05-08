@@ -13,6 +13,24 @@ namespace CommSta
 {
     public class CommStaService : IService
     {
+        private int getDayOfWeek()
+        {
+            int dow = (int)DateTime.Today.DayOfWeek;
+            switch (dow)
+            {
+                case 0: dow = 7; break;
+                case 1: dow = 0; break;
+                case 2: dow = 1; break;
+                case 3: dow = 2; break;
+                case 4: dow = 3; break;
+                case 5: dow = 4; break;
+                case 6: dow = 5; break;
+                case 7: dow = 6; break;
+            };
+
+            return dow;
+        }
+
         #region WallFilter
         public WallFilter Owner { get; private set; }
         #endregion
@@ -42,9 +60,8 @@ namespace CommSta
 
             //
             wsRequestByDate exreqW = new wsRequestByDate();
-            var dw = (int)DateTime.Today.DayOfWeek;
 
-            exreqW.dateFrom = DateTime.Today.Date.AddDays(-dw + 1);
+            exreqW.dateFrom = DateTime.Today.Date.AddDays(-getDayOfWeek());
             exreqW.dateTo = DateTime.Now;
             exreqW.dateType = DateType.week;
 
@@ -73,7 +90,7 @@ namespace CommSta
                 Thread.Sleep(1500);
             }
 
-            if ((int)DateTime.Now.DayOfWeek == 1)
+            if (getDayOfWeek() == 0)
             {
                 VKontakte_Sta_CloseWeek();
             }
@@ -83,9 +100,7 @@ namespace CommSta
         {
             wsRequestByDate exreq = new wsRequestByDate();
 
-            var dw = (int)DateTime.Today.DayOfWeek;
-
-            exreq.dateFrom = DateTime.Today.Date.AddDays(-dw + 1);
+            exreq.dateFrom = DateTime.Today.Date.AddDays(-7);
             exreq.dateTo = DateTime.Today.Date.AddMilliseconds(-1);
             exreq.dateType = DateType.week;
 
@@ -150,7 +165,7 @@ namespace CommSta
                 // weekly report
                 wsRequestByDate exreqW = new wsRequestByDate();
 
-                var dw = (int)DateTime.Today.DayOfWeek;
+                int dw = getDayOfWeek();
                 exreqW.dateType = DateType.week;
 
                 exreqW.dateFrom = DateTime.Today.Date.AddDays(-dw + 1).AddDays(-14);
@@ -447,7 +462,7 @@ namespace CommSta
                 {
                     exInnerExceptionMessage = e.InnerException.Message;
                 }
-                dc.Exception_Save("VKontakte_Sta_ByDate", "", e.Message, exInnerExceptionMessage, e.HelpLink, e.HResult, e.Source, e.StackTrace);
+                dc.Exception_Save("VKontakte_Sta_ByDate_Parallels", "", e.Message, exInnerExceptionMessage, e.HelpLink, e.HResult, e.Source, e.StackTrace);
             }
         }
         #endregion

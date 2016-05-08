@@ -873,7 +873,7 @@ namespace CommHub
                 results.ErrText = "SessionReq_Save: No Params";
                 return results;
             }
-            /*
+            
             try
             {
                 string message = string.Format("CommHub+code+confirm:+{0}", code);
@@ -886,7 +886,7 @@ namespace CommHub
             {
                 results.ErrCode = 40;
                 results.ErrText = string.Format("Send sms {0}, error: {1}", phone, e.Message);
-            }*/
+            }
             
             try
             {
