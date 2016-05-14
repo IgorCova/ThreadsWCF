@@ -101,6 +101,9 @@
       <HintPath>..\packages\VkNet.1.21.0\lib\net40\VkNet.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="xNet">
+      <HintPath>C:\CSharp_Libs\xNet.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="scripts\ai.0.15.0-build58334.js" />

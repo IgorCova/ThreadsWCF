@@ -49,15 +49,6 @@ namespace CommSta
     public class commPosts
     {
         [DataMember]
-        public long likes;
-
-        [DataMember]
-        public long repost;
-
-        [DataMember]
-        public long comments;
-
-        [DataMember]
         public long count;
     }
 

@@ -8,11 +8,16 @@ using VkNet.Exception;
 using System.Threading;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
+using xNet;
+using System.Xml;
+using Newtonsoft.Json;
+using System.Web.Script.Serialization;
 
 namespace CommSta
 {
     public class CommStaService : IService
     {
+        #region getDayOfWeek
         private int getDayOfWeek()
         {
             int dow = (int)DateTime.Today.DayOfWeek;
@@ -30,9 +35,75 @@ namespace CommSta
 
             return dow;
         }
+        #endregion
 
         #region WallFilter
         public WallFilter Owner { get; private set; }
+        #endregion
+
+        #region VKontakte_Sta_Graph
+        public void VKontakte_Sta_Graph()
+        {           
+            using (HttpRequest net = new HttpRequest())
+            {
+                net.UserAgent = Http.ChromeUserAgent();
+                CookieDictionary coockie = new CookieDictionary(false);
+                net.Cookies = coockie;
+                HubDataClassesDataContext dc = new HubDataClassesDataContext();
+
+                try
+                {
+                    string data = net.Get("https://vk.com?_fm=index").ToString();
+                    string lg_h = data.Substring("name=\"lg_h\" value=\"", "\"");
+                    string log = net.Get(string.Format("https://login.vk.com/?act=login&email={0}&pass={1}&lg_h={2}", "89299833547", "PressNon798520", lg_h)).ToString();
+
+                    wsGroups<Comm_ReadForSta_Resp> groups = GetVKGroups(false);
+
+                    foreach (var gr in groups.dir)
+                    {
+                        long groupID = gr.groupID;
+                        string resp = net.Get(string.Format("https://vk.com/stats?act=activity&gid={0}", groupID)).ToString();
+
+                        if (resp.IndexOf("cur.graphDatas['feedback_graph'] = ") == 0)
+                        {
+                            
+                        }
+
+                        int substrIndexIn = resp.IndexOf("cur.graphDatas['feedback_graph'] = ") + 36;
+                        int substrIndexOut = resp.IndexOf("cur.graphUrls['feedback_graph'] = ");
+
+                        string json = resp.Substring(substrIndexIn, substrIndexOut - substrIndexIn - 3).Replace("root", "feed");
+
+                        // To convert JSON text contained in string json into an XML node
+                        XmlDocument xdoc = JsonConvert.DeserializeXmlNode("{\"root\":" + json + "}", "root");
+                        string feedback_graph = xdoc.InnerXml.ToString();
+
+                        substrIndexIn = resp.IndexOf("cur.graphDatas['activity_graph'] = ") + 36;
+                        substrIndexOut = resp.IndexOf("cur.graphUrls['activity_graph'] = ");
+
+                        json = resp.Substring(substrIndexIn, substrIndexOut - substrIndexIn - 3);
+
+                        // To convert JSON text contained in string json into an XML node
+                        var jsonWithRoot = string.Format("{{\"root\": {0}}}", json);
+                        xdoc = JsonConvert.DeserializeXmlNode(jsonWithRoot, "root");
+
+                        JavaScriptSerializer serializer = new JavaScriptSerializer();
+                        string activity_graph = xdoc.InnerXml.ToString();
+
+                        dc.StaCommVKGraph_Save(groupID, feedback_graph, activity_graph);
+                    }
+                }
+                catch (Exception e)
+                {
+                    string exInnerExceptionMessage = "";
+                    if (e.InnerException != null)
+                    {
+                        exInnerExceptionMessage = e.InnerException.Message;
+                    }
+                    dc.Exception_Save("VKontakte_Sta_Graph", "", e.Message, exInnerExceptionMessage, e.HelpLink, e.HResult, e.Source, e.StackTrace);
+                }
+            }
+        }
         #endregion
 
         #region VKontakte_Sta
@@ -71,8 +142,12 @@ namespace CommSta
                 VKontakte_Sta_ByDate_Parallels(exreqW);
                 Thread.Sleep(1500);
             }
-        }
 
+            VKontakte_Sta_Graph();
+        }
+        #endregion
+
+        #region VKontakte_Sta_CloseDay
         public void VKontakte_Sta_CloseDay()
         {
             wsRequestByDate exreq = new wsRequestByDate();
@@ -95,7 +170,9 @@ namespace CommSta
                 VKontakte_Sta_CloseWeek();
             }
         }
+        #endregion
 
+        #region VKontakte_Sta_CloseWeek
         public void VKontakte_Sta_CloseWeek()
         {
             wsRequestByDate exreq = new wsRequestByDate();
@@ -113,7 +190,9 @@ namespace CommSta
                 Thread.Sleep(1500);
             }
         }
+        #endregion
 
+        #region VKontakte_Sta_ForNew
         public void VKontakte_Sta_ForNew()
         {
             wsRequestByDate exreq = new wsRequestByDate();
@@ -220,9 +299,6 @@ namespace CommSta
             long subscribed = 0;
             long unsubscribed = 0;
             int members = 0;
-            long likes = 0;
-            long comments = 0;
-            long reposts = 0;
             ulong offset = 0;
             long countPost = 0;
 
@@ -272,21 +348,11 @@ namespace CommSta
                 }
 
                 members = GetCountMembers(api, groupId);
-                likes = 0;
-                comments = 0;
-                reposts = 0;
                 offset = 0;
 
                 WallGetObject respWall = api_Wall_Get(api, groupId, offset);
 
                 ulong cnt = respWall.TotalCount;
-
-                foreach (Post post in respWall.WallPosts)
-                {
-                    likes += post.Likes.Count;
-                    comments += post.Comments.Count;
-                    reposts += post.Reposts.Count;
-                };
 
                 offset = 100;
 
@@ -306,10 +372,6 @@ namespace CommSta
 
                     foreach (Post post in respWall.WallPosts)
                     {
-                        likes += post.Likes.Count;
-                        comments += post.Comments.Count;
-                        reposts += post.Reposts.Count;
-
                         if ((dateFrom > post.Date) && (dateTo < post.Date))
                         {
                             countPost += 1;
@@ -319,7 +381,7 @@ namespace CommSta
                     offset += 100;
                 }
 
-                dc.StaCommVKDaily_Save(groupId, dateFrom, views, visitors, reach, reach_subscribers, subscribed, unsubscribed, likes, comments, reposts, countPost, members);
+                dc.StaCommVKDaily_Save(groupId, dateFrom, views, visitors, reach, reach_subscribers, subscribed, unsubscribed, countPost, members);
             }
             catch (AccessDeniedException e)
             {
@@ -396,9 +458,6 @@ namespace CommSta
 
                 List<commPosts> lst = new List<commPosts>();
 
-                long likes = 0;
-                long comments = 0;
-                long reposts = 0;
                 long countPost = 0;
 
                 int remaining = 5;
@@ -423,19 +482,16 @@ namespace CommSta
                         }
                         foreach (commPosts cmp in lst)
                         {
-                            likes += cmp.likes;
-                            comments += cmp.comments;
-                            reposts += cmp.repost;
                             countPost += cmp.count;
                         }
 
                         if (req.dateType == DateType.week)
                         {
-                            dc.StaCommVKWeekly_Save(groupId, dateFrom, views, visitors, reach, reach_subscribers, subscribed, unsubscribed, likes, comments, reposts, countPost, members);
+                            dc.StaCommVKWeekly_Save(groupId, dateFrom, views, visitors, reach, reach_subscribers, subscribed, unsubscribed, countPost, members);
                         }
                         else if (req.dateType == DateType.day)
                         {
-                            dc.StaCommVKDaily_Save(groupId, dateFrom, views, visitors, reach, reach_subscribers, subscribed, unsubscribed, likes, comments, reposts, countPost, members);
+                            dc.StaCommVKDaily_Save(groupId, dateFrom, views, visitors, reach, reach_subscribers, subscribed, unsubscribed, countPost, members);
                         }
                         // проверяем, не последнее ли это задание выполнилось
                         if (Interlocked.Decrement(ref remaining) == 0)
@@ -470,13 +526,10 @@ namespace CommSta
         #region calcpost
         public commPosts calcpost(ulong offset, ulong cnt, VkApi api, long groupId, DateTime dateFrom, DateTime? dateTo)
         {
-            long likes = 0;
-            long comments = 0;
-            long reposts = 0;
             long countPost = 0;
             int reqCount = 0;
-
-            while (offset < cnt)
+            bool isOlderPosts = false;
+            while ((offset < cnt) && (isOlderPosts == false))
             {
                 if (reqCount == 3) // 3 запроса в секунду
                 {
@@ -489,18 +542,14 @@ namespace CommSta
                 reqCount++;
 
                 foreach (Post post in respWall.WallPosts)
-                {
-                    if (post.Date <= dateTo)
-                    {
-                        likes += post.Likes.Count;
-                        comments += post.Comments.Count;
-                        reposts += post.Reposts.Count;
-                    }
-
+                {                    
                     if ((dateFrom < post.Date) && (dateTo > post.Date))
                     {
                         countPost += 1;
                     }
+
+                    isOlderPosts = post.Date < dateFrom;
+
                 };
 
                 offset += 100;
@@ -508,9 +557,6 @@ namespace CommSta
 
             commPosts calcPost = new commPosts()
             {
-                comments = comments,
-                likes = likes,
-                repost = reposts,
                 count = countPost,
             };
 
@@ -524,6 +570,7 @@ namespace CommSta
             long groupID = 0;
             string name = "";
             string photoLink = "";
+            string photoLinkBig = "";
             HubDataClassesDataContext dc = new HubDataClassesDataContext();
 
             VkApi api = api_Authorize(3);
@@ -536,9 +583,10 @@ namespace CommSta
                 groupID = group.Id;
                 name = group.Name;
                 photoLink = group.Photo100.ToString();
+                photoLinkBig = group.Photo200.ToString();
             }
 
-            dc.Comm_Set(link, groupID, name, photoLink);
+            dc.Comm_Set(link, groupID, name, photoLink, photoLinkBig);
             return groupID;
         }
         #endregion

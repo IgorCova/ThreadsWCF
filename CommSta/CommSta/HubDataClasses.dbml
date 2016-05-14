@@ -24,11 +24,10 @@
       <Column Name="link" Type="System.String" DbType="VarChar(512)" CanBeNull="true" />
     </ElementType>
   </Function>
-  <Function Name="dbo.Comm_Set" Method="Comm_Set">
-    <Parameter Name="link" Type="System.String" DbType="VarChar(512)" />
+  <Function Name="dbo.StaCommVKGraph_Save" Method="StaCommVKGraph_Save">
     <Parameter Name="groupID" Type="System.Int64" DbType="BigInt" />
-    <Parameter Name="name" Type="System.String" DbType="VarChar(256)" />
-    <Parameter Name="photoLink" Type="System.String" DbType="VarChar(512)" />
+    <Parameter Name="feedback_graph" Type="System.String" DbType="VarChar(MAX)" />
+    <Parameter Name="activity_graph" Type="System.String" DbType="VarChar(MAX)" />
     <Return Type="System.Int32" />
   </Function>
   <Function Name="dbo.StaCommVKDaily_Save" Method="StaCommVKDaily_Save">
@@ -40,11 +39,16 @@
     <Parameter Name="commReachSubscribers" Type="System.Int64" DbType="BigInt" />
     <Parameter Name="commSubscribed" Type="System.Int64" DbType="BigInt" />
     <Parameter Name="commUnsubscribed" Type="System.Int64" DbType="BigInt" />
-    <Parameter Name="commLikes" Type="System.Int64" DbType="BigInt" />
-    <Parameter Name="commComments" Type="System.Int64" DbType="BigInt" />
-    <Parameter Name="commReposts" Type="System.Int64" DbType="BigInt" />
     <Parameter Name="commPostCount" Type="System.Int64" DbType="BigInt" />
     <Parameter Name="commMembers" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.Comm_Set" Method="Comm_Set">
+    <Parameter Name="link" Type="System.String" DbType="VarChar(512)" />
+    <Parameter Name="groupID" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="name" Type="System.String" DbType="VarChar(256)" />
+    <Parameter Name="photoLink" Type="System.String" DbType="VarChar(512)" />
+    <Parameter Name="photoLinkBig" Type="System.String" DbType="VarChar(512)" />
     <Return Type="System.Int32" />
   </Function>
   <Function Name="dbo.StaCommVKWeekly_Save" Method="StaCommVKWeekly_Save">
@@ -56,9 +60,6 @@
     <Parameter Name="commReachSubscribers" Type="System.Int64" DbType="BigInt" />
     <Parameter Name="commSubscribed" Type="System.Int64" DbType="BigInt" />
     <Parameter Name="commUnsubscribed" Type="System.Int64" DbType="BigInt" />
-    <Parameter Name="commLikes" Type="System.Int64" DbType="BigInt" />
-    <Parameter Name="commComments" Type="System.Int64" DbType="BigInt" />
-    <Parameter Name="commReposts" Type="System.Int64" DbType="BigInt" />
     <Parameter Name="commPostCount" Type="System.Int64" DbType="BigInt" />
     <Parameter Name="commMembers" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
