@@ -57,7 +57,7 @@ namespace CommSta
                     string lg_h = data.Substring("name=\"lg_h\" value=\"", "\"");
                     string log = net.Get(string.Format("https://login.vk.com/?act=login&email={0}&pass={1}&lg_h={2}", "89299833547", "PressNon798520", lg_h)).ToString();
 
-                    wsGroups<Comm_ReadForSta_Resp> groups = GetVKGroups(false);
+                    wsGroups<Comm_ReadForSta_Resp> groups = getVKGroups(false);
 
                     foreach (var gr in groups.dir)
                     {
@@ -120,7 +120,7 @@ namespace CommSta
             exreq.dateTo = DateTime.Now;
             exreq.dateType = DateType.day;
 
-            var lst = GetVKGroups(false);
+            var lst = getVKGroups(false);
 
             foreach (var gr in lst.dir)
             {
@@ -156,7 +156,7 @@ namespace CommSta
             exreq.dateTo = DateTime.Today.Date.AddMilliseconds(-1);
             exreq.dateType = DateType.day;
 
-            var lst = GetVKGroups(false);
+            var lst = getVKGroups(false);
 
             foreach (var gr in lst.dir)
             {
@@ -181,7 +181,7 @@ namespace CommSta
             exreq.dateTo = DateTime.Today.Date.AddMilliseconds(-1);
             exreq.dateType = DateType.week;
 
-            var lst = GetVKGroups(false);
+            var lst = getVKGroups(false);
 
             foreach (var gr in lst.dir)
             {
@@ -199,7 +199,7 @@ namespace CommSta
             exreq.dateType = DateType.day;
 
             // Для новых сообществ за вчера и позавчера считаем стаитистику
-            var newlst = GetVKGroups(true);
+            var newlst = getVKGroups(true);
             if (newlst.dir.Count > 0)
             {
                 exreq.dateFrom = DateTime.Today.Date;
@@ -209,7 +209,7 @@ namespace CommSta
                 {
                     if (gr.groupID == 0)
                     {
-                        gr.groupID = SetCommVK(gr.link);
+                        gr.groupID = setCommVK(gr.link);
                         Thread.Sleep(1000);
                     }
                 }
@@ -347,7 +347,7 @@ namespace CommSta
                     unsubscribed = res[0].Unsubscribed ?? 0;
                 }
 
-                members = GetCountMembers(api, groupId);
+                members = getCountMembers(api, groupId);
                 offset = 0;
 
                 WallGetObject respWall = api_Wall_Get(api, groupId, offset);
@@ -450,7 +450,7 @@ namespace CommSta
                     unsubscribed = res[0].Unsubscribed ?? 0;
                 }
 
-                members = GetCountMembers(api, groupId);
+                members = getCountMembers(api, groupId);
 
                 WallGetObject respWall = api_Wall_Get(api, groupId, 0);
 
@@ -477,7 +477,7 @@ namespace CommSta
                                 countPerThread += leftover;
                             }
 
-                            lst.Add(calcpost(offset, countPerThread, api_Authorize(i), groupId, dateFrom, dateTo));
+                            lst.Add(calcPost(offset, countPerThread, api_Authorize(i), groupId, dateFrom, dateTo));
                             offset += countPerThread;
                         }
                         foreach (commPosts cmp in lst)
@@ -523,8 +523,8 @@ namespace CommSta
         }
         #endregion
 
-        #region calcpost
-        public commPosts calcpost(ulong offset, ulong cnt, VkApi api, long groupId, DateTime dateFrom, DateTime? dateTo)
+        #region calcPost
+        public commPosts calcPost(ulong offset, ulong cnt, VkApi api, long groupId, DateTime dateFrom, DateTime? dateTo)
         {
             long countPost = 0;
             int reqCount = 0;
@@ -555,17 +555,17 @@ namespace CommSta
                 offset += 100;
             }
 
-            commPosts calcPost = new commPosts()
+            commPosts comm = new commPosts()
             {
                 count = countPost,
             };
 
-            return calcPost;
+            return comm;
         }
         #endregion
 
-        #region SetCommVK
-        private static long SetCommVK(string link)
+        #region setCommVK
+        private static long setCommVK(string link)
         {
             long groupID = 0;
             string name = "";
@@ -591,8 +591,8 @@ namespace CommSta
         }
         #endregion
 
-        #region GetCountMembers
-        private int GetCountMembers(VkApi api, long groupId)
+        #region getCountMembers
+        private int getCountMembers(VkApi api, long groupId)
         {
             int members;
             GroupsGetMembersParams prms = new GroupsGetMembersParams();
@@ -702,8 +702,8 @@ namespace CommSta
         }
         #endregion
 
-        #region GetVKGroups
-        private static wsGroups<Comm_ReadForSta_Resp> GetVKGroups(bool isNewComm)
+        #region getVKGroups
+        private static wsGroups<Comm_ReadForSta_Resp> getVKGroups(bool isNewComm)
         {
             var results = new wsGroups<Comm_ReadForSta_Resp>();
             var resp = new Comm_ReadForSta_Resp();
