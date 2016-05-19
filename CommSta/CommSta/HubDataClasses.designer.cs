@@ -76,13 +76,6 @@ namespace CommSta
 			return ((int)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.Comm_ReadForSta")]
-		public ISingleResult<Comm_ReadForStaResult> Comm_ReadForSta([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IsNewComm", DbType="Bit")] System.Nullable<bool> isNewComm)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), isNewComm);
-			return ((ISingleResult<Comm_ReadForStaResult>)(result.ReturnValue));
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.StaCommVKGraph_Save")]
 		public int StaCommVKGraph_Save([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> groupID, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(MAX)")] string feedback_graph, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(MAX)")] string activity_graph)
 		{
@@ -109,6 +102,13 @@ namespace CommSta
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), groupID, weekDate, commViews, commVisitors, commReach, commReachSubscribers, commSubscribed, commUnsubscribed, commPostCount, commMembers);
 			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.Comm_ReadForSta")]
+		public ISingleResult<Comm_ReadForStaResult> Comm_ReadForSta([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IsNewComm", DbType="Bit")] System.Nullable<bool> isNewComm, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(2)")] string areaCode)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), isNewComm, areaCode);
+			return ((ISingleResult<Comm_ReadForStaResult>)(result.ReturnValue));
 		}
 	}
 	

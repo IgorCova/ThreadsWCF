@@ -12,38 +12,66 @@ using xNet;
 using System.Xml;
 using Newtonsoft.Json;
 using System.Web.Script.Serialization;
+using System.Security.Cryptography;
+using System.Text;
+using Newtonsoft.Json.Linq;
 
 namespace CommSta
 {
     public class CommStaService : IService
     {
-        #region getDayOfWeek
-        private int getDayOfWeek()
+        #region OK_Sta_Graph
+        public void OK_Sta_Graph()
         {
-            int dow = (int)DateTime.Today.DayOfWeek;
-            switch (dow)
+            long groupID = 51939413065920;
+            var newlst = getGroups(true, "ok");
+
+            string access_token = "tkn18ulFlCCtfqPQMQzX5yoVrQNa4E5IT9uhP5V5KLgO1mkfCtbtSgaVPqeJvR7TIW5lq";
+            string secret_session_key = "9deb812bf2ea8c05f32eb79c24427d14";
+            string application_key = "CBAPDFFLEBABABABA";
+            //string application_key_secret = "A050BBA2FE2FCA7DFBFB945A";
+            string sig;
+            //HubDataClassesDataContext dc = new HubDataClassesDataContext();
+
+            using (HttpRequest net = new HttpRequest())
             {
-                case 0: dow = 7; break;
-                case 1: dow = 0; break;
-                case 2: dow = 1; break;
-                case 3: dow = 2; break;
-                case 4: dow = 3; break;
-                case 5: dow = 4; break;
-                case 6: dow = 5; break;
-                case 7: dow = 6; break;
-            };
+                net.UserAgent = Http.ChromeUserAgent();
+                CookieDictionary coockie = new CookieDictionary(false);
+                net.Cookies = coockie;                             
+              
+                string sigSource = string.Format("application_key={0}fields={1}method={2}session_key={3}uids={4}{5}"
+                    , application_key //[Application Key]
+                    , "uid,name,description,shortname,pic_avatar,shop_visible_admin,shop_visible_public,members_count" //fields
+                    , "group.getInfo" // method
+                    , secret_session_key //[Session Key]
+                    , groupID //uids
+                    , secret_session_key //secret_session_key
+                    );
+                
+                using (MD5 md5Hash = MD5.Create())
+                {
+                    sig = getMd5Hash(md5Hash, sigSource);
+                }
 
-            return dow;
+                string sourceuri = string.Format("https://api.ok.ru/fb.do?application_key={0}&sig={1}&session_key={2}&uids={3}&fields={4}&method={5}&access_token={6}"
+                    , application_key //[Application Key]
+                    , sig//sig
+                    , secret_session_key//[Session Key]
+                    , groupID //uids
+                    , "uid,name,description,shortname,pic_avatar,shop_visible_admin,shop_visible_public,members_count"
+                    , "group.getInfo" // method
+                    , access_token//secret_session_key
+                    );
+
+                string data = net.Get(sourceuri).ToString();
+            }
+            var gr = getOKGroupID("https://www.ok.ru/b10.manstoys");
         }
-        #endregion
-
-        #region WallFilter
-        public WallFilter Owner { get; private set; }
         #endregion
 
         #region VKontakte_Sta_Graph
         public void VKontakte_Sta_Graph()
-        {           
+        {
             using (HttpRequest net = new HttpRequest())
             {
                 net.UserAgent = Http.ChromeUserAgent();
@@ -57,7 +85,7 @@ namespace CommSta
                     string lg_h = data.Substring("name=\"lg_h\" value=\"", "\"");
                     string log = net.Get(string.Format("https://login.vk.com/?act=login&email={0}&pass={1}&lg_h={2}", "89299833547", "PressNon798520", lg_h)).ToString();
 
-                    wsGroups<Comm_ReadForSta_Resp> groups = getVKGroups(false);
+                    wsGroups<Comm_ReadForSta_Resp> groups = getGroups(false, "vk");
 
                     foreach (var gr in groups.dir)
                     {
@@ -66,7 +94,7 @@ namespace CommSta
 
                         if (resp.IndexOf("cur.graphDatas['feedback_graph'] = ") == 0)
                         {
-                            
+
                         }
 
                         int substrIndexIn = resp.IndexOf("cur.graphDatas['feedback_graph'] = ") + 36;
@@ -120,7 +148,7 @@ namespace CommSta
             exreq.dateTo = DateTime.Now;
             exreq.dateType = DateType.day;
 
-            var lst = getVKGroups(false);
+            var lst = getGroups(false, "vk");
 
             foreach (var gr in lst.dir)
             {
@@ -156,7 +184,7 @@ namespace CommSta
             exreq.dateTo = DateTime.Today.Date.AddMilliseconds(-1);
             exreq.dateType = DateType.day;
 
-            var lst = getVKGroups(false);
+            var lst = getGroups(false, "vk");
 
             foreach (var gr in lst.dir)
             {
@@ -181,7 +209,7 @@ namespace CommSta
             exreq.dateTo = DateTime.Today.Date.AddMilliseconds(-1);
             exreq.dateType = DateType.week;
 
-            var lst = getVKGroups(false);
+            var lst = getGroups(false, "vk");
 
             foreach (var gr in lst.dir)
             {
@@ -199,7 +227,7 @@ namespace CommSta
             exreq.dateType = DateType.day;
 
             // Для новых сообществ за вчера и позавчера считаем стаитистику
-            var newlst = getVKGroups(true);
+            var newlst = getGroups(true, "vk");
             if (newlst.dir.Count > 0)
             {
                 exreq.dateFrom = DateTime.Today.Date;
@@ -533,7 +561,7 @@ namespace CommSta
             {
                 if (reqCount == 3) // 3 запроса в секунду
                 {
-                    Thread.Sleep(1500);
+                    Thread.Sleep(3000);
                     reqCount = 0;
                 }
 
@@ -542,7 +570,7 @@ namespace CommSta
                 reqCount++;
 
                 foreach (Post post in respWall.WallPosts)
-                {                    
+                {
                     if ((dateFrom < post.Date) && (dateTo > post.Date))
                     {
                         countPost += 1;
@@ -591,6 +619,58 @@ namespace CommSta
         }
         #endregion
 
+        #region getOKGroupID
+        private static long getOKGroupID(string link)
+        {
+            long groupID = 0;
+            HubDataClassesDataContext dc = new HubDataClassesDataContext();
+            var newlst = getGroups(true, "ok");
+
+            string method = "url.getInfo";
+            string access_token = "tkn18ulFlCCtfqPQMQzX5yoVrQNa4E5IT9uhP5V5KLgO1mkfCtbtSgaVPqeJvR7TIW5lq";
+            string secret_session_key = "9deb812bf2ea8c05f32eb79c24427d14";
+            string application_key = "CBAPDFFLEBABABABA";
+            //string application_key_secret = "A050BBA2FE2FCA7DFBFB945A";
+            string sig;
+            //HubDataClassesDataContext dc = new HubDataClassesDataContext();
+
+            using (HttpRequest net = new HttpRequest())
+            {
+                net.UserAgent = Http.ChromeUserAgent();
+                CookieDictionary coockie = new CookieDictionary(false);
+                net.Cookies = coockie;
+
+                string sigSource = string.Format("application_key={0}method={1}session_key={2}url={3}{4}"
+                    , application_key //[Application Key]
+                    , method // method
+                    , secret_session_key //[Session Key]
+                    , link //url
+                    , secret_session_key //secret_session_key
+                    );
+
+                using (MD5 md5Hash = MD5.Create())
+                {
+                    sig = getMd5Hash(md5Hash, sigSource);
+                }
+
+                string sourceuri = string.Format("https://api.ok.ru/fb.do?application_key={0}&sig={1}&session_key={2}&url={3}&method={4}&access_token={5}"
+                    , application_key //[Application Key]
+                    , sig//sig
+                    , secret_session_key//[Session Key]
+                    , link //url
+                    , method // method
+                    , access_token//secret_session_key
+                    );
+
+                string source = net.Get(sourceuri).ToString();
+                dynamic data = JObject.Parse(source);
+                groupID = data.objectId;
+            }
+
+            return groupID;
+        }
+        #endregion
+        
         #region getCountMembers
         private int getCountMembers(VkApi api, long groupId)
         {
@@ -669,7 +749,7 @@ namespace CommSta
                 {
                     exInnerExceptionMessage = e.InnerException.Message;
                 }
-                dc.Exception_Save("VKontakte_Sta_ByDate", "VkApi.Authorize", e.Message, exInnerExceptionMessage, e.HelpLink, e.HResult, e.Source, e.StackTrace);
+                dc.Exception_Save("api_Authorize", "", e.Message, exInnerExceptionMessage, e.HelpLink, e.HResult, e.Source, e.StackTrace);
             }
 
             return api;
@@ -702,14 +782,14 @@ namespace CommSta
         }
         #endregion
 
-        #region getVKGroups
-        private static wsGroups<Comm_ReadForSta_Resp> getVKGroups(bool isNewComm)
+        #region getGroups
+        private static wsGroups<Comm_ReadForSta_Resp> getGroups(bool isNewComm, string areaCode)
         {
             var results = new wsGroups<Comm_ReadForSta_Resp>();
             var resp = new Comm_ReadForSta_Resp();
             HubDataClassesDataContext dc = new HubDataClassesDataContext();
 
-            foreach (Comm_ReadForStaResult comm in dc.Comm_ReadForSta(isNewComm))
+            foreach (Comm_ReadForStaResult comm in dc.Comm_ReadForSta(isNewComm, areaCode))
             {
                 resp.Add(new wsGroup()
                 {
@@ -722,6 +802,53 @@ namespace CommSta
 
             return results;
         }
+        #endregion
+
+        #region getDayOfWeek
+        private int getDayOfWeek()
+        {
+            int dow = (int)DateTime.Today.DayOfWeek;
+            switch (dow)
+            {
+                case 0: dow = 7; break;
+                case 1: dow = 0; break;
+                case 2: dow = 1; break;
+                case 3: dow = 2; break;
+                case 4: dow = 3; break;
+                case 5: dow = 4; break;
+                case 6: dow = 5; break;
+                case 7: dow = 6; break;
+            };
+
+            return dow;
+        }
+        #endregion
+
+        #region getMd5Hash
+        static string getMd5Hash(MD5 md5Hash, string input)
+        {
+
+            // Convert the input string to a byte array and compute the hash.
+            byte[] data = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(input));
+
+            // Create a new Stringbuilder to collect the bytes
+            // and create a string.
+            StringBuilder sBuilder = new StringBuilder();
+
+            // Loop through each byte of the hashed data 
+            // and format each one as a hexadecimal string.
+            for (int i = 0; i < data.Length; i++)
+            {
+                sBuilder.Append(data[i].ToString("x2"));
+            }
+
+            // Return the hexadecimal string.
+            return sBuilder.ToString();
+        }
+        #endregion
+
+        #region wallFilter
+        public WallFilter Owner { get; private set; }
         #endregion
     }
 }

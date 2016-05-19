@@ -935,6 +935,12 @@ namespace CommHub
                     resp.ownerHubID = res.ownerHubID ?? 0;
                     resp.IsNewMember = res.isNewMember ?? true;
                 }
+
+                if (resp.IsNewMember == true)
+                {
+                    dc.Owner_Set(resp.ownerHubID, sessionReqID);
+                }
+
                 results.Data = resp;
             }
             catch (Exception e)

@@ -104,13 +104,6 @@ namespace CommHub
 			return ((ISingleResult<AdminComm_ReadDictResult>)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.Session_Save")]
-		public ISingleResult<Session_SaveResult> Session_Save([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> sessionReqID, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(64)")] string dID)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), sessionReqID, dID);
-			return ((ISingleResult<Session_SaveResult>)(result.ReturnValue));
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SessionReq_Save")]
 		public ISingleResult<SessionReq_SaveResult> SessionReq_Save([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(64)")] string dID, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(64)")] string phone)
 		{
@@ -193,6 +186,20 @@ namespace CommHub
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), ownerHubID);
 			return ((ISingleResult<StaCommVKWeekly_ReportResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.Owner_Set")]
+		public int Owner_Set([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> ownerHubID, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> sessionReqID)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), ownerHubID, sessionReqID);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.Session_Save")]
+		public ISingleResult<Session_SaveResult> Session_Save([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> sessionReqID, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(64)")] string dID)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), sessionReqID, dID);
+			return ((ISingleResult<Session_SaveResult>)(result.ReturnValue));
 		}
 	}
 	
@@ -591,68 +598,6 @@ namespace CommHub
 				if ((this._linkFB != value))
 				{
 					this._linkFB = value;
-				}
-			}
-		}
-	}
-	
-	public partial class Session_SaveResult
-	{
-		
-		private System.Nullable<System.Guid> _sessionID;
-		
-		private System.Nullable<long> _ownerHubID;
-		
-		private System.Nullable<bool> _isNewMember;
-		
-		public Session_SaveResult()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sessionID", DbType="UniqueIdentifier")]
-		public System.Nullable<System.Guid> sessionID
-		{
-			get
-			{
-				return this._sessionID;
-			}
-			set
-			{
-				if ((this._sessionID != value))
-				{
-					this._sessionID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ownerHubID", DbType="BigInt")]
-		public System.Nullable<long> ownerHubID
-		{
-			get
-			{
-				return this._ownerHubID;
-			}
-			set
-			{
-				if ((this._ownerHubID != value))
-				{
-					this._ownerHubID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isNewMember", DbType="Bit")]
-		public System.Nullable<bool> isNewMember
-		{
-			get
-			{
-				return this._isNewMember;
-			}
-			set
-			{
-				if ((this._isNewMember != value))
-				{
-					this._isNewMember = value;
 				}
 			}
 		}
@@ -3607,6 +3552,68 @@ namespace CommHub
 				if ((this._repostsDifPercent != value))
 				{
 					this._repostsDifPercent = value;
+				}
+			}
+		}
+	}
+	
+	public partial class Session_SaveResult
+	{
+		
+		private System.Nullable<System.Guid> _sessionID;
+		
+		private System.Nullable<long> _ownerHubID;
+		
+		private System.Nullable<bool> _isNewMember;
+		
+		public Session_SaveResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sessionID", DbType="UniqueIdentifier")]
+		public System.Nullable<System.Guid> sessionID
+		{
+			get
+			{
+				return this._sessionID;
+			}
+			set
+			{
+				if ((this._sessionID != value))
+				{
+					this._sessionID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ownerHubID", DbType="BigInt")]
+		public System.Nullable<long> ownerHubID
+		{
+			get
+			{
+				return this._ownerHubID;
+			}
+			set
+			{
+				if ((this._ownerHubID != value))
+				{
+					this._ownerHubID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isNewMember", DbType="Bit")]
+		public System.Nullable<bool> isNewMember
+		{
+			get
+			{
+				return this._isNewMember;
+			}
+			set
+			{
+				if ((this._isNewMember != value))
+				{
+					this._isNewMember = value;
 				}
 			}
 		}

@@ -54,15 +54,6 @@
       <Column Name="linkFB" Type="System.String" DbType="VarChar(512)" CanBeNull="true" />
     </ElementType>
   </Function>
-  <Function Name="dbo.Session_Save" Method="Session_Save">
-    <Parameter Name="sessionReqID" Type="System.Int64" DbType="BigInt" />
-    <Parameter Name="dID" Type="System.String" DbType="VarChar(64)" />
-    <ElementType Name="Session_SaveResult">
-      <Column Name="sessionID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Column Name="ownerHubID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
-      <Column Name="isNewMember" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-    </ElementType>
-  </Function>
   <Function Name="dbo.SessionReq_Save" Method="SessionReq_Save">
     <Parameter Name="dID" Type="System.String" DbType="VarChar(64)" />
     <Parameter Name="phone" Type="System.String" DbType="VarChar(64)" />
@@ -310,6 +301,20 @@
       <Column Name="repostsOld" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
       <Column Name="repostsDif" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="repostsDifPercent" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Owner_Set" Method="Owner_Set">
+    <Parameter Name="ownerHubID" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="sessionReqID" Type="System.Int64" DbType="BigInt" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.Session_Save" Method="Session_Save">
+    <Parameter Name="sessionReqID" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="dID" Type="System.String" DbType="VarChar(64)" />
+    <ElementType Name="Session_SaveResult">
+      <Column Name="sessionID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="ownerHubID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="isNewMember" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
     </ElementType>
   </Function>
 </Database>
