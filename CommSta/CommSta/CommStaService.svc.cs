@@ -20,52 +20,13 @@ namespace CommSta
 {
     public class CommStaService : IService
     {
-        #region OK_Sta_Graph
-        public void OK_Sta_Graph()
+        #region OK_Sta
+        public void OK_Sta()
         {
-            long groupID = 51939413065920;
-            var newlst = getGroups(true, "ok");
-
-            string access_token = "tkn18ulFlCCtfqPQMQzX5yoVrQNa4E5IT9uhP5V5KLgO1mkfCtbtSgaVPqeJvR7TIW5lq";
-            string secret_session_key = "9deb812bf2ea8c05f32eb79c24427d14";
-            string application_key = "CBAPDFFLEBABABABA";
-            //string application_key_secret = "A050BBA2FE2FCA7DFBFB945A";
-            string sig;
-            //HubDataClassesDataContext dc = new HubDataClassesDataContext();
-
-            using (HttpRequest net = new HttpRequest())
+            if ((DateTime.Now.Hour == 10) || (DateTime.Now.Hour == 17))
             {
-                net.UserAgent = Http.ChromeUserAgent();
-                CookieDictionary coockie = new CookieDictionary(false);
-                net.Cookies = coockie;                             
-              
-                string sigSource = string.Format("application_key={0}fields={1}method={2}session_key={3}uids={4}{5}"
-                    , application_key //[Application Key]
-                    , "uid,name,description,shortname,pic_avatar,shop_visible_admin,shop_visible_public,members_count" //fields
-                    , "group.getInfo" // method
-                    , secret_session_key //[Session Key]
-                    , groupID //uids
-                    , secret_session_key //secret_session_key
-                    );
-                
-                using (MD5 md5Hash = MD5.Create())
-                {
-                    sig = getMd5Hash(md5Hash, sigSource);
-                }
-
-                string sourceuri = string.Format("https://api.ok.ru/fb.do?application_key={0}&sig={1}&session_key={2}&uids={3}&fields={4}&method={5}&access_token={6}"
-                    , application_key //[Application Key]
-                    , sig//sig
-                    , secret_session_key//[Session Key]
-                    , groupID //uids
-                    , "uid,name,description,shortname,pic_avatar,shop_visible_admin,shop_visible_public,members_count"
-                    , "group.getInfo" // method
-                    , access_token//secret_session_key
-                    );
-
-                string data = net.Get(sourceuri).ToString();
-            }
-            var gr = getOKGroupID("https://www.ok.ru/b10.manstoys");
+                ok_UpdateComm();
+            }            
         }
         #endregion
 
@@ -77,6 +38,8 @@ namespace CommSta
                 net.UserAgent = Http.ChromeUserAgent();
                 CookieDictionary coockie = new CookieDictionary(false);
                 net.Cookies = coockie;
+                net.CharacterSet = Encoding.GetEncoding("utf-8");
+
                 HubDataClassesDataContext dc = new HubDataClassesDataContext();
 
                 try
@@ -85,9 +48,9 @@ namespace CommSta
                     string lg_h = data.Substring("name=\"lg_h\" value=\"", "\"");
                     string log = net.Get(string.Format("https://login.vk.com/?act=login&email={0}&pass={1}&lg_h={2}", "89299833547", "PressNon798520", lg_h)).ToString();
 
-                    wsGroups<Comm_ReadForSta_Resp> groups = getGroups(false, "vk");
+                    wsGroups groups = getGroups(false, "vk");
 
-                    foreach (var gr in groups.dir)
+                    foreach (var gr in groups)
                     {
                         long groupID = gr.groupID;
                         string resp = net.Get(string.Format("https://vk.com/stats?act=activity&gid={0}", groupID)).ToString();
@@ -142,15 +105,20 @@ namespace CommSta
                 VKontakte_Sta_CloseDay();
             }
 
+            if ((DateTime.Now.Hour == 10) || (DateTime.Now.Hour == 17))
+            {
+                vk_UpdateComm();
+            }
+
             wsRequestByDate exreq = new wsRequestByDate();
 
             exreq.dateFrom = DateTime.Today.Date;
             exreq.dateTo = DateTime.Now;
             exreq.dateType = DateType.day;
 
-            var lst = getGroups(false, "vk");
+            wsGroups lst = getGroups(false, "vk");
 
-            foreach (var gr in lst.dir)
+            foreach (var gr in lst)
             {
                 exreq.groupID = gr.groupID;
                 VKontakte_Sta_ByDate_Parallels(exreq);
@@ -164,7 +132,7 @@ namespace CommSta
             exreqW.dateTo = DateTime.Now;
             exreqW.dateType = DateType.week;
 
-            foreach (var gr in lst.dir)
+            foreach (var gr in lst)
             {
                 exreqW.groupID = gr.groupID;
                 VKontakte_Sta_ByDate_Parallels(exreqW);
@@ -184,9 +152,9 @@ namespace CommSta
             exreq.dateTo = DateTime.Today.Date.AddMilliseconds(-1);
             exreq.dateType = DateType.day;
 
-            var lst = getGroups(false, "vk");
+            wsGroups lst = getGroups(false, "vk");
 
-            foreach (var gr in lst.dir)
+            foreach (var gr in lst)
             {
                 exreq.groupID = gr.groupID;
                 VKontakte_Sta_ByDate_Parallels(exreq);
@@ -209,9 +177,9 @@ namespace CommSta
             exreq.dateTo = DateTime.Today.Date.AddMilliseconds(-1);
             exreq.dateType = DateType.week;
 
-            var lst = getGroups(false, "vk");
+            wsGroups lst = getGroups(false, "vk");
 
-            foreach (var gr in lst.dir)
+            foreach (var gr in lst)
             {
                 exreq.groupID = gr.groupID;
                 VKontakte_Sta_ByDate_Parallels(exreq);
@@ -226,23 +194,23 @@ namespace CommSta
             wsRequestByDate exreq = new wsRequestByDate();
             exreq.dateType = DateType.day;
 
-            // Для новых сообществ за вчера и позавчера считаем стаитистику
-            var newlst = getGroups(true, "vk");
-            if (newlst.dir.Count > 0)
+            // Для новых сообществ за вчера и позавчера считаем статистику
+            wsGroups newlst = getGroups(true, "vk");
+            if (newlst.Count > 0)
             {
                 exreq.dateFrom = DateTime.Today.Date;
                 exreq.dateTo = DateTime.Now;
 
-                foreach (var gr in newlst.dir)
+                foreach (var gr in newlst)
                 {
                     if (gr.groupID == 0)
                     {
-                        gr.groupID = setCommVK(gr.link);
+                        gr.groupID = vk_SetComm(gr.link);
                         Thread.Sleep(1000);
                     }
                 }
 
-                foreach (var gr in newlst.dir)
+                foreach (var gr in newlst)
                 {
                     exreq.groupID = gr.groupID;
                     VKontakte_Sta_ByDate_Parallels(exreq);
@@ -252,7 +220,7 @@ namespace CommSta
                 exreq.dateFrom = DateTime.Today.Date.AddDays(-1);
                 exreq.dateTo = DateTime.Today.Date.AddMilliseconds(-1);
 
-                foreach (var gr in newlst.dir)
+                foreach (var gr in newlst)
                 {
                     exreq.groupID = gr.groupID;
                     VKontakte_Sta_ByDate_Parallels(exreq);
@@ -262,7 +230,7 @@ namespace CommSta
                 exreq.dateFrom = DateTime.Today.Date.AddDays(-2);
                 exreq.dateTo = DateTime.Today.Date.AddDays(-1).AddMilliseconds(-1);
 
-                foreach (var gr in newlst.dir)
+                foreach (var gr in newlst)
                 {
                     exreq.groupID = gr.groupID;
                     VKontakte_Sta_ByDate_Parallels(exreq);
@@ -278,7 +246,7 @@ namespace CommSta
                 exreqW.dateFrom = DateTime.Today.Date.AddDays(-dw + 1).AddDays(-14);
                 exreqW.dateTo = DateTime.Today.Date.AddDays(-dw + 1).AddDays(-7).AddMilliseconds(-1);
 
-                foreach (var gr in newlst.dir)
+                foreach (var gr in newlst)
                 {
                     exreqW.groupID = gr.groupID;
                     VKontakte_Sta_ByDate_Parallels(exreqW);
@@ -288,7 +256,7 @@ namespace CommSta
                 exreqW.dateFrom = DateTime.Today.Date.AddDays(-dw + 1).AddDays(-7);
                 exreqW.dateTo = DateTime.Today.Date.AddDays(-dw + 1).AddMilliseconds(-1);
 
-                foreach (var gr in newlst.dir)
+                foreach (var gr in newlst)
                 {
                     exreqW.groupID = gr.groupID;
                     VKontakte_Sta_ByDate_Parallels(exreqW);
@@ -299,7 +267,7 @@ namespace CommSta
                 exreqW.dateTo = DateTime.Now;
                 exreqW.dateType = DateType.week;
 
-                foreach (var gr in newlst.dir)
+                foreach (var gr in newlst)
                 {
                     exreqW.groupID = gr.groupID;
                     VKontakte_Sta_ByDate_Parallels(exreqW);
@@ -375,10 +343,10 @@ namespace CommSta
                     unsubscribed = res[0].Unsubscribed ?? 0;
                 }
 
-                members = getCountMembers(api, groupId);
+                members = vk_GetCountMembers(api, groupId);
                 offset = 0;
 
-                WallGetObject respWall = api_Wall_Get(api, groupId, offset);
+                WallGetObject respWall = vk_Wall_Get(api, groupId, offset);
 
                 ulong cnt = respWall.TotalCount;
 
@@ -394,7 +362,7 @@ namespace CommSta
                         reqCount = 0;
                     }
 
-                    respWall = api_Wall_Get(api, groupId, offset);
+                    respWall = vk_Wall_Get(api, groupId, offset);
 
                     reqCount++;
 
@@ -460,7 +428,7 @@ namespace CommSta
 
             int members = 0;
 
-            VkApi api = api_Authorize(6);
+            VkApi api = vk_Authorize(6);
 
             ReadOnlyCollection<StatsPeriod> res;
 
@@ -478,9 +446,9 @@ namespace CommSta
                     unsubscribed = res[0].Unsubscribed ?? 0;
                 }
 
-                members = getCountMembers(api, groupId);
+                members = vk_GetCountMembers(api, groupId);
 
-                WallGetObject respWall = api_Wall_Get(api, groupId, 0);
+                WallGetObject respWall = vk_Wall_Get(api, groupId, 0);
 
                 ulong cnt = respWall.TotalCount;
 
@@ -505,7 +473,7 @@ namespace CommSta
                                 countPerThread += leftover;
                             }
 
-                            lst.Add(calcPost(offset, countPerThread, api_Authorize(i), groupId, dateFrom, dateTo));
+                            lst.Add(vk_calcPost(offset, countPerThread, vk_Authorize(i), groupId, dateFrom, dateTo));
                             offset += countPerThread;
                         }
                         foreach (commPosts cmp in lst)
@@ -551,8 +519,8 @@ namespace CommSta
         }
         #endregion
 
-        #region calcPost
-        public commPosts calcPost(ulong offset, ulong cnt, VkApi api, long groupId, DateTime dateFrom, DateTime? dateTo)
+        #region vk_calcPost
+        public commPosts vk_calcPost(ulong offset, ulong cnt, VkApi api, long groupId, DateTime dateFrom, DateTime? dateTo)
         {
             long countPost = 0;
             int reqCount = 0;
@@ -565,7 +533,7 @@ namespace CommSta
                     reqCount = 0;
                 }
 
-                WallGetObject respWall = api_Wall_Get(api, groupId, offset);
+                WallGetObject respWall = vk_Wall_Get(api, groupId, offset);
 
                 reqCount++;
 
@@ -592,8 +560,24 @@ namespace CommSta
         }
         #endregion
 
-        #region setCommVK
-        private static long setCommVK(string link)
+        #region vk_UpdateComm
+        private static void vk_UpdateComm()
+        {
+            wsGroups groups = getGroups(false, "vk");
+
+            if (groups.Count > 0)
+            {
+                foreach (var gr in groups)
+                {
+                    vk_SetComm(gr.link);
+                    Thread.Sleep(1000);
+                }
+            }
+        }
+        #endregion
+
+        #region vk_SetComm
+        private static long vk_SetComm(string link)
         {
             long groupID = 0;
             string name = "";
@@ -601,7 +585,7 @@ namespace CommSta
             string photoLinkBig = "";
             HubDataClassesDataContext dc = new HubDataClassesDataContext();
 
-            VkApi api = api_Authorize(3);
+            VkApi api = vk_Authorize(6);
 
             IEnumerable<string> groupIds = new string[] { link };
             ReadOnlyCollection<Group> groups = api.Groups.GetById(groupIds, "", GroupsFields.Description);
@@ -614,38 +598,53 @@ namespace CommSta
                 photoLinkBig = group.Photo200.ToString();
             }
 
-            dc.Comm_Set(link, groupID, name, photoLink, photoLinkBig);
+            dc.Comm_Set(link, groupID, name, photoLink, photoLinkBig, "vk");
             return groupID;
         }
         #endregion
 
-        #region getOKGroupID
-        private static long getOKGroupID(string link)
+        #region ok_UpdateComm
+        private static void ok_UpdateComm()
         {
-            long groupID = 0;
-            HubDataClassesDataContext dc = new HubDataClassesDataContext();
-            var newlst = getGroups(true, "ok");
+            wsGroups groups = getGroups(false, "ok");
 
-            string method = "url.getInfo";
-            string access_token = "tkn18ulFlCCtfqPQMQzX5yoVrQNa4E5IT9uhP5V5KLgO1mkfCtbtSgaVPqeJvR7TIW5lq";
-            string secret_session_key = "9deb812bf2ea8c05f32eb79c24427d14";
-            string application_key = "CBAPDFFLEBABABABA";
-            //string application_key_secret = "A050BBA2FE2FCA7DFBFB945A";
+            if (groups.Count > 0)
+            {
+                foreach (var gr in groups)
+                {
+                    ok_SetComm(gr.link);
+                    Thread.Sleep(1000);
+                }
+            }
+        }
+        #endregion
+
+        #region ok_SetComm
+        private static long ok_SetComm(string link)
+        {
+            long groupID = ok_GetGroupID(link);
+            string name = "";
+            string photo_id = "";
+            string photoLink = "";
+            string photoLinkBig = "";
+
+            string method = "group.getInfo";
+            string fields = "uid,name,shortname,photo_id,members_count";
+
             string sig;
-            //HubDataClassesDataContext dc = new HubDataClassesDataContext();
+            HubDataClassesDataContext dc = new HubDataClassesDataContext();
 
             using (HttpRequest net = new HttpRequest())
             {
-                net.UserAgent = Http.ChromeUserAgent();
-                CookieDictionary coockie = new CookieDictionary(false);
-                net.Cookies = coockie;
+                net.CharacterSet = Encoding.GetEncoding("utf-8");
 
-                string sigSource = string.Format("application_key={0}method={1}session_key={2}url={3}{4}"
-                    , application_key //[Application Key]
-                    , method // method
-                    , secret_session_key //[Session Key]
-                    , link //url
-                    , secret_session_key //secret_session_key
+                string sigSource = string.Format("application_key={0}fields={1}method={2}session_key={3}uids={4}{5}"
+                    , ok_application_key
+                    , fields
+                    , method
+                    , ok_secret_session_key
+                    , groupID
+                    , ok_secret_session_key
                     );
 
                 using (MD5 md5Hash = MD5.Create())
@@ -653,13 +652,73 @@ namespace CommSta
                     sig = getMd5Hash(md5Hash, sigSource);
                 }
 
-                string sourceuri = string.Format("https://api.ok.ru/fb.do?application_key={0}&sig={1}&session_key={2}&url={3}&method={4}&access_token={5}"
-                    , application_key //[Application Key]
-                    , sig//sig
-                    , secret_session_key//[Session Key]
-                    , link //url
-                    , method // method
-                    , access_token//secret_session_key
+                string sourceuri = string.Format("https://api.ok.ru/fb.do?application_key={0}&sig={1}&session_key={2}&uids={3}&fields={4}&method={5}&ok_access_token={6}"
+                    , ok_application_key
+                    , sig
+                    , ok_secret_session_key
+                    , groupID
+                    , fields
+                    , method
+                    , ok_access_token
+                    );
+
+                string source = net.Get(sourceuri).ToString();
+                JArray a = JArray.Parse(source);
+                foreach (JObject o in a.Children<JObject>())
+                {
+                    foreach (JProperty p in o.Properties())
+                    {
+                        if (p.Name == "name")
+                        {
+                            name = (string)p.Value;
+                        }
+                        else if (p.Name == "photo_id")
+                            photo_id = (string)p.Value;
+                    }
+                }
+            }
+
+            photoLink = string.Format("http://groupava2.odnoklassniki.ru/getImage?photoId={0}&photoType=2", photo_id);
+            photoLinkBig = string.Format("http://groupava2.odnoklassniki.ru/getImage?photoId={0}&photoType=1", photo_id);
+
+            dc.Comm_Set(link, groupID, name, photoLink, photoLinkBig, "ok");
+
+            return groupID;
+        }
+        #endregion
+
+        #region ok_GetGroupID
+        private static long ok_GetGroupID(string link)
+        {
+            link = string.Format("https://ok.ru/{0}", link);
+            long groupID = 0;
+            wsGroups newlst = getGroups(true, "ok");
+            string method = "url.getInfo";
+            string sig;
+
+            using (HttpRequest net = new HttpRequest())
+            {
+                net.CharacterSet = Encoding.GetEncoding("utf-8");
+                string sigSource = string.Format("application_key={0}method={1}session_key={2}url={3}{4}"
+                    , ok_application_key
+                    , method
+                    , ok_secret_session_key
+                    , link
+                    , ok_secret_session_key
+                    );
+
+                using (MD5 md5Hash = MD5.Create())
+                {
+                    sig = getMd5Hash(md5Hash, sigSource);
+                }
+
+                string sourceuri = string.Format("https://api.ok.ru/fb.do?application_key={0}&sig={1}&session_key={2}&url={3}&method={4}&ok_access_token={5}"
+                    , ok_application_key
+                    , sig
+                    , ok_secret_session_key
+                    , link
+                    , method
+                    , ok_access_token
                     );
 
                 string source = net.Get(sourceuri).ToString();
@@ -670,9 +729,9 @@ namespace CommSta
             return groupID;
         }
         #endregion
-        
-        #region getCountMembers
-        private int getCountMembers(VkApi api, long groupId)
+
+        #region vk_GetCountMembers
+        private int vk_GetCountMembers(VkApi api, long groupId)
         {
             int members;
             GroupsGetMembersParams prms = new GroupsGetMembersParams();
@@ -685,8 +744,8 @@ namespace CommSta
         }
         #endregion
 
-        #region api_Authorize
-        private static VkApi api_Authorize(int thread)
+        #region vk_Authorize
+        private static VkApi vk_Authorize(int thread)
         {
             HubDataClassesDataContext dc = new HubDataClassesDataContext();
 
@@ -740,7 +799,7 @@ namespace CommSta
             catch (TooManyRequestsException)
             {
                 Thread.Sleep(1000);
-                api = api_Authorize(7);
+                api = vk_Authorize(7);
             }
             catch (Exception e)
             {
@@ -749,15 +808,15 @@ namespace CommSta
                 {
                     exInnerExceptionMessage = e.InnerException.Message;
                 }
-                dc.Exception_Save("api_Authorize", "", e.Message, exInnerExceptionMessage, e.HelpLink, e.HResult, e.Source, e.StackTrace);
+                dc.Exception_Save("vk_Authorize", "", e.Message, exInnerExceptionMessage, e.HelpLink, e.HResult, e.Source, e.StackTrace);
             }
 
             return api;
         }
         #endregion
 
-        #region api_Wall_Get
-        private WallGetObject api_Wall_Get(VkApi api, long groupId, ulong offset)
+        #region vk_Wall_Get
+        private WallGetObject vk_Wall_Get(VkApi api, long groupId, ulong offset)
         {
             WallGetObject res;
 
@@ -775,7 +834,7 @@ namespace CommSta
             catch (TooManyRequestsException)
             {
                 Thread.Sleep(1000);
-                res = api_Wall_Get(api, groupId, offset);
+                res = vk_Wall_Get(api, groupId, offset);
             }
 
             return res;
@@ -783,22 +842,19 @@ namespace CommSta
         #endregion
 
         #region getGroups
-        private static wsGroups<Comm_ReadForSta_Resp> getGroups(bool isNewComm, string areaCode)
+        private static wsGroups getGroups(bool isNewComm, string areaCode)
         {
-            var results = new wsGroups<Comm_ReadForSta_Resp>();
-            var resp = new Comm_ReadForSta_Resp();
+            var results = new wsGroups();
             HubDataClassesDataContext dc = new HubDataClassesDataContext();
 
             foreach (Comm_ReadForStaResult comm in dc.Comm_ReadForSta(isNewComm, areaCode))
             {
-                resp.Add(new wsGroup()
+                results.Add(new wsGroup()
                 {
                     groupID = comm.groupID ?? 0,
                     link = comm.link
                 });
             };
-
-            results.dir = resp;
 
             return results;
         }
@@ -847,8 +903,13 @@ namespace CommSta
         }
         #endregion
 
-        #region wallFilter
+        #region public
         public WallFilter Owner { get; private set; }
+        public static string ok_access_token = "tkn18ulFlCCtfqPQMQzX5yoVrQNa4E5IT9uhP5V5KLgO1mkfCtbtSgaVPqeJvR7TIW5lq";
+        public static string ok_secret_session_key = "9deb812bf2ea8c05f32eb79c24427d14";
+        public static string ok_application_key = "CBAPDFFLEBABABABA";
+        public static string ok_application_key_secret = "A050BBA2FE2FCA7DFBFB945A";
         #endregion
+
     }
 }

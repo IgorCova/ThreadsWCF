@@ -113,5 +113,12 @@ namespace CommHub
         [DataMember]
         public bool isPast;
     }
+
+    [DataContract]
+    public class StaCommVKGraph_Report_Req
+    {
+        [DataMember]
+        public long commID;
+    }
     
 }

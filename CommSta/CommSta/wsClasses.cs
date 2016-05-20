@@ -39,18 +39,11 @@ namespace CommSta
     }
 
     [DataContract]
-    public class wsGroups<T> where T : class
-    {
-        [DataMember]
-        public T dir;
-    }
-
-    [DataContract]
     public class commPosts
     {
         [DataMember]
         public long count;
     }
 
-    public class Comm_ReadForSta_Resp : List<wsGroup> { }
+    public class wsGroups : List<wsGroup> { }
 }

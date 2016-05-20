@@ -31,8 +31,8 @@ namespace CommSta
         void VKontakte_Sta_Graph();
 
         [OperationContract]
-        [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "OK_Sta_Graph")]
-        void OK_Sta_Graph();
+        [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "OK_Sta")]
+        void OK_Sta();
         
     }
 }

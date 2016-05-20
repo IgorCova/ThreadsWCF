@@ -90,13 +90,6 @@ namespace CommSta
 			return ((int)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.Comm_Set")]
-		public int Comm_Set([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(512)")] string link, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> groupID, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(256)")] string name, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(512)")] string photoLink, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(512)")] string photoLinkBig)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), link, groupID, name, photoLink, photoLinkBig);
-			return ((int)(result.ReturnValue));
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.StaCommVKWeekly_Save")]
 		public int StaCommVKWeekly_Save([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> groupID, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="DateTime")] System.Nullable<System.DateTime> weekDate, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> commViews, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> commVisitors, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> commReach, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> commReachSubscribers, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> commSubscribed, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> commUnsubscribed, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> commPostCount, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> commMembers)
 		{
@@ -109,6 +102,13 @@ namespace CommSta
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), isNewComm, areaCode);
 			return ((ISingleResult<Comm_ReadForStaResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.Comm_Set")]
+		public int Comm_Set([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(512)")] string link, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> groupID, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(256)")] string name, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(512)")] string photoLink, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(512)")] string photoLinkBig, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(32)")] string areaCommCode)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), link, groupID, name, photoLink, photoLinkBig, areaCommCode);
+			return ((int)(result.ReturnValue));
 		}
 	}
 	

@@ -167,25 +167,11 @@ namespace CommHub
 			return ((int)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.StaCommVKDaily_Report")]
-		public ISingleResult<StaCommVKDaily_ReportResult> StaCommVKDaily_Report([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> ownerHubID, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Bit")] System.Nullable<bool> isPast)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), ownerHubID, isPast);
-			return ((ISingleResult<StaCommVKDaily_ReportResult>)(result.ReturnValue));
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.Comm_Save")]
 		public int Comm_Save([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> id, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> ownerHubID, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> subjectCommID, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(256)")] string name, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> adminCommID, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(512)")] string link)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), id, ownerHubID, subjectCommID, name, adminCommID, link);
 			return ((int)(result.ReturnValue));
-		}
-		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.StaCommVKWeekly_Report")]
-		public ISingleResult<StaCommVKWeekly_ReportResult> StaCommVKWeekly_Report([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> ownerHubID)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), ownerHubID);
-			return ((ISingleResult<StaCommVKWeekly_ReportResult>)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.Owner_Set")]
@@ -200,6 +186,27 @@ namespace CommHub
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), sessionReqID, dID);
 			return ((ISingleResult<Session_SaveResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.StaCommVKDaily_Report")]
+		public ISingleResult<StaCommVKDaily_ReportResult> StaCommVKDaily_Report([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> ownerHubID, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Bit")] System.Nullable<bool> isPast)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), ownerHubID, isPast);
+			return ((ISingleResult<StaCommVKDaily_ReportResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.StaCommVKWeekly_Report")]
+		public ISingleResult<StaCommVKWeekly_ReportResult> StaCommVKWeekly_Report([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> ownerHubID)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), ownerHubID);
+			return ((ISingleResult<StaCommVKWeekly_ReportResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.StaCommVKGraph_Report")]
+		public ISingleResult<StaCommVKGraph_ReportResult> StaCommVKGraph_Report([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> ownerHubID, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> commID)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), ownerHubID, commID);
+			return ((ISingleResult<StaCommVKGraph_ReportResult>)(result.ReturnValue));
 		}
 	}
 	
@@ -1165,6 +1172,68 @@ namespace CommHub
 		}
 	}
 	
+	public partial class Session_SaveResult
+	{
+		
+		private System.Nullable<System.Guid> _sessionID;
+		
+		private System.Nullable<long> _ownerHubID;
+		
+		private System.Nullable<bool> _isNewMember;
+		
+		public Session_SaveResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sessionID", DbType="UniqueIdentifier")]
+		public System.Nullable<System.Guid> sessionID
+		{
+			get
+			{
+				return this._sessionID;
+			}
+			set
+			{
+				if ((this._sessionID != value))
+				{
+					this._sessionID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ownerHubID", DbType="BigInt")]
+		public System.Nullable<long> ownerHubID
+		{
+			get
+			{
+				return this._ownerHubID;
+			}
+			set
+			{
+				if ((this._ownerHubID != value))
+				{
+					this._ownerHubID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isNewMember", DbType="Bit")]
+		public System.Nullable<bool> isNewMember
+		{
+			get
+			{
+				return this._isNewMember;
+			}
+			set
+			{
+				if ((this._isNewMember != value))
+				{
+					this._isNewMember = value;
+				}
+			}
+		}
+	}
+	
 	public partial class StaCommVKDaily_ReportResult
 	{
 		
@@ -1173,6 +1242,8 @@ namespace CommHub
 		private string _comm_name;
 		
 		private string _comm_photoLink;
+		
+		private string _comm_photoLinkBig;
 		
 		private System.Nullable<long> _comm_groupID;
 		
@@ -1348,6 +1419,22 @@ namespace CommHub
 				if ((this._comm_photoLink != value))
 				{
 					this._comm_photoLink = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_comm_photoLinkBig", DbType="VarChar(512) NOT NULL", CanBeNull=false)]
+		public string comm_photoLinkBig
+		{
+			get
+			{
+				return this._comm_photoLinkBig;
+			}
+			set
+			{
+				if ((this._comm_photoLinkBig != value))
+				{
+					this._comm_photoLinkBig = value;
 				}
 			}
 		}
@@ -2370,6 +2457,8 @@ namespace CommHub
 		
 		private string _comm_photoLink;
 		
+		private string _comm_photoLinkBig;
+		
 		private System.Nullable<long> _comm_groupID;
 		
 		private string _subjectComm_name;
@@ -2544,6 +2633,22 @@ namespace CommHub
 				if ((this._comm_photoLink != value))
 				{
 					this._comm_photoLink = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_comm_photoLinkBig", DbType="VarChar(512) NOT NULL", CanBeNull=false)]
+		public string comm_photoLinkBig
+		{
+			get
+			{
+				return this._comm_photoLinkBig;
+			}
+			set
+			{
+				if ((this._comm_photoLinkBig != value))
+				{
+					this._comm_photoLinkBig = value;
 				}
 			}
 		}
@@ -3557,63 +3662,99 @@ namespace CommHub
 		}
 	}
 	
-	public partial class Session_SaveResult
+	public partial class StaCommVKGraph_ReportResult
 	{
 		
-		private System.Nullable<System.Guid> _sessionID;
+		private long _commLikes;
 		
-		private System.Nullable<long> _ownerHubID;
+		private long _commComments;
 		
-		private System.Nullable<bool> _isNewMember;
+		private long _commShare;
 		
-		public Session_SaveResult()
+		private long _commRemoved;
+		
+		private System.Nullable<System.DateTime> _dayDate;
+		
+		public StaCommVKGraph_ReportResult()
 		{
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sessionID", DbType="UniqueIdentifier")]
-		public System.Nullable<System.Guid> sessionID
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_commLikes", DbType="BigInt NOT NULL")]
+		public long commLikes
 		{
 			get
 			{
-				return this._sessionID;
+				return this._commLikes;
 			}
 			set
 			{
-				if ((this._sessionID != value))
+				if ((this._commLikes != value))
 				{
-					this._sessionID = value;
+					this._commLikes = value;
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ownerHubID", DbType="BigInt")]
-		public System.Nullable<long> ownerHubID
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_commComments", DbType="BigInt NOT NULL")]
+		public long commComments
 		{
 			get
 			{
-				return this._ownerHubID;
+				return this._commComments;
 			}
 			set
 			{
-				if ((this._ownerHubID != value))
+				if ((this._commComments != value))
 				{
-					this._ownerHubID = value;
+					this._commComments = value;
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isNewMember", DbType="Bit")]
-		public System.Nullable<bool> isNewMember
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_commShare", DbType="BigInt NOT NULL")]
+		public long commShare
 		{
 			get
 			{
-				return this._isNewMember;
+				return this._commShare;
 			}
 			set
 			{
-				if ((this._isNewMember != value))
+				if ((this._commShare != value))
 				{
-					this._isNewMember = value;
+					this._commShare = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_commRemoved", DbType="BigInt NOT NULL")]
+		public long commRemoved
+		{
+			get
+			{
+				return this._commRemoved;
+			}
+			set
+			{
+				if ((this._commRemoved != value))
+				{
+					this._commRemoved = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_dayDate", DbType="Date")]
+		public System.Nullable<System.DateTime> dayDate
+		{
+			get
+			{
+				return this._dayDate;
+			}
+			set
+			{
+				if ((this._dayDate != value))
+				{
+					this._dayDate = value;
 				}
 			}
 		}

@@ -54,6 +54,12 @@ namespace CommHub
         wsResponse<StaCommVK_Report_Resp> StaCommVKWeekly_Report(wsRequest req);
         #endregion
 
+        #region StaCommGraph
+        [OperationContract]
+        [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "StaCommVKGraph_Report")]
+        wsResponse<StaCommVKGraph_Report_Resp> StaCommVKGraph_Report(wsRequest<StaCommVKGraph_Report_Req> req);
+        #endregion
+
         #region SubjectComm
         [OperationContract]
         [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "SubjectComm_Del")]
@@ -62,7 +68,7 @@ namespace CommHub
         [OperationContract]
         [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "SubjectComm_ReadDict")]
         wsResponse<SubjectComm_ReadDict_Resp> SubjectComm_ReadDict(wsRequest req);
-        
+
         [OperationContract]
         [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "SubjectComm_Save")]
         wsResponse<SubjectComm_Save_Resp> SubjectComm_Save(wsRequest<SubjectComm_Save_Req> req);

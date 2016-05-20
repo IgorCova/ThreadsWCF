@@ -43,5 +43,7 @@ namespace CommHub
 
     public class StaCommVK_Report_Resp : List<wsSta> { }
 
+    public class StaCommVKGraph_Report_Resp : List<wsGraph> { } 
+    
 
 }

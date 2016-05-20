@@ -36,14 +36,6 @@
     <Parameter Name="commMembers" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
   </Function>
-  <Function Name="dbo.Comm_Set" Method="Comm_Set">
-    <Parameter Name="link" Type="System.String" DbType="VarChar(512)" />
-    <Parameter Name="groupID" Type="System.Int64" DbType="BigInt" />
-    <Parameter Name="name" Type="System.String" DbType="VarChar(256)" />
-    <Parameter Name="photoLink" Type="System.String" DbType="VarChar(512)" />
-    <Parameter Name="photoLinkBig" Type="System.String" DbType="VarChar(512)" />
-    <Return Type="System.Int32" />
-  </Function>
   <Function Name="dbo.StaCommVKWeekly_Save" Method="StaCommVKWeekly_Save">
     <Parameter Name="groupID" Type="System.Int64" DbType="BigInt" />
     <Parameter Name="weekDate" Type="System.DateTime" DbType="DateTime" />
@@ -64,5 +56,14 @@
       <Column Name="groupID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
       <Column Name="link" Type="System.String" DbType="VarChar(512)" CanBeNull="true" />
     </ElementType>
+  </Function>
+  <Function Name="dbo.Comm_Set" Method="Comm_Set">
+    <Parameter Name="link" Type="System.String" DbType="VarChar(512)" />
+    <Parameter Name="groupID" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="name" Type="System.String" DbType="VarChar(256)" />
+    <Parameter Name="photoLink" Type="System.String" DbType="VarChar(512)" />
+    <Parameter Name="photoLinkBig" Type="System.String" DbType="VarChar(512)" />
+    <Parameter Name="areaCommCode" Type="System.String" DbType="VarChar(32)" />
+    <Return Type="System.Int32" />
   </Function>
 </Database>

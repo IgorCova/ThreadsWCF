@@ -130,6 +130,9 @@ namespace CommHub.wsClasses
         public string comm_photoLink { get; set; }
 
         [DataMember]
+        public string comm_photoLinkBig { get; set; }
+
+        [DataMember]
         public long comm_groupID { get; set; }
 
         [DataMember]
@@ -286,7 +289,25 @@ namespace CommHub.wsClasses
     }
     #endregion
 
-    [DataContract]
+    public class wsGraph
+    {
+        [DataMember]
+        public long likes { get; set; }
+
+        [DataMember]
+        public long comments { get; set; }
+
+        [DataMember]
+        public long share { get; set; }
+
+        [DataMember]
+        public long removed { get; set; }
+
+        [DataMember]
+        public DateTime dayDate { get; set; }
+    }
+
+   [DataContract]
     public class wsStaComm
     {
         [DataMember]

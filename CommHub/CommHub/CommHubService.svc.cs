@@ -667,6 +667,7 @@ namespace CommHub
                         comm_id = itm.comm_id,
                         comm_name = itm.comm_name,
                         comm_photoLink = itm.comm_photoLink,
+                        comm_photoLinkBig = itm.comm_photoLinkBig,
                         comm_groupID = itm.comm_groupID ?? 0,
 
                         subjectComm_name = itm.subjectComm_name,
@@ -775,6 +776,7 @@ namespace CommHub
                         comm_id = itm.comm_id,
                         comm_name = itm.comm_name,
                         comm_photoLink = itm.comm_photoLink,
+                        comm_photoLinkBig = itm.comm_photoLinkBig,
                         comm_groupID = itm.comm_groupID ?? 0,
 
                         subjectComm_name = itm.subjectComm_name,
@@ -846,8 +848,68 @@ namespace CommHub
 
             return results;
         }
-
         #endregion
+
+        public wsResponse<StaCommVKGraph_Report_Resp> StaCommVKGraph_Report(wsRequest<StaCommVKGraph_Report_Req> req)
+        {
+            string funcName = "StaCommVKGraph_Report";
+            int errCode = 0;
+            string errorText = "";
+
+            wsResponse<StaCommVKGraph_Report_Resp> results = new wsResponse<StaCommVKGraph_Report_Resp>();
+            StaCommVKGraph_Report_Resp resp = new StaCommVKGraph_Report_Resp();
+            DataHubDataContext dc = new DataHubDataContext();
+            long ownerHubID = 0;
+            long commID = 0;
+
+            if (req.Params == null)
+            {
+                errCode = 200;
+                errorText = Tools.GetErrorTextByCode(errCode);
+                Tools.ErrorLog_Save(req, "", funcName, errorText);
+
+                results.ErrText = string.Format("{0}\n{1}", funcName, errorText);
+                results.ErrCode = errCode;
+                return results;
+            }
+            else
+            {
+                commID = req.Params.commID;
+            }
+
+            try
+            {
+                foreach (GetOwnerHubIDResult own in dc.GetOwnerHubID(req.Session))
+                {
+                    ownerHubID = own.ownerHubID;
+                }
+
+                foreach (StaCommVKGraph_ReportResult itm in dc.StaCommVKGraph_Report(ownerHubID, commID))
+                {
+                    resp.Add(new wsGraph()
+                    {
+                       comments = itm.commComments,
+                       likes = itm.commLikes,
+                       removed = itm.commRemoved,
+                       share = itm.commShare,
+                       dayDate = itm.dayDate ?? DateTime.Now.Date
+                    });
+                };
+
+                results.Data = resp;
+            }
+            catch (Exception e)
+            {
+                errCode = 101;
+                string param = string.Format("ownerHubID: {0}, commID: {1}", ownerHubID, commID);
+                Tools.ErrorLog_Save(req, param, funcName, e.Message);
+
+                results.ErrCode = errCode;
+                results.ErrText = string.Format("funcName: {0}, errCode: {1}, Message: {2}", funcName, Tools.GetErrorTextByCode(errCode), e.Message);
+            }
+
+            return results;
+        }
 
         #region Session
 
