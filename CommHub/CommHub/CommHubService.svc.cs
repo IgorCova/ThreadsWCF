@@ -1,5 +1,6 @@
 ﻿using CommHub.wsClasses;
 using System;
+using System.Globalization;
 using System.IO;
 using System.Net;
 
@@ -454,7 +455,7 @@ namespace CommHub
                     ownerHubID = own.ownerHubID;
                 }
 
-                dc.Comm_Save(id, ownerHubID, subjectCommID, name, adminCommID, link);
+                dc.Comm_Save(id, ownerHubID, subjectCommID, name, adminCommID, link, 1);
             }
             catch (Exception e)
             {
@@ -850,6 +851,7 @@ namespace CommHub
         }
         #endregion
 
+        #region StaCommVKGraph_Report
         public wsResponse<StaCommVKGraph_Report_Resp> StaCommVKGraph_Report(wsRequest<StaCommVKGraph_Report_Req> req)
         {
             string funcName = "StaCommVKGraph_Report";
@@ -888,11 +890,17 @@ namespace CommHub
                 {
                     resp.Add(new wsGraph()
                     {
-                       comments = itm.commComments,
-                       likes = itm.commLikes,
-                       removed = itm.commRemoved,
-                       share = itm.commShare,
-                       dayDate = itm.dayDate ?? DateTime.Now.Date
+                        comments = itm.commComments,
+                        likes = itm.commLikes,
+                        removed = itm.commRemoved,
+                        share = itm.commShare,
+                        members = itm.commMembers,
+                        membersLost = itm.commMembersLost,
+                        dayDate = itm.dayDate ?? DateTime.Now.Date,
+                        dayString = string.Format("{0}.{1} {2}", (itm.dayDate ?? DateTime.Now.Date).Day, (itm.dayDate ?? DateTime.Now.Date).Month.ToString(), (itm.dayDate ?? DateTime.Now.Date).DayOfWeek),
+                        isLast = itm.isLast ?? false,
+                        isFuture = itm.isFuture ?? false
+
                     });
                 };
 
@@ -910,6 +918,7 @@ namespace CommHub
 
             return results;
         }
+        #endregion 
 
         #region Session
 

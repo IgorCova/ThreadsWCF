@@ -151,15 +151,6 @@
     <Parameter Name="linkFB" Type="System.String" DbType="VarChar(512)" />
     <Return Type="System.Int32" />
   </Function>
-  <Function Name="dbo.Comm_Save" Method="Comm_Save">
-    <Parameter Name="id" Type="System.Int64" DbType="BigInt" />
-    <Parameter Name="ownerHubID" Type="System.Int64" DbType="BigInt" />
-    <Parameter Name="subjectCommID" Type="System.Int64" DbType="BigInt" />
-    <Parameter Name="name" Type="System.String" DbType="VarChar(256)" />
-    <Parameter Name="adminCommID" Type="System.Int64" DbType="BigInt" />
-    <Parameter Name="link" Type="System.String" DbType="VarChar(512)" />
-    <Return Type="System.Int32" />
-  </Function>
   <Function Name="dbo.Owner_Set" Method="Owner_Set">
     <Parameter Name="ownerHubID" Type="System.Int64" DbType="BigInt" />
     <Parameter Name="sessionReqID" Type="System.Int64" DbType="BigInt" />
@@ -319,6 +310,16 @@
       <Column Name="repostsDifPercent" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </ElementType>
   </Function>
+  <Function Name="dbo.Comm_Save" Method="Comm_Save">
+    <Parameter Name="id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="ownerHubID" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="subjectCommID" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="name" Type="System.String" DbType="VarChar(256)" />
+    <Parameter Name="adminCommID" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="link" Type="System.String" DbType="VarChar(512)" />
+    <Parameter Name="areaCommID" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
   <Function Name="dbo.StaCommVKGraph_Report" Method="StaCommVKGraph_Report">
     <Parameter Name="ownerHubID" Type="System.Int64" DbType="BigInt" />
     <Parameter Name="commID" Type="System.Int64" DbType="BigInt" />
@@ -327,7 +328,12 @@
       <Column Name="commComments" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
       <Column Name="commShare" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
       <Column Name="commRemoved" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="commMembers" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="commMembersLost" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
       <Column Name="dayDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="isLast" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="isFuture" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="cntReq" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </ElementType>
   </Function>
 </Database>

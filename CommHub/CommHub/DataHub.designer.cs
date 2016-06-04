@@ -167,13 +167,6 @@ namespace CommHub
 			return ((int)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.Comm_Save")]
-		public int Comm_Save([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> id, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> ownerHubID, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> subjectCommID, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(256)")] string name, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> adminCommID, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(512)")] string link)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), id, ownerHubID, subjectCommID, name, adminCommID, link);
-			return ((int)(result.ReturnValue));
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.Owner_Set")]
 		public int Owner_Set([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> ownerHubID, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> sessionReqID)
 		{
@@ -200,6 +193,13 @@ namespace CommHub
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), ownerHubID);
 			return ((ISingleResult<StaCommVKWeekly_ReportResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.Comm_Save")]
+		public int Comm_Save([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> id, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> ownerHubID, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> subjectCommID, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(256)")] string name, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> adminCommID, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(512)")] string link, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> areaCommID)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), id, ownerHubID, subjectCommID, name, adminCommID, link, areaCommID);
+			return ((int)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.StaCommVKGraph_Report")]
@@ -3673,7 +3673,17 @@ namespace CommHub
 		
 		private long _commRemoved;
 		
+		private long _commMembers;
+		
+		private long _commMembersLost;
+		
 		private System.Nullable<System.DateTime> _dayDate;
+		
+		private System.Nullable<bool> _isLast;
+		
+		private System.Nullable<bool> _isFuture;
+		
+		private System.Nullable<int> _cntReq;
 		
 		public StaCommVKGraph_ReportResult()
 		{
@@ -3743,6 +3753,38 @@ namespace CommHub
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_commMembers", DbType="BigInt NOT NULL")]
+		public long commMembers
+		{
+			get
+			{
+				return this._commMembers;
+			}
+			set
+			{
+				if ((this._commMembers != value))
+				{
+					this._commMembers = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_commMembersLost", DbType="BigInt NOT NULL")]
+		public long commMembersLost
+		{
+			get
+			{
+				return this._commMembersLost;
+			}
+			set
+			{
+				if ((this._commMembersLost != value))
+				{
+					this._commMembersLost = value;
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_dayDate", DbType="Date")]
 		public System.Nullable<System.DateTime> dayDate
 		{
@@ -3755,6 +3797,54 @@ namespace CommHub
 				if ((this._dayDate != value))
 				{
 					this._dayDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isLast", DbType="Bit")]
+		public System.Nullable<bool> isLast
+		{
+			get
+			{
+				return this._isLast;
+			}
+			set
+			{
+				if ((this._isLast != value))
+				{
+					this._isLast = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isFuture", DbType="Bit")]
+		public System.Nullable<bool> isFuture
+		{
+			get
+			{
+				return this._isFuture;
+			}
+			set
+			{
+				if ((this._isFuture != value))
+				{
+					this._isFuture = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_cntReq", DbType="Int")]
+		public System.Nullable<int> cntReq
+		{
+			get
+			{
+				return this._cntReq;
+			}
+			set
+			{
+				if ((this._cntReq != value))
+				{
+					this._cntReq = value;
 				}
 			}
 		}

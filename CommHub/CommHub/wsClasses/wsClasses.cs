@@ -304,7 +304,22 @@ namespace CommHub.wsClasses
         public long removed { get; set; }
 
         [DataMember]
+        public long members { get; set; }
+
+        [DataMember]
+        public long membersLost { get; set; }
+
+        [DataMember]
         public DateTime dayDate { get; set; }
+
+        [DataMember]
+        public string dayString { get; set; }
+
+        [DataMember]
+        public bool isLast { get; set; }
+
+        [DataMember]
+        public bool isFuture { get; set; }        
     }
 
    [DataContract]

@@ -17,12 +17,6 @@
     <Parameter Name="exStackTrace" Type="System.String" DbType="VarChar(MAX)" />
     <Return Type="System.Int32" />
   </Function>
-  <Function Name="dbo.StaCommVKGraph_Save" Method="StaCommVKGraph_Save">
-    <Parameter Name="groupID" Type="System.Int64" DbType="BigInt" />
-    <Parameter Name="feedback_graph" Type="System.String" DbType="VarChar(MAX)" />
-    <Parameter Name="activity_graph" Type="System.String" DbType="VarChar(MAX)" />
-    <Return Type="System.Int32" />
-  </Function>
   <Function Name="dbo.StaCommVKDaily_Save" Method="StaCommVKDaily_Save">
     <Parameter Name="groupID" Type="System.Int64" DbType="BigInt" />
     <Parameter Name="dayDate" Type="System.DateTime" DbType="DateTime" />
@@ -64,6 +58,19 @@
     <Parameter Name="photoLink" Type="System.String" DbType="VarChar(512)" />
     <Parameter Name="photoLinkBig" Type="System.String" DbType="VarChar(512)" />
     <Parameter Name="areaCommCode" Type="System.String" DbType="VarChar(32)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.StaCommVKGraph_Save" Method="StaCommVKGraph_Save">
+    <Parameter Name="groupID" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="feedback_graph" Type="System.String" DbType="VarChar(MAX)" />
+    <Parameter Name="activity_graph" Type="System.String" DbType="VarChar(MAX)" />
+    <Parameter Name="members_graph" Type="System.String" DbType="VarChar(MAX)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.StaCommOKTopics_Save" Method="StaCommOKTopics_Save">
+    <Parameter Name="groupID" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="dayDate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="statTopics" Type="System.String" DbType="VarChar(MAX)" />
     <Return Type="System.Int32" />
   </Function>
 </Database>
