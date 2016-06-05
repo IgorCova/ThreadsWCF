@@ -117,6 +117,13 @@ namespace CommSta
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), groupID, dayDate, statTopics);
 			return ((int)(result.ReturnValue));
 		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.StaCommOKTrends_Save")]
+		public int StaCommOKTrends_Save([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> groupID, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="DateTime")] System.Nullable<System.DateTime> dayDate, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(MAX)")] string statTrends)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), groupID, dayDate, statTrends);
+			return ((int)(result.ReturnValue));
+		}
 	}
 	
 	public partial class Comm_ReadForStaResult

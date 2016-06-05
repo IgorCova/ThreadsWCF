@@ -73,4 +73,10 @@
     <Parameter Name="statTopics" Type="System.String" DbType="VarChar(MAX)" />
     <Return Type="System.Int32" />
   </Function>
+  <Function Name="dbo.StaCommOKTrends_Save" Method="StaCommOKTrends_Save">
+    <Parameter Name="groupID" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="dayDate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="statTrends" Type="System.String" DbType="VarChar(MAX)" />
+    <Return Type="System.Int32" />
+  </Function>
 </Database>

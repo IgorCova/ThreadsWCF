@@ -20,19 +20,23 @@ namespace CommSta {
 
         #region OK_Sta
         public void OK_Sta() {
-            if ((DateTime.Now.Hour == 10) || (DateTime.Now.Hour == 17)) {
-                ok_UpdateComm();
-            }
+             if ((DateTime.Now.Hour == 10) || (DateTime.Now.Hour == 17)) {
+                 ok_UpdateComm();
+             }
 
-            wsGroups lstOK = getGroups(false, "ok");
+             wsGroups lstOK = getGroups(false, "ok");
 
-            foreach (wsGroup gr in lstOK) {
-                ok_GetStatTopics(DateTime.Now.Date, gr.groupID);
+             foreach (wsGroup gr in lstOK) {
+                 ok_GetStatTopics(DateTime.Now.Date, gr.groupID);
+                 ok_GetStatTrends(DateTime.Now.Date, gr.groupID);
 
                 if (DateTime.Now.Hour == 0) {
-                    ok_GetStatTopics(DateTime.Now.Date.AddDays(-1), gr.groupID);
+                     ok_GetStatTopics(DateTime.Now.Date.AddDays(-1), gr.groupID);
+                     ok_GetStatTrends(DateTime.Now.Date.AddDays(-1), gr.groupID);
                 }
-            }
+             }
+
+            
         }
         #endregion
 
@@ -50,8 +54,9 @@ namespace CommSta {
                     Thread.Sleep(1000);
 
                     //last  two weeks
-                    for (int i = 0; i < 7 + day; i++) {
+                    for (int i = 0; i < 14 + day; i++) {
                         ok_GetStatTopics(DateTime.Now.Date.AddDays(-i), gr.groupID);
+                        ok_GetStatTrends(DateTime.Now.Date.AddDays(-i), gr.groupID);
                     }
                 }
             }
@@ -590,6 +595,72 @@ namespace CommSta {
 
                 string note = count_try_ok_GetStatTopics == 0 ? "" : string.Format("Trying a {0} time", count_try_ok_GetStatTopics);
                 dc.Exception_Save("ok_GetStatTopics", note, e.Message, exInnerExceptionMessage, e.HelpLink, e.HResult, e.Source, e.StackTrace);
+
+                if (count_try_ok_GetStatTopics < 3) {
+                    Thread.Sleep(1500);
+                    ok_GetStatTopics(dayDate, groupID);
+                    count_try_ok_GetStatTopics++;
+                }
+            }
+        }
+        #endregion
+
+        #region ok_GetStatTrends
+        private static void ok_GetStatTrends(DateTime dayDate, long groupID) {
+            string method = "group.getStatTrends";
+            string fields = "reach,engagement,feedback,members_count,new_members,new_members_target,left_members,members_diff,reach_own,reach_earned,reach_mob,reach_web,reach_mobweb,renderings,page_visits,content_opens,likes,comments,reshares,votes,link_clicks,video_plays,music_plays,topic_opens,photo_opens,negatives,hides_from_feed,complaints";
+            string sig;
+
+            DateTime start_time = dayDate.Date;
+            DateTime end_time = start_time.AddDays(1);
+
+            long uxStart_time = get_UnixTime(start_time);
+            long uxEnd_time = get_UnixTime(end_time);
+
+            HubDataClassesDataContext dc = new HubDataClassesDataContext();
+
+            try {
+                using (HttpRequest net = new HttpRequest()) {
+                    net.CharacterSet = Encoding.GetEncoding("utf-8");
+
+                    string sigSource = string.Format("application_key={0}end_time={1}fields={2}format=XMLgid={3}method={4}session_key={5}start_time={6}{7}"
+                        , ok_application_key
+                        , uxEnd_time
+                        , fields
+                        , groupID
+                        , method
+                        , ok_secret_session_key
+                        , uxStart_time
+                        , ok_secret_session_key
+                        );
+
+                    using (MD5 md5Hash = MD5.Create()) {
+                        sig = getMd5Hash(md5Hash, sigSource);
+                    }
+
+                    string sourceuri = string.Format("https://api.ok.ru/fb.do?application_key={0}&sig={1}&session_key={2}&format=XML&gid={3}&fields={4}&method={5}&start_time={6}&end_time={7}&access_token={8}"
+                        , ok_application_key
+                        , sig
+                        , ok_secret_session_key
+                        , groupID
+                        , fields
+                        , method
+                        , uxStart_time
+                        , uxEnd_time
+                        , ok_access_token
+                        );
+
+                    string source = net.Get(sourceuri).ToString();
+                    dc.StaCommOKTrends_Save(groupID, start_time, source);
+                }
+            } catch (Exception e) {
+                string exInnerExceptionMessage = "";
+                if (e.InnerException != null) {
+                    exInnerExceptionMessage = e.InnerException.Message;
+                }
+
+                string note = count_try_ok_GetStatTopics == 0 ? "" : string.Format("Trying a {0} time", count_try_ok_GetStatTopics);
+                dc.Exception_Save("ok_GetStatTrends", note, e.Message, exInnerExceptionMessage, e.HelpLink, e.HResult, e.Source, e.StackTrace);
 
                 if (count_try_ok_GetStatTopics < 3) {
                     Thread.Sleep(1500);
