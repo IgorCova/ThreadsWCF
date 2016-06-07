@@ -455,7 +455,10 @@ namespace CommHub
                     ownerHubID = own.ownerHubID;
                 }
 
-                dc.Comm_Save(id, ownerHubID, subjectCommID, name, adminCommID, link, 1);
+                int areaID = 1;
+                areaID = (link.Contains("vk.com")) ? 1 : 2;
+
+                dc.Comm_Save(id, ownerHubID, subjectCommID, name, adminCommID, link, areaID);
             }
             catch (Exception e)
             {
@@ -632,7 +635,7 @@ namespace CommHub
         #endregion
 
         #region StaComm 
-        public wsResponse<StaCommVK_Report_Resp> StaCommVKDaily_Report(wsRequest<StaCommVKDaily_Report_Req> req)
+        public wsResponse<StaCommVK_Report_Resp> StaCommVKDaily_Report(wsRequest<StaCommDaily_Report_Req> req)
         {
             var funcName = "StaCommVKDaily_Report";
             var errCode = 0;
@@ -723,6 +726,9 @@ namespace CommHub
                         reposts = itm.reposts,
                         repostsNew = itm.repostsNew,
                         repostsDifPercent = itm.repostsDifPercent ?? 0,
+                        
+                        resharesNew = itm.repostsNew,
+                        resharesDifPercent = itm.repostsDifPercent ?? 0,
                     });
                 };
 
@@ -919,6 +925,157 @@ namespace CommHub
             return results;
         }
         #endregion 
+
+        #region StaCommOK 
+        public wsResponse<StaCommOK_Report_Resp> StaCommOKDaily_Report(wsRequest<StaCommDaily_Report_Req> req) {
+            var funcName = "StaCommOKDaily_Report";
+            var errCode = 0;
+            var errorText = "";
+
+            wsResponse<StaCommOK_Report_Resp> results = new wsResponse<StaCommOK_Report_Resp>();
+            StaCommOK_Report_Resp resp = new StaCommOK_Report_Resp();
+            DataHubDataContext dc = new DataHubDataContext();
+            long ownerHubID = 0;
+
+            if (req == null) {
+                errCode = 200;
+                errorText = Tools.GetErrorTextByCode(errCode);
+                Tools.ErrorLog_Save(req, "", funcName, errorText);
+
+                results.ErrText = string.Format("{0}\n{1}", funcName, errorText);
+                results.ErrCode = errCode;
+                return results;
+            }
+
+            try {
+                foreach (GetOwnerHubIDResult own in dc.GetOwnerHubID(req.Session)) {
+                    ownerHubID = own.ownerHubID;
+                }
+
+                foreach (StaCommOKDaily_ReportResult itm in dc.StaCommOKDaily_Report(ownerHubID, req.Params.isPast)) {
+                    resp.Add(new wsStaOK() {
+                        comm_id = itm.comm_id,
+                        comm_name = itm.comm_name,
+                        comm_photoLink = itm.comm_photoLink,
+                        comm_photoLinkBig = itm.comm_photoLinkBig,
+                        comm_groupID = itm.comm_groupID ?? 0,
+
+                        subjectComm_name = itm.subjectComm_name,
+                        areaComm_code = itm.areaComm_code,
+
+                        adminComm_fullName = itm.adminComm_fullName,
+                        adminComm_linkFB = itm.adminComm_linkFB,
+
+                        members = itm.members, 
+
+                        increaseNew = itm.increaseNew,
+                        increaseDifPercent = itm.increaseDifPercent ?? 0,                      
+
+                        reachNew = itm.reachNew,
+                        reachDifPercent = itm.reachDifPercent ?? 0,
+
+                        postCountNew = itm.postCountNew,
+                        postCountDifPercent = itm.postCountDifPercent ?? 0,
+                        
+                        likesNew = itm.likesNew,
+                        likesDifPercent = itm.likesDifPercent ?? 0,
+                        
+                        commentsNew = itm.commentsNew,
+                        commentsDifPercent = itm.commentsDifPercent ?? 0,
+
+                         resharesNew = itm.resharesNew,
+                        resharesDifPercent = itm.resharesDifPercent ?? 0,
+                    });
+                };
+
+                results.Data = resp;
+            } catch (Exception e) {
+                errCode = 101;
+                string param = string.Format("ownerHubID: {0}", ownerHubID);
+                Tools.ErrorLog_Save(req, param, funcName, e.Message);
+
+                results.ErrCode = errCode;
+                results.ErrText = string.Format("funcName: {0}, errCode: {1}, Message: {2}", funcName, Tools.GetErrorTextByCode(errCode), e.Message);
+            }
+
+            return results;
+        }
+
+
+        public wsResponse<StaCommOK_Report_Resp> StaCommOKWeekly_Report(wsRequest req) {
+            var funcName = "StaCommOKWeekly_Report";
+            var errCode = 0;
+            var errorText = "";
+
+            wsResponse<StaCommOK_Report_Resp> results = new wsResponse<StaCommOK_Report_Resp>();
+            StaCommOK_Report_Resp resp = new StaCommOK_Report_Resp();
+            DataHubDataContext dc = new DataHubDataContext();
+            long ownerHubID = 0;
+
+            if (req == null) {
+                errCode = 200;
+                errorText = Tools.GetErrorTextByCode(errCode);
+                Tools.ErrorLog_Save(req, "", funcName, errorText);
+
+                results.ErrText = string.Format("{0}\n{1}", funcName, errorText);
+                results.ErrCode = errCode;
+                return results;
+            }
+
+            try {
+                foreach (GetOwnerHubIDResult own in dc.GetOwnerHubID(req.Session)) {
+                    ownerHubID = own.ownerHubID;
+                }
+
+                foreach (StaCommOKWeekly_ReportResult itm in dc.StaCommOKWeekly_Report(ownerHubID)) {
+                    resp.Add(new wsStaOK() {
+                        comm_id = itm.comm_id,
+                        comm_name = itm.comm_name,
+                        comm_photoLink = itm.comm_photoLink,
+                        comm_photoLinkBig = itm.comm_photoLinkBig,
+                        comm_groupID = itm.comm_groupID ?? 0,
+
+                        subjectComm_name = itm.subjectComm_name,
+                        areaComm_code = itm.areaComm_code,
+
+                        adminComm_fullName = itm.adminComm_fullName,
+                        adminComm_linkFB = itm.adminComm_linkFB,
+
+                        members = itm.members,
+
+                        increaseNew = itm.increaseNew,
+                        increaseDifPercent = itm.increaseDifPercent ?? 0,
+
+                        reachNew = itm.reachNew,
+                        reachDifPercent = itm.reachDifPercent ?? 0,
+
+                        postCountNew = itm.postCountNew,
+                        postCountDifPercent = itm.postCountDifPercent ?? 0,
+
+                        likesNew = itm.likesNew,
+                        likesDifPercent = itm.likesDifPercent ?? 0,
+
+                        commentsNew = itm.commentsNew,
+                        commentsDifPercent = itm.commentsDifPercent ?? 0,
+
+                        resharesNew = itm.resharesNew,
+                        resharesDifPercent = itm.resharesDifPercent ?? 0,
+                    });
+                };
+
+                results.Data = resp;
+            } catch (Exception e) {
+                errCode = 101;
+                string param = string.Format("ownerHubID: {0}", ownerHubID);
+                Tools.ErrorLog_Save(req, param, funcName, e.Message);
+
+                results.ErrCode = errCode;
+                results.ErrText = string.Format("funcName: {0}, errCode: {1}, Message: {2}", funcName, Tools.GetErrorTextByCode(errCode), e.Message);
+            }
+
+            return results;
+        }
+        #endregion
 
         #region Session
 

@@ -108,7 +108,7 @@ namespace CommHub
     }
 
     [DataContract]
-    public class StaCommVKDaily_Report_Req
+    public class StaCommDaily_Report_Req
     {
         [DataMember]
         public bool isPast;

@@ -286,6 +286,12 @@ namespace CommHub.wsClasses
         [DataMember]
         public int repostsDifPercent { get; set; }
 
+        [DataMember]
+        public long resharesNew { get; set; }
+        
+        [DataMember]
+        public int resharesDifPercent { get; set; }
+
     }
     #endregion
 
@@ -448,6 +454,80 @@ namespace CommHub.wsClasses
         [DataMember]
         public decimal repostsNewPercent { get; set; }
     }
+
+
+    #region wsStaOK
+    [DataContract]
+    public class wsStaOK {
+        [DataMember]
+        public long comm_id { get; set; }
+
+        [DataMember]
+        public string comm_name { get; set; }
+
+        [DataMember]
+        public string comm_photoLink { get; set; }
+
+        [DataMember]
+        public string comm_photoLinkBig { get; set; }
+
+        [DataMember]
+        public long comm_groupID { get; set; }
+
+        [DataMember]
+        public string subjectComm_name { get; set; }
+
+        [DataMember]
+        public string areaComm_code { get; set; }
+
+        [DataMember]
+        public string adminComm_fullName { get; set; }
+
+        [DataMember]
+        public string adminComm_linkFB { get; set; }
+
+
+        [DataMember]
+        public long members { get; set; }
+
+      
+        [DataMember]
+        public long increaseNew { get; set; }
+
+        [DataMember]
+        public long increaseDifPercent { get; set; }
+
+        [DataMember]
+        public long reachNew { get; set; }
+      
+        [DataMember]
+        public int reachDifPercent { get; set; }
+        
+        [DataMember]
+        public long postCountNew { get; set; }
+
+        [DataMember]
+        public int postCountDifPercent { get; set; }
+
+        [DataMember]
+        public long likesNew { get; set; }
+
+        [DataMember]
+        public int likesDifPercent { get; set; }      
+
+        [DataMember]
+        public long commentsNew { get; set; }
+       
+        [DataMember]
+        public int commentsDifPercent { get; set; }
+       
+        [DataMember]
+        public long resharesNew { get; set; }
+
+        [DataMember]
+        public int resharesDifPercent { get; set; }
+    }
+    #endregion
 
     #region Session
     [DataContract]
