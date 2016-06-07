@@ -84,12 +84,6 @@
     <None Include="Web References\CommSta\CommStaService.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Web References\CommSta\CommStaService0.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Web References\CommSta\CommStaService1.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Web References\CommSta\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

@@ -1,15 +1,14 @@
 use Hub
 --alter database Hub set trustworthy on
 
-exec dbo.DropIfExists 'dbo.sp_ws_VKontakte_Sta_ByDate'
+drop procedure ws.VKontakte_Sta
 go
 
-exec dbo.DropIfExists 'sp_ws_VKontakte_Sta'
+drop procedure ws.VKontakte_Sta_forNew
 go
 
-exec dbo.DropIfExists 'dbo.sp_ws_VKontakte_Sta_forNew'
+drop procedure ws.OK_Sta
 go
-
 
 -- CommStaCLR
 if exists ( select * from sys.assemblies where [name] = N'CommStaCLR')
@@ -43,11 +42,13 @@ with execute as caller
 as external name CommStaCLR.StoredProcedures.sp_ws_VKontakte_Sta_ForNew
 go
 
-create procedure ws.VKontakte_Sta_ByDate
-   @groupID  bigint
-  ,@dateFrom datetime
-  ,@dateTo   datetime
+create procedure ws.OK_Sta
 with execute as caller
-as external name CommStaCLR.StoredProcedures.sp_ws_VKontakte_Sta_ByDate
+as external name CommStaCLR.StoredProcedures.sp_ws_OK_Sta
+go
+
+create procedure ws.OK_Sta_ForNew
+with execute as caller
+as external name CommStaCLR.StoredProcedures.sp_ws_OK_Sta_ForNew
 go
 

@@ -1,49 +1,28 @@
 ﻿using CommStaClassLibrary.CommSta;
-using System;
 
-namespace CommStaClassLibrary
-{
-    public class Main
-    {
-        public static void VKontakte_Sta()
-        {
-            using (CommStaService svc = new CommStaService())
-            {
+namespace CommStaClassLibrary {
+    public class Main {
+        public static void VKontakte_Sta() {
+            using (BasicHttpBinding_IService svc = new BasicHttpBinding_IService()) {
                 svc.VKontakte_Sta();
             }
         }
 
-        public static void VKontakte_Sta_CloseDay()
-        {
-            using (CommStaService svc = new CommStaService())
-            {
-                svc.VKontakte_Sta_CloseDay();
+        public static void VKontakte_Sta_ForNew() {
+            using (BasicHttpBinding_IService svc = new BasicHttpBinding_IService()) {
+                svc.VKontakte_Sta_ForNew();
             }
         }
 
-        public static void VKontakte_Sta_ForNew()
-        {
-            using (CommStaService svc = new CommStaService())
-            {
-                svc.VKontakte_Sta_ForNew();
+        public static void OK_Sta() {
+            using (BasicHttpBinding_IService svc = new BasicHttpBinding_IService()) {
+                svc.OK_Sta();
             }
-        }       
-        
-        public static void VKontakte_Sta_ByDate(long groupID, DateTime dateFrom, DateTime dateTo)
-        {
-            using (CommStaService svc = new CommStaService())
-            {
-                wsRequestByDate req = new wsRequestByDate();
-                req.groupID = groupID;
-                req.groupIDSpecified = true;
+        }
 
-                req.dateFrom = dateFrom;
-                req.dateFromSpecified = true;
-
-                req.dateTo = dateTo;
-                req.dateToSpecified = true;
-
-                svc.VKontakte_Sta_ByDate(req);
+        public static void OK_Sta_ForNew() {
+            using (BasicHttpBinding_IService svc = new BasicHttpBinding_IService()) {
+                svc.OK_Sta_ForNew();
             }
         }
     }

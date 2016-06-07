@@ -27,21 +27,20 @@ namespace CommStaClassLibrary.CommSta {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Web.Services.WebServiceBindingAttribute(Name="BasicHttpBinding_IService", Namespace="http://tempuri.org/")]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(wsRequest))]
-    public partial class CommStaService : System.Web.Services.Protocols.SoapHttpClientProtocol {
+    public partial class BasicHttpBinding_IService : System.Web.Services.Protocols.SoapHttpClientProtocol {
         
         private System.Threading.SendOrPostCallback VKontakte_StaOperationCompleted;
         
         private System.Threading.SendOrPostCallback VKontakte_Sta_ForNewOperationCompleted;
         
-        private System.Threading.SendOrPostCallback VKontakte_Sta_CloseDayOperationCompleted;
+        private System.Threading.SendOrPostCallback OK_StaOperationCompleted;
         
-        private System.Threading.SendOrPostCallback VKontakte_Sta_ByDateOperationCompleted;
+        private System.Threading.SendOrPostCallback OK_Sta_ForNewOperationCompleted;
         
         private bool useDefaultCredentialsSetExplicitly;
         
         /// <remarks/>
-        public CommStaService() {
+        public BasicHttpBinding_IService() {
             this.Url = global::CommStaClassLibrary.Properties.Settings.Default.CommStaClassLibrary_CommStaService_CommStaService;
             if ((this.IsLocalFileSystemWebService(this.Url) == true)) {
                 this.UseDefaultCredentials = true;
@@ -83,10 +82,10 @@ namespace CommStaClassLibrary.CommSta {
         public event VKontakte_Sta_ForNewCompletedEventHandler VKontakte_Sta_ForNewCompleted;
         
         /// <remarks/>
-        public event VKontakte_Sta_CloseDayCompletedEventHandler VKontakte_Sta_CloseDayCompleted;
+        public event OK_StaCompletedEventHandler OK_StaCompleted;
         
         /// <remarks/>
-        public event VKontakte_Sta_ByDateCompletedEventHandler VKontakte_Sta_ByDateCompleted;
+        public event OK_Sta_ForNewCompletedEventHandler OK_Sta_ForNewCompleted;
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IService/VKontakte_Sta", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
@@ -141,56 +140,54 @@ namespace CommStaClassLibrary.CommSta {
         }
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IService/VKontakte_Sta_CloseDay", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public void VKontakte_Sta_CloseDay() {
-            this.Invoke("VKontakte_Sta_CloseDay", new object[0]);
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IService/OK_Sta", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public void OK_Sta() {
+            this.Invoke("OK_Sta", new object[0]);
         }
         
         /// <remarks/>
-        public void VKontakte_Sta_CloseDayAsync() {
-            this.VKontakte_Sta_CloseDayAsync(null);
+        public void OK_StaAsync() {
+            this.OK_StaAsync(null);
         }
         
         /// <remarks/>
-        public void VKontakte_Sta_CloseDayAsync(object userState) {
-            if ((this.VKontakte_Sta_CloseDayOperationCompleted == null)) {
-                this.VKontakte_Sta_CloseDayOperationCompleted = new System.Threading.SendOrPostCallback(this.OnVKontakte_Sta_CloseDayOperationCompleted);
+        public void OK_StaAsync(object userState) {
+            if ((this.OK_StaOperationCompleted == null)) {
+                this.OK_StaOperationCompleted = new System.Threading.SendOrPostCallback(this.OnOK_StaOperationCompleted);
             }
-            this.InvokeAsync("VKontakte_Sta_CloseDay", new object[0], this.VKontakte_Sta_CloseDayOperationCompleted, userState);
+            this.InvokeAsync("OK_Sta", new object[0], this.OK_StaOperationCompleted, userState);
         }
         
-        private void OnVKontakte_Sta_CloseDayOperationCompleted(object arg) {
-            if ((this.VKontakte_Sta_CloseDayCompleted != null)) {
+        private void OnOK_StaOperationCompleted(object arg) {
+            if ((this.OK_StaCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.VKontakte_Sta_CloseDayCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+                this.OK_StaCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IService/VKontakte_Sta_ByDate", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public void VKontakte_Sta_ByDate([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] wsRequestByDate req) {
-            this.Invoke("VKontakte_Sta_ByDate", new object[] {
-                        req});
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IService/OK_Sta_ForNew", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public void OK_Sta_ForNew() {
+            this.Invoke("OK_Sta_ForNew", new object[0]);
         }
         
         /// <remarks/>
-        public void VKontakte_Sta_ByDateAsync(wsRequestByDate req) {
-            this.VKontakte_Sta_ByDateAsync(req, null);
+        public void OK_Sta_ForNewAsync() {
+            this.OK_Sta_ForNewAsync(null);
         }
         
         /// <remarks/>
-        public void VKontakte_Sta_ByDateAsync(wsRequestByDate req, object userState) {
-            if ((this.VKontakte_Sta_ByDateOperationCompleted == null)) {
-                this.VKontakte_Sta_ByDateOperationCompleted = new System.Threading.SendOrPostCallback(this.OnVKontakte_Sta_ByDateOperationCompleted);
+        public void OK_Sta_ForNewAsync(object userState) {
+            if ((this.OK_Sta_ForNewOperationCompleted == null)) {
+                this.OK_Sta_ForNewOperationCompleted = new System.Threading.SendOrPostCallback(this.OnOK_Sta_ForNewOperationCompleted);
             }
-            this.InvokeAsync("VKontakte_Sta_ByDate", new object[] {
-                        req}, this.VKontakte_Sta_ByDateOperationCompleted, userState);
+            this.InvokeAsync("OK_Sta_ForNew", new object[0], this.OK_Sta_ForNewOperationCompleted, userState);
         }
         
-        private void OnVKontakte_Sta_ByDateOperationCompleted(object arg) {
-            if ((this.VKontakte_Sta_ByDateCompleted != null)) {
+        private void OnOK_Sta_ForNewOperationCompleted(object arg) {
+            if ((this.OK_Sta_ForNewCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.VKontakte_Sta_ByDateCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+                this.OK_Sta_ForNewCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -214,97 +211,191 @@ namespace CommStaClassLibrary.CommSta {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1055.0")]
-    [System.SerializableAttribute()]
+    // CODEGEN: The optional WSDL extension element 'PolicyReference' from namespace 'http://schemas.xmlsoap.org/ws/2004/09/policy' was not handled.
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://schemas.datacontract.org/2004/07/CommSta")]
-    public partial class wsRequestByDate : wsRequest {
+    [System.Web.Services.WebServiceBindingAttribute(Name="BasicHttpsBinding_IService", Namespace="http://tempuri.org/")]
+    public partial class BasicHttpsBinding_IService : System.Web.Services.Protocols.SoapHttpClientProtocol {
         
-        private System.DateTime dateFromField;
+        private System.Threading.SendOrPostCallback VKontakte_StaOperationCompleted;
         
-        private bool dateFromFieldSpecified;
+        private System.Threading.SendOrPostCallback VKontakte_Sta_ForNewOperationCompleted;
         
-        private System.Nullable<System.DateTime> dateToField;
+        private System.Threading.SendOrPostCallback OK_StaOperationCompleted;
         
-        private bool dateToFieldSpecified;
+        private System.Threading.SendOrPostCallback OK_Sta_ForNewOperationCompleted;
+        
+        private bool useDefaultCredentialsSetExplicitly;
         
         /// <remarks/>
-        public System.DateTime dateFrom {
+        public BasicHttpsBinding_IService() {
+            this.Url = "https://major-comm.com/CommStaService.svc";
+            if ((this.IsLocalFileSystemWebService(this.Url) == true)) {
+                this.UseDefaultCredentials = true;
+                this.useDefaultCredentialsSetExplicitly = false;
+            }
+            else {
+                this.useDefaultCredentialsSetExplicitly = true;
+            }
+        }
+        
+        public new string Url {
             get {
-                return this.dateFromField;
+                return base.Url;
             }
             set {
-                this.dateFromField = value;
+                if ((((this.IsLocalFileSystemWebService(base.Url) == true) 
+                            && (this.useDefaultCredentialsSetExplicitly == false)) 
+                            && (this.IsLocalFileSystemWebService(value) == false))) {
+                    base.UseDefaultCredentials = false;
+                }
+                base.Url = value;
+            }
+        }
+        
+        public new bool UseDefaultCredentials {
+            get {
+                return base.UseDefaultCredentials;
+            }
+            set {
+                base.UseDefaultCredentials = value;
+                this.useDefaultCredentialsSetExplicitly = true;
             }
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool dateFromSpecified {
-            get {
-                return this.dateFromFieldSpecified;
+        public event VKontakte_StaCompletedEventHandler VKontakte_StaCompleted;
+        
+        /// <remarks/>
+        public event VKontakte_Sta_ForNewCompletedEventHandler VKontakte_Sta_ForNewCompleted;
+        
+        /// <remarks/>
+        public event OK_StaCompletedEventHandler OK_StaCompleted;
+        
+        /// <remarks/>
+        public event OK_Sta_ForNewCompletedEventHandler OK_Sta_ForNewCompleted;
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IService/VKontakte_Sta", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public void VKontakte_Sta() {
+            this.Invoke("VKontakte_Sta", new object[0]);
+        }
+        
+        /// <remarks/>
+        public void VKontakte_StaAsync() {
+            this.VKontakte_StaAsync(null);
+        }
+        
+        /// <remarks/>
+        public void VKontakte_StaAsync(object userState) {
+            if ((this.VKontakte_StaOperationCompleted == null)) {
+                this.VKontakte_StaOperationCompleted = new System.Threading.SendOrPostCallback(this.OnVKontakte_StaOperationCompleted);
             }
-            set {
-                this.dateFromFieldSpecified = value;
+            this.InvokeAsync("VKontakte_Sta", new object[0], this.VKontakte_StaOperationCompleted, userState);
+        }
+        
+        private void OnVKontakte_StaOperationCompleted(object arg) {
+            if ((this.VKontakte_StaCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.VKontakte_StaCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<System.DateTime> dateTo {
-            get {
-                return this.dateToField;
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IService/VKontakte_Sta_ForNew", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public void VKontakte_Sta_ForNew() {
+            this.Invoke("VKontakte_Sta_ForNew", new object[0]);
+        }
+        
+        /// <remarks/>
+        public void VKontakte_Sta_ForNewAsync() {
+            this.VKontakte_Sta_ForNewAsync(null);
+        }
+        
+        /// <remarks/>
+        public void VKontakte_Sta_ForNewAsync(object userState) {
+            if ((this.VKontakte_Sta_ForNewOperationCompleted == null)) {
+                this.VKontakte_Sta_ForNewOperationCompleted = new System.Threading.SendOrPostCallback(this.OnVKontakte_Sta_ForNewOperationCompleted);
             }
-            set {
-                this.dateToField = value;
+            this.InvokeAsync("VKontakte_Sta_ForNew", new object[0], this.VKontakte_Sta_ForNewOperationCompleted, userState);
+        }
+        
+        private void OnVKontakte_Sta_ForNewOperationCompleted(object arg) {
+            if ((this.VKontakte_Sta_ForNewCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.VKontakte_Sta_ForNewCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool dateToSpecified {
-            get {
-                return this.dateToFieldSpecified;
-            }
-            set {
-                this.dateToFieldSpecified = value;
-            }
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IService/OK_Sta", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public void OK_Sta() {
+            this.Invoke("OK_Sta", new object[0]);
         }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(wsRequestByDate))]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1055.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://schemas.datacontract.org/2004/07/CommSta")]
-    public partial class wsRequest {
-        
-        private long groupIDField;
-        
-        private bool groupIDFieldSpecified;
         
         /// <remarks/>
-        public long groupID {
-            get {
-                return this.groupIDField;
+        public void OK_StaAsync() {
+            this.OK_StaAsync(null);
+        }
+        
+        /// <remarks/>
+        public void OK_StaAsync(object userState) {
+            if ((this.OK_StaOperationCompleted == null)) {
+                this.OK_StaOperationCompleted = new System.Threading.SendOrPostCallback(this.OnOK_StaOperationCompleted);
             }
-            set {
-                this.groupIDField = value;
+            this.InvokeAsync("OK_Sta", new object[0], this.OK_StaOperationCompleted, userState);
+        }
+        
+        private void OnOK_StaOperationCompleted(object arg) {
+            if ((this.OK_StaCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.OK_StaCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool groupIDSpecified {
-            get {
-                return this.groupIDFieldSpecified;
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IService/OK_Sta_ForNew", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public void OK_Sta_ForNew() {
+            this.Invoke("OK_Sta_ForNew", new object[0]);
+        }
+        
+        /// <remarks/>
+        public void OK_Sta_ForNewAsync() {
+            this.OK_Sta_ForNewAsync(null);
+        }
+        
+        /// <remarks/>
+        public void OK_Sta_ForNewAsync(object userState) {
+            if ((this.OK_Sta_ForNewOperationCompleted == null)) {
+                this.OK_Sta_ForNewOperationCompleted = new System.Threading.SendOrPostCallback(this.OnOK_Sta_ForNewOperationCompleted);
             }
-            set {
-                this.groupIDFieldSpecified = value;
+            this.InvokeAsync("OK_Sta_ForNew", new object[0], this.OK_Sta_ForNewOperationCompleted, userState);
+        }
+        
+        private void OnOK_Sta_ForNewOperationCompleted(object arg) {
+            if ((this.OK_Sta_ForNewCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.OK_Sta_ForNewCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
+        }
+        
+        /// <remarks/>
+        public new void CancelAsync(object userState) {
+            base.CancelAsync(userState);
+        }
+        
+        private bool IsLocalFileSystemWebService(string url) {
+            if (((url == null) 
+                        || (url == string.Empty))) {
+                return false;
+            }
+            System.Uri wsUri = new System.Uri(url);
+            if (((wsUri.Port >= 1024) 
+                        && (string.Compare(wsUri.Host, "localHost", System.StringComparison.OrdinalIgnoreCase) == 0))) {
+                return true;
+            }
+            return false;
         }
     }
     
@@ -318,11 +409,11 @@ namespace CommStaClassLibrary.CommSta {
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")]
-    public delegate void VKontakte_Sta_CloseDayCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
+    public delegate void OK_StaCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")]
-    public delegate void VKontakte_Sta_ByDateCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
+    public delegate void OK_Sta_ForNewCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
 }
 
 #pragma warning restore 1591

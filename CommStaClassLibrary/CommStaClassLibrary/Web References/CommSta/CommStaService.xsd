@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://major-comm.com/CommStaService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/CommSta" />
   <xs:element name="VKontakte_Sta">
     <xs:complexType>
       <xs:sequence />
@@ -21,24 +20,22 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
-  <xs:element name="VKontakte_Sta_CloseDay">
+  <xs:element name="OK_Sta">
     <xs:complexType>
       <xs:sequence />
     </xs:complexType>
   </xs:element>
-  <xs:element name="VKontakte_Sta_CloseDayResponse">
+  <xs:element name="OK_StaResponse">
     <xs:complexType>
       <xs:sequence />
     </xs:complexType>
   </xs:element>
-  <xs:element name="VKontakte_Sta_ByDate">
+  <xs:element name="OK_Sta_ForNew">
     <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/CommSta" minOccurs="0" name="req" nillable="true" type="q1:wsRequestByDate" />
-      </xs:sequence>
+      <xs:sequence />
     </xs:complexType>
   </xs:element>
-  <xs:element name="VKontakte_Sta_ByDateResponse">
+  <xs:element name="OK_Sta_ForNewResponse">
     <xs:complexType>
       <xs:sequence />
     </xs:complexType>
