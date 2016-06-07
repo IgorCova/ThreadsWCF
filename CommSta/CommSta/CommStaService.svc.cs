@@ -20,23 +20,24 @@ namespace CommSta {
 
         #region OK_Sta
         public void OK_Sta() {
-             if ((DateTime.Now.Hour == 10) || (DateTime.Now.Hour == 17)) {
-                 ok_UpdateComm();
-             }
+          //  if ((DateTime.Now.Hour == 10) || (DateTime.Now.Hour == 17)) {
+          // обновляем каждый раз 
+                ok_UpdateComm();
+           // }
 
-             wsGroups lstOK = getGroups(false, "ok");
+            wsGroups lstOK = getGroups(false, "ok");
 
-             foreach (wsGroup gr in lstOK) {
-                 ok_GetStatTopics(DateTime.Now.Date, gr.groupID);
-                 ok_GetStatTrends(DateTime.Now.Date, gr.groupID);
+            foreach (wsGroup gr in lstOK) {
+                //    ok_GetStatTopics(DateTime.Now.Date, gr.groupID);
+                ok_GetStatTrends(DateTime.Now.Date, gr.groupID);
 
                 if (DateTime.Now.Hour == 0) {
-                     ok_GetStatTopics(DateTime.Now.Date.AddDays(-1), gr.groupID);
-                     ok_GetStatTrends(DateTime.Now.Date.AddDays(-1), gr.groupID);
+                    ok_GetStatTopics(DateTime.Now.Date.AddDays(-1), gr.groupID);
+                    ok_GetStatTrends(DateTime.Now.Date.AddDays(-1), gr.groupID);
                 }
-             }
+            }
 
-            
+
         }
         #endregion
 
@@ -460,7 +461,7 @@ namespace CommSta {
                 photoLinkBig = group.Photo200.ToString();
             }
 
-            dc.Comm_Set(link, groupID, name, photoLink, photoLinkBig, "vk");
+            dc.Comm_Set(link, groupID, name, photoLink, photoLinkBig, "vk", 0);
             return groupID;
         }
         #endregion
@@ -485,6 +486,7 @@ namespace CommSta {
             string photo_id = "";
             string photoLink = "";
             string photoLinkBig = "";
+            int members_count = 0;
 
             string method = "group.getInfo";
             string fields = "uid,name,shortname,photo_id,members_count";
@@ -524,8 +526,11 @@ namespace CommSta {
                     foreach (JProperty p in o.Properties()) {
                         if (p.Name == "name") {
                             name = (string)p.Value;
-                        } else if (p.Name == "photo_id")
+                        } else if (p.Name == "photo_id") {
                             photo_id = (string)p.Value;
+                        } else if (p.Name == "members_count") {
+                            members_count = (int)p.Value;
+                        }
                     }
                 }
             }
@@ -533,7 +538,7 @@ namespace CommSta {
             photoLink = string.Format("http://groupava2.odnoklassniki.ru/getImage?photoId={0}&photoType=2", photo_id);
             photoLinkBig = string.Format("http://groupava2.odnoklassniki.ru/getImage?photoId={0}&photoType=1", photo_id);
 
-            dc.Comm_Set(link, groupID, name, photoLink, photoLinkBig, "ok");
+            dc.Comm_Set(link, groupID, name, photoLink, photoLinkBig, "ok", members_count);
 
             return groupID;
         }
@@ -619,13 +624,15 @@ namespace CommSta {
 
             HubDataClassesDataContext dc = new HubDataClassesDataContext();
 
+            string sigSource;
+            string sourceuri;
+
             try {
                 using (HttpRequest net = new HttpRequest()) {
                     net.CharacterSet = Encoding.GetEncoding("utf-8");
-
-                    string sigSource = string.Format("application_key={0}end_time={1}fields={2}format=XMLgid={3}method={4}session_key={5}start_time={6}{7}"
+                    if (start_time == DateTime.Now.Date) {
+                        sigSource = string.Format("application_key={0}fields={1}format=XMLgid={2}method={3}session_key={4}start_time={5}{6}"
                         , ok_application_key
-                        , uxEnd_time
                         , fields
                         , groupID
                         , method
@@ -634,22 +641,48 @@ namespace CommSta {
                         , ok_secret_session_key
                         );
 
-                    using (MD5 md5Hash = MD5.Create()) {
-                        sig = getMd5Hash(md5Hash, sigSource);
+                        using (MD5 md5Hash = MD5.Create()) {
+                            sig = getMd5Hash(md5Hash, sigSource);
+                        }
+
+                        sourceuri = string.Format("https://api.ok.ru/fb.do?application_key={0}&sig={1}&session_key={2}&format=XML&gid={3}&fields={4}&method={5}&start_time={6}&access_token={7}"
+                            , ok_application_key
+                            , sig
+                            , ok_secret_session_key
+                            , groupID
+                            , fields
+                            , method
+                            , uxStart_time
+                            , ok_access_token
+                            );
+                    } else {
+                        sigSource = string.Format("application_key={0}end_time={1}fields={2}format=XMLgid={3}method={4}session_key={5}start_time={6}{7}"
+                           , ok_application_key
+                           , uxEnd_time
+                           , fields
+                           , groupID
+                           , method
+                           , ok_secret_session_key
+                           , uxStart_time
+                           , ok_secret_session_key
+                           );
+
+                        using (MD5 md5Hash = MD5.Create()) {
+                            sig = getMd5Hash(md5Hash, sigSource);
+                        }
+
+                        sourceuri = string.Format("https://api.ok.ru/fb.do?application_key={0}&sig={1}&session_key={2}&format=XML&gid={3}&fields={4}&method={5}&start_time={6}&end_time={7}&access_token={8}"
+                            , ok_application_key
+                            , sig
+                            , ok_secret_session_key
+                            , groupID
+                            , fields
+                            , method
+                            , uxStart_time
+                            , uxEnd_time
+                            , ok_access_token
+                            );
                     }
-
-                    string sourceuri = string.Format("https://api.ok.ru/fb.do?application_key={0}&sig={1}&session_key={2}&format=XML&gid={3}&fields={4}&method={5}&start_time={6}&end_time={7}&access_token={8}"
-                        , ok_application_key
-                        , sig
-                        , ok_secret_session_key
-                        , groupID
-                        , fields
-                        , method
-                        , uxStart_time
-                        , uxEnd_time
-                        , ok_access_token
-                        );
-
                     string source = net.Get(sourceuri).ToString();
                     dc.StaCommOKTrends_Save(groupID, start_time, source);
                 }
@@ -681,7 +714,7 @@ namespace CommSta {
             TimeSpan diff = date - origin;
             return (long)Math.Floor(diff.TotalSeconds);
         }
-        #endregion               
+        #endregion
 
         #region ok_GetGroupID
         private static long ok_GetGroupID(string link) {

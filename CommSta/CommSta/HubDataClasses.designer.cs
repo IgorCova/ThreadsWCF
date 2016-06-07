@@ -97,13 +97,6 @@ namespace CommSta
 			return ((ISingleResult<Comm_ReadForStaResult>)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.Comm_Set")]
-		public int Comm_Set([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(512)")] string link, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> groupID, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(256)")] string name, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(512)")] string photoLink, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(512)")] string photoLinkBig, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(32)")] string areaCommCode)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), link, groupID, name, photoLink, photoLinkBig, areaCommCode);
-			return ((int)(result.ReturnValue));
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.StaCommVKGraph_Save")]
 		public int StaCommVKGraph_Save([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> groupID, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(MAX)")] string feedback_graph, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(MAX)")] string activity_graph, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(MAX)")] string members_graph)
 		{
@@ -122,6 +115,13 @@ namespace CommSta
 		public int StaCommOKTrends_Save([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> groupID, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="DateTime")] System.Nullable<System.DateTime> dayDate, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(MAX)")] string statTrends)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), groupID, dayDate, statTrends);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.Comm_Set")]
+		public int Comm_Set([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(512)")] string link, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> groupID, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(256)")] string name, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(512)")] string photoLink, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(512)")] string photoLinkBig, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(32)")] string areaCommCode, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> members_count)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), link, groupID, name, photoLink, photoLinkBig, areaCommCode, members_count);
 			return ((int)(result.ReturnValue));
 		}
 	}

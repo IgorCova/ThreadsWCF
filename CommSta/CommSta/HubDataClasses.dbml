@@ -51,15 +51,6 @@
       <Column Name="link" Type="System.String" DbType="VarChar(512)" CanBeNull="true" />
     </ElementType>
   </Function>
-  <Function Name="dbo.Comm_Set" Method="Comm_Set">
-    <Parameter Name="link" Type="System.String" DbType="VarChar(512)" />
-    <Parameter Name="groupID" Type="System.Int64" DbType="BigInt" />
-    <Parameter Name="name" Type="System.String" DbType="VarChar(256)" />
-    <Parameter Name="photoLink" Type="System.String" DbType="VarChar(512)" />
-    <Parameter Name="photoLinkBig" Type="System.String" DbType="VarChar(512)" />
-    <Parameter Name="areaCommCode" Type="System.String" DbType="VarChar(32)" />
-    <Return Type="System.Int32" />
-  </Function>
   <Function Name="dbo.StaCommVKGraph_Save" Method="StaCommVKGraph_Save">
     <Parameter Name="groupID" Type="System.Int64" DbType="BigInt" />
     <Parameter Name="feedback_graph" Type="System.String" DbType="VarChar(MAX)" />
@@ -77,6 +68,16 @@
     <Parameter Name="groupID" Type="System.Int64" DbType="BigInt" />
     <Parameter Name="dayDate" Type="System.DateTime" DbType="DateTime" />
     <Parameter Name="statTrends" Type="System.String" DbType="VarChar(MAX)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.Comm_Set" Method="Comm_Set">
+    <Parameter Name="link" Type="System.String" DbType="VarChar(512)" />
+    <Parameter Name="groupID" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="name" Type="System.String" DbType="VarChar(256)" />
+    <Parameter Name="photoLink" Type="System.String" DbType="VarChar(512)" />
+    <Parameter Name="photoLinkBig" Type="System.String" DbType="VarChar(512)" />
+    <Parameter Name="areaCommCode" Type="System.String" DbType="VarChar(32)" />
+    <Parameter Name="members_count" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
   </Function>
 </Database>
