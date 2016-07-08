@@ -4,5 +4,6 @@
     <DiscoveryClientResult referenceType="System.Web.Services.Discovery.ContractReference" url="http://major-comm.com/CommStaService.svc?wsdl" filename="CommStaService.wsdl" />
     <DiscoveryClientResult referenceType="System.Web.Services.Discovery.DiscoveryDocumentReference" url="http://major-comm.com/CommStaService.svc?disco" filename="CommStaService.disco" />
     <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="http://major-comm.com/CommStaService.svc?xsd=xsd0" filename="CommStaService.xsd" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="http://major-comm.com/CommStaService.svc?xsd=xsd1" filename="CommStaService0.xsd" />
   </Results>
 </DiscoveryClientResultsFile>

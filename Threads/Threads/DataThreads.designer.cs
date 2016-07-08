@@ -120,13 +120,6 @@ namespace Threads
 			return ((ISingleResult<Country_ReadDictResult>)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.[SessionReq.Save]")]
-		public ISingleResult<SessionReq_SaveResult> SessionReq_Save([global::System.Data.Linq.Mapping.ParameterAttribute(Name="DID", DbType="VarChar(64)")] string dID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Phone", DbType="VarChar(64)")] string phone)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), dID, phone);
-			return ((ISingleResult<SessionReq_SaveResult>)(result.ReturnValue));
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.[Session.Save]")]
 		public ISingleResult<Session_SaveResult> Session_Save([global::System.Data.Linq.Mapping.ParameterAttribute(Name="SessionReqID", DbType="BigInt")] System.Nullable<long> sessionReqID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="DID", DbType="VarChar(64)")] string dID)
 		{
@@ -224,6 +217,13 @@ namespace Threads
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), communityID, columnID, memberID);
 			return ((ISingleResult<Entry_ReadByCommunityIDResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.[SessionReq.Save]")]
+		public ISingleResult<SessionReq_SaveResult> SessionReq_Save([global::System.Data.Linq.Mapping.ParameterAttribute(Name="DID", DbType="VarChar(64)")] string dID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Phone", DbType="VarChar(64)")] string phone)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), dID, phone);
+			return ((ISingleResult<SessionReq_SaveResult>)(result.ReturnValue));
 		}
 	}
 	
@@ -1686,50 +1686,6 @@ namespace Threads
 				if ((this._IsActive != value))
 				{
 					this._IsActive = value;
-				}
-			}
-		}
-	}
-	
-	public partial class SessionReq_SaveResult
-	{
-		
-		private System.Nullable<long> _ID;
-		
-		private long _MemberID;
-		
-		public SessionReq_SaveResult()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", DbType="BigInt")]
-		public System.Nullable<long> ID
-		{
-			get
-			{
-				return this._ID;
-			}
-			set
-			{
-				if ((this._ID != value))
-				{
-					this._ID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MemberID", DbType="BigInt NOT NULL")]
-		public long MemberID
-		{
-			get
-			{
-				return this._MemberID;
-			}
-			set
-			{
-				if ((this._MemberID != value))
-				{
-					this._MemberID = value;
 				}
 			}
 		}
@@ -3624,6 +3580,50 @@ namespace Threads
 				if ((this._IsPin != value))
 				{
 					this._IsPin = value;
+				}
+			}
+		}
+	}
+	
+	public partial class SessionReq_SaveResult
+	{
+		
+		private System.Nullable<long> _ID;
+		
+		private long _MemberID;
+		
+		public SessionReq_SaveResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", DbType="BigInt")]
+		public System.Nullable<long> ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this._ID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MemberID", DbType="BigInt NOT NULL")]
+		public long MemberID
+		{
+			get
+			{
+				return this._MemberID;
+			}
+			set
+			{
+				if ((this._MemberID != value))
+				{
+					this._MemberID = value;
 				}
 			}
 		}

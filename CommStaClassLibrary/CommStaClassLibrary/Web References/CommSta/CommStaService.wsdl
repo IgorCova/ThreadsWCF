@@ -28,6 +28,7 @@
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import schemaLocation="http://major-comm.com/CommStaService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://major-comm.com/CommStaService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IService_VKontakte_Sta_InputMessage">
@@ -42,6 +43,18 @@
   <wsdl:message name="IService_VKontakte_Sta_ForNew_OutputMessage">
     <wsdl:part name="parameters" element="tns:VKontakte_Sta_ForNewResponse" />
   </wsdl:message>
+  <wsdl:message name="IService_VKontakte_Sta_Graph_InputMessage">
+    <wsdl:part name="parameters" element="tns:VKontakte_Sta_Graph" />
+  </wsdl:message>
+  <wsdl:message name="IService_VKontakte_Sta_Graph_OutputMessage">
+    <wsdl:part name="parameters" element="tns:VKontakte_Sta_GraphResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService_VK_UpdateComm_InputMessage">
+    <wsdl:part name="parameters" element="tns:VK_UpdateComm" />
+  </wsdl:message>
+  <wsdl:message name="IService_VK_UpdateComm_OutputMessage">
+    <wsdl:part name="parameters" element="tns:VK_UpdateCommResponse" />
+  </wsdl:message>
   <wsdl:message name="IService_OK_Sta_InputMessage">
     <wsdl:part name="parameters" element="tns:OK_Sta" />
   </wsdl:message>
@@ -54,6 +67,30 @@
   <wsdl:message name="IService_OK_Sta_ForNew_OutputMessage">
     <wsdl:part name="parameters" element="tns:OK_Sta_ForNewResponse" />
   </wsdl:message>
+  <wsdl:message name="IService_OK_Sta_Graph_InputMessage">
+    <wsdl:part name="parameters" element="tns:OK_Sta_Graph" />
+  </wsdl:message>
+  <wsdl:message name="IService_OK_Sta_Graph_OutputMessage">
+    <wsdl:part name="parameters" element="tns:OK_Sta_GraphResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService_OK_UpdateComm_InputMessage">
+    <wsdl:part name="parameters" element="tns:OK_UpdateComm" />
+  </wsdl:message>
+  <wsdl:message name="IService_OK_UpdateComm_OutputMessage">
+    <wsdl:part name="parameters" element="tns:OK_UpdateCommResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService_Send_SMS_InputMessage">
+    <wsdl:part name="parameters" element="tns:Send_SMS" />
+  </wsdl:message>
+  <wsdl:message name="IService_Send_SMS_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Send_SMSResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService_zzz_tester_InputMessage">
+    <wsdl:part name="parameters" element="tns:zzz_tester" />
+  </wsdl:message>
+  <wsdl:message name="IService_zzz_tester_OutputMessage">
+    <wsdl:part name="parameters" element="tns:zzz_testerResponse" />
+  </wsdl:message>
   <wsdl:portType name="IService">
     <wsdl:operation name="VKontakte_Sta">
       <wsdl:input wsaw:Action="http://tempuri.org/IService/VKontakte_Sta" message="tns:IService_VKontakte_Sta_InputMessage" />
@@ -63,6 +100,14 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IService/VKontakte_Sta_ForNew" message="tns:IService_VKontakte_Sta_ForNew_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService/VKontakte_Sta_ForNewResponse" message="tns:IService_VKontakte_Sta_ForNew_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="VKontakte_Sta_Graph">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService/VKontakte_Sta_Graph" message="tns:IService_VKontakte_Sta_Graph_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService/VKontakte_Sta_GraphResponse" message="tns:IService_VKontakte_Sta_Graph_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="VK_UpdateComm">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService/VK_UpdateComm" message="tns:IService_VK_UpdateComm_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService/VK_UpdateCommResponse" message="tns:IService_VK_UpdateComm_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="OK_Sta">
       <wsdl:input wsaw:Action="http://tempuri.org/IService/OK_Sta" message="tns:IService_OK_Sta_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService/OK_StaResponse" message="tns:IService_OK_Sta_OutputMessage" />
@@ -70,6 +115,22 @@
     <wsdl:operation name="OK_Sta_ForNew">
       <wsdl:input wsaw:Action="http://tempuri.org/IService/OK_Sta_ForNew" message="tns:IService_OK_Sta_ForNew_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService/OK_Sta_ForNewResponse" message="tns:IService_OK_Sta_ForNew_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="OK_Sta_Graph">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService/OK_Sta_Graph" message="tns:IService_OK_Sta_Graph_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService/OK_Sta_GraphResponse" message="tns:IService_OK_Sta_Graph_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="OK_UpdateComm">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService/OK_UpdateComm" message="tns:IService_OK_UpdateComm_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService/OK_UpdateCommResponse" message="tns:IService_OK_UpdateComm_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Send_SMS">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService/Send_SMS" message="tns:IService_Send_SMS_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService/Send_SMSResponse" message="tns:IService_Send_SMS_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="zzz_tester">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService/zzz_tester" message="tns:IService_zzz_tester_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService/zzz_testerResponse" message="tns:IService_zzz_tester_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IService" type="tns:IService">
@@ -92,6 +153,24 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="VKontakte_Sta_Graph">
+      <soap:operation soapAction="http://tempuri.org/IService/VKontakte_Sta_Graph" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="VK_UpdateComm">
+      <soap:operation soapAction="http://tempuri.org/IService/VK_UpdateComm" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="OK_Sta">
       <soap:operation soapAction="http://tempuri.org/IService/OK_Sta" style="document" />
       <wsdl:input>
@@ -103,6 +182,42 @@
     </wsdl:operation>
     <wsdl:operation name="OK_Sta_ForNew">
       <soap:operation soapAction="http://tempuri.org/IService/OK_Sta_ForNew" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OK_Sta_Graph">
+      <soap:operation soapAction="http://tempuri.org/IService/OK_Sta_Graph" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OK_UpdateComm">
+      <soap:operation soapAction="http://tempuri.org/IService/OK_UpdateComm" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Send_SMS">
+      <soap:operation soapAction="http://tempuri.org/IService/Send_SMS" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="zzz_tester">
+      <soap:operation soapAction="http://tempuri.org/IService/zzz_tester" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -132,6 +247,24 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="VKontakte_Sta_Graph">
+      <soap:operation soapAction="http://tempuri.org/IService/VKontakte_Sta_Graph" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="VK_UpdateComm">
+      <soap:operation soapAction="http://tempuri.org/IService/VK_UpdateComm" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="OK_Sta">
       <soap:operation soapAction="http://tempuri.org/IService/OK_Sta" style="document" />
       <wsdl:input>
@@ -143,6 +276,42 @@
     </wsdl:operation>
     <wsdl:operation name="OK_Sta_ForNew">
       <soap:operation soapAction="http://tempuri.org/IService/OK_Sta_ForNew" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OK_Sta_Graph">
+      <soap:operation soapAction="http://tempuri.org/IService/OK_Sta_Graph" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OK_UpdateComm">
+      <soap:operation soapAction="http://tempuri.org/IService/OK_UpdateComm" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Send_SMS">
+      <soap:operation soapAction="http://tempuri.org/IService/Send_SMS" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="zzz_tester">
+      <soap:operation soapAction="http://tempuri.org/IService/zzz_tester" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

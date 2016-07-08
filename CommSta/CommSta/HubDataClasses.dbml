@@ -51,6 +51,25 @@
       <Column Name="link" Type="System.String" DbType="VarChar(512)" CanBeNull="true" />
     </ElementType>
   </Function>
+  <Function Name="dbo.Times_Save" Method="Times_Save">
+    <Parameter Name="sex_graph" Type="System.String" DbType="VarChar(MAX)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SexComm_Save" Method="SexComm_Save">
+    <Parameter Name="groupID" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="areaCommID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="sex" Type="System.Int16" DbType="SmallInt" />
+    <Parameter Name="other" Type="System.Int32" DbType="Int" />
+    <Parameter Name="under18" Type="System.Int32" DbType="Int" />
+    <Parameter Name="from18to21" Type="System.Int32" DbType="Int" />
+    <Parameter Name="from21to24" Type="System.Int32" DbType="Int" />
+    <Parameter Name="from24to27" Type="System.Int32" DbType="Int" />
+    <Parameter Name="from27to30" Type="System.Int32" DbType="Int" />
+    <Parameter Name="from30to35" Type="System.Int32" DbType="Int" />
+    <Parameter Name="from35to45" Type="System.Int32" DbType="Int" />
+    <Parameter Name="over45" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
   <Function Name="dbo.StaCommVKGraph_Save" Method="StaCommVKGraph_Save">
     <Parameter Name="groupID" Type="System.Int64" DbType="BigInt" />
     <Parameter Name="feedback_graph" Type="System.String" DbType="VarChar(MAX)" />
@@ -78,6 +97,15 @@
     <Parameter Name="photoLinkBig" Type="System.String" DbType="VarChar(512)" />
     <Parameter Name="areaCommCode" Type="System.String" DbType="VarChar(32)" />
     <Parameter Name="members_count" Type="System.Int32" DbType="Int" />
+    <Parameter Name="screenName" Type="System.String" DbType="VarChar(512)" />
     <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.Comm_ReadForStaVKGraph" Method="Comm_ReadForStaVKGraph">
+    <Parameter Name="topCount" Type="System.Int32" DbType="Int" />
+    <ElementType Name="Comm_ReadForStaVKGraphResult">
+      <Column Name="groupID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="link" Type="System.String" DbType="VarChar(512)" CanBeNull="true" />
+      <Column Name="requestDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </ElementType>
   </Function>
 </Database>

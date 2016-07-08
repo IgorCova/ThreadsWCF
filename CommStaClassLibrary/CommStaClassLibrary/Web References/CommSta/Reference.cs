@@ -33,9 +33,21 @@ namespace CommStaClassLibrary.CommSta {
         
         private System.Threading.SendOrPostCallback VKontakte_Sta_ForNewOperationCompleted;
         
+        private System.Threading.SendOrPostCallback VKontakte_Sta_GraphOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback VK_UpdateCommOperationCompleted;
+        
         private System.Threading.SendOrPostCallback OK_StaOperationCompleted;
         
         private System.Threading.SendOrPostCallback OK_Sta_ForNewOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback OK_Sta_GraphOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback OK_UpdateCommOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback Send_SMSOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback zzz_testerOperationCompleted;
         
         private bool useDefaultCredentialsSetExplicitly;
         
@@ -82,10 +94,28 @@ namespace CommStaClassLibrary.CommSta {
         public event VKontakte_Sta_ForNewCompletedEventHandler VKontakte_Sta_ForNewCompleted;
         
         /// <remarks/>
+        public event VKontakte_Sta_GraphCompletedEventHandler VKontakte_Sta_GraphCompleted;
+        
+        /// <remarks/>
+        public event VK_UpdateCommCompletedEventHandler VK_UpdateCommCompleted;
+        
+        /// <remarks/>
         public event OK_StaCompletedEventHandler OK_StaCompleted;
         
         /// <remarks/>
         public event OK_Sta_ForNewCompletedEventHandler OK_Sta_ForNewCompleted;
+        
+        /// <remarks/>
+        public event OK_Sta_GraphCompletedEventHandler OK_Sta_GraphCompleted;
+        
+        /// <remarks/>
+        public event OK_UpdateCommCompletedEventHandler OK_UpdateCommCompleted;
+        
+        /// <remarks/>
+        public event Send_SMSCompletedEventHandler Send_SMSCompleted;
+        
+        /// <remarks/>
+        public event zzz_testerCompletedEventHandler zzz_testerCompleted;
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IService/VKontakte_Sta", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
@@ -136,6 +166,58 @@ namespace CommStaClassLibrary.CommSta {
             if ((this.VKontakte_Sta_ForNewCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.VKontakte_Sta_ForNewCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IService/VKontakte_Sta_Graph", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public void VKontakte_Sta_Graph() {
+            this.Invoke("VKontakte_Sta_Graph", new object[0]);
+        }
+        
+        /// <remarks/>
+        public void VKontakte_Sta_GraphAsync() {
+            this.VKontakte_Sta_GraphAsync(null);
+        }
+        
+        /// <remarks/>
+        public void VKontakte_Sta_GraphAsync(object userState) {
+            if ((this.VKontakte_Sta_GraphOperationCompleted == null)) {
+                this.VKontakte_Sta_GraphOperationCompleted = new System.Threading.SendOrPostCallback(this.OnVKontakte_Sta_GraphOperationCompleted);
+            }
+            this.InvokeAsync("VKontakte_Sta_Graph", new object[0], this.VKontakte_Sta_GraphOperationCompleted, userState);
+        }
+        
+        private void OnVKontakte_Sta_GraphOperationCompleted(object arg) {
+            if ((this.VKontakte_Sta_GraphCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.VKontakte_Sta_GraphCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IService/VK_UpdateComm", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public void VK_UpdateComm() {
+            this.Invoke("VK_UpdateComm", new object[0]);
+        }
+        
+        /// <remarks/>
+        public void VK_UpdateCommAsync() {
+            this.VK_UpdateCommAsync(null);
+        }
+        
+        /// <remarks/>
+        public void VK_UpdateCommAsync(object userState) {
+            if ((this.VK_UpdateCommOperationCompleted == null)) {
+                this.VK_UpdateCommOperationCompleted = new System.Threading.SendOrPostCallback(this.OnVK_UpdateCommOperationCompleted);
+            }
+            this.InvokeAsync("VK_UpdateComm", new object[0], this.VK_UpdateCommOperationCompleted, userState);
+        }
+        
+        private void OnVK_UpdateCommOperationCompleted(object arg) {
+            if ((this.VK_UpdateCommCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.VK_UpdateCommCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -192,6 +274,114 @@ namespace CommStaClassLibrary.CommSta {
         }
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IService/OK_Sta_Graph", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public void OK_Sta_Graph() {
+            this.Invoke("OK_Sta_Graph", new object[0]);
+        }
+        
+        /// <remarks/>
+        public void OK_Sta_GraphAsync() {
+            this.OK_Sta_GraphAsync(null);
+        }
+        
+        /// <remarks/>
+        public void OK_Sta_GraphAsync(object userState) {
+            if ((this.OK_Sta_GraphOperationCompleted == null)) {
+                this.OK_Sta_GraphOperationCompleted = new System.Threading.SendOrPostCallback(this.OnOK_Sta_GraphOperationCompleted);
+            }
+            this.InvokeAsync("OK_Sta_Graph", new object[0], this.OK_Sta_GraphOperationCompleted, userState);
+        }
+        
+        private void OnOK_Sta_GraphOperationCompleted(object arg) {
+            if ((this.OK_Sta_GraphCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.OK_Sta_GraphCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IService/OK_UpdateComm", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public void OK_UpdateComm() {
+            this.Invoke("OK_UpdateComm", new object[0]);
+        }
+        
+        /// <remarks/>
+        public void OK_UpdateCommAsync() {
+            this.OK_UpdateCommAsync(null);
+        }
+        
+        /// <remarks/>
+        public void OK_UpdateCommAsync(object userState) {
+            if ((this.OK_UpdateCommOperationCompleted == null)) {
+                this.OK_UpdateCommOperationCompleted = new System.Threading.SendOrPostCallback(this.OnOK_UpdateCommOperationCompleted);
+            }
+            this.InvokeAsync("OK_UpdateComm", new object[0], this.OK_UpdateCommOperationCompleted, userState);
+        }
+        
+        private void OnOK_UpdateCommOperationCompleted(object arg) {
+            if ((this.OK_UpdateCommCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.OK_UpdateCommCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IService/Send_SMS", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public void Send_SMS([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] string message, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] string phone) {
+            this.Invoke("Send_SMS", new object[] {
+                        message,
+                        phone});
+        }
+        
+        /// <remarks/>
+        public void Send_SMSAsync(string message, string phone) {
+            this.Send_SMSAsync(message, phone, null);
+        }
+        
+        /// <remarks/>
+        public void Send_SMSAsync(string message, string phone, object userState) {
+            if ((this.Send_SMSOperationCompleted == null)) {
+                this.Send_SMSOperationCompleted = new System.Threading.SendOrPostCallback(this.OnSend_SMSOperationCompleted);
+            }
+            this.InvokeAsync("Send_SMS", new object[] {
+                        message,
+                        phone}, this.Send_SMSOperationCompleted, userState);
+        }
+        
+        private void OnSend_SMSOperationCompleted(object arg) {
+            if ((this.Send_SMSCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.Send_SMSCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IService/zzz_tester", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public void zzz_tester() {
+            this.Invoke("zzz_tester", new object[0]);
+        }
+        
+        /// <remarks/>
+        public void zzz_testerAsync() {
+            this.zzz_testerAsync(null);
+        }
+        
+        /// <remarks/>
+        public void zzz_testerAsync(object userState) {
+            if ((this.zzz_testerOperationCompleted == null)) {
+                this.zzz_testerOperationCompleted = new System.Threading.SendOrPostCallback(this.Onzzz_testerOperationCompleted);
+            }
+            this.InvokeAsync("zzz_tester", new object[0], this.zzz_testerOperationCompleted, userState);
+        }
+        
+        private void Onzzz_testerOperationCompleted(object arg) {
+            if ((this.zzz_testerCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.zzz_testerCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         public new void CancelAsync(object userState) {
             base.CancelAsync(userState);
         }
@@ -222,9 +412,21 @@ namespace CommStaClassLibrary.CommSta {
         
         private System.Threading.SendOrPostCallback VKontakte_Sta_ForNewOperationCompleted;
         
+        private System.Threading.SendOrPostCallback VKontakte_Sta_GraphOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback VK_UpdateCommOperationCompleted;
+        
         private System.Threading.SendOrPostCallback OK_StaOperationCompleted;
         
         private System.Threading.SendOrPostCallback OK_Sta_ForNewOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback OK_Sta_GraphOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback OK_UpdateCommOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback Send_SMSOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback zzz_testerOperationCompleted;
         
         private bool useDefaultCredentialsSetExplicitly;
         
@@ -271,10 +473,28 @@ namespace CommStaClassLibrary.CommSta {
         public event VKontakte_Sta_ForNewCompletedEventHandler VKontakte_Sta_ForNewCompleted;
         
         /// <remarks/>
+        public event VKontakte_Sta_GraphCompletedEventHandler VKontakte_Sta_GraphCompleted;
+        
+        /// <remarks/>
+        public event VK_UpdateCommCompletedEventHandler VK_UpdateCommCompleted;
+        
+        /// <remarks/>
         public event OK_StaCompletedEventHandler OK_StaCompleted;
         
         /// <remarks/>
         public event OK_Sta_ForNewCompletedEventHandler OK_Sta_ForNewCompleted;
+        
+        /// <remarks/>
+        public event OK_Sta_GraphCompletedEventHandler OK_Sta_GraphCompleted;
+        
+        /// <remarks/>
+        public event OK_UpdateCommCompletedEventHandler OK_UpdateCommCompleted;
+        
+        /// <remarks/>
+        public event Send_SMSCompletedEventHandler Send_SMSCompleted;
+        
+        /// <remarks/>
+        public event zzz_testerCompletedEventHandler zzz_testerCompleted;
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IService/VKontakte_Sta", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
@@ -325,6 +545,58 @@ namespace CommStaClassLibrary.CommSta {
             if ((this.VKontakte_Sta_ForNewCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.VKontakte_Sta_ForNewCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IService/VKontakte_Sta_Graph", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public void VKontakte_Sta_Graph() {
+            this.Invoke("VKontakte_Sta_Graph", new object[0]);
+        }
+        
+        /// <remarks/>
+        public void VKontakte_Sta_GraphAsync() {
+            this.VKontakte_Sta_GraphAsync(null);
+        }
+        
+        /// <remarks/>
+        public void VKontakte_Sta_GraphAsync(object userState) {
+            if ((this.VKontakte_Sta_GraphOperationCompleted == null)) {
+                this.VKontakte_Sta_GraphOperationCompleted = new System.Threading.SendOrPostCallback(this.OnVKontakte_Sta_GraphOperationCompleted);
+            }
+            this.InvokeAsync("VKontakte_Sta_Graph", new object[0], this.VKontakte_Sta_GraphOperationCompleted, userState);
+        }
+        
+        private void OnVKontakte_Sta_GraphOperationCompleted(object arg) {
+            if ((this.VKontakte_Sta_GraphCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.VKontakte_Sta_GraphCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IService/VK_UpdateComm", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public void VK_UpdateComm() {
+            this.Invoke("VK_UpdateComm", new object[0]);
+        }
+        
+        /// <remarks/>
+        public void VK_UpdateCommAsync() {
+            this.VK_UpdateCommAsync(null);
+        }
+        
+        /// <remarks/>
+        public void VK_UpdateCommAsync(object userState) {
+            if ((this.VK_UpdateCommOperationCompleted == null)) {
+                this.VK_UpdateCommOperationCompleted = new System.Threading.SendOrPostCallback(this.OnVK_UpdateCommOperationCompleted);
+            }
+            this.InvokeAsync("VK_UpdateComm", new object[0], this.VK_UpdateCommOperationCompleted, userState);
+        }
+        
+        private void OnVK_UpdateCommOperationCompleted(object arg) {
+            if ((this.VK_UpdateCommCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.VK_UpdateCommCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -381,6 +653,114 @@ namespace CommStaClassLibrary.CommSta {
         }
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IService/OK_Sta_Graph", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public void OK_Sta_Graph() {
+            this.Invoke("OK_Sta_Graph", new object[0]);
+        }
+        
+        /// <remarks/>
+        public void OK_Sta_GraphAsync() {
+            this.OK_Sta_GraphAsync(null);
+        }
+        
+        /// <remarks/>
+        public void OK_Sta_GraphAsync(object userState) {
+            if ((this.OK_Sta_GraphOperationCompleted == null)) {
+                this.OK_Sta_GraphOperationCompleted = new System.Threading.SendOrPostCallback(this.OnOK_Sta_GraphOperationCompleted);
+            }
+            this.InvokeAsync("OK_Sta_Graph", new object[0], this.OK_Sta_GraphOperationCompleted, userState);
+        }
+        
+        private void OnOK_Sta_GraphOperationCompleted(object arg) {
+            if ((this.OK_Sta_GraphCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.OK_Sta_GraphCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IService/OK_UpdateComm", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public void OK_UpdateComm() {
+            this.Invoke("OK_UpdateComm", new object[0]);
+        }
+        
+        /// <remarks/>
+        public void OK_UpdateCommAsync() {
+            this.OK_UpdateCommAsync(null);
+        }
+        
+        /// <remarks/>
+        public void OK_UpdateCommAsync(object userState) {
+            if ((this.OK_UpdateCommOperationCompleted == null)) {
+                this.OK_UpdateCommOperationCompleted = new System.Threading.SendOrPostCallback(this.OnOK_UpdateCommOperationCompleted);
+            }
+            this.InvokeAsync("OK_UpdateComm", new object[0], this.OK_UpdateCommOperationCompleted, userState);
+        }
+        
+        private void OnOK_UpdateCommOperationCompleted(object arg) {
+            if ((this.OK_UpdateCommCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.OK_UpdateCommCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IService/Send_SMS", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public void Send_SMS([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] string message, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] string phone) {
+            this.Invoke("Send_SMS", new object[] {
+                        message,
+                        phone});
+        }
+        
+        /// <remarks/>
+        public void Send_SMSAsync(string message, string phone) {
+            this.Send_SMSAsync(message, phone, null);
+        }
+        
+        /// <remarks/>
+        public void Send_SMSAsync(string message, string phone, object userState) {
+            if ((this.Send_SMSOperationCompleted == null)) {
+                this.Send_SMSOperationCompleted = new System.Threading.SendOrPostCallback(this.OnSend_SMSOperationCompleted);
+            }
+            this.InvokeAsync("Send_SMS", new object[] {
+                        message,
+                        phone}, this.Send_SMSOperationCompleted, userState);
+        }
+        
+        private void OnSend_SMSOperationCompleted(object arg) {
+            if ((this.Send_SMSCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.Send_SMSCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IService/zzz_tester", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public void zzz_tester() {
+            this.Invoke("zzz_tester", new object[0]);
+        }
+        
+        /// <remarks/>
+        public void zzz_testerAsync() {
+            this.zzz_testerAsync(null);
+        }
+        
+        /// <remarks/>
+        public void zzz_testerAsync(object userState) {
+            if ((this.zzz_testerOperationCompleted == null)) {
+                this.zzz_testerOperationCompleted = new System.Threading.SendOrPostCallback(this.Onzzz_testerOperationCompleted);
+            }
+            this.InvokeAsync("zzz_tester", new object[0], this.zzz_testerOperationCompleted, userState);
+        }
+        
+        private void Onzzz_testerOperationCompleted(object arg) {
+            if ((this.zzz_testerCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.zzz_testerCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         public new void CancelAsync(object userState) {
             base.CancelAsync(userState);
         }
@@ -409,11 +789,35 @@ namespace CommStaClassLibrary.CommSta {
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")]
+    public delegate void VKontakte_Sta_GraphCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")]
+    public delegate void VK_UpdateCommCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")]
     public delegate void OK_StaCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")]
     public delegate void OK_Sta_ForNewCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")]
+    public delegate void OK_Sta_GraphCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")]
+    public delegate void OK_UpdateCommCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")]
+    public delegate void Send_SMSCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")]
+    public delegate void zzz_testerCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
 }
 
 #pragma warning restore 1591

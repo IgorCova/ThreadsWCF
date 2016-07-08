@@ -42,6 +42,10 @@ namespace CommHub
         [OperationContract]
         [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "Comm_Save")]
         wsResponse Comm_Save(wsRequest<Comm_Save_Req> req);
+
+        [OperationContract]
+        [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "Comm_Read")]
+        wsResponse<Comm_Read_Resp> Comm_Read(wsRequest<InstanceID> req);
         #endregion
 
         #region StaComm

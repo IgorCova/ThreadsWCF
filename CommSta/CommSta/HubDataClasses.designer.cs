@@ -97,6 +97,20 @@ namespace CommSta
 			return ((ISingleResult<Comm_ReadForStaResult>)(result.ReturnValue));
 		}
 		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.Times_Save")]
+		public int Times_Save([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(MAX)")] string sex_graph)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), sex_graph);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SexComm_Save")]
+		public int SexComm_Save([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> groupID, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> areaCommID, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="SmallInt")] System.Nullable<short> sex, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> other, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> under18, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> from18to21, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> from21to24, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> from24to27, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> from27to30, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> from30to35, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> from35to45, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> over45)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), groupID, areaCommID, sex, other, under18, from18to21, from21to24, from24to27, from27to30, from30to35, from35to45, over45);
+			return ((int)(result.ReturnValue));
+		}
+		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.StaCommVKGraph_Save")]
 		public int StaCommVKGraph_Save([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> groupID, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(MAX)")] string feedback_graph, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(MAX)")] string activity_graph, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(MAX)")] string members_graph)
 		{
@@ -119,10 +133,17 @@ namespace CommSta
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.Comm_Set")]
-		public int Comm_Set([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(512)")] string link, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> groupID, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(256)")] string name, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(512)")] string photoLink, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(512)")] string photoLinkBig, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(32)")] string areaCommCode, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> members_count)
+		public int Comm_Set([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(512)")] string link, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> groupID, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(256)")] string name, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(512)")] string photoLink, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(512)")] string photoLinkBig, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(32)")] string areaCommCode, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> members_count, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(512)")] string screenName)
 		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), link, groupID, name, photoLink, photoLinkBig, areaCommCode, members_count);
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), link, groupID, name, photoLink, photoLinkBig, areaCommCode, members_count, screenName);
 			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.Comm_ReadForStaVKGraph")]
+		public ISingleResult<Comm_ReadForStaVKGraphResult> Comm_ReadForStaVKGraph([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> topCount)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), topCount);
+			return ((ISingleResult<Comm_ReadForStaVKGraphResult>)(result.ReturnValue));
 		}
 	}
 	
@@ -165,6 +186,68 @@ namespace CommSta
 				if ((this._link != value))
 				{
 					this._link = value;
+				}
+			}
+		}
+	}
+	
+	public partial class Comm_ReadForStaVKGraphResult
+	{
+		
+		private System.Nullable<long> _groupID;
+		
+		private string _link;
+		
+		private System.Nullable<System.DateTime> _requestDate;
+		
+		public Comm_ReadForStaVKGraphResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_groupID", DbType="BigInt")]
+		public System.Nullable<long> groupID
+		{
+			get
+			{
+				return this._groupID;
+			}
+			set
+			{
+				if ((this._groupID != value))
+				{
+					this._groupID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_link", DbType="VarChar(512)")]
+		public string link
+		{
+			get
+			{
+				return this._link;
+			}
+			set
+			{
+				if ((this._link != value))
+				{
+					this._link = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_requestDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> requestDate
+		{
+			get
+			{
+				return this._requestDate;
+			}
+			set
+			{
+				if ((this._requestDate != value))
+				{
+					this._requestDate = value;
 				}
 			}
 		}

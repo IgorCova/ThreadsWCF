@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Net;
 
 namespace Threads
 {
@@ -738,8 +740,7 @@ namespace Threads
                 results.ErrText = "SessionReq_Save: No Params";
                 return results;
             }
-
-            /*
+            
             try
             {
                   string message = string.Format("Comm+code+confirm:+{0}", code);
@@ -752,7 +753,7 @@ namespace Threads
             {
                 results.ErrCode = 40;
                 results.ErrText = string.Format("Send sms {0}, error: {1}", Phone, e.Message);
-            }*/
+            }
 
             try
             {

@@ -99,6 +99,55 @@ namespace CommHub.wsClasses
         public long groupID { get; set; }
 
     }
+
+    [DataContract]
+    public class wsCommInstance {
+        [DataMember]
+        public long id { get; set; }
+
+        [DataMember]
+        public string name { get; set; }
+
+        [DataMember]
+        public string subjectCommID_name { get; set; }
+
+        [DataMember]
+        public string areaCommID_code { get; set; }
+
+        [DataMember]
+        public string adminCommID_Name { get; set; }
+
+        [DataMember]
+        public string adminCommID_linkFB { get; set; }
+
+        [DataMember]
+        public string link { get; set; }
+
+        [DataMember]
+        public string photoLink { get; set; }
+
+        [DataMember]
+        public string photoLinkBig { get; set; }
+
+        [DataMember]
+        public long groupID { get; set; }
+
+        [DataMember]
+        public long countMembers { get; set; }
+
+        [DataMember]
+        public long countWoman { get; set; }
+
+        [DataMember]
+        public long countWomanPercent { get; set; }
+
+        [DataMember]
+        public long countMen { get; set; }
+
+        [DataMember]
+        public long countMenPercent { get; set; }
+
+    }
     #endregion
 
     #region SubjectComm
@@ -161,7 +210,12 @@ namespace CommHub.wsClasses
         public int membersDifPercent { get; set; }
 
         [DataMember]
+        public long increase { get; set; }
+        [DataMember]
         public long increaseNew { get; set; }
+
+        [DataMember]
+        public long increaseOld { get; set; }
 
         [DataMember]
         public long increaseDifPercent { get; set; }
@@ -490,9 +544,14 @@ namespace CommHub.wsClasses
         [DataMember]
         public long members { get; set; }
 
-      
+
+        [DataMember]
+        public long increase { get; set; }
         [DataMember]
         public long increaseNew { get; set; }
+
+        [DataMember]
+        public long increaseOld { get; set; }
 
         [DataMember]
         public long increaseDifPercent { get; set; }
