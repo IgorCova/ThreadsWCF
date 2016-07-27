@@ -120,5 +120,11 @@ namespace CommHub
         [DataMember]
         public long commID;
     }
-    
+
+    [DataContract]
+    public class ProjectHub_Save_Req
+    {
+        [DataMember]
+        public wsProject project { get; set; }
+    }
 }

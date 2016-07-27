@@ -6,10 +6,14 @@ namespace CommHub.wsClasses
     #region AdminComm
     [DataContract]
     public class wsAdminComm : wsPerson { }
+    #endregion
 
+    #region wsOwnerHub
     [DataContract]
     public class wsOwnerHub : wsPerson { }
+    #endregion
 
+    #region wsPerson
     [DataContract]
     public class wsPerson
     {
@@ -28,7 +32,9 @@ namespace CommHub.wsClasses
         [DataMember]
         public string linkFB { get; set; }
     }
+    #endregion
 
+    #region wsAdminComm_Del
     public class wsAdminComm_Del
     {
         [DataMember]
@@ -67,7 +73,9 @@ namespace CommHub.wsClasses
         [DataMember]
         public string adminCommID_linkFB { get; set; }
     }
+    #endregion 
 
+    #region wsComm
     [DataContract]
     public class wsComm
     {
@@ -99,9 +107,12 @@ namespace CommHub.wsClasses
         public long groupID { get; set; }
 
     }
+    #endregion
 
+    #region wsCommInstance
     [DataContract]
-    public class wsCommInstance {
+    public class wsCommInstance
+    {
         [DataMember]
         public long id { get; set; }
 
@@ -169,6 +180,12 @@ namespace CommHub.wsClasses
     [DataContract]
     public class wsSta
     {
+        [DataMember]
+        public long projectHub_id { get; set; }
+
+        [DataMember]
+        public string projectHub_name { get; set; }
+
         [DataMember]
         public long comm_id { get; set; }
 
@@ -342,13 +359,14 @@ namespace CommHub.wsClasses
 
         [DataMember]
         public long resharesNew { get; set; }
-        
+
         [DataMember]
         public int resharesDifPercent { get; set; }
 
     }
     #endregion
 
+    #region wsGraph
     public class wsGraph
     {
         [DataMember]
@@ -379,10 +397,12 @@ namespace CommHub.wsClasses
         public bool isLast { get; set; }
 
         [DataMember]
-        public bool isFuture { get; set; }        
+        public bool isFuture { get; set; }
     }
+    #endregion
 
-   [DataContract]
+    #region wsStaComm
+    [DataContract]
     public class wsStaComm
     {
         [DataMember]
@@ -508,11 +528,95 @@ namespace CommHub.wsClasses
         [DataMember]
         public decimal repostsNewPercent { get; set; }
     }
+    #endregion
 
+    #region wsSta
+    [DataContract]
+    public class wsStaProject
+    {
+        [DataMember]
+        public long projectHub_id { get; set; }
+
+        [DataMember]
+        public string projectHub_name { get; set; }
+
+        [DataMember]
+        public long comm_id { get; set; }
+
+        [DataMember]
+        public string comm_name { get; set; }
+
+        [DataMember]
+        public string comm_photoLink { get; set; }
+
+        [DataMember]
+        public string comm_photoLinkBig { get; set; }
+
+        [DataMember]
+        public long comm_groupID { get; set; }
+
+        [DataMember]
+        public string subjectComm_name { get; set; }
+
+        [DataMember]
+        public string areaComm_code { get; set; }
+
+        [DataMember]
+        public string adminComm_fullName { get; set; }
+
+        [DataMember]
+        public string adminComm_linkFB { get; set; }
+
+        [DataMember]
+        public long members { get; set; }
+
+        [DataMember]
+        public long increase { get; set; }
+        [DataMember]
+        public long increaseNew { get; set; }
+
+        [DataMember]
+        public long increaseOld { get; set; }
+
+        [DataMember]
+        public long increaseDifPercent { get; set; }
+
+        [DataMember]
+        public long reachNew { get; set; }
+
+        [DataMember]
+        public int reachDifPercent { get; set; }
+
+        [DataMember]
+        public long postCountNew { get; set; }
+
+        [DataMember]
+        public int postCountDifPercent { get; set; }
+
+        [DataMember]
+        public long likesNew { get; set; }
+
+        [DataMember]
+        public int likesDifPercent { get; set; }
+
+        [DataMember]
+        public long commentsNew { get; set; }
+
+        [DataMember]
+        public int commentsDifPercent { get; set; }
+
+        [DataMember]
+        public long repostsNew { get; set; }
+
+        [DataMember]
+        public int repostsDifPercent { get; set; }
+    }
+    #endregion
 
     #region wsStaOK
     [DataContract]
-    public class wsStaOK {
+    public class wsStaOK
+    {
         [DataMember]
         public long comm_id { get; set; }
 
@@ -558,10 +662,10 @@ namespace CommHub.wsClasses
 
         [DataMember]
         public long reachNew { get; set; }
-      
+
         [DataMember]
         public int reachDifPercent { get; set; }
-        
+
         [DataMember]
         public long postCountNew { get; set; }
 
@@ -572,19 +676,31 @@ namespace CommHub.wsClasses
         public long likesNew { get; set; }
 
         [DataMember]
-        public int likesDifPercent { get; set; }      
+        public int likesDifPercent { get; set; }
 
         [DataMember]
         public long commentsNew { get; set; }
-       
+
         [DataMember]
         public int commentsDifPercent { get; set; }
-       
+
         [DataMember]
         public long resharesNew { get; set; }
 
         [DataMember]
         public int resharesDifPercent { get; set; }
+    }
+    #endregion
+
+    #region wsProject
+    [DataContract]
+    public class wsProject
+    {
+        [DataMember]
+        public long id { get; set; }
+
+        [DataMember]
+        public string name { get; set; }
     }
     #endregion
 

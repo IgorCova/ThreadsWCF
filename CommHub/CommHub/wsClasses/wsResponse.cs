@@ -33,21 +33,23 @@ namespace CommHub
 
     public class SubjectComm_Save_Resp : wsSubjectComm { }
 
-    public class Comm_ReadDict_Resp: List<wsComm_Extended> { }
+    public class Comm_ReadDict_Resp : List<wsComm_Extended> { }
 
     public class Comm_Read_Resp : wsCommInstance { }
 
-    public class AdminComm_Del_Resp: wsAdminComm_Del { }
+    public class AdminComm_Del_Resp : wsAdminComm_Del { }
 
     public class OwnerHub_Read_Resp : wsOwnerHub { }
 
     public class StaCommVKDaily_ReportDay_Resp : List<wsStaComm> { }
 
     public class StaCommVK_Report_Resp : List<wsSta> { }
+    public class StaComm_Report_Resp : List<wsStaProject> { }
 
     public class StaCommOK_Report_Resp : List<wsStaOK> { }
-    
-    public class StaCommVKGraph_Report_Resp : List<wsGraph> { } 
-    
+
+    public class StaCommVKGraph_Report_Resp : List<wsGraph> { }
+
+    public class ProjectHub_ReadDict_Resp : List<wsProject> { }
 
 }

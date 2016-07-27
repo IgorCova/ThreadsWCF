@@ -19,7 +19,7 @@ namespace CommSta {
     public class CommStaService : IService {
 
         public void zzz_tester() {
-        
+            vk_getMembers(51080434);
         }
 
         #region OK_Sta_Graph
