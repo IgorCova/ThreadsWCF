@@ -399,7 +399,10 @@ namespace CommHub
                         ownerHubID_linkFB = itm.ownerHubID_linkFB,
 
                         subjectCommID = itm.subjectCommID ?? 0,
-                        subjectCommID_name = itm.subjectCommID_name
+                        subjectCommID_name = itm.subjectCommID_name,
+
+                        projectHub_id = itm.projectHub_id,
+                        projectHub_name = itm.projectHub_name
                     });
                 };
 
@@ -500,6 +503,7 @@ namespace CommHub
             string name;
             long adminCommID;
             long subjectCommID;
+            long projectHub_id;
             string link;
 
             if (req != null)
@@ -510,6 +514,7 @@ namespace CommHub
                 adminCommID = comm.adminCommID;
                 subjectCommID = comm.subjectCommID;
                 link = comm.link;
+                projectHub_id = comm.projectHub_id;
             }
             else
             {
@@ -532,12 +537,12 @@ namespace CommHub
                 int areaID = 1;
                 areaID = (link.Contains("vk.com")) ? 1 : 2;
 
-                dc.Comm_Save(id, ownerHubID, subjectCommID, name, adminCommID, link, areaID);
+                dc.Comm_Save(id, ownerHubID, subjectCommID, name, adminCommID, link, areaID, projectHub_id);
             }
             catch (Exception e)
             {
                 errCode = 101;
-                string param = string.Format("id: {0}, ownerHubID: {1}, subjectCommID: {2}, name: {4}, adminCommID: {5}, link: {6}", id, ownerHubID, subjectCommID, name, adminCommID, link);
+                string param = string.Format("id: {0}, ownerHubID: {1}, subjectCommID: {2}, name: {4}, adminCommID: {5}, link: {6}, projectHub_id: {7}", id, ownerHubID, subjectCommID, name, adminCommID, link, projectHub_id);
                 Tools.ErrorLog_Save(req, param, funcName, e.Message);
 
                 results.ErrCode = errCode;
@@ -677,7 +682,7 @@ namespace CommHub
             {
                 wsProject project = req.Params.project;
                 id = project.id;
-                name = project.name;              
+                name = project.name;
             }
             else
             {
@@ -695,7 +700,7 @@ namespace CommHub
                 foreach (GetOwnerHubIDResult own in dc.GetOwnerHubID(req.Session))
                 {
                     ownerHubID = own.ownerHubID;
-                }                              
+                }
 
                 dc.ProjectHub_Save(id, ownerHubID, name);
             }
@@ -875,6 +880,8 @@ namespace CommHub
         }
         #endregion
 
+        #region StaComm
+
         #region StaCommDaily_Report
         public wsResponse<StaComm_Report_Resp> StaCommDaily_Report(wsRequest<StaCommDaily_Report_Req> req)
         {
@@ -963,7 +970,99 @@ namespace CommHub
         }
         #endregion
 
-        #region StaComm 
+        #region StaCommWeekly_Report
+        public wsResponse<StaComm_Report_Resp> StaCommWeekly_Report(wsRequest req)
+        {
+            var funcName = "StaCommWeekly_Report";
+            var errCode = 0;
+            var errorText = "";
+
+            wsResponse<StaComm_Report_Resp> results = new wsResponse<StaComm_Report_Resp>();
+            StaComm_Report_Resp resp = new StaComm_Report_Resp();
+            DataHubDataContext dc = new DataHubDataContext();
+            long ownerHubID = 0;
+
+            if (req == null)
+            {
+                errCode = 200;
+                errorText = Tools.GetErrorTextByCode(errCode);
+                Tools.ErrorLog_Save(req, "", funcName, errorText);
+
+                results.ErrText = string.Format("{0}\n{1}", funcName, errorText);
+                results.ErrCode = errCode;
+                return results;
+            }
+
+            try
+            {
+                foreach (GetOwnerHubIDResult own in dc.GetOwnerHubID(req.Session))
+                {
+                    ownerHubID = own.ownerHubID;
+                }
+
+                foreach (StaCommWeekly_ReportResult itm in dc.StaCommWeekly_Report(ownerHubID))
+                {
+                    resp.Add(new wsStaProject()
+                    {
+                        projectHub_id = itm.projectHub_id,
+                        projectHub_name = itm.projectHub_name,
+                        comm_id = itm.comm_id,
+                        comm_name = itm.comm_name,
+                        comm_photoLink = itm.comm_photoLink,
+                        comm_photoLinkBig = itm.comm_photoLinkBig,
+                        comm_groupID = itm.comm_groupID ?? 0,
+
+                        subjectComm_name = itm.subjectComm_name,
+                        areaComm_code = itm.areaComm_code,
+
+                        adminComm_fullName = itm.adminComm_fullName,
+                        adminComm_linkFB = itm.adminComm_linkFB,
+
+                        members = itm.members ?? 0,
+
+                        increase = itm.increase ?? 0,
+                        increaseNew = itm.increaseNew ?? 0,
+                        increaseOld = itm.increaseOld ?? 0,
+                        increaseDifPercent = itm.increaseDifPercent ?? 0,
+
+                        reachNew = itm.reachNew ?? 0,
+                        reachDifPercent = itm.reachDifPercent ?? 0,
+
+                        postCountNew = itm.postCountNew ?? 0,
+                        postCountDifPercent = itm.postCountDifPercent ?? 0,
+
+                        likesNew = itm.likesNew ?? 0,
+                        likesDifPercent = itm.likesDifPercent ?? 0,
+
+                        commentsNew = itm.commentsNew ?? 0,
+                        commentsDifPercent = itm.commentsDifPercent ?? 0,
+
+                        repostsNew = itm.repostsNew ?? 0,
+                        repostsDifPercent = itm.repostsDifPercent ?? 0,
+                    });
+                };
+
+                results.Data = resp;
+            }
+            catch (Exception e)
+            {
+                errCode = 101;
+                string param = string.Format("ownerHubID: {0}", ownerHubID);
+                Tools.ErrorLog_Save(req, param, funcName, e.Message);
+
+                results.ErrCode = errCode;
+                results.ErrText = string.Format("funcName: {0}, errCode: {1}, Message: {2}", funcName, Tools.GetErrorTextByCode(errCode), e.Message);
+            }
+
+            return results;
+        }
+        #endregion
+
+        #endregion
+
+        #region StaCommVK
+
+        #region StaCommVKDaily_Report
         public wsResponse<StaCommVK_Report_Resp> StaCommVKDaily_Report(wsRequest<StaCommDaily_Report_Req> req)
         {
             var funcName = "StaCommVKDaily_Report";
@@ -1079,7 +1178,9 @@ namespace CommHub
 
             return results;
         }
+        #endregion
 
+        #region StaCommVKWeekly_Report
         public wsResponse<StaCommVK_Report_Resp> StaCommVKWeekly_Report(wsRequest req)
         {
             var funcName = "StaCommVKWeekly_Report";
@@ -1195,6 +1296,8 @@ namespace CommHub
         }
         #endregion
 
+        #endregion
+
         #region StaCommVKGraph_Report
         public wsResponse<StaCommVKGraph_Report_Resp> StaCommVKGraph_Report(wsRequest<StaCommVKGraph_Report_Req> req)
         {
@@ -1262,9 +1365,11 @@ namespace CommHub
 
             return results;
         }
-        #endregion 
+        #endregion
 
         #region StaCommOK 
+
+        #region StaCommOKDaily_Report
         public wsResponse<StaCommOK_Report_Resp> StaCommOKDaily_Report(wsRequest<StaCommDaily_Report_Req> req)
         {
             var funcName = "StaCommOKDaily_Report";
@@ -1348,8 +1453,9 @@ namespace CommHub
 
             return results;
         }
+        #endregion
 
-
+        #region StaCommOKWeekly_Report
         public wsResponse<StaCommOK_Report_Resp> StaCommOKWeekly_Report(wsRequest req)
         {
             var funcName = "StaCommOKWeekly_Report";
@@ -1433,6 +1539,8 @@ namespace CommHub
 
             return results;
         }
+        #endregion
+
         #endregion
 
         #region Session

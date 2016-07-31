@@ -72,6 +72,9 @@ namespace CommHub.wsClasses
 
         [DataMember]
         public string adminCommID_linkFB { get; set; }
+
+        [DataMember]
+        public string projectHub_name { get; set; }
     }
     #endregion 
 
@@ -105,6 +108,9 @@ namespace CommHub.wsClasses
 
         [DataMember]
         public long groupID { get; set; }
+
+        [DataMember]
+        public long projectHub_id { get; set; }
 
     }
     #endregion

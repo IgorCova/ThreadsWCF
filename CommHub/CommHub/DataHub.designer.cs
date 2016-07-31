@@ -139,13 +139,6 @@ namespace CommHub
 			return ((int)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.Comm_ReadDict")]
-		public ISingleResult<Comm_ReadDictResult> Comm_ReadDict([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> ownerHubID)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), ownerHubID);
-			return ((ISingleResult<Comm_ReadDictResult>)(result.ReturnValue));
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.StaCommVKDaily_Save")]
 		public int StaCommVKDaily_Save([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> groupID, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="DateTime")] System.Nullable<System.DateTime> dayDate, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> commViews, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> commVisitors, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> commReach, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> commReachSubscribers, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> commSubscribed, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> commUnsubscribed, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> commLikes, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> commComments, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> commReposts, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> commPostCount, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> commMembers, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(512)")] string commPhotoLink)
 		{
@@ -172,13 +165,6 @@ namespace CommHub
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), sessionReqID, dID);
 			return ((ISingleResult<Session_SaveResult>)(result.ReturnValue));
-		}
-		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.Comm_Save")]
-		public int Comm_Save([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> id, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> ownerHubID, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> subjectCommID, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(256)")] string name, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> adminCommID, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(512)")] string link, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> areaCommID)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), id, ownerHubID, subjectCommID, name, adminCommID, link, areaCommID);
-			return ((int)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.StaCommVKGraph_Report")]
@@ -249,6 +235,27 @@ namespace CommHub
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), id, ownerHubID, name);
 			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.Comm_Save")]
+		public int Comm_Save([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> id, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> ownerHubID, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> subjectCommID, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(256)")] string name, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> adminCommID, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(512)")] string link, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> areaCommID, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> projectHub_id)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), id, ownerHubID, subjectCommID, name, adminCommID, link, areaCommID, projectHub_id);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.Comm_ReadDict")]
+		public ISingleResult<Comm_ReadDictResult> Comm_ReadDict([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> ownerHubID)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), ownerHubID);
+			return ((ISingleResult<Comm_ReadDictResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.StaCommWeekly_Report")]
+		public ISingleResult<StaCommWeekly_ReportResult> StaCommWeekly_Report([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> ownerHubID)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), ownerHubID);
+			return ((ISingleResult<StaCommWeekly_ReportResult>)(result.ReturnValue));
 		}
 	}
 	
@@ -761,338 +768,6 @@ namespace CommHub
 				if ((this._ownerHubID != value))
 				{
 					this._ownerHubID = value;
-				}
-			}
-		}
-	}
-	
-	public partial class Comm_ReadDictResult
-	{
-		
-		private long _id;
-		
-		private string _name;
-		
-		private string _photoLink;
-		
-		private System.Nullable<long> _ownerHubID;
-		
-		private string _ownerHubID_firstName;
-		
-		private string _ownerHubID_lastName;
-		
-		private string _ownerHubID_linkFB;
-		
-		private System.Nullable<long> _subjectCommID;
-		
-		private string _subjectCommID_name;
-		
-		private System.Nullable<int> _areaCommID;
-		
-		private string _areaCommID_name;
-		
-		private System.Nullable<long> _adminCommID;
-		
-		private string _adminCommID_firstName;
-		
-		private string _adminCommID_lastName;
-		
-		private string _adminCommID_phone;
-		
-		private string _adminCommID_linkFB;
-		
-		private string _link;
-		
-		private System.Nullable<long> _groupID;
-		
-		public Comm_ReadDictResult()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", DbType="BigInt NOT NULL")]
-		public long id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this._id = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="VarChar(256)")]
-		public string name
-		{
-			get
-			{
-				return this._name;
-			}
-			set
-			{
-				if ((this._name != value))
-				{
-					this._name = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_photoLink", DbType="VarChar(512)")]
-		public string photoLink
-		{
-			get
-			{
-				return this._photoLink;
-			}
-			set
-			{
-				if ((this._photoLink != value))
-				{
-					this._photoLink = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ownerHubID", DbType="BigInt")]
-		public System.Nullable<long> ownerHubID
-		{
-			get
-			{
-				return this._ownerHubID;
-			}
-			set
-			{
-				if ((this._ownerHubID != value))
-				{
-					this._ownerHubID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ownerHubID_firstName", DbType="VarChar(512)")]
-		public string ownerHubID_firstName
-		{
-			get
-			{
-				return this._ownerHubID_firstName;
-			}
-			set
-			{
-				if ((this._ownerHubID_firstName != value))
-				{
-					this._ownerHubID_firstName = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ownerHubID_lastName", DbType="VarChar(512)")]
-		public string ownerHubID_lastName
-		{
-			get
-			{
-				return this._ownerHubID_lastName;
-			}
-			set
-			{
-				if ((this._ownerHubID_lastName != value))
-				{
-					this._ownerHubID_lastName = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ownerHubID_linkFB", DbType="VarChar(512)")]
-		public string ownerHubID_linkFB
-		{
-			get
-			{
-				return this._ownerHubID_linkFB;
-			}
-			set
-			{
-				if ((this._ownerHubID_linkFB != value))
-				{
-					this._ownerHubID_linkFB = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_subjectCommID", DbType="BigInt")]
-		public System.Nullable<long> subjectCommID
-		{
-			get
-			{
-				return this._subjectCommID;
-			}
-			set
-			{
-				if ((this._subjectCommID != value))
-				{
-					this._subjectCommID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_subjectCommID_name", DbType="VarChar(256)")]
-		public string subjectCommID_name
-		{
-			get
-			{
-				return this._subjectCommID_name;
-			}
-			set
-			{
-				if ((this._subjectCommID_name != value))
-				{
-					this._subjectCommID_name = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_areaCommID", DbType="Int")]
-		public System.Nullable<int> areaCommID
-		{
-			get
-			{
-				return this._areaCommID;
-			}
-			set
-			{
-				if ((this._areaCommID != value))
-				{
-					this._areaCommID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_areaCommID_name", DbType="VarChar(256)")]
-		public string areaCommID_name
-		{
-			get
-			{
-				return this._areaCommID_name;
-			}
-			set
-			{
-				if ((this._areaCommID_name != value))
-				{
-					this._areaCommID_name = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_adminCommID", DbType="BigInt")]
-		public System.Nullable<long> adminCommID
-		{
-			get
-			{
-				return this._adminCommID;
-			}
-			set
-			{
-				if ((this._adminCommID != value))
-				{
-					this._adminCommID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_adminCommID_firstName", DbType="VarChar(512)")]
-		public string adminCommID_firstName
-		{
-			get
-			{
-				return this._adminCommID_firstName;
-			}
-			set
-			{
-				if ((this._adminCommID_firstName != value))
-				{
-					this._adminCommID_firstName = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_adminCommID_lastName", DbType="VarChar(512)")]
-		public string adminCommID_lastName
-		{
-			get
-			{
-				return this._adminCommID_lastName;
-			}
-			set
-			{
-				if ((this._adminCommID_lastName != value))
-				{
-					this._adminCommID_lastName = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_adminCommID_phone", DbType="VarChar(32)")]
-		public string adminCommID_phone
-		{
-			get
-			{
-				return this._adminCommID_phone;
-			}
-			set
-			{
-				if ((this._adminCommID_phone != value))
-				{
-					this._adminCommID_phone = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_adminCommID_linkFB", DbType="VarChar(512)")]
-		public string adminCommID_linkFB
-		{
-			get
-			{
-				return this._adminCommID_linkFB;
-			}
-			set
-			{
-				if ((this._adminCommID_linkFB != value))
-				{
-					this._adminCommID_linkFB = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_link", DbType="VarChar(512)")]
-		public string link
-		{
-			get
-			{
-				return this._link;
-			}
-			set
-			{
-				if ((this._link != value))
-				{
-					this._link = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_groupID", DbType="BigInt")]
-		public System.Nullable<long> groupID
-		{
-			get
-			{
-				return this._groupID;
-			}
-			set
-			{
-				if ((this._groupID != value))
-				{
-					this._groupID = value;
 				}
 			}
 		}
@@ -5719,6 +5394,868 @@ namespace CommHub
 				if ((this._name != value))
 				{
 					this._name = value;
+				}
+			}
+		}
+	}
+	
+	public partial class Comm_ReadDictResult
+	{
+		
+		private long _id;
+		
+		private string _name;
+		
+		private string _photoLink;
+		
+		private string _photoLinkBig;
+		
+		private System.Nullable<long> _ownerHubID;
+		
+		private string _ownerHubID_firstName;
+		
+		private string _ownerHubID_lastName;
+		
+		private string _ownerHubID_linkFB;
+		
+		private System.Nullable<long> _subjectCommID;
+		
+		private string _subjectCommID_name;
+		
+		private System.Nullable<int> _areaCommID;
+		
+		private string _areaCommID_name;
+		
+		private System.Nullable<long> _adminCommID;
+		
+		private string _adminCommID_firstName;
+		
+		private string _adminCommID_lastName;
+		
+		private string _adminCommID_phone;
+		
+		private string _adminCommID_linkFB;
+		
+		private string _link;
+		
+		private System.Nullable<long> _groupID;
+		
+		private long _projectHub_id;
+		
+		private string _projectHub_name;
+		
+		public Comm_ReadDictResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", DbType="BigInt NOT NULL")]
+		public long id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this._id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="VarChar(256)")]
+		public string name
+		{
+			get
+			{
+				return this._name;
+			}
+			set
+			{
+				if ((this._name != value))
+				{
+					this._name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_photoLink", DbType="VarChar(512)")]
+		public string photoLink
+		{
+			get
+			{
+				return this._photoLink;
+			}
+			set
+			{
+				if ((this._photoLink != value))
+				{
+					this._photoLink = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_photoLinkBig", DbType="VarChar(512)")]
+		public string photoLinkBig
+		{
+			get
+			{
+				return this._photoLinkBig;
+			}
+			set
+			{
+				if ((this._photoLinkBig != value))
+				{
+					this._photoLinkBig = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ownerHubID", DbType="BigInt")]
+		public System.Nullable<long> ownerHubID
+		{
+			get
+			{
+				return this._ownerHubID;
+			}
+			set
+			{
+				if ((this._ownerHubID != value))
+				{
+					this._ownerHubID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ownerHubID_firstName", DbType="VarChar(512)")]
+		public string ownerHubID_firstName
+		{
+			get
+			{
+				return this._ownerHubID_firstName;
+			}
+			set
+			{
+				if ((this._ownerHubID_firstName != value))
+				{
+					this._ownerHubID_firstName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ownerHubID_lastName", DbType="VarChar(512)")]
+		public string ownerHubID_lastName
+		{
+			get
+			{
+				return this._ownerHubID_lastName;
+			}
+			set
+			{
+				if ((this._ownerHubID_lastName != value))
+				{
+					this._ownerHubID_lastName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ownerHubID_linkFB", DbType="VarChar(512)")]
+		public string ownerHubID_linkFB
+		{
+			get
+			{
+				return this._ownerHubID_linkFB;
+			}
+			set
+			{
+				if ((this._ownerHubID_linkFB != value))
+				{
+					this._ownerHubID_linkFB = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_subjectCommID", DbType="BigInt")]
+		public System.Nullable<long> subjectCommID
+		{
+			get
+			{
+				return this._subjectCommID;
+			}
+			set
+			{
+				if ((this._subjectCommID != value))
+				{
+					this._subjectCommID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_subjectCommID_name", DbType="VarChar(256)")]
+		public string subjectCommID_name
+		{
+			get
+			{
+				return this._subjectCommID_name;
+			}
+			set
+			{
+				if ((this._subjectCommID_name != value))
+				{
+					this._subjectCommID_name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_areaCommID", DbType="Int")]
+		public System.Nullable<int> areaCommID
+		{
+			get
+			{
+				return this._areaCommID;
+			}
+			set
+			{
+				if ((this._areaCommID != value))
+				{
+					this._areaCommID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_areaCommID_name", DbType="VarChar(256)")]
+		public string areaCommID_name
+		{
+			get
+			{
+				return this._areaCommID_name;
+			}
+			set
+			{
+				if ((this._areaCommID_name != value))
+				{
+					this._areaCommID_name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_adminCommID", DbType="BigInt")]
+		public System.Nullable<long> adminCommID
+		{
+			get
+			{
+				return this._adminCommID;
+			}
+			set
+			{
+				if ((this._adminCommID != value))
+				{
+					this._adminCommID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_adminCommID_firstName", DbType="VarChar(512)")]
+		public string adminCommID_firstName
+		{
+			get
+			{
+				return this._adminCommID_firstName;
+			}
+			set
+			{
+				if ((this._adminCommID_firstName != value))
+				{
+					this._adminCommID_firstName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_adminCommID_lastName", DbType="VarChar(512)")]
+		public string adminCommID_lastName
+		{
+			get
+			{
+				return this._adminCommID_lastName;
+			}
+			set
+			{
+				if ((this._adminCommID_lastName != value))
+				{
+					this._adminCommID_lastName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_adminCommID_phone", DbType="VarChar(32)")]
+		public string adminCommID_phone
+		{
+			get
+			{
+				return this._adminCommID_phone;
+			}
+			set
+			{
+				if ((this._adminCommID_phone != value))
+				{
+					this._adminCommID_phone = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_adminCommID_linkFB", DbType="VarChar(512)")]
+		public string adminCommID_linkFB
+		{
+			get
+			{
+				return this._adminCommID_linkFB;
+			}
+			set
+			{
+				if ((this._adminCommID_linkFB != value))
+				{
+					this._adminCommID_linkFB = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_link", DbType="VarChar(512)")]
+		public string link
+		{
+			get
+			{
+				return this._link;
+			}
+			set
+			{
+				if ((this._link != value))
+				{
+					this._link = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_groupID", DbType="BigInt")]
+		public System.Nullable<long> groupID
+		{
+			get
+			{
+				return this._groupID;
+			}
+			set
+			{
+				if ((this._groupID != value))
+				{
+					this._groupID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_projectHub_id", DbType="BigInt NOT NULL")]
+		public long projectHub_id
+		{
+			get
+			{
+				return this._projectHub_id;
+			}
+			set
+			{
+				if ((this._projectHub_id != value))
+				{
+					this._projectHub_id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_projectHub_name", DbType="VarChar(512) NOT NULL", CanBeNull=false)]
+		public string projectHub_name
+		{
+			get
+			{
+				return this._projectHub_name;
+			}
+			set
+			{
+				if ((this._projectHub_name != value))
+				{
+					this._projectHub_name = value;
+				}
+			}
+		}
+	}
+	
+	public partial class StaCommWeekly_ReportResult
+	{
+		
+		private long _projectHub_id;
+		
+		private string _projectHub_name;
+		
+		private long _comm_id;
+		
+		private string _comm_name;
+		
+		private string _comm_photoLink;
+		
+		private string _comm_photoLinkBig;
+		
+		private System.Nullable<long> _comm_groupID;
+		
+		private string _subjectComm_name;
+		
+		private string _areaComm_code;
+		
+		private string _adminComm_fullName;
+		
+		private string _adminComm_linkFB;
+		
+		private System.Nullable<int> _members;
+		
+		private System.Nullable<long> _increase;
+		
+		private System.Nullable<long> _increaseNew;
+		
+		private System.Nullable<long> _increaseOld;
+		
+		private System.Nullable<int> _increaseDifPercent;
+		
+		private System.Nullable<long> _reachNew;
+		
+		private System.Nullable<int> _reachDifPercent;
+		
+		private System.Nullable<long> _postCountNew;
+		
+		private System.Nullable<int> _postCountDifPercent;
+		
+		private System.Nullable<long> _likesNew;
+		
+		private System.Nullable<int> _likesDifPercent;
+		
+		private System.Nullable<long> _commentsNew;
+		
+		private System.Nullable<int> _commentsDifPercent;
+		
+		private System.Nullable<long> _repostsNew;
+		
+		private System.Nullable<int> _repostsDifPercent;
+		
+		public StaCommWeekly_ReportResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_projectHub_id", DbType="BigInt NOT NULL")]
+		public long projectHub_id
+		{
+			get
+			{
+				return this._projectHub_id;
+			}
+			set
+			{
+				if ((this._projectHub_id != value))
+				{
+					this._projectHub_id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_projectHub_name", DbType="VarChar(256)")]
+		public string projectHub_name
+		{
+			get
+			{
+				return this._projectHub_name;
+			}
+			set
+			{
+				if ((this._projectHub_name != value))
+				{
+					this._projectHub_name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_comm_id", DbType="BigInt NOT NULL")]
+		public long comm_id
+		{
+			get
+			{
+				return this._comm_id;
+			}
+			set
+			{
+				if ((this._comm_id != value))
+				{
+					this._comm_id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_comm_name", DbType="VarChar(256)")]
+		public string comm_name
+		{
+			get
+			{
+				return this._comm_name;
+			}
+			set
+			{
+				if ((this._comm_name != value))
+				{
+					this._comm_name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_comm_photoLink", DbType="VarChar(512)")]
+		public string comm_photoLink
+		{
+			get
+			{
+				return this._comm_photoLink;
+			}
+			set
+			{
+				if ((this._comm_photoLink != value))
+				{
+					this._comm_photoLink = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_comm_photoLinkBig", DbType="VarChar(512)")]
+		public string comm_photoLinkBig
+		{
+			get
+			{
+				return this._comm_photoLinkBig;
+			}
+			set
+			{
+				if ((this._comm_photoLinkBig != value))
+				{
+					this._comm_photoLinkBig = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_comm_groupID", DbType="BigInt")]
+		public System.Nullable<long> comm_groupID
+		{
+			get
+			{
+				return this._comm_groupID;
+			}
+			set
+			{
+				if ((this._comm_groupID != value))
+				{
+					this._comm_groupID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_subjectComm_name", DbType="VarChar(256)")]
+		public string subjectComm_name
+		{
+			get
+			{
+				return this._subjectComm_name;
+			}
+			set
+			{
+				if ((this._subjectComm_name != value))
+				{
+					this._subjectComm_name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_areaComm_code", DbType="VarChar(32)")]
+		public string areaComm_code
+		{
+			get
+			{
+				return this._areaComm_code;
+			}
+			set
+			{
+				if ((this._areaComm_code != value))
+				{
+					this._areaComm_code = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_adminComm_fullName", DbType="VarChar(512)")]
+		public string adminComm_fullName
+		{
+			get
+			{
+				return this._adminComm_fullName;
+			}
+			set
+			{
+				if ((this._adminComm_fullName != value))
+				{
+					this._adminComm_fullName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_adminComm_linkFB", DbType="VarChar(512)")]
+		public string adminComm_linkFB
+		{
+			get
+			{
+				return this._adminComm_linkFB;
+			}
+			set
+			{
+				if ((this._adminComm_linkFB != value))
+				{
+					this._adminComm_linkFB = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_members", DbType="Int")]
+		public System.Nullable<int> members
+		{
+			get
+			{
+				return this._members;
+			}
+			set
+			{
+				if ((this._members != value))
+				{
+					this._members = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_increase", DbType="BigInt")]
+		public System.Nullable<long> increase
+		{
+			get
+			{
+				return this._increase;
+			}
+			set
+			{
+				if ((this._increase != value))
+				{
+					this._increase = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_increaseNew", DbType="BigInt")]
+		public System.Nullable<long> increaseNew
+		{
+			get
+			{
+				return this._increaseNew;
+			}
+			set
+			{
+				if ((this._increaseNew != value))
+				{
+					this._increaseNew = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_increaseOld", DbType="BigInt")]
+		public System.Nullable<long> increaseOld
+		{
+			get
+			{
+				return this._increaseOld;
+			}
+			set
+			{
+				if ((this._increaseOld != value))
+				{
+					this._increaseOld = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_increaseDifPercent", DbType="Int")]
+		public System.Nullable<int> increaseDifPercent
+		{
+			get
+			{
+				return this._increaseDifPercent;
+			}
+			set
+			{
+				if ((this._increaseDifPercent != value))
+				{
+					this._increaseDifPercent = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_reachNew", DbType="BigInt")]
+		public System.Nullable<long> reachNew
+		{
+			get
+			{
+				return this._reachNew;
+			}
+			set
+			{
+				if ((this._reachNew != value))
+				{
+					this._reachNew = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_reachDifPercent", DbType="Int")]
+		public System.Nullable<int> reachDifPercent
+		{
+			get
+			{
+				return this._reachDifPercent;
+			}
+			set
+			{
+				if ((this._reachDifPercent != value))
+				{
+					this._reachDifPercent = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_postCountNew", DbType="BigInt")]
+		public System.Nullable<long> postCountNew
+		{
+			get
+			{
+				return this._postCountNew;
+			}
+			set
+			{
+				if ((this._postCountNew != value))
+				{
+					this._postCountNew = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_postCountDifPercent", DbType="Int")]
+		public System.Nullable<int> postCountDifPercent
+		{
+			get
+			{
+				return this._postCountDifPercent;
+			}
+			set
+			{
+				if ((this._postCountDifPercent != value))
+				{
+					this._postCountDifPercent = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_likesNew", DbType="BigInt")]
+		public System.Nullable<long> likesNew
+		{
+			get
+			{
+				return this._likesNew;
+			}
+			set
+			{
+				if ((this._likesNew != value))
+				{
+					this._likesNew = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_likesDifPercent", DbType="Int")]
+		public System.Nullable<int> likesDifPercent
+		{
+			get
+			{
+				return this._likesDifPercent;
+			}
+			set
+			{
+				if ((this._likesDifPercent != value))
+				{
+					this._likesDifPercent = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_commentsNew", DbType="BigInt")]
+		public System.Nullable<long> commentsNew
+		{
+			get
+			{
+				return this._commentsNew;
+			}
+			set
+			{
+				if ((this._commentsNew != value))
+				{
+					this._commentsNew = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_commentsDifPercent", DbType="Int")]
+		public System.Nullable<int> commentsDifPercent
+		{
+			get
+			{
+				return this._commentsDifPercent;
+			}
+			set
+			{
+				if ((this._commentsDifPercent != value))
+				{
+					this._commentsDifPercent = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_repostsNew", DbType="BigInt")]
+		public System.Nullable<long> repostsNew
+		{
+			get
+			{
+				return this._repostsNew;
+			}
+			set
+			{
+				if ((this._repostsNew != value))
+				{
+					this._repostsNew = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_repostsDifPercent", DbType="Int")]
+		public System.Nullable<int> repostsDifPercent
+		{
+			get
+			{
+				return this._repostsDifPercent;
+			}
+			set
+			{
+				if ((this._repostsDifPercent != value))
+				{
+					this._repostsDifPercent = value;
 				}
 			}
 		}
